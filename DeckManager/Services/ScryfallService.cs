@@ -1,27 +1,44 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using DeckManager.Models; 
 
-public class ScryfallService
+namespace DeckManager.Services
 {
-    private readonly HttpClient _httpClient;
-
-    public ScryfallService()
+    public class ScryfallService
     {
-        _httpClient = new HttpClient();
-        _httpClient.BaseAddress = new Uri("https://api.scryfall.com/");
+        private readonly HttpClient _httpClient;
+
+        public ScryfallService()
+        {
+            _httpClient = new HttpClient { BaseAddress = new Uri("https://api.scryfall.com/") };
+        }
+
+        public async Task<List<CardModel>> GetCardByName(string cardName)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"cards/named?fuzzy={cardName}");
+            response.EnsureSuccessStatusCode();
+            string responseContent = await response.Content.ReadAsStringAsync();
+
+            var cardData = JsonConvert.DeserializeObject<CardData>(responseContent);
+            return cardData?.Data ?? new List<CardModel>();
+        }
+
+        public async Task<CardModel> GetCardById(string scryfallId)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"cards/{scryfallId}");
+            response.EnsureSuccessStatusCode();
+            string responseContent = await response.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<CardModel>(responseContent);
+        }
     }
 
-    public async Task<string> GetCardbByName(string cardName)
+    public class CardData
     {
-        HttpResponseMessage response = await _httpClient.GetAsync($"cards/named?fuzzy={cardName}");
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadAsStringAsync();
-    }
-
-    public async Task<string> GetCardById(string scryfallId)
-    {
-        HttpResponseMessage response = await _httpClient.GetAsync($"cards/{scryfallId}");
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadAsStringAsync();
+        public string Object { get; set; }
+        public List<CardModel> Data { get; set; }
+        public bool HasMore { get; set; }
     }
 }

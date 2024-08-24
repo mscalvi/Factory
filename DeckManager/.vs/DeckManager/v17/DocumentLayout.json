@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{212A1D5F-8EA2-4AE4-A6E1-12B33FF60A66}|DeckManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\deckmanager\\services\\scryfallservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{212A1D5F-8EA2-4AE4-A6E1-12B33FF60A66}|DeckManager.csproj|solutionrelative:services\\scryfallservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{212A1D5F-8EA2-4AE4-A6E1-12B33FF60A66}|DeckManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\deckmanager\\views\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{212A1D5F-8EA2-4AE4-A6E1-12B33FF60A66}|DeckManager.csproj|solutionrelative:views\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{212A1D5F-8EA2-4AE4-A6E1-12B33FF60A66}|DeckManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\deckmanager\\models\\deckmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{212A1D5F-8EA2-4AE4-A6E1-12B33FF60A66}|DeckManager.csproj|solutionrelative:models\\deckmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{212A1D5F-8EA2-4AE4-A6E1-12B33FF60A66}|DeckManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\deckmanager\\models\\cardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{212A1D5F-8EA2-4AE4-A6E1-12B33FF60A66}|DeckManager.csproj|solutionrelative:models\\cardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{212A1D5F-8EA2-4AE4-A6E1-12B33FF60A66}|DeckManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\deckmanager\\views\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{212A1D5F-8EA2-4AE4-A6E1-12B33FF60A66}|DeckManager.csproj|solutionrelative:views\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,41 +35,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ScryfallService.cs",
-              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\Services\\ScryfallService.cs",
-              "RelativeDocumentMoniker": "Services\\ScryfallService.cs",
-              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\Services\\ScryfallService.cs",
-              "RelativeToolTip": "Services\\ScryfallService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAABjAAAA",
+              "Title": "MainPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\Views\\MainPage.xaml.cs",
+              "RelativeDocumentMoniker": "Views\\MainPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\Views\\MainPage.xaml.cs",
+              "RelativeToolTip": "Views\\MainPage.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-24T04:13:43.11Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CardModel.cs",
-              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\Models\\CardModel.cs",
-              "RelativeDocumentMoniker": "Models\\CardModel.cs",
-              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\Models\\CardModel.cs",
-              "RelativeToolTip": "Models\\CardModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-24T04:10:01.369Z",
+              "WhenOpened": "2024-08-24T12:23:29.373Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "DeckModel.cs",
-              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\Models\\DeckModel.cs",
-              "RelativeDocumentMoniker": "Models\\DeckModel.cs",
-              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\Models\\DeckModel.cs",
-              "RelativeToolTip": "Models\\DeckModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAA1AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-24T04:08:16.039Z",
-              "EditorCaption": ""
+              "Title": "MainPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\Views\\MainPage.xaml",
+              "RelativeDocumentMoniker": "Views\\MainPage.xaml",
+              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\Views\\MainPage.xaml",
+              "RelativeToolTip": "Views\\MainPage.xaml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-08-24T04:18:07.22Z"
             }
           ]
         }

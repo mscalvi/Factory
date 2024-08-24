@@ -1,6 +1,6 @@
 ﻿namespace DeckManager.Models
 {
-    internal class CardModel
+    public class CardModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,6 +14,7 @@
         public decimal Price { get; set; }
         public string ImageUrl { get; set; }
         public string ScryfallId { get; set; }
+        public string OracleId { get; set; }
 
 
         public string Edition { get; set; }

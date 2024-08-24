@@ -1,0 +1,1 @@
+C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\DeckManager.csproj;x64

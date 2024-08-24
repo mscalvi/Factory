@@ -1,6 +1,6 @@
 ﻿namespace DeckManager.Models
 {
-    internal class DeckModel
+    public class DeckModel
     {
         public int Id { get; set; }  
         public string Name { get; set; }

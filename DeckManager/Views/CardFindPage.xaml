@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DeckManager.Views.CardFindPage">
+    <StackLayout>
+        <SearchBar x:Name="TxtCardSearch"
+                   SearchCommand="{Binding SearchCommand}"
+                   TextChanged="TxtCardSearch_TextChanged"
+                   FontSize="18"/>
+
+        <CollectionView x:Name="ColViewCardsResults"
+                        ItemsSource="{Binding SearchResults}"
+                        VerticalOptions="FillAndExpand">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10" Margin="5" BorderColor="LightGray">
+                        <StackLayout>
+                            <Label Text="{Binding Nome}"
+                                   FontSize="20"
+                                   FontAttributes="Bold"/>
+                            <Label Text="{Binding Tipo}"
+                                   FontSize="16"
+                                   TextColor="Gray"/>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>
