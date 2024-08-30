@@ -11,8 +11,8 @@
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
     <vm:MainViewModel />
   </Design.DataContext>
-	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-		<Button Content="Deck Manager" Click="BtnDeckManager_Click" Margin="10" Width="150" Height="50"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" x:Name="BtnDeckManager" />
-		<Button Content="Card Finder" Click="BtnCardFinder_Click" Margin="10" Width="150" Height="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" x:Name="BtnCardFinder"  />
+	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+		<Button Content="Deck Manager" Margin="10" Width="120" HorizontalContentAlignment="Center"/>
+		<Button Content="Card Finder" Margin="10" Width="120" HorizontalContentAlignment="Center" Click="BtnCardFinder_Click"/>
 	</StackPanel>
 </UserControl>

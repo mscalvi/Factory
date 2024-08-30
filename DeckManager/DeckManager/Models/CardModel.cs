@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 namespace DeckManager.Models
 {
     public class CardModel
-    { 
+    {
         public int Id { get; set; }
 
         //Informações do Jogador
