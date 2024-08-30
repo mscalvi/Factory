@@ -1,5 +1,7 @@
-﻿using System;
+﻿using DynamicData;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,31 +10,23 @@ namespace DeckManager.Models
 {
     public class DeckModel
     {
+        //Informações Gerais
         public int Id { get; set; }
         public string Name { get; set; }
         public string Format { get; set; }
 
+        //Informações de Versão
         public int Version { get; set; }
-        public int VersionVar { get; set; }
+        public int Variation { get; set; }
         public string VersionName { get; set; }
         public DateTime VersionAtt { get; set; }
 
-        public List<CardModel> Decklist { get; set; }
-        public List<CardModel> Sideboard { get; set; }
-        public List<CardModel> Wishlist { get; set; }
-        public List<CardModel> Maybelist { get; set; }
-        public CardModel Commander { get; set; }
-
-        public bool OfflineMode { get; set; }
-
-        public DeckModel()
-        {
-            Decklist = new List<CardModel>();
-            Sideboard = new List<CardModel>();
-            Wishlist = new List<CardModel>();
-            Maybelist = new List<CardModel>();
-            VersionAtt = DateTime.Now;
-        }
+        //Listas
+        public ObservableCollection<CardModel> DeckList { get; set; } = new ObservableCollection<CardModel>();
+        public ObservableCollection<CardModel> CmdList { get; set; } = new ObservableCollection<CardModel>();
+        public ObservableCollection<CardModel> SideList { get; set; } = new ObservableCollection<CardModel>();
+        public ObservableCollection<CardModel> WishList { get; set; } = new ObservableCollection<CardModel>();
+        public ObservableCollection<CardModel> MaybeList { get; set; } = new ObservableCollection<CardModel>();
 
     }
 }

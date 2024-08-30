@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B9888B93-1222-4432-8447-290C833C6BD3}|DeckManager.csproj|c:\\users\\usuario\\desktop\\factory\\deckmanager\\services\\scryfallservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9888B93-1222-4432-8447-290C833C6BD3}|DeckManager.csproj|solutionrelative:services\\scryfallservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0C602D9A-1C64-4617-99D0-D540F8DF47B3}|DeckManager.csproj|c:\\users\\usuario\\desktop\\factory\\deckmanager\\views\\mainwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C602D9A-1C64-4617-99D0-D540F8DF47B3}|DeckManager.csproj|solutionrelative:views\\mainwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9888B93-1222-4432-8447-290C833C6BD3}|DeckManager.csproj|c:\\users\\usuario\\desktop\\factory\\deckmanager\\models\\cardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9888B93-1222-4432-8447-290C833C6BD3}|DeckManager.csproj|solutionrelative:models\\cardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0C602D9A-1C64-4617-99D0-D540F8DF47B3}|DeckManager.csproj|c:\\users\\usuario\\desktop\\factory\\deckmanager\\views\\mainwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}",
+      "RelativeMoniker": "D:0:0:{0C602D9A-1C64-4617-99D0-D540F8DF47B3}|DeckManager.csproj|solutionrelative:views\\mainwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9888B93-1222-4432-8447-290C833C6BD3}|DeckManager.csproj|c:\\users\\usuario\\desktop\\factory\\deckmanager\\models\\deckmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9888B93-1222-4432-8447-290C833C6BD3}|DeckManager.csproj|solutionrelative:models\\deckmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0C602D9A-1C64-4617-99D0-D540F8DF47B3}|DeckManager.csproj|c:\\users\\usuario\\desktop\\factory\\deckmanager\\views\\mainview.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}",
+      "RelativeMoniker": "D:0:0:{0C602D9A-1C64-4617-99D0-D540F8DF47B3}|DeckManager.csproj|solutionrelative:views\\mainview.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C602D9A-1C64-4617-99D0-D540F8DF47B3}|DeckManager.csproj|c:\\users\\usuario\\desktop\\factory\\deckmanager\\views\\mainview.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C602D9A-1C64-4617-99D0-D540F8DF47B3}|DeckManager.csproj|solutionrelative:views\\mainview.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,45 +26,56 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.axaml",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Views\\MainWindow.axaml",
+              "RelativeDocumentMoniker": "Views\\MainWindow.axaml",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Views\\MainWindow.axaml",
+              "RelativeToolTip": "Views\\MainWindow.axaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-08-30T00:53:14.587Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ScryfallService.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Services\\ScryfallService.cs",
-              "RelativeDocumentMoniker": "Services\\ScryfallService.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Services\\ScryfallService.cs",
-              "RelativeToolTip": "Services\\ScryfallService.cs",
+              "Title": "MainWindow.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Views\\MainWindow.axaml.cs",
+              "RelativeDocumentMoniker": "Views\\MainWindow.axaml.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Views\\MainWindow.axaml.cs",
+              "RelativeToolTip": "Views\\MainWindow.axaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-27T00:08:27.692Z",
+              "WhenOpened": "2024-08-30T00:45:28.862Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainView.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Views\\MainView.axaml.cs",
+              "RelativeDocumentMoniker": "Views\\MainView.axaml.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Views\\MainView.axaml.cs",
+              "RelativeToolTip": "Views\\MainView.axaml.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAsAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-30T00:44:36.682Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "DeckModel.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Models\\DeckModel.cs",
-              "RelativeDocumentMoniker": "Models\\DeckModel.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Models\\DeckModel.cs",
-              "RelativeToolTip": "Models\\DeckModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAKAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-27T00:07:19.093Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CardModel.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Models\\CardModel.cs",
-              "RelativeDocumentMoniker": "Models\\CardModel.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Models\\CardModel.cs",
-              "RelativeToolTip": "Models\\CardModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAKAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-27T00:06:30.56Z",
+              "Title": "MainView.axaml",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Views\\MainView.axaml",
+              "RelativeDocumentMoniker": "Views\\MainView.axaml",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Views\\MainView.axaml",
+              "RelativeToolTip": "Views\\MainView.axaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-08-30T00:06:58.822Z",
               "EditorCaption": ""
             }
           ]
