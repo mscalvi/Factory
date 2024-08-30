@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace DeckManager.Views
 {
-    public partial class MainWindow : Window
+    public partial class SecondPageView : UserControl
     {
-        public MainWindow()
+        public SecondPageView()
         {
             InitializeComponent();
         }

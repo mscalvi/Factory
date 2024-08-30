@@ -1,7 +1,8 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 
-namespace DeckManager.ViewModels;
-
-public class ViewModelBase : ReactiveObject
+namespace DeckManager.ViewModels
 {
+    public class ViewModelBase : ReactiveObject
+    {
+    }
 }

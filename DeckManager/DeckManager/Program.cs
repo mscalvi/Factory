@@ -1,9 +1,11 @@
 ﻿using Avalonia;
+using Avalonia.ReactiveUI;
+using DeckManager;
 using System;
 
-namespace DeckManager.Desktop
+namespace DeckManager
 {
-    internal sealed class Program
+    internal class Program
     {
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
@@ -16,7 +18,7 @@ namespace DeckManager.Desktop
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
-                .WithInterFont()
-                .LogToTrace();
+                .LogToTrace()
+                .UseReactiveUI();
     }
 }
