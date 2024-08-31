@@ -1,0 +1,17 @@
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\obj\Debug\net8.0-windows\CustomBingo.Models.MDIView.resources
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\obj\Debug\net8.0-windows\CustomBingo.csproj.GenerateResource.cache
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\obj\Debug\net8.0-windows\CustomBingo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\obj\Debug\net8.0-windows\CustomBingo.AssemblyInfoInputs.cache
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\obj\Debug\net8.0-windows\CustomBingo.AssemblyInfo.cs
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\obj\Debug\net8.0-windows\CustomBingo.csproj.CoreCompileInputs.cache
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\obj\Debug\net8.0-windows\CustomBingo.sourcelink.json
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\bin\Debug\net8.0-windows\CustomBingo.exe
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\bin\Debug\net8.0-windows\CustomBingo.deps.json
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\bin\Debug\net8.0-windows\CustomBingo.runtimeconfig.json
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\bin\Debug\net8.0-windows\CustomBingo.dll
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\bin\Debug\net8.0-windows\CustomBingo.pdb
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\obj\Debug\net8.0-windows\CustomBingo.dll
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\obj\Debug\net8.0-windows\refint\CustomBingo.dll
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\obj\Debug\net8.0-windows\CustomBingo.pdb
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\obj\Debug\net8.0-windows\CustomBingo.genruntimeconfig.cache
+C:\Users\Marcelo Scalvi\Desktop\Factory\CustomBingo\obj\Debug\net8.0-windows\ref\CustomBingo.dll
