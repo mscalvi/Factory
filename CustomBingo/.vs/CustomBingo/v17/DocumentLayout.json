@@ -3,24 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\custombingo\\views\\newmainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:views\\newmainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\custombingo\\views\\newcardview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:views\\newcardview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\custombingo\\views\\newcompanyview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:views\\newcompanyview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\mainpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:mainpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\custombingo\\views\\newlistview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:views\\newlistview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\views\\createview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:views\\createview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\custombingo\\views\\newlistview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:views\\newlistview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\custombingo\\views\\createview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:views\\createview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\mainpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:mainpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,7 +50,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
+              "Title": "NewMainView.cs [Projeto]",
+              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\NewMainView.cs",
+              "RelativeDocumentMoniker": "Views\\NewMainView.cs",
+              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\NewMainView.cs [Projeto]",
+              "RelativeToolTip": "Views\\NewMainView.cs [Projeto]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-02T19:18:14.826Z",
+              "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "MainPage.cs [Projeto]",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\MainPage.cs",
               "RelativeDocumentMoniker": "MainPage.cs",
@@ -58,20 +74,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "NewListView.cs",
-              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\NewListView.cs",
-              "RelativeDocumentMoniker": "Views\\NewListView.cs",
-              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\NewListView.cs",
-              "RelativeToolTip": "Views\\NewListView.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
+              "DocumentIndex": 5,
+              "Title": "CreateView.cs [Projeto]",
+              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\CreateView.cs",
+              "RelativeDocumentMoniker": "Views\\CreateView.cs",
+              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\CreateView.cs [Projeto]",
+              "RelativeToolTip": "Views\\CreateView.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-02T16:20:56.893Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-02T15:42:25.858Z",
+              "EditorCaption": " [Projeto]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "NewListView.cs [Projeto]",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\NewListView.cs",
               "RelativeDocumentMoniker": "Views\\NewListView.cs",
@@ -83,27 +98,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CreateView.cs",
-              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\CreateView.cs",
-              "RelativeDocumentMoniker": "Views\\CreateView.cs",
-              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\CreateView.cs",
-              "RelativeToolTip": "Views\\CreateView.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAADoAAAAfAAAA",
+              "DocumentIndex": 2,
+              "Title": "NewCompanyView.cs [Projeto]",
+              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\NewCompanyView.cs",
+              "RelativeDocumentMoniker": "Views\\NewCompanyView.cs",
+              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\NewCompanyView.cs [Projeto]",
+              "RelativeToolTip": "Views\\NewCompanyView.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-02T16:10:43.298Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-02T18:53:53.438Z",
+              "EditorCaption": " [Projeto]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CreateView.cs [Projeto]",
-              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\CreateView.cs",
-              "RelativeDocumentMoniker": "Views\\CreateView.cs",
-              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\CreateView.cs [Projeto]",
-              "RelativeToolTip": "Views\\CreateView.cs [Projeto]",
+              "Title": "NewCardView.cs [Projeto]",
+              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\NewCardView.cs",
+              "RelativeDocumentMoniker": "Views\\NewCardView.cs",
+              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\NewCardView.cs [Projeto]",
+              "RelativeToolTip": "Views\\NewCardView.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-02T15:42:25.858Z",
+              "WhenOpened": "2024-09-02T19:06:40.511Z",
               "EditorCaption": " [Projeto]"
             }
           ]

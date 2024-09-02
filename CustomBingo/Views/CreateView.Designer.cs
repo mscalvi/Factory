@@ -126,13 +126,16 @@
             // 
             // newMainView
             // 
-            newMainView.Location = new Point(-3, -3);
+            newMainView.Dock = DockStyle.Fill;
+            newMainView.Location = new Point(0, 0);
             newMainView.Name = "newMainView";
-            newMainView.Size = new Size(863, 676);
+            newMainView.Size = new Size(871, 682);
             newMainView.TabIndex = 4;
             // 
             // newCompanyView
             // 
+            newCompanyView.BackColor = SystemColors.ActiveCaption;
+            newCompanyView.Dock = DockStyle.Fill;
             newCompanyView.Location = new Point(0, 0);
             newCompanyView.Name = "newCompanyView";
             newCompanyView.Size = new Size(871, 682);
@@ -140,6 +143,7 @@
             // 
             // newCardView
             // 
+            newCardView.Dock = DockStyle.Fill;
             newCardView.Location = new Point(0, 0);
             newCardView.Name = "newCardView";
             newCardView.Size = new Size(871, 682);
