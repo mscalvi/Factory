@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace CustomBingo.Views
 {
-    public partial class MainPageView : Form
+    public partial class MainPageView : UserControl
     {
         public MainPageView()
         {
