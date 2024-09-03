@@ -30,8 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewMainView));
             PnlContent = new Panel();
-            LblExplanation = new Label();
             LblTitle = new Label();
+            LblExplanation = new Label();
             PnlContent.SuspendLayout();
             SuspendLayout();
             // 
@@ -45,14 +45,6 @@
             PnlContent.Size = new Size(871, 682);
             PnlContent.TabIndex = 0;
             // 
-            // LblExplanation
-            // 
-            LblExplanation.Location = new Point(12, 83);
-            LblExplanation.Name = "LblExplanation";
-            LblExplanation.Size = new Size(841, 584);
-            LblExplanation.TabIndex = 1;
-            LblExplanation.Text = resources.GetString("LblExplanation.Text");
-            // 
             // LblTitle
             // 
             LblTitle.Anchor = AnchorStyles.None;
@@ -63,6 +55,15 @@
             LblTitle.TabIndex = 3;
             LblTitle.Text = "Criando seu Bingo";
             LblTitle.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // LblExplanation
+            // 
+            LblExplanation.Anchor = AnchorStyles.None;
+            LblExplanation.Location = new Point(12, 83);
+            LblExplanation.Name = "LblExplanation";
+            LblExplanation.Size = new Size(841, 584);
+            LblExplanation.TabIndex = 1;
+            LblExplanation.Text = resources.GetString("LblExplanation.Text");
             // 
             // NewMainView
             // 

@@ -116,8 +116,8 @@
             // 
             // mainPageView
             // 
-            mainPageView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             mainPageView.BackColor = Color.FromArgb(0, 0, 192);
+            mainPageView.Dock = DockStyle.Fill;
             mainPageView.Location = new Point(0, 0);
             mainPageView.Name = "mainPageView";
             mainPageView.Size = new Size(934, 626);
@@ -125,25 +125,25 @@
             // 
             // createView
             // 
-            createView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             createView.BackColor = Color.White;
-            createView.Location = new Point(3, 3);
+            createView.Dock = DockStyle.Fill;
+            createView.Location = new Point(0, 0);
             createView.Name = "createView";
-            createView.Size = new Size(931, 623);
+            createView.Size = new Size(934, 626);
             createView.TabIndex = 0;
             // 
             // editView
             // 
-            editView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            editView.BackColor = Color.Yellow;
-            editView.Location = new Point(3, 0);
+            editView.BackColor = Color.White;
+            editView.Dock = DockStyle.Fill;
+            editView.Location = new Point(0, 0);
             editView.Name = "editView";
-            editView.Size = new Size(931, 626);
+            editView.Size = new Size(934, 626);
             editView.TabIndex = 1;
             // 
             // playView
             // 
-            playView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            playView.Dock = DockStyle.Fill;
             playView.Location = new Point(0, 0);
             playView.Name = "playView";
             playView.Size = new Size(934, 626);
@@ -172,10 +172,10 @@
         private TabPage tabPage1;
         private TabPage tabPage2;
         private Panel PnlGeneralMenu;
-        private Button BtnPlay;
-        private Button BtnEdit;
-        private Button BtnCreate;
-        private Button BtnStart;
+        public Button BtnPlay;
+        public Button BtnEdit;
+        public Button BtnCreate;
+        public Button BtnStart;
         private Panel PnlContent;
         private Views.PlayView playView;
         private Views.MainPageView mainPageView;

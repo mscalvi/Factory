@@ -7,6 +7,15 @@
     <Compile Update="Views\CreateView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Views\EditCompanyView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\EditListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\EditMainView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Views\EditView.cs">
       <SubType>UserControl</SubType>
     </Compile>

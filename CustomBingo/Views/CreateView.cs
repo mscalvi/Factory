@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CustomBingo;
 
 namespace CustomBingo.Views
 {
@@ -21,6 +22,8 @@ namespace CustomBingo.Views
             newListView.Hide();
             newCardView.Hide();
 
+            BtnFinish.Enabled = false;
+
             newMainView.BringToFront();
         }
 
@@ -29,6 +32,11 @@ namespace CustomBingo.Views
             newListView.Show();
             newCompanyView.Hide();
             newCardView.Hide();
+
+            BtnCards.Enabled = false;
+            BtnCompany.Enabled = false;
+            BtnList.Enabled = false;
+            BtnFinish.Enabled = true;
 
             newListView.BringToFront();
         }
@@ -40,6 +48,11 @@ namespace CustomBingo.Views
             newCardView.Hide();
 
             newCompanyView.BringToFront();
+
+            BtnCards.Enabled = false;
+            BtnCompany.Enabled = false;
+            BtnList.Enabled = false;
+            BtnFinish.Enabled = true;
         }
 
         private void BtnCards_Click(object sender, EventArgs e)
@@ -47,6 +60,11 @@ namespace CustomBingo.Views
             newListView.Hide();
             newCompanyView.Hide();
             newCardView.Show();
+
+            BtnCards.Enabled = false;
+            BtnCompany.Enabled = false;
+            BtnList.Enabled = false;
+            BtnFinish.Enabled = true;
 
             newCardView.BringToFront();
         }
@@ -57,6 +75,11 @@ namespace CustomBingo.Views
             newListView.Hide();
             newCompanyView.Hide();
             newCardView.Hide();
+
+            BtnCards.Enabled = true;
+            BtnCompany.Enabled = true;
+            BtnList.Enabled = true;
+            BtnFinish.Enabled = false;
 
             newMainView.BringToFront();
         }

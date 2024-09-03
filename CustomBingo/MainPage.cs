@@ -1,3 +1,5 @@
+using CustomBingo.Views;
+
 namespace CustomBingo
 {
     public partial class MainPage : Form
