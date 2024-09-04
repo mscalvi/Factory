@@ -85,6 +85,7 @@
             BtnCreate.TabIndex = 4;
             BtnCreate.Text = "Criar";
             BtnCreate.UseVisualStyleBackColor = true;
+            BtnCreate.Click += BtnCreate_Click;
             // 
             // BoxName
             // 

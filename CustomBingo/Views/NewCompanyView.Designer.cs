@@ -129,9 +129,10 @@
             BtnLogo.Location = new Point(658, 242);
             BtnLogo.Name = "BtnLogo";
             BtnLogo.Size = new Size(75, 23);
-            BtnLogo.TabIndex = 9;
+            BtnLogo.TabIndex = 5;
             BtnLogo.Text = "Procurar";
             BtnLogo.UseVisualStyleBackColor = true;
+            BtnLogo.Click += BtnLogo_Click;
             // 
             // BtnConfirm
             // 
@@ -139,9 +140,10 @@
             BtnConfirm.Location = new Point(505, 558);
             BtnConfirm.Name = "BtnConfirm";
             BtnConfirm.Size = new Size(102, 54);
-            BtnConfirm.TabIndex = 8;
+            BtnConfirm.TabIndex = 6;
             BtnConfirm.Text = "Confirmar";
             BtnConfirm.UseVisualStyleBackColor = true;
+            BtnConfirm.Click += BtnConfirm_Click;
             // 
             // PicLogo
             // 
@@ -149,6 +151,7 @@
             PicLogo.Location = new Point(596, 271);
             PicLogo.Name = "PicLogo";
             PicLogo.Size = new Size(200, 200);
+            PicLogo.SizeMode = PictureBoxSizeMode.Zoom;
             PicLogo.TabIndex = 7;
             PicLogo.TabStop = false;
             // 
@@ -169,7 +172,7 @@
             BoxName.Location = new Point(75, 211);
             BoxName.Name = "BoxName";
             BoxName.Size = new Size(420, 23);
-            BoxName.TabIndex = 3;
+            BoxName.TabIndex = 1;
             // 
             // BoxCardName
             // 
@@ -177,7 +180,7 @@
             BoxCardName.Location = new Point(75, 290);
             BoxCardName.Name = "BoxCardName";
             BoxCardName.Size = new Size(420, 23);
-            BoxCardName.TabIndex = 4;
+            BoxCardName.TabIndex = 2;
             // 
             // BoxPhone
             // 
@@ -185,7 +188,7 @@
             BoxPhone.Location = new Point(75, 369);
             BoxPhone.Name = "BoxPhone";
             BoxPhone.Size = new Size(420, 23);
-            BoxPhone.TabIndex = 5;
+            BoxPhone.TabIndex = 3;
             // 
             // BoxEmail
             // 
@@ -193,7 +196,7 @@
             BoxEmail.Location = new Point(75, 448);
             BoxEmail.Name = "BoxEmail";
             BoxEmail.Size = new Size(420, 23);
-            BoxEmail.TabIndex = 6;
+            BoxEmail.TabIndex = 4;
             // 
             // NewCompanyView
             // 

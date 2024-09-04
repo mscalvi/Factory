@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CustomBingo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9107717c6991236c1329d0615302929ce53a3e42")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+41daa909b1c03c5ebefc1296eb58383f19359071")]
 [assembly: System.Reflection.AssemblyProductAttribute("CustomBingo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CustomBingo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
