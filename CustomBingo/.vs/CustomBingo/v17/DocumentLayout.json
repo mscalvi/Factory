@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\custombingo\\services\\databaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:services\\databaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\custombingo\\services\\companytableservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:services\\companytableservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -22,6 +31,32 @@
             {
               "$type": "Bookmark",
               "Name": "ST:2:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CompanyTableService.cs",
+              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Services\\CompanyTableService.cs",
+              "RelativeDocumentMoniker": "Services\\CompanyTableService.cs",
+              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Services\\CompanyTableService.cs",
+              "RelativeToolTip": "Services\\CompanyTableService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAE0AAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-04T05:52:29.562Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DatabaseService.cs",
+              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Services\\DatabaseService.cs",
+              "RelativeDocumentMoniker": "Services\\DatabaseService.cs",
+              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Services\\DatabaseService.cs",
+              "RelativeToolTip": "Services\\DatabaseService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAALoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-04T05:34:29.993Z",
+              "EditorCaption": ""
             }
           ]
         }
