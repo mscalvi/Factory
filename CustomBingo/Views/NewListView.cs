@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CustomBingo.Models;
 using CustomBingo.Services;
 
 namespace CustomBingo.Views
@@ -20,15 +21,17 @@ namespace CustomBingo.Views
 
         private void BtnCreate_Click(object sender, EventArgs e)
         {
-            string ListName = BoxName.Text.ToUpper().Trim();
-            string ListDescriptions = BoxDescription.Text.Trim();
+            ListClass list = new ListClass();
 
-            if (!string.IsNullOrEmpty(ListName) && !string.IsNullOrEmpty(ListDescriptions)) 
+            list.Name = BoxName.Text.ToUpper().Trim();
+            list.Description = BoxDescription.Text.Trim();
+
+            if (!string.IsNullOrEmpty(list.Name) && !string.IsNullOrEmpty(list.Description)) 
             {
                 try
                 {
-                    DataService.AddList(ListName, ListDescriptions);
-                    TxtMessage.Text = "Lista " + ListName + " adicionada com sucesso.";
+                    DataService.AddList(list.Name, list.Description);
+                    TxtMessage.Text = "Lista " + list.Name + " adicionada com sucesso.";
                 }
                 catch
                 {

@@ -1,4 +1,5 @@
-﻿using CustomBingo.Services;
+﻿using CustomBingo.Models;
+using CustomBingo.Services;
 using Microsoft.VisualBasic.Logging;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,6 @@ namespace CustomBingo.Views
     {
 
         private string selectedImagePath;
-        private readonly string defaultLogoFileName = "default_logo.png";
 
         public NewCompanyView()
         {
@@ -56,25 +56,27 @@ namespace CustomBingo.Views
 
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            string Name = BoxName.Text.Trim();
-            string CardName = BoxCardName.Text.Trim();
-            string Phone = BoxPhone.Text.Trim();
-            string Email = BoxEmail.Text.Trim();
-            string Logo = "logo_" + Guid.NewGuid().ToString() + Path.GetExtension(selectedImagePath);
-            string AddTime = DateTime.Now.ToString("MMddyyyy");
+            CompanyModel company = new CompanyModel();
 
-            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(CardName))
+            company.Name = BoxName.Text.Trim();
+            company.CardName = BoxCardName.Text.Trim();
+            company.Phone = BoxPhone.Text.Trim();
+            company.Email = BoxEmail.Text.Trim();
+            company.Logo = "logo_" + Guid.NewGuid().ToString() + Path.GetExtension(selectedImagePath);
+            company.AddDate = DateTime.Now.ToString("MMddyyyy");
+
+            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(company.CardName))
             {
                 if (PicLogo.Image != null)
                 {
-                    SaveImageToPC(PicLogo.Image, Logo);
-                    Logo = "logo_" + Guid.NewGuid().ToString() + Path.GetExtension(selectedImagePath);
+                    SaveImageToPC(PicLogo.Image, company.Logo);
+                    company.Logo = "logo_" + Guid.NewGuid().ToString() + Path.GetExtension(selectedImagePath);
                 } 
 
                 try
                 {
-                    DataService.AddCompany(Name, CardName, Phone, Email, Logo, AddTime);
-                    LblMessage.Text = "Empresa " + Name + " adicionada com sucesso.";
+                    DataService.AddCompany(company.Name, company.CardName, company.Phone, company.Email, company.Logo, company.AddDate);
+                    LblMessage.Text = "Empresa " + company.Name + " adicionada com sucesso.";
                 }
                 catch
                 {
