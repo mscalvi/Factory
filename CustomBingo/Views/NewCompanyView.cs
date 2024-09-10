@@ -62,16 +62,15 @@ namespace CustomBingo.Views
             company.CardName = BoxCardName.Text.Trim();
             company.Phone = BoxPhone.Text.Trim();
             company.Email = BoxEmail.Text.Trim();
-            company.Logo = "logo_" + Guid.NewGuid().ToString() + Path.GetExtension(selectedImagePath);
+            company.Logo = "logo_" + Guid.NewGuid().ToString() + Path.GetExtension(selectedImagePath); 
             company.AddDate = DateTime.Now.ToString("MMddyyyy");
 
-            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(company.CardName))
+            if (!string.IsNullOrEmpty(company.Name) && !string.IsNullOrEmpty(company.CardName))
             {
                 if (PicLogo.Image != null)
                 {
                     SaveImageToPC(PicLogo.Image, company.Logo);
-                    company.Logo = "logo_" + Guid.NewGuid().ToString() + Path.GetExtension(selectedImagePath);
-                } 
+                }
 
                 try
                 {
@@ -88,7 +87,8 @@ namespace CustomBingo.Views
                 BoxEmail.Text = "";
                 BoxPhone.Text = "";
                 PicLogo.Image = null;
-            } else
+            }
+            else
             {
                 LblMessage.Text = "Nome e Nome para Cartela são obrigatórios.";
             }

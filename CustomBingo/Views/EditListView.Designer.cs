@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             PnlContent = new Panel();
+            FlowViewSel = new FlowLayoutPanel();
+            FlowViewAll = new FlowLayoutPanel();
             LblTitle = new Label();
-            ListViewSel = new ListView();
             CboListSel = new ComboBox();
             LblListSel = new Label();
-            ListViewAll = new ListView();
             BoxListAll = new TextBox();
             LblListAll = new Label();
             BtnRemove = new Button();
@@ -43,11 +43,11 @@
             // 
             // PnlContent
             // 
+            PnlContent.Controls.Add(FlowViewSel);
+            PnlContent.Controls.Add(FlowViewAll);
             PnlContent.Controls.Add(LblTitle);
-            PnlContent.Controls.Add(ListViewSel);
             PnlContent.Controls.Add(CboListSel);
             PnlContent.Controls.Add(LblListSel);
-            PnlContent.Controls.Add(ListViewAll);
             PnlContent.Controls.Add(BoxListAll);
             PnlContent.Controls.Add(LblListAll);
             PnlContent.Controls.Add(BtnRemove);
@@ -57,6 +57,24 @@
             PnlContent.Name = "PnlContent";
             PnlContent.Size = new Size(871, 682);
             PnlContent.TabIndex = 0;
+            // 
+            // FlowViewSel
+            // 
+            FlowViewSel.Anchor = AnchorStyles.None;
+            FlowViewSel.BackColor = SystemColors.Control;
+            FlowViewSel.Location = new Point(476, 217);
+            FlowViewSel.Name = "FlowViewSel";
+            FlowViewSel.Size = new Size(322, 430);
+            FlowViewSel.TabIndex = 10;
+            // 
+            // FlowViewAll
+            // 
+            FlowViewAll.Anchor = AnchorStyles.None;
+            FlowViewAll.BackColor = SystemColors.Control;
+            FlowViewAll.Location = new Point(72, 217);
+            FlowViewAll.Name = "FlowViewAll";
+            FlowViewAll.Size = new Size(322, 430);
+            FlowViewAll.TabIndex = 9;
             // 
             // LblTitle
             // 
@@ -68,15 +86,6 @@
             LblTitle.TabIndex = 0;
             LblTitle.Text = "Editar Listas";
             LblTitle.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // ListViewSel
-            // 
-            ListViewSel.Anchor = AnchorStyles.None;
-            ListViewSel.Location = new Point(476, 217);
-            ListViewSel.Name = "ListViewSel";
-            ListViewSel.Size = new Size(322, 430);
-            ListViewSel.TabIndex = 8;
-            ListViewSel.UseCompatibleStateImageBehavior = false;
             // 
             // CboListSel
             // 
@@ -96,15 +105,6 @@
             LblListSel.TabIndex = 4;
             LblListSel.Text = "Empresas na Lista";
             LblListSel.TextAlign = ContentAlignment.BottomCenter;
-            // 
-            // ListViewAll
-            // 
-            ListViewAll.Anchor = AnchorStyles.None;
-            ListViewAll.Location = new Point(72, 217);
-            ListViewAll.Name = "ListViewAll";
-            ListViewAll.Size = new Size(322, 430);
-            ListViewAll.TabIndex = 7;
-            ListViewAll.UseCompatibleStateImageBehavior = false;
             // 
             // BoxListAll
             // 
@@ -166,8 +166,8 @@
         private Label LblListAll;
         private Button BtnRemove;
         private Button BtnAdd;
-        private ListView ListViewSel;
-        private ListView ListViewAll;
         private Label LblTitle;
+        private FlowLayoutPanel FlowViewSel;
+        private FlowLayoutPanel FlowViewAll;
     }
 }

@@ -1355,23 +1355,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Usuario\\.nuget\\packages\\": {},
+    "C:\\Users\\Marcelo Scalvi\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\Factory\\CustomBingo\\CustomBingo.csproj",
+      "projectUniqueName": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\CustomBingo.csproj",
       "projectName": "CustomBingo",
-      "projectPath": "C:\\Users\\Usuario\\Desktop\\Factory\\CustomBingo\\CustomBingo.csproj",
-      "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuario\\Desktop\\Factory\\CustomBingo\\obj\\",
+      "projectPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\CustomBingo.csproj",
+      "packagesPath": "C:\\Users\\Marcelo Scalvi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Marcelo Scalvi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
