@@ -38,13 +38,17 @@
             LblListAll = new Label();
             BtnRemove = new Button();
             BtnAdd = new Button();
+            ScrollAll = new Panel();
+            ScrollSel = new Panel();
             PnlContent.SuspendLayout();
+            ScrollAll.SuspendLayout();
+            ScrollSel.SuspendLayout();
             SuspendLayout();
             // 
             // PnlContent
             // 
-            PnlContent.Controls.Add(FlowViewSel);
-            PnlContent.Controls.Add(FlowViewAll);
+            PnlContent.Controls.Add(ScrollSel);
+            PnlContent.Controls.Add(ScrollAll);
             PnlContent.Controls.Add(LblTitle);
             PnlContent.Controls.Add(CboListSel);
             PnlContent.Controls.Add(LblListSel);
@@ -60,21 +64,21 @@
             // 
             // FlowViewSel
             // 
-            FlowViewSel.Anchor = AnchorStyles.None;
             FlowViewSel.BackColor = SystemColors.Control;
-            FlowViewSel.Location = new Point(476, 217);
+            FlowViewSel.Dock = DockStyle.Fill;
+            FlowViewSel.Location = new Point(0, 0);
             FlowViewSel.Name = "FlowViewSel";
-            FlowViewSel.Size = new Size(322, 430);
-            FlowViewSel.TabIndex = 10;
+            FlowViewSel.Size = new Size(322, 424);
+            FlowViewSel.TabIndex = 8;
             // 
             // FlowViewAll
             // 
-            FlowViewAll.Anchor = AnchorStyles.None;
             FlowViewAll.BackColor = SystemColors.Control;
-            FlowViewAll.Location = new Point(72, 217);
+            FlowViewAll.Dock = DockStyle.Fill;
+            FlowViewAll.Location = new Point(0, 0);
             FlowViewAll.Name = "FlowViewAll";
-            FlowViewAll.Size = new Size(322, 430);
-            FlowViewAll.TabIndex = 9;
+            FlowViewAll.Size = new Size(322, 424);
+            FlowViewAll.TabIndex = 7;
             // 
             // LblTitle
             // 
@@ -144,6 +148,27 @@
             BtnAdd.Text = "->";
             BtnAdd.UseVisualStyleBackColor = true;
             // 
+            // ScrollAll
+            // 
+            ScrollAll.Anchor = AnchorStyles.None;
+            ScrollAll.AutoScroll = true;
+            ScrollAll.BackColor = SystemColors.ActiveBorder;
+            ScrollAll.Controls.Add(FlowViewAll);
+            ScrollAll.Location = new Point(72, 227);
+            ScrollAll.Name = "ScrollAll";
+            ScrollAll.Size = new Size(322, 424);
+            ScrollAll.TabIndex = 9;
+            // 
+            // ScrollSel
+            // 
+            ScrollSel.Anchor = AnchorStyles.None;
+            ScrollSel.AutoScroll = true;
+            ScrollSel.Controls.Add(FlowViewSel);
+            ScrollSel.Location = new Point(476, 227);
+            ScrollSel.Name = "ScrollSel";
+            ScrollSel.Size = new Size(322, 424);
+            ScrollSel.TabIndex = 10;
+            // 
             // EditListView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -154,6 +179,8 @@
             Size = new Size(871, 682);
             PnlContent.ResumeLayout(false);
             PnlContent.PerformLayout();
+            ScrollAll.ResumeLayout(false);
+            ScrollSel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -167,7 +194,9 @@
         private Button BtnRemove;
         private Button BtnAdd;
         private Label LblTitle;
-        private FlowLayoutPanel FlowViewSel;
         private FlowLayoutPanel FlowViewAll;
+        private FlowLayoutPanel FlowViewSel;
+        private Panel ScrollSel;
+        private Panel ScrollAll;
     }
 }

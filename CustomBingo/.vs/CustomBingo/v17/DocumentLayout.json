@@ -3,15 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\custombingo\\views\\editlistview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:views\\editlistview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\custombingo\\views\\editlistview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:views\\editlistview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\custombingo\\views\\editview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\custombingo\\views\\editlistview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:views\\editlistview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\views\\editview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:views\\editview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
@@ -39,27 +39,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "EditListView.cs",
-              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\EditListView.cs",
-              "RelativeDocumentMoniker": "Views\\EditListView.cs",
-              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\EditListView.cs",
-              "RelativeToolTip": "Views\\EditListView.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAAgwDYAAABCAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-10T21:48:31.559Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "EditListView.cs [Projeto]",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\EditListView.cs",
               "RelativeDocumentMoniker": "Views\\EditListView.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\EditListView.cs [Projeto]",
               "RelativeToolTip": "Views\\EditListView.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-10T21:46:51.575Z",
+              "WhenOpened": "2024-09-11T00:22:22.314Z",
               "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EditListView.cs",
+              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\EditListView.cs",
+              "RelativeDocumentMoniker": "Views\\EditListView.cs",
+              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\EditListView.cs",
+              "RelativeToolTip": "Views\\EditListView.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAFwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-10T23:10:26.337Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -70,8 +70,7 @@
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\EditView.cs [Projeto]",
               "RelativeToolTip": "Views\\EditView.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-10T21:46:39.534Z",
-              "EditorCaption": " [Projeto]"
+              "WhenOpened": "2024-09-10T23:08:31.729Z"
             }
           ]
         }

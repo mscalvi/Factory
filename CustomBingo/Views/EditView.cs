@@ -35,6 +35,8 @@ namespace CustomBingo.Views
             BtnCompany.Enabled = false;
             BtnList.Enabled = false;
 
+            editListView.LoadAllComp();
+
             editListView.BringToFront();
         }
 

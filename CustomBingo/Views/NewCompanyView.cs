@@ -62,8 +62,16 @@ namespace CustomBingo.Views
             company.CardName = BoxCardName.Text.Trim();
             company.Phone = BoxPhone.Text.Trim();
             company.Email = BoxEmail.Text.Trim();
-            company.Logo = "logo_" + Guid.NewGuid().ToString() + Path.GetExtension(selectedImagePath); 
-            company.AddDate = DateTime.Now.ToString("MMddyyyy");
+
+            if (PicLogo.Image != null)
+            {
+                company.Logo = "logo_" + Guid.NewGuid().ToString() + Path.GetExtension(selectedImagePath);
+            } else
+            {
+                company.Logo = "";
+            }
+
+            company.AddDate = DateTime.Now.ToString("MMddyyyy - HH:mm:ss");
 
             if (!string.IsNullOrEmpty(company.Name) && !string.IsNullOrEmpty(company.CardName))
             {
