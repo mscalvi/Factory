@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             PnlContent = new Panel();
+            ScrollSel = new Panel();
             FlowViewSel = new FlowLayoutPanel();
+            ScrollAll = new Panel();
             FlowViewAll = new FlowLayoutPanel();
             LblTitle = new Label();
             CboListSel = new ComboBox();
@@ -38,11 +40,9 @@
             LblListAll = new Label();
             BtnRemove = new Button();
             BtnAdd = new Button();
-            ScrollAll = new Panel();
-            ScrollSel = new Panel();
             PnlContent.SuspendLayout();
-            ScrollAll.SuspendLayout();
             ScrollSel.SuspendLayout();
+            ScrollAll.SuspendLayout();
             SuspendLayout();
             // 
             // PnlContent
@@ -62,22 +62,45 @@
             PnlContent.Size = new Size(871, 682);
             PnlContent.TabIndex = 0;
             // 
+            // ScrollSel
+            // 
+            ScrollSel.Anchor = AnchorStyles.None;
+            ScrollSel.AutoScroll = true;
+            ScrollSel.Controls.Add(FlowViewSel);
+            ScrollSel.Location = new Point(476, 227);
+            ScrollSel.Name = "ScrollSel";
+            ScrollSel.Size = new Size(341, 424);
+            ScrollSel.TabIndex = 10;
+            // 
             // FlowViewSel
             // 
+            FlowViewSel.AutoSize = true;
             FlowViewSel.BackColor = SystemColors.Control;
             FlowViewSel.Dock = DockStyle.Fill;
             FlowViewSel.Location = new Point(0, 0);
             FlowViewSel.Name = "FlowViewSel";
-            FlowViewSel.Size = new Size(322, 424);
+            FlowViewSel.Size = new Size(341, 424);
             FlowViewSel.TabIndex = 8;
+            // 
+            // ScrollAll
+            // 
+            ScrollAll.Anchor = AnchorStyles.None;
+            ScrollAll.AutoScroll = true;
+            ScrollAll.BackColor = SystemColors.ActiveBorder;
+            ScrollAll.Controls.Add(FlowViewAll);
+            ScrollAll.Location = new Point(54, 227);
+            ScrollAll.Name = "ScrollAll";
+            ScrollAll.Size = new Size(340, 424);
+            ScrollAll.TabIndex = 9;
             // 
             // FlowViewAll
             // 
+            FlowViewAll.AutoSize = true;
             FlowViewAll.BackColor = SystemColors.Control;
             FlowViewAll.Dock = DockStyle.Fill;
             FlowViewAll.Location = new Point(0, 0);
             FlowViewAll.Name = "FlowViewAll";
-            FlowViewAll.Size = new Size(322, 424);
+            FlowViewAll.Size = new Size(340, 424);
             FlowViewAll.TabIndex = 7;
             // 
             // LblTitle
@@ -97,7 +120,7 @@
             CboListSel.FormattingEnabled = true;
             CboListSel.Location = new Point(476, 173);
             CboListSel.Name = "CboListSel";
-            CboListSel.Size = new Size(322, 23);
+            CboListSel.Size = new Size(341, 23);
             CboListSel.TabIndex = 5;
             // 
             // LblListSel
@@ -105,7 +128,7 @@
             LblListSel.Anchor = AnchorStyles.None;
             LblListSel.Location = new Point(476, 134);
             LblListSel.Name = "LblListSel";
-            LblListSel.Size = new Size(322, 36);
+            LblListSel.Size = new Size(341, 36);
             LblListSel.TabIndex = 4;
             LblListSel.Text = "Empresas na Lista";
             LblListSel.TextAlign = ContentAlignment.BottomCenter;
@@ -113,17 +136,17 @@
             // BoxListAll
             // 
             BoxListAll.Anchor = AnchorStyles.None;
-            BoxListAll.Location = new Point(72, 173);
+            BoxListAll.Location = new Point(54, 173);
             BoxListAll.Name = "BoxListAll";
-            BoxListAll.Size = new Size(322, 23);
+            BoxListAll.Size = new Size(340, 23);
             BoxListAll.TabIndex = 6;
             // 
             // LblListAll
             // 
             LblListAll.Anchor = AnchorStyles.None;
-            LblListAll.Location = new Point(72, 134);
+            LblListAll.Location = new Point(54, 134);
             LblListAll.Name = "LblListAll";
-            LblListAll.Size = new Size(322, 36);
+            LblListAll.Size = new Size(340, 36);
             LblListAll.TabIndex = 3;
             LblListAll.Text = "Empresas Cadastradas";
             LblListAll.TextAlign = ContentAlignment.BottomCenter;
@@ -148,27 +171,6 @@
             BtnAdd.Text = "->";
             BtnAdd.UseVisualStyleBackColor = true;
             // 
-            // ScrollAll
-            // 
-            ScrollAll.Anchor = AnchorStyles.None;
-            ScrollAll.AutoScroll = true;
-            ScrollAll.BackColor = SystemColors.ActiveBorder;
-            ScrollAll.Controls.Add(FlowViewAll);
-            ScrollAll.Location = new Point(72, 227);
-            ScrollAll.Name = "ScrollAll";
-            ScrollAll.Size = new Size(322, 424);
-            ScrollAll.TabIndex = 9;
-            // 
-            // ScrollSel
-            // 
-            ScrollSel.Anchor = AnchorStyles.None;
-            ScrollSel.AutoScroll = true;
-            ScrollSel.Controls.Add(FlowViewSel);
-            ScrollSel.Location = new Point(476, 227);
-            ScrollSel.Name = "ScrollSel";
-            ScrollSel.Size = new Size(322, 424);
-            ScrollSel.TabIndex = 10;
-            // 
             // EditListView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -179,8 +181,10 @@
             Size = new Size(871, 682);
             PnlContent.ResumeLayout(false);
             PnlContent.PerformLayout();
-            ScrollAll.ResumeLayout(false);
             ScrollSel.ResumeLayout(false);
+            ScrollSel.PerformLayout();
+            ScrollAll.ResumeLayout(false);
+            ScrollAll.PerformLayout();
             ResumeLayout(false);
         }
 

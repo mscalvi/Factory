@@ -27,6 +27,13 @@ namespace CustomBingo.Views
                 ShowAlways = true
             };
 
+            ConfigureLayout();
+        }
+
+        private void ConfigureLayout()
+        {
+            FlowViewAll.AutoScroll = true;
+            FlowViewSel.AutoScroll = true;
         }
 
         public void LoadAllComp()
