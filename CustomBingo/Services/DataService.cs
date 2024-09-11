@@ -152,6 +152,26 @@ namespace CustomBingo.Services
             }
         }
 
+        // Método para retornar todas as listas
+        public static DataTable GetLists()
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                string selectQuery = "SELECT * FROM ListsTable;";
+
+                using (var command = new SQLiteCommand(selectQuery, connection))
+                {
+                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                    {
+                        DataTable dataTable = new DataTable();
+                        adapter.Fill(dataTable);
+                        return dataTable;
+                    }
+                }
+            }
+        }
+
         // Método para atualizar uma empresa existente
         public static void UpdateCompany(int id, string name, string cardName, string email, string phone, string logo, string addTime)
         {

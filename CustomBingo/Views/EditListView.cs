@@ -14,6 +14,7 @@ namespace CustomBingo.Views
     public partial class EditListView : UserControl
     {
         private ToolTip toolTip;
+        private List<DataRow> allCompaniesList = new List<DataRow>();
 
         public EditListView()
         {
@@ -28,6 +29,20 @@ namespace CustomBingo.Views
             };
 
             ConfigureLayout();
+            LoadLists();
+        }
+
+        private void LoadLists()
+        {
+            DataTable listsTable = DataService.GetLists();
+
+            CboListSel.Items.Clear();
+
+            foreach (DataRow row in listsTable.Rows)
+            {
+                string listName = row["Name"].ToString();
+                CboListSel.Items.Add(listName);
+            }
         }
 
         private void ConfigureLayout()
@@ -36,17 +51,29 @@ namespace CustomBingo.Views
             FlowViewSel.AutoScroll = true;
         }
 
+        private void CboListSel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
         public void LoadAllComp()
         {
             FlowViewAll.Controls.Clear();
 
             DataTable companiesTable = DataService.GetCompanies();
 
-            var sortedRows = companiesTable.AsEnumerable()
-                                           .OrderBy(row => row.Field<string>("Name"))
-                                           .ToList();
+            allCompaniesList = companiesTable.AsEnumerable()
+                                             .OrderBy(row => row.Field<string>("Name"))
+                                             .ToList();
 
-            foreach (DataRow row in sortedRows)
+            ShowComps(allCompaniesList);
+        }
+
+        public void ShowComps(List<DataRow> CompList)
+        {
+            FlowViewAll.Controls.Clear();
+
+            foreach (DataRow row in CompList)
             {
                 string companyName = row["Name"].ToString();
                 string logoName = row["Logo"].ToString();
@@ -59,8 +86,8 @@ namespace CustomBingo.Views
                 }
 
                 Panel companyPanel = new Panel();
-                companyPanel.Width = 70;  
-                companyPanel.Height = 60; 
+                companyPanel.Width = 70;
+                companyPanel.Height = 60;
                 companyPanel.Margin = new Padding(5);
 
                 PictureBox picBox = new PictureBox();
@@ -74,15 +101,15 @@ namespace CustomBingo.Views
                 }
 
                 picBox.SizeMode = PictureBoxSizeMode.Zoom;
-                picBox.Width = 60; 
-                picBox.Height = 40; 
+                picBox.Width = 60;
+                picBox.Height = 40;
                 picBox.Location = new Point(5, 5);
 
                 Label lblName = new Label();
                 lblName.Text = companyName;
                 lblName.TextAlign = ContentAlignment.MiddleCenter;
-                lblName.Width = 70; 
-                lblName.Height = 25; 
+                lblName.Width = 70;
+                lblName.Height = 25;
                 lblName.Location = new Point(0, 40);
 
                 toolTip.SetToolTip(picBox, companyFull);
@@ -95,5 +122,15 @@ namespace CustomBingo.Views
             }
         }
 
+        private void BoxListAll_TextChanged(object sender, EventArgs e)
+        {
+            string filterText = BoxListAll.Text.ToLower();
+
+            var filteredList = allCompaniesList
+                .Where(row => row.Field<string>("Name").ToLower().Contains(filterText))
+                .ToList();
+
+            ShowComps(filteredList);
+        }
     }
 }

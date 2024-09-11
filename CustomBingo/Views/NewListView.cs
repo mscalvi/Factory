@@ -32,6 +32,8 @@ namespace CustomBingo.Views
                 {
                     DataService.AddList(list.Name, list.Description);
                     TxtMessage.Text = "Lista " + list.Name + " adicionada com sucesso.";
+                    BoxName.Text = "";
+                    BoxDescription.Text = "";
                 }
                 catch
                 {

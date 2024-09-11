@@ -122,6 +122,7 @@
             CboListSel.Name = "CboListSel";
             CboListSel.Size = new Size(341, 23);
             CboListSel.TabIndex = 5;
+            CboListSel.SelectedIndexChanged += CboListSel_SelectedIndexChanged;
             // 
             // LblListSel
             // 
@@ -140,6 +141,7 @@
             BoxListAll.Name = "BoxListAll";
             BoxListAll.Size = new Size(340, 23);
             BoxListAll.TabIndex = 6;
+            BoxListAll.TextChanged += BoxListAll_TextChanged;
             // 
             // LblListAll
             // 
