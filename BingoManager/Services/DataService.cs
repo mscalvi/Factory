@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System;
 using System.Data;
 using System.Data.SQLite;
+using System.Data.SqlClient;
 
 
 namespace BingoManager.Services
@@ -225,6 +226,28 @@ namespace BingoManager.Services
                 return Image.FromFile(filePath);
             }
             return null;
+        }
+
+        //Método para inserir empresas em uma lista
+        public static void AddCompaniesToAllocation(string listId, List<string> companyIds)
+        {
+            using (var connection = GetConnection()) 
+            {
+                connection.Open();
+
+                foreach (string companyId in companyIds)
+                {
+                    string insertQuery = "INSERT INTO AlocacaoTable (ListId, CompanyId) VALUES (@ListId, @CompanyId)";
+
+                    using (var command = new SQLiteCommand(insertQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@ListId", listId);
+                        command.Parameters.AddWithValue("@CompanyId", companyId);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
         }
     }
 }

@@ -155,8 +155,13 @@ namespace BingoManager
             foreach (DataRow row in listsTable.Rows)
             {
                 string listName = row["Name"].ToString();
-                CboEditListSel.Items.Add(listName);
+                string listId = row["Id"].ToString();
+
+                CboEditListSel.Items.Add(new { Text = listName, Value = listId });
             }
+
+            CboEditListSel.DisplayMember = "Text"; 
+            CboEditListSel.ValueMember = "Value";
         }
 
         private void EditListConfigureLayout()
@@ -184,6 +189,7 @@ namespace BingoManager
 
             foreach (DataRow row in CompList)
             {
+                string CompanyId = row["Id"].ToString();
                 string companyName = row["Name"].ToString();
                 string logoName = row["Logo"].ToString();
                 string companyFull = companyName;
@@ -195,9 +201,11 @@ namespace BingoManager
                 }
 
                 Panel companyPanel = new Panel();
-                companyPanel.Width = 70;
-                companyPanel.Height = 60;
-                companyPanel.Margin = new Padding(5);
+                companyPanel.Width = 100;
+                companyPanel.Height = 70;
+                companyPanel.Margin = new Padding(1);
+
+                companyPanel.Tag = CompanyId;
 
                 PictureBox picBox = new PictureBox();
                 if (!string.IsNullOrEmpty(logoName))
@@ -210,21 +218,39 @@ namespace BingoManager
                 }
 
                 picBox.SizeMode = PictureBoxSizeMode.Zoom;
-                picBox.Width = 60;
-                picBox.Height = 40;
-                picBox.Location = new Point(5, 5);
+                picBox.Width = 75;
+                picBox.Height = 50;
+                picBox.Location = new Point(20, 5);
+
+                CheckBox chkBox = new CheckBox();
+                chkBox.Width = 20;
+                chkBox.Height = 20;
+                chkBox.Location = new Point(0, 50);
 
                 Label lblName = new Label();
                 lblName.Text = companyName;
-                lblName.TextAlign = ContentAlignment.MiddleCenter;
                 lblName.Width = 70;
-                lblName.Height = 25;
-                lblName.Location = new Point(0, 40);
+                lblName.Height = 20;
+                lblName.Location = new Point(22, 50);
+                lblName.TextAlign = ContentAlignment.MiddleLeft;
 
                 toolTip.SetToolTip(picBox, companyFull);
                 toolTip.SetToolTip(lblName, companyFull);
 
+                chkBox.CheckedChanged += (sender, e) =>
+                {
+                    if (chkBox.Checked)
+                    {
+                        companyPanel.BackColor = Color.LightBlue;
+                    }
+                    else
+                    {
+                        companyPanel.BackColor = Color.LightGray;
+                    }
+                };
+
                 companyPanel.Controls.Add(picBox);
+                companyPanel.Controls.Add(chkBox);
                 companyPanel.Controls.Add(lblName);
 
                 FlowEditViewAll.Controls.Add(companyPanel);
@@ -240,6 +266,46 @@ namespace BingoManager
                 .ToList();
 
             EditListShowComps(filteredList);
+        }
+
+        private void BtnEditAddCL_Click(object sender, EventArgs e)
+        {
+            List<string> selectedCompanies = new List<string>();
+
+            foreach (Control panel in FlowEditViewAll.Controls)
+            {
+                if (panel is Panel companyPanel)
+                {
+                    CheckBox companyCheckBox = companyPanel.Controls.OfType<CheckBox>().FirstOrDefault();
+
+                    if (companyCheckBox != null && companyCheckBox.Checked)
+                    {
+                        string companyId = companyPanel.Tag.ToString();
+                        selectedCompanies.Add(companyId);
+                    }
+                }
+            }
+
+            // Obter o ID da lista selecionada no ComboBox
+            if (CboEditListSel.SelectedItem != null)
+            {
+                var selectedList = CboEditListSel.SelectedItem as dynamic; 
+                string selectedListId = selectedList.Value; 
+
+                if (selectedCompanies.Count > 0)
+                {
+                    DataService.AddCompaniesToAllocation(selectedListId, selectedCompanies);
+                    MessageBox.Show("Empresas alocadas com sucesso!");
+                }
+                else
+                {
+                    MessageBox.Show("Nenhuma empresa foi selecionada.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nenhuma lista foi selecionada.");
+            }
         }
     }
 }

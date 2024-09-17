@@ -36,12 +36,13 @@
             TabCreateMain = new TabPage();
             label1 = new Label();
             TabCreateList = new TabPage();
-            TxtCreateListMessage = new Label();
-            BtnCreateList = new Button();
-            BoxCreateListName = new TextBox();
-            BoxCreateListDescription = new TextBox();
-            TxtCreateListDescription = new Label();
+            panel1 = new Panel();
             TxtCreatListeName = new Label();
+            TxtCreateListMessage = new Label();
+            BoxCreateListName = new TextBox();
+            TxtCreateListDescription = new Label();
+            BoxCreateListDescription = new TextBox();
+            BtnCreateList = new Button();
             TabCreateCompany = new TabPage();
             BoxCreateCompanyEmail = new TextBox();
             BoxCreateCompanyPhone = new TextBox();
@@ -67,25 +68,27 @@
             BtnEditAddCL = new Button();
             CboEditListSel = new ComboBox();
             BoxEditFilterCL = new TextBox();
-            PnlEditAllCompany = new Panel();
-            FlowEditViewAll = new FlowLayoutPanel();
             PnlEditSelList = new Panel();
             FlowEditViewSel = new FlowLayoutPanel();
+            PnlEditAllCompany = new Panel();
+            FlowEditViewAll = new FlowLayoutPanel();
             TabEditCompany = new TabPage();
             TabEditCards = new TabPage();
             TabPlayPage = new TabPage();
+            TxtEditListMsg = new Label();
             MainPage.SuspendLayout();
             TabCreatePage.SuspendLayout();
             CreatePage.SuspendLayout();
             TabCreateMain.SuspendLayout();
             TabCreateList.SuspendLayout();
+            panel1.SuspendLayout();
             TabCreateCompany.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PicCreateCompanyLogo).BeginInit();
             TabEditPage.SuspendLayout();
             EditPage.SuspendLayout();
             TabEditList.SuspendLayout();
-            PnlEditAllCompany.SuspendLayout();
             PnlEditSelList.SuspendLayout();
+            PnlEditAllCompany.SuspendLayout();
             SuspendLayout();
             // 
             // MainPage
@@ -94,10 +97,11 @@
             MainPage.Controls.Add(TabCreatePage);
             MainPage.Controls.Add(TabEditPage);
             MainPage.Controls.Add(TabPlayPage);
-            MainPage.Location = new Point(12, 12);
+            MainPage.Dock = DockStyle.Fill;
+            MainPage.Location = new Point(0, 0);
             MainPage.Name = "MainPage";
             MainPage.SelectedIndex = 0;
-            MainPage.Size = new Size(1078, 626);
+            MainPage.Size = new Size(1102, 650);
             MainPage.TabIndex = 0;
             // 
             // TabMainPage
@@ -105,7 +109,7 @@
             TabMainPage.Location = new Point(4, 24);
             TabMainPage.Name = "TabMainPage";
             TabMainPage.Padding = new Padding(3);
-            TabMainPage.Size = new Size(1070, 598);
+            TabMainPage.Size = new Size(1094, 622);
             TabMainPage.TabIndex = 0;
             TabMainPage.Text = "Início";
             TabMainPage.UseVisualStyleBackColor = true;
@@ -116,7 +120,7 @@
             TabCreatePage.Location = new Point(4, 24);
             TabCreatePage.Name = "TabCreatePage";
             TabCreatePage.Padding = new Padding(3);
-            TabCreatePage.Size = new Size(1070, 598);
+            TabCreatePage.Size = new Size(1094, 622);
             TabCreatePage.TabIndex = 1;
             TabCreatePage.Text = "Criar";
             TabCreatePage.UseVisualStyleBackColor = true;
@@ -127,10 +131,11 @@
             CreatePage.Controls.Add(TabCreateList);
             CreatePage.Controls.Add(TabCreateCompany);
             CreatePage.Controls.Add(TabCreateCards);
-            CreatePage.Location = new Point(6, 6);
+            CreatePage.Dock = DockStyle.Fill;
+            CreatePage.Location = new Point(3, 3);
             CreatePage.Name = "CreatePage";
             CreatePage.SelectedIndex = 0;
-            CreatePage.Size = new Size(1058, 586);
+            CreatePage.Size = new Size(1088, 616);
             CreatePage.TabIndex = 0;
             // 
             // TabCreateMain
@@ -139,88 +144,97 @@
             TabCreateMain.Location = new Point(4, 24);
             TabCreateMain.Name = "TabCreateMain";
             TabCreateMain.Padding = new Padding(3);
-            TabCreateMain.Size = new Size(1050, 558);
+            TabCreateMain.Size = new Size(1080, 588);
             TabCreateMain.TabIndex = 0;
             TabCreateMain.Text = "Início";
             TabCreateMain.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
-            label1.Location = new Point(6, 3);
+            label1.Dock = DockStyle.Fill;
+            label1.Location = new Point(3, 3);
             label1.Name = "label1";
-            label1.Size = new Size(1041, 552);
+            label1.Size = new Size(1074, 582);
             label1.TabIndex = 0;
             label1.Text = resources.GetString("label1.Text");
             // 
             // TabCreateList
             // 
-            TabCreateList.Controls.Add(TxtCreateListMessage);
+            TabCreateList.Controls.Add(panel1);
             TabCreateList.Controls.Add(BtnCreateList);
-            TabCreateList.Controls.Add(BoxCreateListName);
-            TabCreateList.Controls.Add(BoxCreateListDescription);
-            TabCreateList.Controls.Add(TxtCreateListDescription);
-            TabCreateList.Controls.Add(TxtCreatListeName);
             TabCreateList.Location = new Point(4, 24);
             TabCreateList.Name = "TabCreateList";
             TabCreateList.Padding = new Padding(3);
-            TabCreateList.Size = new Size(1050, 558);
+            TabCreateList.Size = new Size(1080, 588);
             TabCreateList.TabIndex = 1;
             TabCreateList.Text = "Nova Lista";
             TabCreateList.UseVisualStyleBackColor = true;
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(TxtCreatListeName);
+            panel1.Controls.Add(TxtCreateListMessage);
+            panel1.Controls.Add(BoxCreateListName);
+            panel1.Controls.Add(TxtCreateListDescription);
+            panel1.Controls.Add(BoxCreateListDescription);
+            panel1.Location = new Point(6, 6);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(535, 576);
+            panel1.TabIndex = 6;
+            // 
+            // TxtCreatListeName
+            // 
+            TxtCreatListeName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtCreatListeName.Location = new Point(71, 199);
+            TxtCreatListeName.Name = "TxtCreatListeName";
+            TxtCreatListeName.Size = new Size(393, 23);
+            TxtCreatListeName.TabIndex = 0;
+            TxtCreatListeName.Text = "label2";
+            // 
             // TxtCreateListMessage
             // 
-            TxtCreateListMessage.Anchor = AnchorStyles.None;
-            TxtCreateListMessage.Location = new Point(57, 255);
+            TxtCreateListMessage.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtCreateListMessage.Location = new Point(71, 303);
             TxtCreateListMessage.Name = "TxtCreateListMessage";
             TxtCreateListMessage.Size = new Size(393, 23);
             TxtCreateListMessage.TabIndex = 5;
             TxtCreateListMessage.Text = "label4";
             // 
+            // BoxCreateListName
+            // 
+            BoxCreateListName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            BoxCreateListName.Location = new Point(71, 225);
+            BoxCreateListName.Name = "BoxCreateListName";
+            BoxCreateListName.Size = new Size(393, 23);
+            BoxCreateListName.TabIndex = 3;
+            // 
+            // TxtCreateListDescription
+            // 
+            TxtCreateListDescription.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtCreateListDescription.Location = new Point(71, 251);
+            TxtCreateListDescription.Name = "TxtCreateListDescription";
+            TxtCreateListDescription.Size = new Size(393, 23);
+            TxtCreateListDescription.TabIndex = 1;
+            TxtCreateListDescription.Text = "label3";
+            // 
+            // BoxCreateListDescription
+            // 
+            BoxCreateListDescription.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            BoxCreateListDescription.Location = new Point(71, 277);
+            BoxCreateListDescription.Name = "BoxCreateListDescription";
+            BoxCreateListDescription.Size = new Size(393, 23);
+            BoxCreateListDescription.TabIndex = 2;
+            // 
             // BtnCreateList
             // 
             BtnCreateList.Anchor = AnchorStyles.None;
-            BtnCreateList.Location = new Point(556, 160);
+            BtnCreateList.Location = new Point(571, 175);
             BtnCreateList.Name = "BtnCreateList";
             BtnCreateList.Size = new Size(71, 67);
             BtnCreateList.TabIndex = 4;
             BtnCreateList.Text = "button1";
             BtnCreateList.UseVisualStyleBackColor = true;
             BtnCreateList.Click += BtnCreateList_Click;
-            // 
-            // BoxCreateListName
-            // 
-            BoxCreateListName.Anchor = AnchorStyles.None;
-            BoxCreateListName.Location = new Point(57, 124);
-            BoxCreateListName.Name = "BoxCreateListName";
-            BoxCreateListName.Size = new Size(393, 23);
-            BoxCreateListName.TabIndex = 3;
-            // 
-            // BoxCreateListDescription
-            // 
-            BoxCreateListDescription.Anchor = AnchorStyles.None;
-            BoxCreateListDescription.Location = new Point(57, 212);
-            BoxCreateListDescription.Name = "BoxCreateListDescription";
-            BoxCreateListDescription.Size = new Size(393, 23);
-            BoxCreateListDescription.TabIndex = 2;
-            // 
-            // TxtCreateListDescription
-            // 
-            TxtCreateListDescription.Anchor = AnchorStyles.None;
-            TxtCreateListDescription.Location = new Point(57, 186);
-            TxtCreateListDescription.Name = "TxtCreateListDescription";
-            TxtCreateListDescription.Size = new Size(393, 23);
-            TxtCreateListDescription.TabIndex = 1;
-            TxtCreateListDescription.Text = "label3";
-            // 
-            // TxtCreatListeName
-            // 
-            TxtCreatListeName.Anchor = AnchorStyles.None;
-            TxtCreatListeName.Location = new Point(57, 98);
-            TxtCreatListeName.Name = "TxtCreatListeName";
-            TxtCreatListeName.Size = new Size(393, 23);
-            TxtCreatListeName.TabIndex = 0;
-            TxtCreatListeName.Text = "label2";
             // 
             // TabCreateCompany
             // 
@@ -240,7 +254,7 @@
             TabCreateCompany.Location = new Point(4, 24);
             TabCreateCompany.Name = "TabCreateCompany";
             TabCreateCompany.Padding = new Padding(3);
-            TabCreateCompany.Size = new Size(1050, 558);
+            TabCreateCompany.Size = new Size(1080, 588);
             TabCreateCompany.TabIndex = 2;
             TabCreateCompany.Text = "Nova Empresa";
             TabCreateCompany.UseVisualStyleBackColor = true;
@@ -354,7 +368,7 @@
             TabCreateCards.Location = new Point(4, 24);
             TabCreateCards.Name = "TabCreateCards";
             TabCreateCards.Padding = new Padding(3);
-            TabCreateCards.Size = new Size(1050, 558);
+            TabCreateCards.Size = new Size(1080, 588);
             TabCreateCards.TabIndex = 3;
             TabCreateCards.Text = "Novas Cartelas";
             TabCreateCards.UseVisualStyleBackColor = true;
@@ -365,7 +379,7 @@
             TabEditPage.Location = new Point(4, 24);
             TabEditPage.Name = "TabEditPage";
             TabEditPage.Padding = new Padding(3);
-            TabEditPage.Size = new Size(1070, 598);
+            TabEditPage.Size = new Size(1094, 622);
             TabEditPage.TabIndex = 2;
             TabEditPage.Text = "Editar";
             TabEditPage.UseVisualStyleBackColor = true;
@@ -376,10 +390,11 @@
             EditPage.Controls.Add(TabEditList);
             EditPage.Controls.Add(TabEditCompany);
             EditPage.Controls.Add(TabEditCards);
-            EditPage.Location = new Point(6, 6);
+            EditPage.Dock = DockStyle.Fill;
+            EditPage.Location = new Point(3, 3);
             EditPage.Name = "EditPage";
             EditPage.SelectedIndex = 0;
-            EditPage.Size = new Size(1058, 589);
+            EditPage.Size = new Size(1088, 616);
             EditPage.TabIndex = 0;
             // 
             // TabEditMain
@@ -387,13 +402,14 @@
             TabEditMain.Location = new Point(4, 24);
             TabEditMain.Name = "TabEditMain";
             TabEditMain.Padding = new Padding(3);
-            TabEditMain.Size = new Size(1050, 561);
+            TabEditMain.Size = new Size(1080, 588);
             TabEditMain.TabIndex = 0;
             TabEditMain.Text = "Início";
             TabEditMain.UseVisualStyleBackColor = true;
             // 
             // TabEditList
             // 
+            TabEditList.Controls.Add(TxtEditListMsg);
             TabEditList.Controls.Add(TxtEditListSel);
             TabEditList.Controls.Add(TxtEditListAll);
             TabEditList.Controls.Add(BtnEditRemoveCL);
@@ -405,14 +421,15 @@
             TabEditList.Location = new Point(4, 24);
             TabEditList.Name = "TabEditList";
             TabEditList.Padding = new Padding(3);
-            TabEditList.Size = new Size(1050, 561);
+            TabEditList.Size = new Size(1080, 588);
             TabEditList.TabIndex = 1;
             TabEditList.Text = "Editar Listas";
             TabEditList.UseVisualStyleBackColor = true;
             // 
             // TxtEditListSel
             // 
-            TxtEditListSel.Location = new Point(551, 56);
+            TxtEditListSel.Anchor = AnchorStyles.None;
+            TxtEditListSel.Location = new Point(565, 34);
             TxtEditListSel.Name = "TxtEditListSel";
             TxtEditListSel.Size = new Size(488, 23);
             TxtEditListSel.TabIndex = 7;
@@ -420,7 +437,8 @@
             // 
             // TxtEditListAll
             // 
-            TxtEditListAll.Location = new Point(11, 56);
+            TxtEditListAll.Anchor = AnchorStyles.None;
+            TxtEditListAll.Location = new Point(26, 34);
             TxtEditListAll.Name = "TxtEditListAll";
             TxtEditListAll.Size = new Size(487, 23);
             TxtEditListAll.TabIndex = 6;
@@ -428,58 +446,42 @@
             // 
             // BtnEditRemoveCL
             // 
-            BtnEditRemoveCL.Location = new Point(510, 253);
+            BtnEditRemoveCL.Anchor = AnchorStyles.None;
+            BtnEditRemoveCL.Location = new Point(519, 208);
             BtnEditRemoveCL.Name = "BtnEditRemoveCL";
-            BtnEditRemoveCL.Size = new Size(30, 30);
+            BtnEditRemoveCL.Size = new Size(41, 41);
             BtnEditRemoveCL.TabIndex = 5;
             BtnEditRemoveCL.Text = "button2";
             BtnEditRemoveCL.UseVisualStyleBackColor = true;
             // 
             // BtnEditAddCL
             // 
-            BtnEditAddCL.Location = new Point(510, 194);
+            BtnEditAddCL.Anchor = AnchorStyles.None;
+            BtnEditAddCL.Location = new Point(519, 161);
             BtnEditAddCL.Name = "BtnEditAddCL";
-            BtnEditAddCL.Size = new Size(30, 30);
+            BtnEditAddCL.Size = new Size(41, 41);
             BtnEditAddCL.TabIndex = 4;
             BtnEditAddCL.Text = "button1";
             BtnEditAddCL.UseVisualStyleBackColor = true;
+            BtnEditAddCL.Click += BtnEditAddCL_Click;
             // 
             // CboEditListSel
             // 
+            CboEditListSel.Anchor = AnchorStyles.None;
             CboEditListSel.FormattingEnabled = true;
-            CboEditListSel.Location = new Point(551, 82);
+            CboEditListSel.Location = new Point(565, 60);
             CboEditListSel.Name = "CboEditListSel";
             CboEditListSel.Size = new Size(488, 23);
             CboEditListSel.TabIndex = 3;
             // 
             // BoxEditFilterCL
             // 
-            BoxEditFilterCL.Location = new Point(11, 82);
+            BoxEditFilterCL.Anchor = AnchorStyles.None;
+            BoxEditFilterCL.Location = new Point(24, 60);
             BoxEditFilterCL.Name = "BoxEditFilterCL";
             BoxEditFilterCL.Size = new Size(487, 23);
             BoxEditFilterCL.TabIndex = 2;
             BoxEditFilterCL.TextChanged += BoxEditFilterCL_TextChanged;
-            // 
-            // PnlEditAllCompany
-            // 
-            PnlEditAllCompany.Anchor = AnchorStyles.None;
-            PnlEditAllCompany.AutoScroll = true;
-            PnlEditAllCompany.AutoSize = true;
-            PnlEditAllCompany.BackColor = Color.Black;
-            PnlEditAllCompany.Controls.Add(FlowEditViewAll);
-            PnlEditAllCompany.Location = new Point(11, 111);
-            PnlEditAllCompany.Name = "PnlEditAllCompany";
-            PnlEditAllCompany.Size = new Size(487, 439);
-            PnlEditAllCompany.TabIndex = 0;
-            // 
-            // FlowEditViewAll
-            // 
-            FlowEditViewAll.BackColor = Color.Gray;
-            FlowEditViewAll.Dock = DockStyle.Fill;
-            FlowEditViewAll.Location = new Point(0, 0);
-            FlowEditViewAll.Name = "FlowEditViewAll";
-            FlowEditViewAll.Size = new Size(487, 439);
-            FlowEditViewAll.TabIndex = 0;
             // 
             // PnlEditSelList
             // 
@@ -488,26 +490,47 @@
             PnlEditSelList.AutoSize = true;
             PnlEditSelList.BackColor = Color.Black;
             PnlEditSelList.Controls.Add(FlowEditViewSel);
-            PnlEditSelList.Location = new Point(551, 111);
+            PnlEditSelList.Location = new Point(566, 89);
             PnlEditSelList.Name = "PnlEditSelList";
-            PnlEditSelList.Size = new Size(488, 439);
+            PnlEditSelList.Size = new Size(488, 442);
             PnlEditSelList.TabIndex = 1;
             // 
             // FlowEditViewSel
             // 
+            FlowEditViewSel.Anchor = AnchorStyles.None;
             FlowEditViewSel.BackColor = Color.Gray;
-            FlowEditViewSel.Dock = DockStyle.Fill;
-            FlowEditViewSel.Location = new Point(0, 0);
+            FlowEditViewSel.Location = new Point(-1, 0);
             FlowEditViewSel.Name = "FlowEditViewSel";
             FlowEditViewSel.Size = new Size(488, 439);
             FlowEditViewSel.TabIndex = 0;
+            // 
+            // PnlEditAllCompany
+            // 
+            PnlEditAllCompany.Anchor = AnchorStyles.None;
+            PnlEditAllCompany.AutoScroll = true;
+            PnlEditAllCompany.AutoSize = true;
+            PnlEditAllCompany.BackColor = Color.Black;
+            PnlEditAllCompany.Controls.Add(FlowEditViewAll);
+            PnlEditAllCompany.Location = new Point(26, 89);
+            PnlEditAllCompany.Name = "PnlEditAllCompany";
+            PnlEditAllCompany.Size = new Size(487, 442);
+            PnlEditAllCompany.TabIndex = 0;
+            // 
+            // FlowEditViewAll
+            // 
+            FlowEditViewAll.Anchor = AnchorStyles.None;
+            FlowEditViewAll.BackColor = Color.Gray;
+            FlowEditViewAll.Location = new Point(-2, 0);
+            FlowEditViewAll.Name = "FlowEditViewAll";
+            FlowEditViewAll.Size = new Size(487, 439);
+            FlowEditViewAll.TabIndex = 0;
             // 
             // TabEditCompany
             // 
             TabEditCompany.Location = new Point(4, 24);
             TabEditCompany.Name = "TabEditCompany";
             TabEditCompany.Padding = new Padding(3);
-            TabEditCompany.Size = new Size(1050, 561);
+            TabEditCompany.Size = new Size(1080, 588);
             TabEditCompany.TabIndex = 2;
             TabEditCompany.Text = "Editar Empresas";
             TabEditCompany.UseVisualStyleBackColor = true;
@@ -517,7 +540,7 @@
             TabEditCards.Location = new Point(4, 24);
             TabEditCards.Name = "TabEditCards";
             TabEditCards.Padding = new Padding(3);
-            TabEditCards.Size = new Size(1050, 561);
+            TabEditCards.Size = new Size(1080, 588);
             TabEditCards.TabIndex = 3;
             TabEditCards.Text = "Editar Cartelas";
             TabEditCards.UseVisualStyleBackColor = true;
@@ -527,10 +550,19 @@
             TabPlayPage.Location = new Point(4, 24);
             TabPlayPage.Name = "TabPlayPage";
             TabPlayPage.Padding = new Padding(3);
-            TabPlayPage.Size = new Size(1070, 598);
+            TabPlayPage.Size = new Size(1094, 622);
             TabPlayPage.TabIndex = 3;
             TabPlayPage.Text = "Jogar";
             TabPlayPage.UseVisualStyleBackColor = true;
+            // 
+            // TxtEditListMsg
+            // 
+            TxtEditListMsg.Anchor = AnchorStyles.None;
+            TxtEditListMsg.Location = new Point(344, 553);
+            TxtEditListMsg.Name = "TxtEditListMsg";
+            TxtEditListMsg.Size = new Size(392, 23);
+            TxtEditListMsg.TabIndex = 8;
+            TxtEditListMsg.Text = "label6";
             // 
             // MainView
             // 
@@ -539,13 +571,16 @@
             ClientSize = new Size(1102, 650);
             Controls.Add(MainPage);
             Name = "MainView";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
+            WindowState = FormWindowState.Maximized;
             MainPage.ResumeLayout(false);
             TabCreatePage.ResumeLayout(false);
             CreatePage.ResumeLayout(false);
             TabCreateMain.ResumeLayout(false);
             TabCreateList.ResumeLayout(false);
-            TabCreateList.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             TabCreateCompany.ResumeLayout(false);
             TabCreateCompany.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PicCreateCompanyLogo).EndInit();
@@ -553,8 +588,8 @@
             EditPage.ResumeLayout(false);
             TabEditList.ResumeLayout(false);
             TabEditList.PerformLayout();
-            PnlEditAllCompany.ResumeLayout(false);
             PnlEditSelList.ResumeLayout(false);
+            PnlEditAllCompany.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -605,5 +640,7 @@
         private TextBox BoxEditFilterCL;
         private Label TxtEditListSel;
         private Label TxtEditListAll;
+        private Panel panel1;
+        private Label TxtEditListMsg;
     }
 }
