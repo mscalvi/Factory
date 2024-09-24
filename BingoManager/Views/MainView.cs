@@ -23,6 +23,8 @@ namespace BingoManager
                 ShowAlways = true
             };
 
+            CreateCardLoadLists();
+
             EditListConfigureLayout();
             EditListLoadLists();
             EditListLoadAllComp();
@@ -160,7 +162,7 @@ namespace BingoManager
                 CboEditListSel.Items.Add(new { Text = listName, Value = listId });
             }
 
-            CboEditListSel.DisplayMember = "Text"; 
+            CboEditListSel.DisplayMember = "Text";
             CboEditListSel.ValueMember = "Value";
         }
 
@@ -289,8 +291,8 @@ namespace BingoManager
             // Obter o ID da lista selecionada no ComboBox
             if (CboEditListSel.SelectedItem != null)
             {
-                var selectedList = CboEditListSel.SelectedItem as dynamic; 
-                string selectedListId = selectedList.Value; 
+                var selectedList = CboEditListSel.SelectedItem as dynamic;
+                string selectedListId = selectedList.Value;
 
                 if (selectedCompanies.Count > 0)
                 {
@@ -306,6 +308,30 @@ namespace BingoManager
             {
                 MessageBox.Show("Nenhuma lista foi selecionada.");
             }
+        }
+
+        private void CreateCardLoadLists()
+        {
+            DataTable listsTable = DataService.GetLists();
+
+            CboCreateCardsList.Items.Clear();
+
+            foreach (DataRow row in listsTable.Rows)
+            {
+                string listName = row["Name"].ToString();
+                string listId = row["Id"].ToString();
+
+                CboCreateCardsList.Items.Add(new { Text = listName, Value = listId });
+            }
+
+            CboCreateCardsList.DisplayMember = "Text";
+            CboCreateCardsList.ValueMember = "Value";
+        }
+
+        private void BtnCreateCards_Click(object sender, EventArgs e)
+        {
+            string CardsQuant = BoxCreateCardsQuant.Text.Trim();
+
         }
     }
 }

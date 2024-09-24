@@ -1,11 +1,3 @@
-C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.csproj.AssemblyReference.cache
-C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.MainView.resources
-C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.csproj.GenerateResource.cache
-C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.AssemblyInfoInputs.cache
-C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.AssemblyInfo.cs
-C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.csproj.CoreCompileInputs.cache
-C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.sourcelink.json
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\bin\Debug\net8.0-windows\BingoManager.exe
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\bin\Debug\net8.0-windows\BingoManager.deps.json
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\bin\Debug\net8.0-windows\BingoManager.runtimeconfig.json
@@ -31,6 +23,14 @@ C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\bin\Debug\net8.0-windows\ru
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\bin\Debug\net8.0-windows\runtimes\win-x86\native\SQLite.Interop.dll
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\bin\Debug\net8.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\bin\Debug\net8.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.csproj.AssemblyReference.cache
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.MainView.resources
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.csproj.GenerateResource.cache
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.AssemblyInfoInputs.cache
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.AssemblyInfo.cs
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.csproj.CoreCompileInputs.cache
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.sourcelink.json
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoMan.1752FEC1.Up2Date
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.dll
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\refint\BingoManager.dll
