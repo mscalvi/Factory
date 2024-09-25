@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System;
 using System.Data;
 using System.Data.SQLite;
-using System.Data.SqlClient;
 
 
 namespace BingoManager.Services
@@ -231,7 +230,7 @@ namespace BingoManager.Services
         //Método para inserir empresas em uma lista
         public static void AddCompaniesToAllocation(string listId, List<string> companyIds)
         {
-            using (var connection = GetConnection()) 
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -248,6 +247,64 @@ namespace BingoManager.Services
                     }
                 }
             }
+        }
+
+        //Método para contar o número de empresas em uma lista
+        public static int CountCompaniesInList(int listId)
+        {
+            int companyCount = 0;
+
+            string query = "SELECT COUNT(*) FROM AlocacaoTable WHERE ListId = @ListId";
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ListId", listId);
+
+                    var result = command.ExecuteScalar();
+                    companyCount = (result != null) ? Convert.ToInt32(result) : 0;
+                }
+            }
+
+            return companyCount;
+        }
+
+        //Método para pegar todas as empresas de uma lista
+        public static List<DataRow> GetCompaniesByListId(int listId)
+        {
+            List<DataRow> companyList = new List<DataRow>();
+
+            // Consulta SQL para buscar apenas as colunas necessárias
+            string query = "SELECT c.Id, c.Name, c.Logo " +
+                           "FROM CompanyTable c " +
+                           "INNER JOIN AlocacaoTable a ON c.Id = a.CompanyId " +
+                           "WHERE a.ListId = @ListId";
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    // Adicionando o parâmetro para a lista
+                    command.Parameters.AddWithValue("@ListId", listId);
+
+                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                    {
+                        // Preenche um DataTable com os resultados da consulta
+                        DataTable companiesTable = new DataTable();
+                        adapter.Fill(companiesTable);
+
+                        // Converte as linhas do DataTable em uma lista de DataRow
+                        companyList = companiesTable.AsEnumerable().ToList();
+                    }
+                }
+            }
+
+            return companyList;
         }
     }
 }

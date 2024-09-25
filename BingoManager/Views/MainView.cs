@@ -157,7 +157,7 @@ namespace BingoManager
             foreach (DataRow row in listsTable.Rows)
             {
                 string listName = row["Name"].ToString();
-                string listId = row["Id"].ToString();
+                int listId = Convert.ToInt32(row["Id"]);
 
                 CboEditListSel.Items.Add(new { Text = listName, Value = listId });
             }
@@ -259,6 +259,92 @@ namespace BingoManager
             }
         }
 
+        private void CboEditListSel_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (CboEditListSel.SelectedItem != null)
+            {
+                int selectedListId = (int)(CboEditListSel.SelectedItem as dynamic).Value;
+
+                List<DataRow> companyList = DataService.GetCompaniesByListId(selectedListId);
+
+                EditListShowSel(companyList);
+            }
+        }
+
+        private void EditListShowSel(List<DataRow> CompList)
+        {
+            FlowEditViewSel.Controls.Clear();  // Altere para o painel correto
+
+            foreach (DataRow row in CompList)
+            {
+                string CompanyId = row["Id"].ToString();
+                string companyName = row["Name"].ToString();
+                string logoName = row["Logo"].ToString();
+                string companyFull = companyName;
+
+                if (companyName.Length > 10)
+                {
+                    companyFull = companyName;
+                    companyName = companyName.Substring(0, 10);
+                }
+
+                Panel companyPanel = new Panel();
+                companyPanel.Width = 100;
+                companyPanel.Height = 70;
+                companyPanel.Margin = new Padding(1);
+
+                companyPanel.Tag = CompanyId;
+
+                PictureBox picBox = new PictureBox();
+                if (!string.IsNullOrEmpty(logoName))
+                {
+                    picBox.Image = Image.FromFile(@"Images/" + logoName);
+                }
+                else
+                {
+                    picBox.Image = Image.FromFile(@"Images/default_logo.png");
+                }
+
+                picBox.SizeMode = PictureBoxSizeMode.Zoom;
+                picBox.Width = 75;
+                picBox.Height = 50;
+                picBox.Location = new Point(20, 5);
+
+                CheckBox chkBox = new CheckBox();
+                chkBox.Width = 20;
+                chkBox.Height = 20;
+                chkBox.Location = new Point(0, 50);
+
+                Label lblName = new Label();
+                lblName.Text = companyName;
+                lblName.Width = 70;
+                lblName.Height = 20;
+                lblName.Location = new Point(22, 50);
+                lblName.TextAlign = ContentAlignment.MiddleLeft;
+
+                toolTip.SetToolTip(picBox, companyFull);
+                toolTip.SetToolTip(lblName, companyFull);
+
+                chkBox.CheckedChanged += (sender, e) =>
+                {
+                    if (chkBox.Checked)
+                    {
+                        companyPanel.BackColor = Color.LightBlue;
+                    }
+                    else
+                    {
+                        companyPanel.BackColor = Color.LightGray;
+                    }
+                };
+
+                companyPanel.Controls.Add(picBox);
+                companyPanel.Controls.Add(chkBox);
+                companyPanel.Controls.Add(lblName);
+
+                FlowEditViewSel.Controls.Add(companyPanel);  // Altere para o painel correto
+            }
+        }
+
         private void BoxEditFilterCL_TextChanged(object sender, EventArgs e)
         {
             string filterText = BoxEditFilterCL.Text.ToLower();
@@ -319,7 +405,7 @@ namespace BingoManager
             foreach (DataRow row in listsTable.Rows)
             {
                 string listName = row["Name"].ToString();
-                string listId = row["Id"].ToString();
+                int listId = Convert.ToInt32(row["Id"]);
 
                 CboCreateCardsList.Items.Add(new { Text = listName, Value = listId });
             }
@@ -330,8 +416,54 @@ namespace BingoManager
 
         private void BtnCreateCards_Click(object sender, EventArgs e)
         {
-            string CardsQuant = BoxCreateCardsQuant.Text.Trim();
+            int Qnt;
 
+            string CardsQuant = BoxCreateCardsQuant.Text.Trim();
+            string CardsEnd = BoxCreateCardsEnd.Text.Trim();
+            string CardsTitle = BoxCreateCardsTitle.Text.Trim();
+            bool Center;
+
+            if (CboCreateCardsList.SelectedItem != null)
+            {
+                int CardsList = (int)(CboCreateCardsList.SelectedItem as dynamic).Value;
+
+                int CompanyCount = DataService.CountCompaniesInList(CardsList);
+
+                if (CompanyCount < 40)
+                {
+                    TxtCreateCardsMsg.Text = "A lista deve ter pelo menos 40 empresas, a lista " + CardsList + " tem apenas " + CompanyCount + "!";
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(CardsTitle))
+                {
+                    TxtCreateCardsMsg.Text = "Insira um título para as cartelas!";
+                    return;
+                }
+
+                if (int.TryParse(CardsQuant, out Qnt))
+                {
+                    if (RadCreateCardsCenter0.Checked)
+                    {
+                        Center = false;
+                        CardsService.CreateCards(CardsList, CompanyCount, Center, Qnt, CardsTitle, CardsEnd);
+                    }
+                    else
+                    {
+                        Center = true;
+                        CardsService.CreateCards(CardsList, CompanyCount, Center, Qnt, CardsTitle, CardsEnd);
+                    }
+                }
+                else
+                {
+                    TxtCreateCardsMsg.Text = "Apenas números na quantidade!";
+                    return;
+                }
+            }
+            else
+            {
+                TxtCreateCardsMsg.Text = "Selecione uma lista!";
+            }
         }
     }
 }

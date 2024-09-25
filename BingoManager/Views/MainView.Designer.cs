@@ -58,6 +58,8 @@
             label3 = new Label();
             label2 = new Label();
             TabCreateCards = new TabPage();
+            TxtCreateCardsMsg = new Label();
+            BtnCreateCards = new Button();
             TxtCreatCardsEnd = new Label();
             TxtCreateCardsTitle = new Label();
             TxtCreateCardsQuant = new Label();
@@ -87,7 +89,6 @@
             TabEditCompany = new TabPage();
             TabEditCards = new TabPage();
             TabPlayPage = new TabPage();
-            BtnCreateCards = new Button();
             MainPage.SuspendLayout();
             TabCreatePage.SuspendLayout();
             CreatePage.SuspendLayout();
@@ -379,6 +380,7 @@
             // 
             // TabCreateCards
             // 
+            TabCreateCards.Controls.Add(TxtCreateCardsMsg);
             TabCreateCards.Controls.Add(BtnCreateCards);
             TabCreateCards.Controls.Add(TxtCreatCardsEnd);
             TabCreateCards.Controls.Add(TxtCreateCardsTitle);
@@ -396,6 +398,24 @@
             TabCreateCards.TabIndex = 3;
             TabCreateCards.Text = "Novas Cartelas";
             TabCreateCards.UseVisualStyleBackColor = true;
+            // 
+            // TxtCreateCardsMsg
+            // 
+            TxtCreateCardsMsg.Location = new Point(101, 417);
+            TxtCreateCardsMsg.Name = "TxtCreateCardsMsg";
+            TxtCreateCardsMsg.Size = new Size(361, 64);
+            TxtCreateCardsMsg.TabIndex = 10;
+            TxtCreateCardsMsg.Text = "label6";
+            // 
+            // BtnCreateCards
+            // 
+            BtnCreateCards.Location = new Point(630, 257);
+            BtnCreateCards.Name = "BtnCreateCards";
+            BtnCreateCards.Size = new Size(117, 39);
+            BtnCreateCards.TabIndex = 9;
+            BtnCreateCards.Text = "button1";
+            BtnCreateCards.UseVisualStyleBackColor = true;
+            BtnCreateCards.Click += BtnCreateCards_Click;
             // 
             // TxtCreatCardsEnd
             // 
@@ -604,6 +624,7 @@
             CboEditListSel.Name = "CboEditListSel";
             CboEditListSel.Size = new Size(488, 23);
             CboEditListSel.TabIndex = 3;
+            CboEditListSel.SelectedValueChanged += CboEditListSel_SelectedValueChanged;
             // 
             // BoxEditFilterCL
             // 
@@ -685,16 +706,6 @@
             TabPlayPage.TabIndex = 3;
             TabPlayPage.Text = "Jogar";
             TabPlayPage.UseVisualStyleBackColor = true;
-            // 
-            // BtnCreateCards
-            // 
-            BtnCreateCards.Location = new Point(630, 257);
-            BtnCreateCards.Name = "BtnCreateCards";
-            BtnCreateCards.Size = new Size(117, 39);
-            BtnCreateCards.TabIndex = 9;
-            BtnCreateCards.Text = "button1";
-            BtnCreateCards.UseVisualStyleBackColor = true;
-            BtnCreateCards.Click += BtnCreateCards_Click;
             // 
             // MainView
             // 
@@ -790,5 +801,6 @@
         private TextBox BoxCreateCardsTitle;
         private TextBox BoxCreateCardsQuant;
         private Button BtnCreateCards;
+        private Label TxtCreateCardsMsg;
     }
 }
