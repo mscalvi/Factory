@@ -37,9 +37,10 @@
             label1 = new Label();
             TabCreateList = new TabPage();
             panel1 = new Panel();
+            TxtCreateListTitle = new Label();
+            TxtCreateListMessage = new Label();
             BtnCreateList = new Button();
             TxtCreatListeName = new Label();
-            TxtCreateListMessage = new Label();
             BoxCreateListName = new TextBox();
             TxtCreateListDescription = new Label();
             BoxCreateListDescription = new TextBox();
@@ -89,7 +90,8 @@
             TabEditCompany = new TabPage();
             TabEditCards = new TabPage();
             TabPlayPage = new TabPage();
-            TxtCreateListTitle = new Label();
+            panel2 = new Panel();
+            TxtCreateCompanyTitle = new Label();
             MainPage.SuspendLayout();
             TabCreatePage.SuspendLayout();
             CreatePage.SuspendLayout();
@@ -105,6 +107,7 @@
             TabEditList.SuspendLayout();
             PnlEditSelList.SuspendLayout();
             PnlEditAllCompany.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // MainPage
@@ -200,6 +203,25 @@
             panel1.Size = new Size(1074, 582);
             panel1.TabIndex = 6;
             // 
+            // TxtCreateListTitle
+            // 
+            TxtCreateListTitle.Anchor = AnchorStyles.Top;
+            TxtCreateListTitle.Font = new Font("Segoe UI", 15F);
+            TxtCreateListTitle.Location = new Point(3, 0);
+            TxtCreateListTitle.Name = "TxtCreateListTitle";
+            TxtCreateListTitle.Size = new Size(1068, 112);
+            TxtCreateListTitle.TabIndex = 6;
+            TxtCreateListTitle.Text = "Nova Lista";
+            TxtCreateListTitle.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // TxtCreateListMessage
+            // 
+            TxtCreateListMessage.Anchor = AnchorStyles.Top;
+            TxtCreateListMessage.Location = new Point(71, 508);
+            TxtCreateListMessage.Name = "TxtCreateListMessage";
+            TxtCreateListMessage.Size = new Size(932, 23);
+            TxtCreateListMessage.TabIndex = 5;
+            // 
             // BtnCreateList
             // 
             BtnCreateList.Anchor = AnchorStyles.Top;
@@ -219,14 +241,6 @@
             TxtCreatListeName.Size = new Size(1068, 23);
             TxtCreatListeName.TabIndex = 0;
             TxtCreatListeName.Text = "Nome";
-            // 
-            // TxtCreateListMessage
-            // 
-            TxtCreateListMessage.Anchor = AnchorStyles.Top;
-            TxtCreateListMessage.Location = new Point(71, 508);
-            TxtCreateListMessage.Name = "TxtCreateListMessage";
-            TxtCreateListMessage.Size = new Size(932, 23);
-            TxtCreateListMessage.TabIndex = 5;
             // 
             // BoxCreateListName
             // 
@@ -256,19 +270,7 @@
             // 
             // TabCreateCompany
             // 
-            TabCreateCompany.Controls.Add(BoxCreateCompanyEmail);
-            TabCreateCompany.Controls.Add(BoxCreateCompanyPhone);
-            TabCreateCompany.Controls.Add(BoxCreateCompanyCardName);
-            TabCreateCompany.Controls.Add(BoxCreateCompanyName);
-            TabCreateCompany.Controls.Add(PicCreateCompanyLogo);
-            TabCreateCompany.Controls.Add(BtnCreateCompany);
-            TabCreateCompany.Controls.Add(BtnFindLogo);
-            TabCreateCompany.Controls.Add(label7);
-            TabCreateCompany.Controls.Add(TxtCreateCompanyMessage);
-            TabCreateCompany.Controls.Add(label5);
-            TabCreateCompany.Controls.Add(label4);
-            TabCreateCompany.Controls.Add(label3);
-            TabCreateCompany.Controls.Add(label2);
+            TabCreateCompany.Controls.Add(panel2);
             TabCreateCompany.Location = new Point(4, 24);
             TabCreateCompany.Name = "TabCreateCompany";
             TabCreateCompany.Padding = new Padding(3);
@@ -279,35 +281,40 @@
             // 
             // BoxCreateCompanyEmail
             // 
-            BoxCreateCompanyEmail.Location = new Point(68, 358);
+            BoxCreateCompanyEmail.Anchor = AnchorStyles.Top;
+            BoxCreateCompanyEmail.Location = new Point(3, 351);
             BoxCreateCompanyEmail.Name = "BoxCreateCompanyEmail";
-            BoxCreateCompanyEmail.Size = new Size(385, 23);
+            BoxCreateCompanyEmail.Size = new Size(1068, 23);
             BoxCreateCompanyEmail.TabIndex = 12;
             // 
             // BoxCreateCompanyPhone
             // 
-            BoxCreateCompanyPhone.Location = new Point(68, 280);
+            BoxCreateCompanyPhone.Anchor = AnchorStyles.Top;
+            BoxCreateCompanyPhone.Location = new Point(3, 277);
             BoxCreateCompanyPhone.Name = "BoxCreateCompanyPhone";
-            BoxCreateCompanyPhone.Size = new Size(385, 23);
+            BoxCreateCompanyPhone.Size = new Size(1068, 23);
             BoxCreateCompanyPhone.TabIndex = 11;
             // 
             // BoxCreateCompanyCardName
             // 
-            BoxCreateCompanyCardName.Location = new Point(68, 202);
+            BoxCreateCompanyCardName.Anchor = AnchorStyles.Top;
+            BoxCreateCompanyCardName.Location = new Point(3, 203);
             BoxCreateCompanyCardName.Name = "BoxCreateCompanyCardName";
-            BoxCreateCompanyCardName.Size = new Size(385, 23);
+            BoxCreateCompanyCardName.Size = new Size(1068, 23);
             BoxCreateCompanyCardName.TabIndex = 10;
             // 
             // BoxCreateCompanyName
             // 
-            BoxCreateCompanyName.Location = new Point(68, 124);
+            BoxCreateCompanyName.Anchor = AnchorStyles.Top;
+            BoxCreateCompanyName.Location = new Point(3, 129);
             BoxCreateCompanyName.Name = "BoxCreateCompanyName";
-            BoxCreateCompanyName.Size = new Size(385, 23);
+            BoxCreateCompanyName.Size = new Size(1068, 23);
             BoxCreateCompanyName.TabIndex = 9;
             // 
             // PicCreateCompanyLogo
             // 
-            PicCreateCompanyLogo.Location = new Point(581, 197);
+            PicCreateCompanyLogo.Anchor = AnchorStyles.Top;
+            PicCreateCompanyLogo.Location = new Point(165, 414);
             PicCreateCompanyLogo.Name = "PicCreateCompanyLogo";
             PicCreateCompanyLogo.Size = new Size(271, 163);
             PicCreateCompanyLogo.TabIndex = 8;
@@ -315,9 +322,10 @@
             // 
             // BtnCreateCompany
             // 
-            BtnCreateCompany.Location = new Point(675, 407);
+            BtnCreateCompany.Anchor = AnchorStyles.Top;
+            BtnCreateCompany.Location = new Point(731, 414);
             BtnCreateCompany.Name = "BtnCreateCompany";
-            BtnCreateCompany.Size = new Size(75, 23);
+            BtnCreateCompany.Size = new Size(105, 82);
             BtnCreateCompany.TabIndex = 7;
             BtnCreateCompany.Text = "Criar Empresa";
             BtnCreateCompany.UseVisualStyleBackColor = true;
@@ -325,9 +333,10 @@
             // 
             // BtnFindLogo
             // 
-            BtnFindLogo.Location = new Point(675, 168);
+            BtnFindLogo.Anchor = AnchorStyles.Top;
+            BtnFindLogo.Location = new Point(31, 452);
             BtnFindLogo.Name = "BtnFindLogo";
-            BtnFindLogo.Size = new Size(75, 23);
+            BtnFindLogo.Size = new Size(104, 71);
             BtnFindLogo.TabIndex = 6;
             BtnFindLogo.Text = "Procurar";
             BtnFindLogo.UseVisualStyleBackColor = true;
@@ -335,22 +344,25 @@
             // 
             // label7
             // 
-            label7.Location = new Point(581, 142);
+            label7.Anchor = AnchorStyles.Top;
+            label7.Location = new Point(3, 388);
             label7.Name = "label7";
-            label7.Size = new Size(271, 23);
+            label7.Size = new Size(1068, 23);
             label7.TabIndex = 5;
             label7.Text = "Logo";
             // 
             // TxtCreateCompanyMessage
             // 
-            TxtCreateCompanyMessage.Location = new Point(68, 411);
+            TxtCreateCompanyMessage.Anchor = AnchorStyles.Top;
+            TxtCreateCompanyMessage.Location = new Point(589, 499);
             TxtCreateCompanyMessage.Name = "TxtCreateCompanyMessage";
-            TxtCreateCompanyMessage.Size = new Size(385, 23);
+            TxtCreateCompanyMessage.Size = new Size(385, 71);
             TxtCreateCompanyMessage.TabIndex = 4;
             // 
             // label5
             // 
-            label5.Location = new Point(68, 332);
+            label5.Anchor = AnchorStyles.Top;
+            label5.Location = new Point(0, 314);
             label5.Name = "label5";
             label5.Size = new Size(385, 23);
             label5.TabIndex = 3;
@@ -358,7 +370,8 @@
             // 
             // label4
             // 
-            label4.Location = new Point(68, 254);
+            label4.Anchor = AnchorStyles.Top;
+            label4.Location = new Point(3, 240);
             label4.Name = "label4";
             label4.Size = new Size(385, 23);
             label4.TabIndex = 2;
@@ -366,7 +379,8 @@
             // 
             // label3
             // 
-            label3.Location = new Point(68, 176);
+            label3.Anchor = AnchorStyles.Top;
+            label3.Location = new Point(3, 166);
             label3.Name = "label3";
             label3.Size = new Size(385, 23);
             label3.TabIndex = 1;
@@ -374,9 +388,10 @@
             // 
             // label2
             // 
-            label2.Location = new Point(68, 98);
+            label2.Anchor = AnchorStyles.Top;
+            label2.Location = new Point(3, 92);
             label2.Name = "label2";
-            label2.Size = new Size(385, 23);
+            label2.Size = new Size(1068, 23);
             label2.TabIndex = 0;
             label2.Text = "Nome";
             // 
@@ -708,16 +723,38 @@
             TabPlayPage.Text = "Jogar";
             TabPlayPage.UseVisualStyleBackColor = true;
             // 
-            // TxtCreateListTitle
+            // panel2
             // 
-            TxtCreateListTitle.Anchor = AnchorStyles.Top;
-            TxtCreateListTitle.Font = new Font("Segoe UI", 15F);
-            TxtCreateListTitle.Location = new Point(3, 0);
-            TxtCreateListTitle.Name = "TxtCreateListTitle";
-            TxtCreateListTitle.Size = new Size(1068, 112);
-            TxtCreateListTitle.TabIndex = 6;
-            TxtCreateListTitle.Text = "Nova Lista";
-            TxtCreateListTitle.TextAlign = ContentAlignment.MiddleCenter;
+            panel2.Controls.Add(TxtCreateCompanyTitle);
+            panel2.Controls.Add(BoxCreateCompanyEmail);
+            panel2.Controls.Add(BoxCreateCompanyPhone);
+            panel2.Controls.Add(BoxCreateCompanyCardName);
+            panel2.Controls.Add(PicCreateCompanyLogo);
+            panel2.Controls.Add(BoxCreateCompanyName);
+            panel2.Controls.Add(BtnFindLogo);
+            panel2.Controls.Add(label7);
+            panel2.Controls.Add(BtnCreateCompany);
+            panel2.Controls.Add(label2);
+            panel2.Controls.Add(label4);
+            panel2.Controls.Add(label5);
+            panel2.Controls.Add(TxtCreateCompanyMessage);
+            panel2.Controls.Add(label3);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(3, 3);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1074, 582);
+            panel2.TabIndex = 13;
+            // 
+            // TxtCreateCompanyTitle
+            // 
+            TxtCreateCompanyTitle.Anchor = AnchorStyles.Top;
+            TxtCreateCompanyTitle.Font = new Font("Segoe UI", 15F);
+            TxtCreateCompanyTitle.Location = new Point(3, 0);
+            TxtCreateCompanyTitle.Name = "TxtCreateCompanyTitle";
+            TxtCreateCompanyTitle.Size = new Size(1068, 75);
+            TxtCreateCompanyTitle.TabIndex = 13;
+            TxtCreateCompanyTitle.Text = "Nova Empresa";
+            TxtCreateCompanyTitle.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // MainView
             // 
@@ -737,7 +774,6 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             TabCreateCompany.ResumeLayout(false);
-            TabCreateCompany.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PicCreateCompanyLogo).EndInit();
             TabCreateCards.ResumeLayout(false);
             TabCreateCards.PerformLayout();
@@ -749,6 +785,8 @@
             TabEditList.PerformLayout();
             PnlEditSelList.ResumeLayout(false);
             PnlEditAllCompany.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -815,5 +853,7 @@
         private Button BtnCreateCards;
         private Label TxtCreateCardsMsg;
         private Label TxtCreateListTitle;
+        private Panel panel2;
+        private Label TxtCreateCompanyTitle;
     }
 }
