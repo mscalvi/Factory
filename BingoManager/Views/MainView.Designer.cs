@@ -192,33 +192,33 @@
             panel1.Controls.Add(BoxCreateListName);
             panel1.Controls.Add(TxtCreateListDescription);
             panel1.Controls.Add(BoxCreateListDescription);
-            panel1.Location = new Point(6, 6);
+            panel1.Dock = DockStyle.Left;
+            panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(535, 576);
+            panel1.Size = new Size(535, 582);
             panel1.TabIndex = 6;
             // 
             // TxtCreatListeName
             // 
             TxtCreatListeName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCreatListeName.Location = new Point(71, 199);
+            TxtCreatListeName.Location = new Point(71, 202);
             TxtCreatListeName.Name = "TxtCreatListeName";
             TxtCreatListeName.Size = new Size(393, 23);
             TxtCreatListeName.TabIndex = 0;
-            TxtCreatListeName.Text = "label2";
+            TxtCreatListeName.Text = "Nome";
             // 
             // TxtCreateListMessage
             // 
             TxtCreateListMessage.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCreateListMessage.Location = new Point(71, 303);
+            TxtCreateListMessage.Location = new Point(71, 306);
             TxtCreateListMessage.Name = "TxtCreateListMessage";
             TxtCreateListMessage.Size = new Size(393, 23);
             TxtCreateListMessage.TabIndex = 5;
-            TxtCreateListMessage.Text = "label4";
             // 
             // BoxCreateListName
             // 
             BoxCreateListName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            BoxCreateListName.Location = new Point(71, 225);
+            BoxCreateListName.Location = new Point(71, 228);
             BoxCreateListName.Name = "BoxCreateListName";
             BoxCreateListName.Size = new Size(393, 23);
             BoxCreateListName.TabIndex = 3;
@@ -226,16 +226,16 @@
             // TxtCreateListDescription
             // 
             TxtCreateListDescription.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCreateListDescription.Location = new Point(71, 251);
+            TxtCreateListDescription.Location = new Point(71, 254);
             TxtCreateListDescription.Name = "TxtCreateListDescription";
             TxtCreateListDescription.Size = new Size(393, 23);
             TxtCreateListDescription.TabIndex = 1;
-            TxtCreateListDescription.Text = "label3";
+            TxtCreateListDescription.Text = "Descrição";
             // 
             // BoxCreateListDescription
             // 
             BoxCreateListDescription.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            BoxCreateListDescription.Location = new Point(71, 277);
+            BoxCreateListDescription.Location = new Point(71, 280);
             BoxCreateListDescription.Name = "BoxCreateListDescription";
             BoxCreateListDescription.Size = new Size(393, 23);
             BoxCreateListDescription.TabIndex = 2;
@@ -247,7 +247,7 @@
             BtnCreateList.Name = "BtnCreateList";
             BtnCreateList.Size = new Size(71, 67);
             BtnCreateList.TabIndex = 4;
-            BtnCreateList.Text = "button1";
+            BtnCreateList.Text = "Criar Lista";
             BtnCreateList.UseVisualStyleBackColor = true;
             BtnCreateList.Click += BtnCreateList_Click;
             // 
@@ -276,28 +276,28 @@
             // 
             // BoxCreateCompanyEmail
             // 
-            BoxCreateCompanyEmail.Location = new Point(68, 337);
+            BoxCreateCompanyEmail.Location = new Point(68, 358);
             BoxCreateCompanyEmail.Name = "BoxCreateCompanyEmail";
             BoxCreateCompanyEmail.Size = new Size(385, 23);
             BoxCreateCompanyEmail.TabIndex = 12;
             // 
             // BoxCreateCompanyPhone
             // 
-            BoxCreateCompanyPhone.Location = new Point(68, 250);
+            BoxCreateCompanyPhone.Location = new Point(68, 280);
             BoxCreateCompanyPhone.Name = "BoxCreateCompanyPhone";
             BoxCreateCompanyPhone.Size = new Size(385, 23);
             BoxCreateCompanyPhone.TabIndex = 11;
             // 
             // BoxCreateCompanyCardName
             // 
-            BoxCreateCompanyCardName.Location = new Point(68, 181);
+            BoxCreateCompanyCardName.Location = new Point(68, 202);
             BoxCreateCompanyCardName.Name = "BoxCreateCompanyCardName";
             BoxCreateCompanyCardName.Size = new Size(385, 23);
             BoxCreateCompanyCardName.TabIndex = 10;
             // 
             // BoxCreateCompanyName
             // 
-            BoxCreateCompanyName.Location = new Point(68, 111);
+            BoxCreateCompanyName.Location = new Point(68, 124);
             BoxCreateCompanyName.Name = "BoxCreateCompanyName";
             BoxCreateCompanyName.Size = new Size(385, 23);
             BoxCreateCompanyName.TabIndex = 9;
@@ -312,11 +312,11 @@
             // 
             // BtnCreateCompany
             // 
-            BtnCreateCompany.Location = new Point(650, 411);
+            BtnCreateCompany.Location = new Point(675, 407);
             BtnCreateCompany.Name = "BtnCreateCompany";
             BtnCreateCompany.Size = new Size(75, 23);
             BtnCreateCompany.TabIndex = 7;
-            BtnCreateCompany.Text = "button2";
+            BtnCreateCompany.Text = "Criar Empresa";
             BtnCreateCompany.UseVisualStyleBackColor = true;
             BtnCreateCompany.Click += BtnCreateCompany_Click;
             // 
@@ -326,7 +326,7 @@
             BtnFindLogo.Name = "BtnFindLogo";
             BtnFindLogo.Size = new Size(75, 23);
             BtnFindLogo.TabIndex = 6;
-            BtnFindLogo.Text = "button1";
+            BtnFindLogo.Text = "Procurar";
             BtnFindLogo.UseVisualStyleBackColor = true;
             BtnFindLogo.Click += BtnFindLogo_Click;
             // 
@@ -336,7 +336,7 @@
             label7.Name = "label7";
             label7.Size = new Size(271, 23);
             label7.TabIndex = 5;
-            label7.Text = "label7";
+            label7.Text = "Logo";
             // 
             // TxtCreateCompanyMessage
             // 
@@ -344,39 +344,38 @@
             TxtCreateCompanyMessage.Name = "TxtCreateCompanyMessage";
             TxtCreateCompanyMessage.Size = new Size(385, 23);
             TxtCreateCompanyMessage.TabIndex = 4;
-            TxtCreateCompanyMessage.Text = "label6";
             // 
             // label5
             // 
-            label5.Location = new Point(68, 311);
+            label5.Location = new Point(68, 332);
             label5.Name = "label5";
             label5.Size = new Size(385, 23);
             label5.TabIndex = 3;
-            label5.Text = "label5";
+            label5.Text = "E-mail";
             // 
             // label4
             // 
-            label4.Location = new Point(68, 224);
+            label4.Location = new Point(68, 254);
             label4.Name = "label4";
             label4.Size = new Size(385, 23);
             label4.TabIndex = 2;
-            label4.Text = "label4";
+            label4.Text = "Telefone";
             // 
             // label3
             // 
-            label3.Location = new Point(68, 155);
+            label3.Location = new Point(68, 176);
             label3.Name = "label3";
             label3.Size = new Size(385, 23);
             label3.TabIndex = 1;
-            label3.Text = "label3";
+            label3.Text = "Nome para Cartela";
             // 
             // label2
             // 
-            label2.Location = new Point(68, 85);
+            label2.Location = new Point(68, 98);
             label2.Name = "label2";
             label2.Size = new Size(385, 23);
             label2.TabIndex = 0;
-            label2.Text = "label2";
+            label2.Text = "Nome";
             // 
             // TabCreateCards
             // 
@@ -405,7 +404,6 @@
             TxtCreateCardsMsg.Name = "TxtCreateCardsMsg";
             TxtCreateCardsMsg.Size = new Size(361, 64);
             TxtCreateCardsMsg.TabIndex = 10;
-            TxtCreateCardsMsg.Text = "label6";
             // 
             // BtnCreateCards
             // 
@@ -413,7 +411,7 @@
             BtnCreateCards.Name = "BtnCreateCards";
             BtnCreateCards.Size = new Size(117, 39);
             BtnCreateCards.TabIndex = 9;
-            BtnCreateCards.Text = "button1";
+            BtnCreateCards.Text = "Gerar Cartelas";
             BtnCreateCards.UseVisualStyleBackColor = true;
             BtnCreateCards.Click += BtnCreateCards_Click;
             // 
@@ -422,36 +420,36 @@
             TxtCreatCardsEnd.AutoSize = true;
             TxtCreatCardsEnd.Location = new Point(101, 328);
             TxtCreatCardsEnd.Name = "TxtCreatCardsEnd";
-            TxtCreatCardsEnd.Size = new Size(44, 15);
+            TxtCreatCardsEnd.Size = new Size(94, 15);
             TxtCreatCardsEnd.TabIndex = 8;
-            TxtCreatCardsEnd.Text = "label10";
+            TxtCreatCardsEnd.Text = "Mensagem Final";
             // 
             // TxtCreateCardsTitle
             // 
             TxtCreateCardsTitle.AutoSize = true;
             TxtCreateCardsTitle.Location = new Point(101, 257);
             TxtCreateCardsTitle.Name = "TxtCreateCardsTitle";
-            TxtCreateCardsTitle.Size = new Size(38, 15);
+            TxtCreateCardsTitle.Size = new Size(37, 15);
             TxtCreateCardsTitle.TabIndex = 7;
-            TxtCreateCardsTitle.Text = "label9";
+            TxtCreateCardsTitle.Text = "Título";
             // 
             // TxtCreateCardsQuant
             // 
             TxtCreateCardsQuant.AutoSize = true;
             TxtCreateCardsQuant.Location = new Point(101, 185);
             TxtCreateCardsQuant.Name = "TxtCreateCardsQuant";
-            TxtCreateCardsQuant.Size = new Size(38, 15);
+            TxtCreateCardsQuant.Size = new Size(69, 15);
             TxtCreateCardsQuant.TabIndex = 6;
-            TxtCreateCardsQuant.Text = "label8";
+            TxtCreateCardsQuant.Text = "Quantidade";
             // 
             // TxtCreateCardsList
             // 
             TxtCreateCardsList.AutoSize = true;
             TxtCreateCardsList.Location = new Point(101, 120);
             TxtCreateCardsList.Name = "TxtCreateCardsList";
-            TxtCreateCardsList.Size = new Size(38, 15);
+            TxtCreateCardsList.Size = new Size(31, 15);
             TxtCreateCardsList.TabIndex = 5;
-            TxtCreateCardsList.Text = "label6";
+            TxtCreateCardsList.Text = "Lista";
             // 
             // GrpCreateCardsCenter
             // 
@@ -462,17 +460,18 @@
             GrpCreateCardsCenter.Size = new Size(117, 88);
             GrpCreateCardsCenter.TabIndex = 4;
             GrpCreateCardsCenter.TabStop = false;
-            GrpCreateCardsCenter.Text = "groupBox1";
+            GrpCreateCardsCenter.Text = "Centro da Cartela";
             // 
             // RadCreateCardsCenter0
             // 
             RadCreateCardsCenter0.AutoSize = true;
+            RadCreateCardsCenter0.Checked = true;
             RadCreateCardsCenter0.Location = new Point(6, 47);
             RadCreateCardsCenter0.Name = "RadCreateCardsCenter0";
-            RadCreateCardsCenter0.Size = new Size(94, 19);
+            RadCreateCardsCenter0.Size = new Size(65, 19);
             RadCreateCardsCenter0.TabIndex = 1;
             RadCreateCardsCenter0.TabStop = true;
-            RadCreateCardsCenter0.Text = "radioButton2";
+            RadCreateCardsCenter0.Text = "Normal";
             RadCreateCardsCenter0.UseVisualStyleBackColor = true;
             // 
             // RadCreateCardsCenter1
@@ -480,10 +479,9 @@
             RadCreateCardsCenter1.AutoSize = true;
             RadCreateCardsCenter1.Location = new Point(6, 22);
             RadCreateCardsCenter1.Name = "RadCreateCardsCenter1";
-            RadCreateCardsCenter1.Size = new Size(94, 19);
+            RadCreateCardsCenter1.Size = new Size(67, 19);
             RadCreateCardsCenter1.TabIndex = 0;
-            RadCreateCardsCenter1.TabStop = true;
-            RadCreateCardsCenter1.Text = "radioButton1";
+            RadCreateCardsCenter1.Text = "Coringa";
             RadCreateCardsCenter1.UseVisualStyleBackColor = true;
             // 
             // BoxCreateCardsEnd

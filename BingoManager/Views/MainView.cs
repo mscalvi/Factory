@@ -416,6 +416,7 @@ namespace BingoManager
 
         private void BtnCreateCards_Click(object sender, EventArgs e)
         {
+            TxtCreateCardsMsg.Text = "";
             int Qnt;
 
             string CardsQuant = BoxCreateCardsQuant.Text.Trim();
@@ -427,7 +428,9 @@ namespace BingoManager
             {
                 int CardsList = (int)(CboCreateCardsList.SelectedItem as dynamic).Value;
 
-                int CompanyCount = DataService.CountCompaniesInList(CardsList);
+                List<DataRow> CompList = DataService.GetCompaniesByListId(CardsList);
+
+                int CompanyCount = CompList.Count;
 
                 if (CompanyCount < 40)
                 {
@@ -446,12 +449,12 @@ namespace BingoManager
                     if (RadCreateCardsCenter0.Checked)
                     {
                         Center = false;
-                        CardsService.CreateCards(CardsList, CompanyCount, Center, Qnt, CardsTitle, CardsEnd);
+                        CardsService.CreateCards(CompList, CardsList, CompanyCount, Center, Qnt, CardsTitle, CardsEnd);
                     }
                     else
                     {
                         Center = true;
-                        CardsService.CreateCards(CardsList, CompanyCount, Center, Qnt, CardsTitle, CardsEnd);
+                        CardsService.CreateCards(CompList, CardsList, CompanyCount, Center, Qnt, CardsTitle, CardsEnd);
                     }
                 }
                 else

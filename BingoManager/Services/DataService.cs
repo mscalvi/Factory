@@ -249,36 +249,13 @@ namespace BingoManager.Services
             }
         }
 
-        //Método para contar o número de empresas em uma lista
-        public static int CountCompaniesInList(int listId)
-        {
-            int companyCount = 0;
-
-            string query = "SELECT COUNT(*) FROM AlocacaoTable WHERE ListId = @ListId";
-
-            using (var connection = GetConnection())
-            {
-                connection.Open();
-
-                using (var command = new SQLiteCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@ListId", listId);
-
-                    var result = command.ExecuteScalar();
-                    companyCount = (result != null) ? Convert.ToInt32(result) : 0;
-                }
-            }
-
-            return companyCount;
-        }
-
         //Método para pegar todas as empresas de uma lista
         public static List<DataRow> GetCompaniesByListId(int listId)
         {
             List<DataRow> companyList = new List<DataRow>();
 
             // Consulta SQL para buscar apenas as colunas necessárias
-            string query = "SELECT c.Id, c.Name, c.Logo " +
+            string query = "SELECT c.Id, c.Name, c.CardName, c.Logo " +
                            "FROM CompanyTable c " +
                            "INNER JOIN AlocacaoTable a ON c.Id = a.CompanyId " +
                            "WHERE a.ListId = @ListId";
@@ -305,6 +282,12 @@ namespace BingoManager.Services
             }
 
             return companyList;
+        }
+
+        //Método para adicionar cartela a uma lista de cartelas
+        public static void CreateCard()
+        {
+
         }
     }
 }
