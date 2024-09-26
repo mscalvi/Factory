@@ -37,12 +37,12 @@
             label1 = new Label();
             TabCreateList = new TabPage();
             panel1 = new Panel();
+            BtnCreateList = new Button();
             TxtCreatListeName = new Label();
             TxtCreateListMessage = new Label();
             BoxCreateListName = new TextBox();
             TxtCreateListDescription = new Label();
             BoxCreateListDescription = new TextBox();
-            BtnCreateList = new Button();
             TabCreateCompany = new TabPage();
             BoxCreateCompanyEmail = new TextBox();
             BoxCreateCompanyPhone = new TextBox();
@@ -89,6 +89,7 @@
             TabEditCompany = new TabPage();
             TabEditCards = new TabPage();
             TabPlayPage = new TabPage();
+            TxtCreateListTitle = new Label();
             MainPage.SuspendLayout();
             TabCreatePage.SuspendLayout();
             CreatePage.SuspendLayout();
@@ -176,7 +177,6 @@
             // TabCreateList
             // 
             TabCreateList.Controls.Add(panel1);
-            TabCreateList.Controls.Add(BtnCreateList);
             TabCreateList.Location = new Point(4, 24);
             TabCreateList.Name = "TabCreateList";
             TabCreateList.Padding = new Padding(3);
@@ -187,69 +187,72 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(TxtCreatListeName);
+            panel1.Controls.Add(TxtCreateListTitle);
             panel1.Controls.Add(TxtCreateListMessage);
+            panel1.Controls.Add(BtnCreateList);
+            panel1.Controls.Add(TxtCreatListeName);
             panel1.Controls.Add(BoxCreateListName);
             panel1.Controls.Add(TxtCreateListDescription);
             panel1.Controls.Add(BoxCreateListDescription);
-            panel1.Dock = DockStyle.Left;
+            panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(535, 582);
+            panel1.Size = new Size(1074, 582);
             panel1.TabIndex = 6;
+            // 
+            // BtnCreateList
+            // 
+            BtnCreateList.Anchor = AnchorStyles.Top;
+            BtnCreateList.Location = new Point(232, 404);
+            BtnCreateList.Name = "BtnCreateList";
+            BtnCreateList.Size = new Size(610, 67);
+            BtnCreateList.TabIndex = 4;
+            BtnCreateList.Text = "Criar Lista";
+            BtnCreateList.UseVisualStyleBackColor = true;
+            BtnCreateList.Click += BtnCreateList_Click;
             // 
             // TxtCreatListeName
             // 
-            TxtCreatListeName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCreatListeName.Location = new Point(71, 202);
+            TxtCreatListeName.Anchor = AnchorStyles.Top;
+            TxtCreatListeName.Location = new Point(3, 112);
             TxtCreatListeName.Name = "TxtCreatListeName";
-            TxtCreatListeName.Size = new Size(393, 23);
+            TxtCreatListeName.Size = new Size(1068, 23);
             TxtCreatListeName.TabIndex = 0;
             TxtCreatListeName.Text = "Nome";
             // 
             // TxtCreateListMessage
             // 
-            TxtCreateListMessage.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCreateListMessage.Location = new Point(71, 306);
+            TxtCreateListMessage.Anchor = AnchorStyles.Top;
+            TxtCreateListMessage.Location = new Point(71, 508);
             TxtCreateListMessage.Name = "TxtCreateListMessage";
-            TxtCreateListMessage.Size = new Size(393, 23);
+            TxtCreateListMessage.Size = new Size(932, 23);
             TxtCreateListMessage.TabIndex = 5;
             // 
             // BoxCreateListName
             // 
-            BoxCreateListName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            BoxCreateListName.Location = new Point(71, 228);
+            BoxCreateListName.Anchor = AnchorStyles.Top;
+            BoxCreateListName.Location = new Point(3, 138);
             BoxCreateListName.Name = "BoxCreateListName";
-            BoxCreateListName.Size = new Size(393, 23);
+            BoxCreateListName.Size = new Size(1068, 23);
             BoxCreateListName.TabIndex = 3;
             // 
             // TxtCreateListDescription
             // 
-            TxtCreateListDescription.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCreateListDescription.Location = new Point(71, 254);
+            TxtCreateListDescription.Anchor = AnchorStyles.Top;
+            TxtCreateListDescription.Location = new Point(3, 179);
             TxtCreateListDescription.Name = "TxtCreateListDescription";
-            TxtCreateListDescription.Size = new Size(393, 23);
+            TxtCreateListDescription.Size = new Size(1068, 23);
             TxtCreateListDescription.TabIndex = 1;
             TxtCreateListDescription.Text = "Descrição";
             // 
             // BoxCreateListDescription
             // 
-            BoxCreateListDescription.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            BoxCreateListDescription.Location = new Point(71, 280);
+            BoxCreateListDescription.Anchor = AnchorStyles.Top;
+            BoxCreateListDescription.Location = new Point(3, 205);
+            BoxCreateListDescription.Multiline = true;
             BoxCreateListDescription.Name = "BoxCreateListDescription";
-            BoxCreateListDescription.Size = new Size(393, 23);
+            BoxCreateListDescription.Size = new Size(1068, 161);
             BoxCreateListDescription.TabIndex = 2;
-            // 
-            // BtnCreateList
-            // 
-            BtnCreateList.Anchor = AnchorStyles.None;
-            BtnCreateList.Location = new Point(571, 175);
-            BtnCreateList.Name = "BtnCreateList";
-            BtnCreateList.Size = new Size(71, 67);
-            BtnCreateList.TabIndex = 4;
-            BtnCreateList.Text = "Criar Lista";
-            BtnCreateList.UseVisualStyleBackColor = true;
-            BtnCreateList.Click += BtnCreateList_Click;
             // 
             // TabCreateCompany
             // 
@@ -705,6 +708,17 @@
             TabPlayPage.Text = "Jogar";
             TabPlayPage.UseVisualStyleBackColor = true;
             // 
+            // TxtCreateListTitle
+            // 
+            TxtCreateListTitle.Anchor = AnchorStyles.Top;
+            TxtCreateListTitle.Font = new Font("Segoe UI", 15F);
+            TxtCreateListTitle.Location = new Point(3, 0);
+            TxtCreateListTitle.Name = "TxtCreateListTitle";
+            TxtCreateListTitle.Size = new Size(1068, 112);
+            TxtCreateListTitle.TabIndex = 6;
+            TxtCreateListTitle.Text = "Nova Lista";
+            TxtCreateListTitle.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // MainView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -800,5 +814,6 @@
         private TextBox BoxCreateCardsQuant;
         private Button BtnCreateCards;
         private Label TxtCreateCardsMsg;
+        private Label TxtCreateListTitle;
     }
 }
