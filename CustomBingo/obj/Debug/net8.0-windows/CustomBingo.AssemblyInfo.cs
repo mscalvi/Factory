@@ -14,7 +14,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CustomBingo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< Updated upstream
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aaf8ed1d5386edd4820076b7d90fdf9ef7793b87")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+854d49352246ad90d2fbcdfbd7ac94672fb0d238")]
+>>>>>>> Stashed changes
 [assembly: System.Reflection.AssemblyProductAttribute("CustomBingo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CustomBingo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

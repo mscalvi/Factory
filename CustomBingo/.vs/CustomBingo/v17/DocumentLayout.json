@@ -1,14 +1,19 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\",
+  "WorkspaceRootPath": "C:\\Users\\Usuario\\Desktop\\Factory\\CustomBingo\\",
   "Documents": [
     {
+<<<<<<< Updated upstream
       "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\custombingo\\views\\editlistview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:views\\editlistview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\custombingo\\views\\editlistview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:views\\editlistview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+=======
+      "AbsoluteMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|c:\\users\\usuario\\desktop\\factory\\custombingo\\services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{248167CB-BDDA-4B15-A452-B2F73A1FA990}|CustomBingo.csproj|solutionrelative:services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+>>>>>>> Stashed changes
     }
   ],
   "DocumentGroupContainers": [
@@ -35,6 +40,7 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+<<<<<<< Updated upstream
               "Title": "EditListView.cs",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\CustomBingo\\Views\\EditListView.cs",
               "RelativeDocumentMoniker": "Views\\EditListView.cs",
@@ -56,6 +62,17 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-13T15:45:37.828Z",
               "EditorCaption": " [Projeto]"
+=======
+              "Title": "DataService.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Factory\\CustomBingo\\Services\\DataService.cs",
+              "RelativeDocumentMoniker": "Services\\DataService.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Factory\\CustomBingo\\Services\\DataService.cs",
+              "RelativeToolTip": "Services\\DataService.cs",
+              "ViewState": "AQIAACsAAAAAAAAAAAAgwGEAAABaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-04T05:34:29.993Z",
+              "EditorCaption": ""
+>>>>>>> Stashed changes
             }
           ]
         }
