@@ -378,7 +378,7 @@ namespace BingoManager
             if (CboEditListSel.SelectedItem != null)
             {
                 var selectedList = CboEditListSel.SelectedItem as dynamic;
-                string selectedListId = selectedList.Value;
+                int selectedListId = selectedList.Value;
 
                 if (selectedCompanies.Count > 0)
                 {

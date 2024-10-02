@@ -37,3 +37,5 @@ C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\re
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.pdb
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.genruntimeconfig.cache
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\ref\BingoManager.dll
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\bin\Debug\net8.0-windows\BouncyCastle.Cryptography.dll
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\bin\Debug\net8.0-windows\itextsharp.dll

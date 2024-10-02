@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System;
 using System.Data;
 using System.Data.SQLite;
+using System.ComponentModel.Design;
 
 
 namespace BingoManager.Services
@@ -228,7 +229,7 @@ namespace BingoManager.Services
         }
 
         //Método para inserir empresas em uma lista
-        public static void AddCompaniesToAllocation(string listId, List<string> companyIds)
+        public static void AddCompaniesToAllocation(int listId, List<string> companyIds)
         {
             using (var connection = GetConnection())
             {
@@ -285,9 +286,67 @@ namespace BingoManager.Services
         }
 
         //Método para adicionar cartela a uma lista de cartelas
-        public static void CreateCard()
+        public static void CreateCard(int listId, List<int> companyIds, int cardNumber)
         {
+            string query = @"INSERT INTO CardsList 
+                     (CardList, CardNumber, CompB1, CompB2, CompB3, CompB4, CompB5,
+                      CompI1, CompI2, CompI3, CompI4, CompI5,
+                      CompN1, CompN2, CompN3, CompN4, CompN5,
+                      CompG1, CompG2, CompG3, CompG4, CompG5,
+                      CompO1, CompO2, CompO3, CompO4, CompO5) 
+                     VALUES 
+                     (@CardList, @CardNumber, @CompB1, @CompB2, @CompB3, @CompB4, @CompB5,
+                      @CompI1, @CompI2, @CompI3, @CompI4, @CompI5,
+                      @CompN1, @CompN2, @CompN3, @CompN4, @CompN5,
+                      @CompG1, @CompG2, @CompG3, @CompG4, @CompG5,
+                      @CompO1, @CompO2, @CompO3, @CompO4, @CompO5)";
 
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    // Adiciona o valor da lista
+                    command.Parameters.AddWithValue("@CardList", listId);
+                    command.Parameters.AddWithValue("@CardNumber", cardNumber);
+
+                    // Associa os parâmetros para as empresas nos diferentes grupos
+                    for (int i = 0; i < 5; i++)
+                    {
+                        command.Parameters.AddWithValue($"@CompB{i + 1}", companyIds[i]);
+                        command.Parameters.AddWithValue($"@CompI{i + 1}", companyIds[i + 5]);
+                        command.Parameters.AddWithValue($"@CompN{i + 1}", companyIds[i + 10]);
+                        command.Parameters.AddWithValue($"@CompG{i + 1}", companyIds[i + 15]);
+                        command.Parameters.AddWithValue($"@CompO{i + 1}", companyIds[i + 20]);
+                    }
+
+                    // Executa a inserção no banco de dados
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        //Método para adicionar uma lista de cartelas
+        public static void CreateCardList(int listId, int center, int qnt, string end, string title)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                string insertQuery = "INSERT INTO AllCards (ListId, Center, Qnt, End, Title) VALUES (@ListId, @Center, @Qnt, @End, @Title)";
+
+                using (var command = new SQLiteCommand(insertQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@ListId", listId);
+                    command.Parameters.AddWithValue("@Center", center);
+                    command.Parameters.AddWithValue("@Qnt", qnt);
+                    command.Parameters.AddWithValue("@End", end);
+                    command.Parameters.AddWithValue("@Title", title);
+
+                    command.ExecuteNonQuery();
+                }
+            }
         }
     }
 }
