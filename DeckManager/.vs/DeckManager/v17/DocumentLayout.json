@@ -1,0 +1,82 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|c:\\users\\usuario\\desktop\\factory\\deckmanager\\models\\deckmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|solutionrelative:models\\deckmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|c:\\users\\usuario\\desktop\\factory\\deckmanager\\homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|solutionrelative:homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|c:\\users\\usuario\\desktop\\factory\\deckmanager\\models\\cardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|solutionrelative:models\\cardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2107496977:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DeckModel.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Models\\DeckModel.cs",
+              "RelativeDocumentMoniker": "Models\\DeckModel.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Models\\DeckModel.cs",
+              "RelativeToolTip": "Models\\DeckModel.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAcwBYAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-07T22:34:26.777Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CardModel.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Models\\CardModel.cs",
+              "RelativeDocumentMoniker": "Models\\CardModel.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Models\\CardModel.cs",
+              "RelativeToolTip": "Models\\CardModel.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAmwBEAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-07T22:29:26.54Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HomePage.cs [Projeto]",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\HomePage.cs",
+              "RelativeDocumentMoniker": "HomePage.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\HomePage.cs [Projeto]",
+              "RelativeToolTip": "HomePage.cs [Projeto]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-07T22:23:46.014Z",
+              "EditorCaption": " [Projeto]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
