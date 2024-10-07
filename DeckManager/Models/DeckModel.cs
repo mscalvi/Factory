@@ -11,9 +11,10 @@ namespace DeckManager.Models
         //Registradas
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Formato { get; set; }
-        public int Montado { get; set; }
+        public string Format { get; set; }
+        public int Ready { get; set; }
 
+        //Listas
         public List<CardModel> DeckList { get; set; }
         public List<CardModel> SideList {  get; set; }
         public List<CardModel> MaybeList { get; set; }

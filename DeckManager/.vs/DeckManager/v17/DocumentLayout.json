@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|c:\\users\\usuario\\desktop\\factory\\deckmanager\\models\\cardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|solutionrelative:models\\cardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|c:\\users\\usuario\\desktop\\factory\\deckmanager\\models\\deckmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|solutionrelative:models\\deckmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|c:\\users\\usuario\\desktop\\factory\\deckmanager\\homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|solutionrelative:homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|c:\\users\\usuario\\desktop\\factory\\deckmanager\\services\\scryfallapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|solutionrelative:services\\scryfallapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|c:\\users\\usuario\\desktop\\factory\\deckmanager\\models\\cardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|solutionrelative:models\\cardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|solutionrelative:homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,33 +42,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "ScryfallAPI.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Services\\ScryfallAPI.cs",
+              "RelativeDocumentMoniker": "Services\\ScryfallAPI.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Services\\ScryfallAPI.cs",
+              "RelativeToolTip": "Services\\ScryfallAPI.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAA8AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-07T22:58:10.715Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "DeckModel.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Models\\DeckModel.cs",
               "RelativeDocumentMoniker": "Models\\DeckModel.cs",
               "ToolTip": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Models\\DeckModel.cs",
               "RelativeToolTip": "Models\\DeckModel.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAcwBYAAAAFAAAA",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAAABAAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-07T22:34:26.777Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "CardModel.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Models\\CardModel.cs",
               "RelativeDocumentMoniker": "Models\\CardModel.cs",
               "ToolTip": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\Models\\CardModel.cs",
               "RelativeToolTip": "Models\\CardModel.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAmwBEAAAAoAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAmwA8AAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-07T22:29:26.54Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "HomePage.cs [Projeto]",
               "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\HomePage.cs",
               "RelativeDocumentMoniker": "HomePage.cs",
