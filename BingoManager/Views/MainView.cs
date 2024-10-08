@@ -446,16 +446,7 @@ namespace BingoManager
 
                 if (int.TryParse(CardsQuant, out Qnt))
                 {
-                    if (RadCreateCardsCenter0.Checked)
-                    {
-                        Center = false;
-                        CardsService.CreateCards(CompList, CardsList, CompanyCount, Center, Qnt, CardsTitle, CardsEnd);
-                    }
-                    else
-                    {
-                        Center = true;
-                        CardsService.CreateCards(CompList, CardsList, CompanyCount, Center, Qnt, CardsTitle, CardsEnd);
-                    }
+                    CardsService.CreateCards(CompList, CardsList, CompanyCount, Qnt, CardsTitle, CardsEnd);
                 }
                 else
                 {

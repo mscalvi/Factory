@@ -67,9 +67,6 @@
             TxtCreateCardsTitle = new Label();
             TxtCreateCardsQuant = new Label();
             TxtCreateCardsList = new Label();
-            GrpCreateCardsCenter = new GroupBox();
-            RadCreateCardsCenter0 = new RadioButton();
-            RadCreateCardsCenter1 = new RadioButton();
             BoxCreateCardsEnd = new TextBox();
             BoxCreateCardsTitle = new TextBox();
             BoxCreateCardsQuant = new TextBox();
@@ -102,7 +99,6 @@
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PicCreateCompanyLogo).BeginInit();
             TabCreateCards.SuspendLayout();
-            GrpCreateCardsCenter.SuspendLayout();
             TabEditPage.SuspendLayout();
             EditPage.SuspendLayout();
             TabEditList.SuspendLayout();
@@ -437,7 +433,6 @@
             TabCreateCards.Controls.Add(TxtCreateCardsTitle);
             TabCreateCards.Controls.Add(TxtCreateCardsQuant);
             TabCreateCards.Controls.Add(TxtCreateCardsList);
-            TabCreateCards.Controls.Add(GrpCreateCardsCenter);
             TabCreateCards.Controls.Add(BoxCreateCardsEnd);
             TabCreateCards.Controls.Add(BoxCreateCardsTitle);
             TabCreateCards.Controls.Add(BoxCreateCardsQuant);
@@ -459,7 +454,7 @@
             // 
             // BtnCreateCards
             // 
-            BtnCreateCards.Location = new Point(630, 257);
+            BtnCreateCards.Location = new Point(641, 245);
             BtnCreateCards.Name = "BtnCreateCards";
             BtnCreateCards.Size = new Size(117, 39);
             BtnCreateCards.TabIndex = 9;
@@ -502,39 +497,6 @@
             TxtCreateCardsList.Size = new Size(31, 15);
             TxtCreateCardsList.TabIndex = 5;
             TxtCreateCardsList.Text = "Lista";
-            // 
-            // GrpCreateCardsCenter
-            // 
-            GrpCreateCardsCenter.Controls.Add(RadCreateCardsCenter0);
-            GrpCreateCardsCenter.Controls.Add(RadCreateCardsCenter1);
-            GrpCreateCardsCenter.Location = new Point(630, 120);
-            GrpCreateCardsCenter.Name = "GrpCreateCardsCenter";
-            GrpCreateCardsCenter.Size = new Size(117, 88);
-            GrpCreateCardsCenter.TabIndex = 4;
-            GrpCreateCardsCenter.TabStop = false;
-            GrpCreateCardsCenter.Text = "Centro da Cartela";
-            // 
-            // RadCreateCardsCenter0
-            // 
-            RadCreateCardsCenter0.AutoSize = true;
-            RadCreateCardsCenter0.Checked = true;
-            RadCreateCardsCenter0.Location = new Point(6, 47);
-            RadCreateCardsCenter0.Name = "RadCreateCardsCenter0";
-            RadCreateCardsCenter0.Size = new Size(65, 19);
-            RadCreateCardsCenter0.TabIndex = 1;
-            RadCreateCardsCenter0.TabStop = true;
-            RadCreateCardsCenter0.Text = "Normal";
-            RadCreateCardsCenter0.UseVisualStyleBackColor = true;
-            // 
-            // RadCreateCardsCenter1
-            // 
-            RadCreateCardsCenter1.AutoSize = true;
-            RadCreateCardsCenter1.Location = new Point(6, 22);
-            RadCreateCardsCenter1.Name = "RadCreateCardsCenter1";
-            RadCreateCardsCenter1.Size = new Size(67, 19);
-            RadCreateCardsCenter1.TabIndex = 0;
-            RadCreateCardsCenter1.Text = "Coringa";
-            RadCreateCardsCenter1.UseVisualStyleBackColor = true;
             // 
             // BoxCreateCardsEnd
             // 
@@ -780,8 +742,6 @@
             ((System.ComponentModel.ISupportInitialize)PicCreateCompanyLogo).EndInit();
             TabCreateCards.ResumeLayout(false);
             TabCreateCards.PerformLayout();
-            GrpCreateCardsCenter.ResumeLayout(false);
-            GrpCreateCardsCenter.PerformLayout();
             TabEditPage.ResumeLayout(false);
             EditPage.ResumeLayout(false);
             TabEditList.ResumeLayout(false);
@@ -845,9 +805,6 @@
         private Label TxtCreateCardsTitle;
         private Label TxtCreateCardsQuant;
         private Label TxtCreateCardsList;
-        private GroupBox GrpCreateCardsCenter;
-        private RadioButton RadCreateCardsCenter0;
-        private RadioButton RadCreateCardsCenter1;
         private TextBox BoxCreateCardsEnd;
         private TextBox BoxCreateCardsTitle;
         private TextBox BoxCreateCardsQuant;

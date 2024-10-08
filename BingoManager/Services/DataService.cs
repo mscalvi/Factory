@@ -328,18 +328,17 @@ namespace BingoManager.Services
         }
 
         //Método para adicionar uma lista de cartelas
-        public static void CreateCardList(int listId, int center, int qnt, string end, string title)
+        public static void CreateCardList(int listId, int qnt, string end, string title)
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
 
-                string insertQuery = "INSERT INTO AllCards (ListId, Center, Qnt, End, Title) VALUES (@ListId, @Center, @Qnt, @End, @Title)";
+                string insertQuery = "INSERT INTO AllCards (ListId, Qnt, End, Title) VALUES (@ListId, @Qnt, @End, @Title)";
 
                 using (var command = new SQLiteCommand(insertQuery, connection))
                 {
                     command.Parameters.AddWithValue("@ListId", listId);
-                    command.Parameters.AddWithValue("@Center", center);
                     command.Parameters.AddWithValue("@Qnt", qnt);
                     command.Parameters.AddWithValue("@End", end);
                     command.Parameters.AddWithValue("@Title", title);

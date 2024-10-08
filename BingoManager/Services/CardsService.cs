@@ -11,18 +11,17 @@ namespace BingoManager.Services
 {
     public static class CardsService
     {
-        public static void CreateCards(List<DataRow> CompList, int listId, int CompNumber, bool Center, int Qnt, string Title, string End)
+        public static void CreateCards(List<DataRow> CompList, int listId, int CompNumber, int Qnt, string Title, string End)
         {
-            int intCenter = Center ? 1 : 0;
-
             // Chama o método que cria a lista de cartelas no banco de dados
-            DataService.CreateCardList(listId, intCenter, Qnt, End, Title);
+            DataService.CreateCardList(listId, Qnt, End, Title);
 
-            if (!Center)
-            {
+            // Lista para armazenar todas as cartelas geradas
+            List<List<DataRow>> allCards = new List<List<DataRow>>();
+
                 // Determina quantas empresas haverá em cada coluna de forma dinâmica
-                int companiesPerColumn = CompList.Count / 5; // Dividindo igualmente as empresas entre as 5 colunas
-                int remainder = CompList.Count % 5; // Para lidar com casos em que o número de empresas não é divisível por 5
+                int companiesPerColumn = CompList.Count / 5;
+                int remainder = CompList.Count % 5;
 
                 // Distribui as empresas para cada coluna de forma dinâmica
                 List<DataRow> columnB = CompList.Take(companiesPerColumn + (remainder > 0 ? 1 : 0)).ToList();
@@ -60,14 +59,17 @@ namespace BingoManager.Services
                     {
                         // Chama o método que insere a cartela no banco de dados
                         DataService.CreateCard(listId, companyIds, i);
+
+                        // Adiciona a cartela gerada à lista de todas as cartelas
+                        allCards.Add(selectedCompanies);
                     }
                 }
 
-                MessageBox.Show($"Cartelas Criadas com Sucesso!");
+                // Após criar todas as cartelas, gerar o PDF com todas elas (duas cartelas por página)
+                PrintingService.PrintCards(allCards, allCards.Count, Title, End);
 
-                // Chama o método para gerar o PDF com todas as empresas da lista completa (CompList)
                 SavePdfWithCompaniesByGroup(CompList);
-            }
+            
         }
 
         // Método para selecionar e remover empresas de um grupo temporário
@@ -90,7 +92,7 @@ namespace BingoManager.Services
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "PDF Document|*.pdf",
-                Title = "Salvar PDF com todas as empresas utilizadas"
+                Title = "Salvar Lista de Empresas por Coluna"
             };
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)

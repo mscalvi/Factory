@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="8.0.8" />
     <PackageReference Include="SQLite" Version="3.13.0" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
+    <PackageReference Include="Wkhtmltopdf.NetCore" Version="3.0.2" />
   </ItemGroup>
 
   <ItemGroup>
