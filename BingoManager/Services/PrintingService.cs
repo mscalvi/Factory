@@ -65,11 +65,11 @@ namespace BingoManager.Services
             card.WidthPercentage = 100;
 
             // Definindo as fontes
-            iTextSharp.text.Font titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 20, iTextSharp.text.Font.BOLD);
-            iTextSharp.text.Font headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 16, iTextSharp.text.Font.BOLD);
-            iTextSharp.text.Font footerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14, iTextSharp.text.Font.BOLD);
-            iTextSharp.text.Font numberFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14, iTextSharp.text.Font.BOLD);
-            iTextSharp.text.Font compFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.ITALIC);
+            iTextSharp.text.Font titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 17, iTextSharp.text.Font.BOLD);
+            iTextSharp.text.Font headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 15, iTextSharp.text.Font.BOLD);
+            iTextSharp.text.Font footerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
+            iTextSharp.text.Font numberFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
+            iTextSharp.text.Font compFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10, iTextSharp.text.Font.ITALIC);
 
             // Adiciona o título
             PdfPCell titleCell = new PdfPCell(new Phrase(titleCard, titleFont));
@@ -77,7 +77,7 @@ namespace BingoManager.Services
             titleCell.HorizontalAlignment = Element.ALIGN_CENTER;
             titleCell.VerticalAlignment = Element.ALIGN_MIDDLE;
             titleCell.BorderWidth = 2f;
-            titleCell.FixedHeight = 30;
+            titleCell.FixedHeight = 40;
             titleCell.Padding = 0;
             card.AddCell(titleCell);
 
@@ -89,7 +89,7 @@ namespace BingoManager.Services
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.VerticalAlignment = Element.ALIGN_MIDDLE;
                 cell.BorderWidth = 2f;
-                cell.FixedHeight = 20;
+                cell.FixedHeight = 40;
                 card.AddCell(cell);
             }
 
@@ -115,13 +115,13 @@ namespace BingoManager.Services
                         companyCell.HorizontalAlignment = Element.ALIGN_CENTER;
                         companyCell.VerticalAlignment = Element.ALIGN_MIDDLE;
                         companyCell.BorderWidth = 1f;
-                        companyCell.FixedHeight = 50;
+                        companyCell.FixedHeight = 40;
                         card.AddCell(companyCell);
                     }
                     else
                     {
                         PdfPCell emptyCell = new PdfPCell(new Phrase("???")); // Célula vazia (???) se não houver empresa
-                        emptyCell.FixedHeight = 50;
+                        emptyCell.FixedHeight = 40;
                         card.AddCell(emptyCell);
                     }
                 }
@@ -133,7 +133,7 @@ namespace BingoManager.Services
             footerCell.HorizontalAlignment = Element.ALIGN_CENTER;
             footerCell.VerticalAlignment = Element.ALIGN_MIDDLE;
             footerCell.BorderWidth = 2f;
-            footerCell.FixedHeight = 20;
+            footerCell.FixedHeight = 40;
             card.AddCell(footerCell);
 
             // Adiciona o número da cartela como uma célula que ocupa 1 coluna
@@ -142,8 +142,8 @@ namespace BingoManager.Services
             numberCell.Colspan = 1;
             numberCell.HorizontalAlignment = Element.ALIGN_CENTER;
             numberCell.VerticalAlignment = Element.ALIGN_MIDDLE;
-            numberCell.FixedHeight = 20;
             numberCell.BorderWidth = 2f;
+            numberCell.FixedHeight = 40;
             card.AddCell(numberCell);
 
             // Adiciona a tabela ao documento
