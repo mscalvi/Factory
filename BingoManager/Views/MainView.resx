@@ -125,7 +125,6 @@
 2- Registrar Empresas. Você pode registrar quantas empresas (ou outros nomes) desejar, e pode já adicioná-las a uma Lista criada conforme fizer o registro. Se não quiser adicionar ainda, você pode apenas registrar a empresa e depois vinculá-la a uma Lista. As empresas devem ter um Nome, um Nome para Cartela e um Logo, e podem ter também um telefone e um e-mail associado a elas.
 -Atente-se ao logo! Se a imagem for de baixa qualidade, poderá ter sua visualização comprometida durante a exibição. Caso você não coloque uma imagem, será exibida a imagem padrão da sua Lista.
 
-3- Crie Cartelas. Selecione de qual Lista serão as Cartelas, e quantas serão feitas. O Título é a mensagem que aparecerá na parte superior da Cartela, e a Mensagem Final é a mensagem na caixa de texto inferior, próximo à numeração. Caso a Imagem Central fique vazia, a Cartela será totalmente preenchida com empresas, e não terá um espaço coringa central.
-</value>
+3- Crie Cartelas. Selecione de qual Lista serão as Cartelas, e quantas serão feitas. O Título é a mensagem que aparecerá na parte superior da Cartela, e a Mensagem Final é a mensagem na caixa de texto inferior, próximo à numeração.</value>
   </data>
 </root>
