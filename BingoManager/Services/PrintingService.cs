@@ -1,7 +1,8 @@
 ﻿using BingoManager.Models;
+using iText.Layout.Element;
+using iText.Layout.Properties;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using Org.BouncyCastle.Asn1.X509;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -31,18 +32,7 @@ namespace BingoManager.Services
                 for (int cardIndex = 0; cardIndex < CardQnt; cardIndex++)
                 {
                     // Adiciona uma nova cartela no layout
-                    //CardLayout(document, allCards[cardIndex], cardIndex + 1);
-
-                    var cardHtmlGenerator = new BingoCardHtmlGenerator(title, footer);
-                    string cardHtml = cardHtmlGenerator.GenerateHtml(allCards[cardIndex], cardIndex + 1);
-
-                    using (var htmlWorker = new iTextSharp.text.html.simpleparser.HTMLWorker(document))
-                    {
-                        using (StringReader sr = new StringReader(cardHtml))
-                        {
-                            htmlWorker.Parse(sr);
-                        }
-                    }
+                    CardLayout(document, allCards[cardIndex], cardIndex + 1, title, footer);
 
                     // A cada duas cartelas, inicia uma nova página
                     if (cardIndex % 2 == 1)
@@ -52,7 +42,7 @@ namespace BingoManager.Services
                     else
                     {
                         // Adiciona espaçamento entre as cartelas na mesma página
-                        document.Add(new Paragraph("\n\n"));
+                        document.Add(new Phrase("\n\n"));
                     }
                 }
 
@@ -61,53 +51,103 @@ namespace BingoManager.Services
 
                 // Mensagem de sucesso
                 MessageBox.Show("Cartelas criadas com sucesso!");
-            } else
+            }
+            else
             {
                 MessageBox.Show("Erro ao criar PDF das Cartelas!");
             }
         }
 
         // Método auxiliar para desenhar o layout de uma cartela
-        private static void CardLayout(Document document, List<DataRow> cartela, int cartelaNumber)
+        private static void CardLayout(Document document, List<DataRow> cardComps, int cardNumber, string titleCard, string footerCard)
         {
-            // Configura o título da cartela usando o construtor Font diretamente
+            PdfPTable card = new PdfPTable(5);
+            card.WidthPercentage = 100;
+
+            // Definindo as fontes
             iTextSharp.text.Font titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 20, iTextSharp.text.Font.BOLD);
-            Paragraph title = new Paragraph($"Cartela {cartelaNumber}\n\n", titleFont);
-            title.Alignment = Element.ALIGN_CENTER;
-            document.Add(title);
-
-            // Configura a tabela de cartela (5 colunas para B, I, N, G, O)
-            PdfPTable table = new PdfPTable(5);
-            table.WidthPercentage = 90;
-
-            // Adiciona o cabeçalho (B, I, N, G, O)
             iTextSharp.text.Font headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 16, iTextSharp.text.Font.BOLD);
+            iTextSharp.text.Font footerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14, iTextSharp.text.Font.BOLD);
+            iTextSharp.text.Font numberFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14, iTextSharp.text.Font.BOLD);
+            iTextSharp.text.Font compFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.ITALIC);
+
+            // Adiciona o título
+            PdfPCell titleCell = new PdfPCell(new Phrase(titleCard, titleFont));
+            titleCell.Colspan = 5;
+            titleCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            titleCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            titleCell.BorderWidth = 2f;
+            titleCell.FixedHeight = 30;
+            titleCell.Padding = 0;
+            card.AddCell(titleCell);
+
+            // Adiciona os cabeçalhos B, I, N, G, O
             string[] headers = { "B", "I", "N", "G", "O" };
             foreach (string header in headers)
             {
                 PdfPCell cell = new PdfPCell(new Phrase(header, headerFont));
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                table.AddCell(cell);
+                cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                cell.BorderWidth = 2f;
+                cell.FixedHeight = 20;
+                card.AddCell(cell);
             }
 
-            // Adiciona as empresas em cada coluna (exibe Nome e ID)
-            List<DataRow> columnB = cartela.Take(5).ToList();
-            List<DataRow> columnI = cartela.Skip(5).Take(5).ToList();
-            List<DataRow> columnN = cartela.Skip(10).Take(5).ToList();
-            List<DataRow> columnG = cartela.Skip(15).Take(5).ToList();
-            List<DataRow> columnO = cartela.Skip(20).Take(5).ToList();
+            // Divide as empresas nas colunas
+            List<List<DataRow>> columns = new List<List<DataRow>>
+            {
+                cardComps.Take(5).ToList(),
+                cardComps.Skip(5).Take(5).ToList(),
+                cardComps.Skip(10).Take(5).ToList(),
+                cardComps.Skip(15).Take(5).ToList(),
+                cardComps.Skip(20).Take(5).ToList()
+            };
 
+            // Adiciona as empresas em cada coluna
             for (int i = 0; i < 5; i++)
             {
-                table.AddCell(new Phrase($"{columnB[i]["Name"]} (ID: {columnB[i]["Id"]})"));
-                table.AddCell(new Phrase($"{columnI[i]["Name"]} (ID: {columnI[i]["Id"]})"));
-                table.AddCell(new Phrase($"{columnN[i]["Name"]} (ID: {columnN[i]["Id"]})"));
-                table.AddCell(new Phrase($"{columnG[i]["Name"]} (ID: {columnG[i]["Id"]})"));
-                table.AddCell(new Phrase($"{columnO[i]["Name"]} (ID: {columnO[i]["Id"]})"));
+                for (int j = 0; j < 5; j++)
+                {
+                    if (columns[j].Count > i)
+                    {
+                        var company = columns[j][i];
+                        PdfPCell companyCell = new PdfPCell(new Phrase($"{company["Name"]} (ID: {company["Id"]})", compFont));
+                        companyCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        companyCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                        companyCell.BorderWidth = 1f;
+                        companyCell.FixedHeight = 50;
+                        card.AddCell(companyCell);
+                    }
+                    else
+                    {
+                        PdfPCell emptyCell = new PdfPCell(new Phrase("???")); // Célula vazia (???) se não houver empresa
+                        emptyCell.FixedHeight = 50;
+                        card.AddCell(emptyCell);
+                    }
+                }
             }
 
+            // Adiciona o rodapé como uma célula que ocupa 4 colunas
+            PdfPCell footerCell = new PdfPCell(new Phrase(footerCard, footerFont));
+            footerCell.Colspan = 4;
+            footerCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            footerCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            footerCell.BorderWidth = 2f;
+            footerCell.FixedHeight = 20;
+            card.AddCell(footerCell);
+
+            // Adiciona o número da cartela como uma célula que ocupa 1 coluna
+            string formattedCardNumber = $"Cartela {cardNumber:0000}";
+            PdfPCell numberCell = new PdfPCell(new Phrase(formattedCardNumber, numberFont));
+            numberCell.Colspan = 1;
+            numberCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            numberCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            numberCell.FixedHeight = 20;
+            numberCell.BorderWidth = 2f;
+            card.AddCell(numberCell);
+
             // Adiciona a tabela ao documento
-            document.Add(table);
+            document.Add(card);
         }
     }
 }

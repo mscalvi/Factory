@@ -727,7 +727,7 @@
             Controls.Add(MainPage);
             Name = "MainView";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "Bingo Manager";
             WindowState = FormWindowState.Maximized;
             MainPage.ResumeLayout(false);
             TabCreatePage.ResumeLayout(false);

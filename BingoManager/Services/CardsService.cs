@@ -19,57 +19,57 @@ namespace BingoManager.Services
             // Lista para armazenar todas as cartelas geradas
             List<List<DataRow>> allCards = new List<List<DataRow>>();
 
-                // Determina quantas empresas haverá em cada coluna de forma dinâmica
-                int companiesPerColumn = CompList.Count / 5;
-                int remainder = CompList.Count % 5;
+            // Embaralhar Empresas
+            Random random = new Random();
+            CompList = CompList.OrderBy(x => random.Next()).ToList();
 
-                // Distribui as empresas para cada coluna de forma dinâmica
-                List<DataRow> columnB = CompList.Take(companiesPerColumn + (remainder > 0 ? 1 : 0)).ToList();
-                List<DataRow> columnI = CompList.Skip(columnB.Count).Take(companiesPerColumn + (remainder > 1 ? 1 : 0)).ToList();
-                List<DataRow> columnN = CompList.Skip(columnB.Count + columnI.Count).Take(companiesPerColumn + (remainder > 2 ? 1 : 0)).ToList();
-                List<DataRow> columnG = CompList.Skip(columnB.Count + columnI.Count + columnN.Count).Take(companiesPerColumn + (remainder > 3 ? 1 : 0)).ToList();
-                List<DataRow> columnO = CompList.Skip(columnB.Count + columnI.Count + columnN.Count + columnG.Count).Take(companiesPerColumn).ToList();
+            // Determina quantas empresas haverá em cada coluna de forma dinâmica
+            int companiesPerColumn = CompList.Count / 5;
+            int remainder = CompList.Count % 5;
 
-                // Inicializa o randomizador
-                Random random = new Random();
+            // Distribui as empresas para cada coluna de forma dinâmica
+            List<DataRow> columnB = CompList.Take(companiesPerColumn + (remainder > 0 ? 1 : 0)).ToList();
+            List<DataRow> columnI = CompList.Skip(columnB.Count).Take(companiesPerColumn + (remainder > 1 ? 1 : 0)).ToList();
+            List<DataRow> columnN = CompList.Skip(columnB.Count + columnI.Count).Take(companiesPerColumn + (remainder > 2 ? 1 : 0)).ToList();
+            List<DataRow> columnG = CompList.Skip(columnB.Count + columnI.Count + columnN.Count).Take(companiesPerColumn + (remainder > 3 ? 1 : 0)).ToList();
+            List<DataRow> columnO = CompList.Skip(columnB.Count + columnI.Count + columnN.Count + columnG.Count).Take(companiesPerColumn).ToList();
 
-                // Gerar as cartelas
-                for (int i = 1; i <= Qnt; i++)
+            // Gerar as cartelas
+            for (int i = 1; i <= Qnt; i++)
+            {
+                List<DataRow> selectedCompanies = new List<DataRow>();
+                
+                // Cria cópias temporárias dos grupos para garantir que as empresas não se repitam dentro da mesma cartela
+                List<DataRow> tempB = new List<DataRow>(columnB);
+                List<DataRow> tempI = new List<DataRow>(columnI);
+                List<DataRow> tempN = new List<DataRow>(columnN);
+                List<DataRow> tempG = new List<DataRow>(columnG);
+                List<DataRow> tempO = new List<DataRow>(columnO);
+                
+                // Seleciona 5 empresas aleatoriamente de cada coluna (B, I, N, G, O) e remove as escolhidas da lista temporária
+                selectedCompanies.AddRange(SelectAndRemoveFromGroup(tempB, 5, random));
+                selectedCompanies.AddRange(SelectAndRemoveFromGroup(tempI, 5, random));
+                selectedCompanies.AddRange(SelectAndRemoveFromGroup(tempN, 5, random));
+                selectedCompanies.AddRange(SelectAndRemoveFromGroup(tempG, 5, random));
+                selectedCompanies.AddRange(SelectAndRemoveFromGroup(tempO, 5, random));
+                
+                // A lógica para inserir as cartelas no banco de dados
+                List<int> companyIds = selectedCompanies.Select(c => Convert.ToInt32(c["Id"])).ToList();
+                 
+                if (companyIds.Count == 25)
                 {
-                    List<DataRow> selectedCompanies = new List<DataRow>();
+                    // Chama o método que insere a cartela no banco de dados
+                    DataService.CreateCard(listId, companyIds, i);
 
-                    // Cria cópias temporárias dos grupos para garantir que as empresas não se repitam dentro da mesma cartela
-                    List<DataRow> tempB = new List<DataRow>(columnB);
-                    List<DataRow> tempI = new List<DataRow>(columnI);
-                    List<DataRow> tempN = new List<DataRow>(columnN);
-                    List<DataRow> tempG = new List<DataRow>(columnG);
-                    List<DataRow> tempO = new List<DataRow>(columnO);
-
-                    // Seleciona 5 empresas aleatoriamente de cada coluna (B, I, N, G, O) e remove as escolhidas da lista temporária
-                    selectedCompanies.AddRange(SelectAndRemoveFromGroup(tempB, 5, random));
-                    selectedCompanies.AddRange(SelectAndRemoveFromGroup(tempI, 5, random));
-                    selectedCompanies.AddRange(SelectAndRemoveFromGroup(tempN, 5, random));
-                    selectedCompanies.AddRange(SelectAndRemoveFromGroup(tempG, 5, random));
-                    selectedCompanies.AddRange(SelectAndRemoveFromGroup(tempO, 5, random));
-
-                    // A lógica para inserir as cartelas no banco de dados
-                    List<int> companyIds = selectedCompanies.Select(c => Convert.ToInt32(c["Id"])).ToList();
-
-                    if (companyIds.Count == 25)
-                    {
-                        // Chama o método que insere a cartela no banco de dados
-                        DataService.CreateCard(listId, companyIds, i);
-
-                        // Adiciona a cartela gerada à lista de todas as cartelas
-                        allCards.Add(selectedCompanies);
-                    }
+                    // Adiciona a cartela gerada à lista de todas as cartelas
+                    allCards.Add(selectedCompanies);
                 }
+            }
 
-                // Após criar todas as cartelas, gerar o PDF com todas elas (duas cartelas por página)
-                PrintingService.PrintCards(allCards, allCards.Count, Title, End);
+            // Após criar todas as cartelas, gerar o PDF com todas elas (duas cartelas por página)
+            PrintingService.PrintCards(allCards, allCards.Count, Title, End);
 
-                SavePdfWithCompaniesByGroup(CompList);
-            
+            SavePdfWithCompaniesByGroup(CompList);
         }
 
         // Método para selecionar e remover empresas de um grupo temporário
@@ -137,7 +137,7 @@ namespace BingoManager.Services
             // Adiciona as empresas à lista numerada
             foreach (DataRow company in companies)
             {
-                document.Add(new Paragraph($"{companyIndex}- {company["Name"]} (ID: {company["Id"]})"));
+                document.Add(new Paragraph($"{companyIndex}- {company["CardName"]} (ID: {company["Id"]})"));
                 companyIndex++;
             }
 

@@ -422,7 +422,6 @@ namespace BingoManager
             string CardsQuant = BoxCreateCardsQuant.Text.Trim();
             string CardsEnd = BoxCreateCardsEnd.Text.Trim();
             string CardsTitle = BoxCreateCardsTitle.Text.Trim();
-            bool Center;
 
             if (CboCreateCardsList.SelectedItem != null)
             {
