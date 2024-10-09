@@ -11,27 +11,8 @@ namespace DeckManager.Services
         private static readonly HttpClient client = new HttpClient();
         private readonly string baseUrl = "https://api.scryfall.com/cards/";
 
-        // Método para buscar carta por ID
-        public async Task<string> GetCardByIdAsync(string cardId)
-        {
-            try
-            {
-                string url = $"{baseUrl}{cardId}"; // URL da API com o ID da carta
-                HttpResponseMessage response = await client.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-
-                string responseBody = await response.Content.ReadAsStringAsync();
-                return responseBody;
-            }
-            catch (HttpRequestException e)
-            {
-                // Tratar o erro e retornar mensagem apropriada
-                return $"Erro na requisição: {e.Message}";
-            }
-        }
-
         // Método para buscar carta por nome (ou outros parâmetros de query)
-        public async Task<string> SearchCardByNameAsync(string cardName)
+        public async Task<string> SearchCard(string cardName)
         {
             try
             {

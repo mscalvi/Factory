@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\DeckManager.csproj": {}
+    "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\DeckManager.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\DeckManager.csproj": {
+    "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\DeckManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\DeckManager.csproj",
+        "projectUniqueName": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\DeckManager.csproj",
         "projectName": "DeckManager",
-        "projectPath": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\DeckManager.csproj",
-        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Usuario\\Desktop\\Factory\\DeckManager\\obj\\",
+        "projectPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\DeckManager.csproj",
+        "packagesPath": "C:\\Users\\Marcelo Scalvi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Marcelo Scalvi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
