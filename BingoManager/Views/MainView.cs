@@ -31,6 +31,7 @@ namespace BingoManager
             EditCompLoadList();
         }
 
+        //Método para Criar uma Lista
         private void BtnCreateList_Click(object sender, EventArgs e)
         {
             ListClass list = new ListClass();
@@ -100,6 +101,7 @@ namespace BingoManager
             }
         }
 
+        //Método para Criar uma empresa
         private void BtnCreateCompany_Click(object sender, EventArgs e)
         {
             CompanyModel company = new CompanyModel();
@@ -397,6 +399,7 @@ namespace BingoManager
             }
         }
 
+        //Método para carregar as Listas ao Criar Cartelas
         private void CreateCardLoadLists()
         {
             DataTable listsTable = DataService.GetLists();
@@ -415,6 +418,8 @@ namespace BingoManager
             CboCreateCardsList.ValueMember = "Value";
         }
 
+        //Método para detectar entradas ao Criar Cartelas
+        //Adicionar Nome
         private void BtnCreateCards_Click(object sender, EventArgs e)
         {
             TxtCreateCardsMsg.Text = "";
@@ -460,31 +465,171 @@ namespace BingoManager
             }
         }
 
+        //Método para selecionar Empresa para Edição
         private void CboEditComp_SelectedValueChanged(object sender, EventArgs e)
         {
-            BoxEditNameComp.Text = "";
-            BoxEditCardNameComp.Text = "";
-            BoxEditEmailComp.Text = "";
-            BoxEditPhoneComp.Text = "";
-            PicEditLogoComp.Image = null;
+            if (CboEditComp.SelectedItem != null)
+            {
+                CompanyModel selectedCompany = CboEditComp.SelectedItem as CompanyModel;
+
+                if (selectedCompany != null)
+                {
+                    BoxEditNameComp.Text = selectedCompany.Name;
+                    BoxEditCardNameComp.Text = selectedCompany.CardName;
+                    BoxEditEmailComp.Text = selectedCompany.Email;
+                    BoxEditPhoneComp.Text = selectedCompany.Phone;
+
+                    PicEditLogoComp.Image = DataService.LoadImageFromFile(selectedCompany.Logo) ?? Image.FromFile(@"Images\default_logo.png");
+                }
+            }
         }
 
+        //Método para carregar a lista de Empresas para Edição
         private void EditCompLoadList()
         {
-            DataTable compsTable = DataService.GetCompanies();
+            List<CompanyModel> companyList = new List<CompanyModel>();
 
-            CboEditComp.Items.Clear();
+            DataTable compsTable = DataService.GetCompanies();
 
             foreach (DataRow row in compsTable.Rows)
             {
-                string listName = row["CardName"].ToString();
-                int listId = Convert.ToInt32(row["Id"]);
+                CompanyModel company = new CompanyModel
+                {
+                    Id = Convert.ToInt32(row["Id"]),
+                    Name = row["Name"].ToString(),
+                    CardName = row["CardName"].ToString(),
+                    Email = row["Email"].ToString(),
+                    Phone = row["Phone"].ToString(),
+                    Logo = row["Logo"].ToString(),
+                    AddDate = row["AddTime"].ToString()
+                };
 
-                CboEditComp.Items.Add(new { Text = listName, Value = listId });
+                companyList.Add(company);
             }
 
-            CboEditComp.DisplayMember = "Text";
-            CboEditComp.ValueMember = "Value";
+            CboEditComp.DataSource = companyList;
+
+            CboEditComp.DisplayMember = "CardName";
+            CboEditComp.ValueMember = "Id";
+
+            BoxEditNameComp.Text = "";
+            BoxEditCardNameComp.Text = "";
+            BoxEditPhoneComp.Text = "";
+            BoxEditEmailComp.Text = "";
+            PicEditLogoComp.Image = null;
+            CboEditComp.SelectedIndex = -1;
+        }
+
+        // Método para Excluir uma Empresa
+        private void BtnRemoveComp_Click(object sender, EventArgs e)
+        {
+            if (CboEditComp.SelectedIndex == -1)
+            {
+                LblEditCompName.Text = "Por favor, selecione uma empresa para excluir.";
+                return;
+            }
+
+            CompanyModel selectedCompany = CboEditComp.SelectedItem as CompanyModel;
+
+            if (selectedCompany == null)
+            {
+                LblEditCompName.Text = "Erro ao carregar os detalhes da empresa selecionada.";
+                return;
+            }
+
+            DialogResult dialogResult = MessageBox.Show($"Tem certeza de que deseja excluir a empresa '{selectedCompany.Name}'?",
+                                                        "Confirmar Exclusão",
+                                                        MessageBoxButtons.YesNo,
+                                                        MessageBoxIcon.Warning);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                try
+                {
+                    DataService.DeleteCompany(selectedCompany.Id);
+
+                    LblEditCompName.Text = $"Empresa '{selectedCompany.Name}' excluída com sucesso.";
+
+                    BoxEditNameComp.Text = "";
+                    BoxEditCardNameComp.Text = "";
+                    BoxEditPhoneComp.Text = "";
+                    BoxEditEmailComp.Text = "";
+                    PicEditLogoComp.Image = null;
+                    CboEditComp.SelectedIndex = -1;
+                    EditCompLoadList();
+                }
+                catch (Exception ex)
+                {
+                    LblEditCompName.Text = "Erro ao excluir a empresa. " + ex.Message;
+                }
+            }
+            else
+            {
+                LblEditCompName.Text = "A exclusão foi cancelada.";
+            }
+        }
+
+        //Método para Editar uma Empresa
+        private void BtnEditComp_Click(object sender, EventArgs e)
+        {
+            if (CboEditComp.SelectedIndex == -1)
+            {
+                LblEditMsgComp.Text = "Por favor, selecione uma empresa para editar.";
+                return;
+            }
+
+            CompanyModel selectedCompany = CboEditComp.SelectedItem as CompanyModel;
+
+            if (selectedCompany == null)
+            {
+                LblEditCompName.Text = "Erro ao carregar os detalhes da empresa selecionada.";
+                return;
+            }
+
+            CompanyModel company = new CompanyModel
+            {
+                Id = selectedCompany.Id,
+                Name = BoxEditNameComp.Text.Trim(),
+                CardName = BoxEditCardNameComp.Text.Trim(),
+                Phone = BoxEditPhoneComp.Text.Trim(),
+                Email = BoxEditEmailComp.Text.Trim(),
+                AddDate = DateTime.Now.ToString("MMddyyyy - HH:mm:ss")
+            };
+
+            if (PicEditLogoComp.Image != null && !string.IsNullOrEmpty(selectedImagePath))
+            {
+                company.Logo = "logo_" + Guid.NewGuid().ToString() + Path.GetExtension(selectedImagePath);
+                SaveImageToPC(PicEditLogoComp.Image, company.Logo);
+            }
+            else
+            {
+                company.Logo = selectedCompany.Logo;
+            }
+
+            if (!string.IsNullOrEmpty(company.Name) && !string.IsNullOrEmpty(company.CardName))
+            {
+                try
+                {
+                    DataService.UpdateCompany(company.Id, company.Name, company.CardName, company.Phone, company.Email, company.Logo, company.AddDate);
+                    LblEditMsgComp.Text = "Empresa " + company.Name + " editada com sucesso.";
+                }
+                catch
+                {
+                    LblEditMsgComp.Text = "Erro ao editar a empresa.";
+                }
+
+                BoxEditNameComp.Text = "";
+                BoxEditCardNameComp.Text = "";
+                BoxEditPhoneComp.Text = "";
+                BoxEditEmailComp.Text = "";
+                PicEditLogoComp.Image = null;
+                CboEditComp.SelectedIndex = -1;
+                EditCompLoadList();
+            }
+            else
+            {
+                LblEditMsgComp.Text = "Nome e Nome para Cartela são obrigatórios.";
+            }
         }
     }
 }

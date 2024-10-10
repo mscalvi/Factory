@@ -153,6 +153,35 @@ namespace BingoManager.Services
             }
         }
 
+        //Método para retornar uma única empresa
+        public static DataRow GetCompanyById(int companyId)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                string query = "SELECT * FROM CompanyTable WHERE Id = @Id";
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", companyId);
+
+                    using (var adapter = new SQLiteDataAdapter(command))
+                    {
+                        DataTable companyTable = new DataTable();
+                        adapter.Fill(companyTable);
+
+                        if (companyTable.Rows.Count > 0)
+                        {
+                            return companyTable.Rows[0];
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
+
         // Método para retornar todas as listas
         public static DataTable GetLists()
         {
@@ -205,21 +234,27 @@ namespace BingoManager.Services
             using (var connection = GetConnection())
             {
                 connection.Open();
-                string deleteQuery = "DELETE FROM CompanyTable WHERE Id = @Id;";
+                string deleteQuery = "DELETE FROM CompanyTable WHERE Id = @Id";
 
                 using (var command = new SQLiteCommand(deleteQuery, connection))
                 {
-                    command.Parameters.AddWithValue("@Id", id);
+                    command.Parameters.AddWithValue("@Id", companyId);
                     command.ExecuteNonQuery();
                 }
             }
         }
 
-        //Método para Ler Endereço das Imagens
-        private static Image LoadImageFromFile(string fileName)
+        // Método para ler o endereço das imagens, aceitando caminho absoluto ou relativo
+        public static Image LoadImageFromFile(string filePath)
         {
-            string directoryPath = Application.StartupPath + @"\Images\";
-            string filePath = Path.Combine(directoryPath, fileName);
+            if (string.IsNullOrEmpty(filePath))
+                return null;
+
+            if (!Path.IsPathRooted(filePath))
+            {
+                string directoryPath = Path.Combine(Application.StartupPath, "Images");
+                filePath = Path.Combine(directoryPath, filePath);
+            }
 
             if (File.Exists(filePath))
             {
