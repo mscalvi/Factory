@@ -28,6 +28,7 @@ namespace BingoManager
             EditListConfigureLayout();
             EditListLoadLists();
             EditListLoadAllComp();
+            EditCompLoadList();
         }
 
         private void BtnCreateList_Click(object sender, EventArgs e)
@@ -457,6 +458,33 @@ namespace BingoManager
             {
                 TxtCreateCardsMsg.Text = "Selecione uma lista!";
             }
+        }
+
+        private void CboEditComp_SelectedValueChanged(object sender, EventArgs e)
+        {
+            BoxEditNameComp.Text = "";
+            BoxEditCardNameComp.Text = "";
+            BoxEditEmailComp.Text = "";
+            BoxEditPhoneComp.Text = "";
+            PicEditLogoComp.Image = null;
+        }
+
+        private void EditCompLoadList()
+        {
+            DataTable compsTable = DataService.GetCompanies();
+
+            CboEditComp.Items.Clear();
+
+            foreach (DataRow row in compsTable.Rows)
+            {
+                string listName = row["CardName"].ToString();
+                int listId = Convert.ToInt32(row["Id"]);
+
+                CboEditComp.Items.Add(new { Text = listName, Value = listId });
+            }
+
+            CboEditComp.DisplayMember = "Text";
+            CboEditComp.ValueMember = "Value";
         }
     }
 }
