@@ -46,6 +46,8 @@
             BoxCreateListDescription = new TextBox();
             TabCreateCompany = new TabPage();
             PnlNewComp = new Panel();
+            CboCreateCompanyList = new ComboBox();
+            label11 = new Label();
             TxtCreateCompanyTitle = new Label();
             BoxCreateCompanyEmail = new TextBox();
             BoxCreateCompanyPhone = new TextBox();
@@ -111,6 +113,8 @@
             label9 = new Label();
             TabEditCards = new TabPage();
             TabPlayPage = new TabPage();
+            label16 = new Label();
+            BoxCreateCardsName = new TextBox();
             MainPage.SuspendLayout();
             TabCreatePage.SuspendLayout();
             CreatePage.SuspendLayout();
@@ -308,6 +312,8 @@
             // PnlNewComp
             // 
             PnlNewComp.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            PnlNewComp.Controls.Add(CboCreateCompanyList);
+            PnlNewComp.Controls.Add(label11);
             PnlNewComp.Controls.Add(TxtCreateCompanyTitle);
             PnlNewComp.Controls.Add(BoxCreateCompanyEmail);
             PnlNewComp.Controls.Add(BoxCreateCompanyPhone);
@@ -328,6 +334,24 @@
             PnlNewComp.Size = new Size(1322, 661);
             PnlNewComp.TabIndex = 13;
             // 
+            // CboCreateCompanyList
+            // 
+            CboCreateCompanyList.Anchor = AnchorStyles.Top;
+            CboCreateCompanyList.FormattingEnabled = true;
+            CboCreateCompanyList.Location = new Point(842, 323);
+            CboCreateCompanyList.Name = "CboCreateCompanyList";
+            CboCreateCompanyList.Size = new Size(448, 23);
+            CboCreateCompanyList.TabIndex = 15;
+            // 
+            // label11
+            // 
+            label11.Anchor = AnchorStyles.Top;
+            label11.Location = new Point(1016, 297);
+            label11.Name = "label11";
+            label11.Size = new Size(100, 23);
+            label11.TabIndex = 14;
+            label11.Text = "Adicionar a Lista:";
+            // 
             // TxtCreateCompanyTitle
             // 
             TxtCreateCompanyTitle.Dock = DockStyle.Top;
@@ -344,7 +368,7 @@
             BoxCreateCompanyEmail.Anchor = AnchorStyles.Top;
             BoxCreateCompanyEmail.Location = new Point(6, 364);
             BoxCreateCompanyEmail.Name = "BoxCreateCompanyEmail";
-            BoxCreateCompanyEmail.Size = new Size(1313, 23);
+            BoxCreateCompanyEmail.Size = new Size(780, 23);
             BoxCreateCompanyEmail.TabIndex = 12;
             // 
             // BoxCreateCompanyPhone
@@ -352,7 +376,7 @@
             BoxCreateCompanyPhone.Anchor = AnchorStyles.Top;
             BoxCreateCompanyPhone.Location = new Point(3, 294);
             BoxCreateCompanyPhone.Name = "BoxCreateCompanyPhone";
-            BoxCreateCompanyPhone.Size = new Size(1316, 23);
+            BoxCreateCompanyPhone.Size = new Size(783, 23);
             BoxCreateCompanyPhone.TabIndex = 11;
             // 
             // BoxCreateCompanyCardName
@@ -404,7 +428,7 @@
             // BtnCreateCompany
             // 
             BtnCreateCompany.Anchor = AnchorStyles.Top;
-            BtnCreateCompany.Location = new Point(765, 499);
+            BtnCreateCompany.Location = new Point(769, 447);
             BtnCreateCompany.Name = "BtnCreateCompany";
             BtnCreateCompany.Size = new Size(479, 82);
             BtnCreateCompany.TabIndex = 7;
@@ -442,7 +466,7 @@
             // TxtCreateCompanyMessage
             // 
             TxtCreateCompanyMessage.Anchor = AnchorStyles.Top;
-            TxtCreateCompanyMessage.Location = new Point(718, 499);
+            TxtCreateCompanyMessage.Location = new Point(816, 556);
             TxtCreateCompanyMessage.Name = "TxtCreateCompanyMessage";
             TxtCreateCompanyMessage.Size = new Size(385, 71);
             TxtCreateCompanyMessage.TabIndex = 4;
@@ -470,6 +494,8 @@
             // PnlNewCards
             // 
             PnlNewCards.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            PnlNewCards.Controls.Add(BoxCreateCardsName);
+            PnlNewCards.Controls.Add(label16);
             PnlNewCards.Controls.Add(label6);
             PnlNewCards.Controls.Add(TxtCreateCardsMsg);
             PnlNewCards.Controls.Add(BtnCreateCards);
@@ -521,7 +547,7 @@
             // 
             TxtCreatCardsEnd.Anchor = AnchorStyles.Top;
             TxtCreatCardsEnd.AutoSize = true;
-            TxtCreatCardsEnd.Location = new Point(3, 280);
+            TxtCreatCardsEnd.Location = new Point(0, 348);
             TxtCreatCardsEnd.Name = "TxtCreatCardsEnd";
             TxtCreatCardsEnd.Size = new Size(94, 15);
             TxtCreatCardsEnd.TabIndex = 8;
@@ -531,7 +557,7 @@
             // 
             TxtCreateCardsTitle.Anchor = AnchorStyles.Top;
             TxtCreateCardsTitle.AutoSize = true;
-            TxtCreateCardsTitle.Location = new Point(3, 222);
+            TxtCreateCardsTitle.Location = new Point(0, 290);
             TxtCreateCardsTitle.Name = "TxtCreateCardsTitle";
             TxtCreateCardsTitle.Size = new Size(37, 15);
             TxtCreateCardsTitle.TabIndex = 7;
@@ -541,7 +567,7 @@
             // 
             TxtCreateCardsQuant.Anchor = AnchorStyles.Top;
             TxtCreateCardsQuant.AutoSize = true;
-            TxtCreateCardsQuant.Location = new Point(3, 164);
+            TxtCreateCardsQuant.Location = new Point(0, 232);
             TxtCreateCardsQuant.Name = "TxtCreateCardsQuant";
             TxtCreateCardsQuant.Size = new Size(69, 15);
             TxtCreateCardsQuant.TabIndex = 6;
@@ -550,7 +576,7 @@
             // TxtCreateCardsList
             // 
             TxtCreateCardsList.Anchor = AnchorStyles.Top;
-            TxtCreateCardsList.Location = new Point(3, 120);
+            TxtCreateCardsList.Location = new Point(0, 188);
             TxtCreateCardsList.Name = "TxtCreateCardsList";
             TxtCreateCardsList.Size = new Size(516, 15);
             TxtCreateCardsList.TabIndex = 5;
@@ -559,7 +585,7 @@
             // BoxCreateCardsEnd
             // 
             BoxCreateCardsEnd.Anchor = AnchorStyles.Top;
-            BoxCreateCardsEnd.Location = new Point(3, 307);
+            BoxCreateCardsEnd.Location = new Point(0, 375);
             BoxCreateCardsEnd.Multiline = true;
             BoxCreateCardsEnd.Name = "BoxCreateCardsEnd";
             BoxCreateCardsEnd.Size = new Size(640, 68);
@@ -568,7 +594,7 @@
             // BoxCreateCardsTitle
             // 
             BoxCreateCardsTitle.Anchor = AnchorStyles.Top;
-            BoxCreateCardsTitle.Location = new Point(3, 240);
+            BoxCreateCardsTitle.Location = new Point(0, 308);
             BoxCreateCardsTitle.Name = "BoxCreateCardsTitle";
             BoxCreateCardsTitle.Size = new Size(640, 23);
             BoxCreateCardsTitle.TabIndex = 2;
@@ -576,7 +602,7 @@
             // BoxCreateCardsQuant
             // 
             BoxCreateCardsQuant.Anchor = AnchorStyles.Top;
-            BoxCreateCardsQuant.Location = new Point(3, 185);
+            BoxCreateCardsQuant.Location = new Point(0, 253);
             BoxCreateCardsQuant.Name = "BoxCreateCardsQuant";
             BoxCreateCardsQuant.Size = new Size(640, 23);
             BoxCreateCardsQuant.TabIndex = 1;
@@ -585,7 +611,7 @@
             // 
             CboCreateCardsList.Anchor = AnchorStyles.Top;
             CboCreateCardsList.FormattingEnabled = true;
-            CboCreateCardsList.Location = new Point(3, 138);
+            CboCreateCardsList.Location = new Point(0, 206);
             CboCreateCardsList.Name = "CboCreateCardsList";
             CboCreateCardsList.Size = new Size(640, 23);
             CboCreateCardsList.TabIndex = 0;
@@ -987,6 +1013,23 @@
             TabPlayPage.Text = "Jogar";
             TabPlayPage.UseVisualStyleBackColor = true;
             // 
+            // label16
+            // 
+            label16.Anchor = AnchorStyles.Top;
+            label16.Location = new Point(0, 132);
+            label16.Name = "label16";
+            label16.Size = new Size(516, 15);
+            label16.TabIndex = 12;
+            label16.Text = "Nome do Jogo";
+            // 
+            // BoxCreateCardsName
+            // 
+            BoxCreateCardsName.Anchor = AnchorStyles.Top;
+            BoxCreateCardsName.Location = new Point(0, 150);
+            BoxCreateCardsName.Name = "BoxCreateCardsName";
+            BoxCreateCardsName.Size = new Size(640, 23);
+            BoxCreateCardsName.TabIndex = 13;
+            // 
             // MainView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1109,5 +1152,9 @@
         private Button BtnEditComp;
         private Button BtnEditLogoComp;
         private Button BtnRemoveComp;
+        private Label label11;
+        private ComboBox CboCreateCompanyList;
+        private TextBox BoxCreateCardsName;
+        private Label label16;
     }
 }

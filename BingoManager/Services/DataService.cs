@@ -89,15 +89,18 @@ namespace BingoManager.Services
             }
         }
 
-        // Método para inserir uma nova empresa
-        public static void AddCompany(string name, string cardName, string email, string phone, string logo, string addTime)
+        // Método para criar uma nova empresa e retornar o ID
+        public static int AddCompany(string name, string cardName, string email, string phone, string logo, string addTime)
         {
+            int companyId;
+
             using (var connection = GetConnection())
             {
                 connection.Open();
                 string insertQuery = @"
-                    INSERT INTO CompanyTable (Name, CardName, Email, Phone, Logo, AddTime)
-                    VALUES (@Name, @CardName, @Email, @Phone, @Logo, @AddTime);";
+            INSERT INTO CompanyTable (Name, CardName, Email, Phone, Logo, AddTime)
+            VALUES (@Name, @CardName, @Email, @Phone, @Logo, @AddTime);
+            SELECT last_insert_rowid();"; 
 
                 using (var command = new SQLiteCommand(insertQuery, connection))
                 {
@@ -108,12 +111,14 @@ namespace BingoManager.Services
                     command.Parameters.AddWithValue("@Logo", logo);
                     command.Parameters.AddWithValue("@AddTime", addTime);
 
-                    command.ExecuteNonQuery();
+                    companyId = Convert.ToInt32(command.ExecuteScalar());
                 }
             }
+
+            return companyId;  
         }
 
-        // Método para inserir uma nova lista
+        // Método para criar uma nova lista
         public static void AddList(string name, string description)
         {
             using (var connection = GetConnection())
@@ -229,7 +234,7 @@ namespace BingoManager.Services
         }
 
         // Método para deletar uma empresa pelo ID
-        public static void DeleteCompany(int id)
+        public static void DeleteCompany(int companyId)
         {
             using (var connection = GetConnection())
             {
@@ -363,13 +368,13 @@ namespace BingoManager.Services
         }
 
         //Método para adicionar uma lista de cartelas
-        public static void CreateCardList(int listId, int qnt, string end, string title)
+        public static void CreateCardList(int listId, int qnt, string end, string title, string name)
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
 
-                string insertQuery = "INSERT INTO AllCards (ListId, Qnt, End, Title) VALUES (@ListId, @Qnt, @End, @Title)";
+                string insertQuery = "INSERT INTO AllCards (ListId, Qnt, End, Title, Name) VALUES (@ListId, @Qnt, @End, @Title, @Name)";
 
                 using (var command = new SQLiteCommand(insertQuery, connection))
                 {
@@ -377,10 +382,12 @@ namespace BingoManager.Services
                     command.Parameters.AddWithValue("@Qnt", qnt);
                     command.Parameters.AddWithValue("@End", end);
                     command.Parameters.AddWithValue("@Title", title);
+                    command.Parameters.AddWithValue("@Name", name);
 
                     command.ExecuteNonQuery();
                 }
             }
         }
     }
+
 }

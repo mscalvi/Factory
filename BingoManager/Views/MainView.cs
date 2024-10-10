@@ -23,12 +23,11 @@ namespace BingoManager
                 ShowAlways = true
             };
 
-            CreateCardLoadLists();
-
+            LoadLists();
+            LoadComps();
             EditListConfigureLayout();
-            EditListLoadLists();
-            EditListLoadAllComp();
-            EditCompLoadList();
+            LoadAllComp();
+            
         }
 
         //Método para Criar uma Lista
@@ -131,12 +130,25 @@ namespace BingoManager
 
                 try
                 {
-                    DataService.AddCompany(company.Name, company.CardName, company.Phone, company.Email, company.Logo, company.AddDate);
-                    TxtCreateCompanyMessage.Text = "Empresa " + company.Name + " adicionada com sucesso.";
+                    int companyId = DataService.AddCompany(company.Name, company.CardName, company.Phone, company.Email, company.Logo, company.AddDate);
+
+                    if (CboCreateCompanyList.SelectedItem != null)
+                    {
+                        ListItem selectedList = CboCreateCompanyList.SelectedItem as ListItem;
+                        int selectedListId = selectedList.Value;
+
+                        DataService.AddCompaniesToAllocation(selectedListId, new List<string> { companyId.ToString() });
+
+                        TxtCreateCompanyMessage.Text = $"Empresa {company.Name} adicionada ao banco de dados e à lista com sucesso.";
+                    }
+                    else
+                    {
+                        TxtCreateCompanyMessage.Text = $"Empresa {company.Name} adicionada ao banco de dados com sucesso.";
+                    }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    TxtCreateCompanyMessage.Text = "Erro ao adicionar a empresa.";
+                    TxtCreateCompanyMessage.Text = "Erro ao adicionar a empresa: " + ex.Message;
                 }
 
                 BoxCreateCompanyName.Text = "";
@@ -144,29 +156,14 @@ namespace BingoManager
                 BoxCreateCompanyEmail.Text = "";
                 BoxCreateCompanyPhone.Text = "";
                 PicCreateCompanyLogo.Image = null;
+                CboCreateCompanyList.SelectedIndex = -1;
+                LoadComps();
+                LoadAllComp();
             }
             else
             {
                 TxtCreateCompanyMessage.Text = "Nome e Nome para Cartela são obrigatórios.";
             }
-        }
-
-        private void EditListLoadLists()
-        {
-            DataTable listsTable = DataService.GetLists();
-
-            CboEditListSel.Items.Clear();
-
-            foreach (DataRow row in listsTable.Rows)
-            {
-                string listName = row["Name"].ToString();
-                int listId = Convert.ToInt32(row["Id"]);
-
-                CboEditListSel.Items.Add(new { Text = listName, Value = listId });
-            }
-
-            CboEditListSel.DisplayMember = "Text";
-            CboEditListSel.ValueMember = "Value";
         }
 
         private void EditListConfigureLayout()
@@ -175,18 +172,31 @@ namespace BingoManager
             FlowEditViewSel.AutoScroll = true;
         }
 
-        private void EditListLoadAllComp()
+        // Método para carregar todas as empresas e filtrar as que já estão na lista selecionada
+        private void LoadAllComp(int? selectedListId = null)
         {
             FlowEditViewAll.Controls.Clear();
 
+            // Carregar todas as empresas
             DataTable companiesTable = DataService.GetCompanies();
-
             allCompaniesList = companiesTable.AsEnumerable()
                                              .OrderBy(row => row.Field<string>("Name"))
                                              .ToList();
 
+            if (selectedListId.HasValue)
+            {
+                // Carregar as empresas que já estão na lista selecionada
+                List<DataRow> companiesInList = DataService.GetCompaniesByListId(selectedListId.Value);
+
+                // Filtrar as empresas que ainda não estão na lista selecionada
+                allCompaniesList = allCompaniesList.Where(row => !companiesInList.Any(c => c["Id"].ToString() == row["Id"].ToString()))
+                                                   .ToList();
+            }
+
+            // Exibir as empresas filtradas
             EditListShowComps(allCompaniesList);
         }
+
 
         private void EditListShowComps(List<DataRow> CompList)
         {
@@ -261,22 +271,29 @@ namespace BingoManager
                 FlowEditViewAll.Controls.Add(companyPanel);
             }
         }
-
+        
+        // Método para manipular a mudança de valor da ComboBox de listas
         private void CboEditListSel_SelectedValueChanged(object sender, EventArgs e)
         {
             if (CboEditListSel.SelectedItem != null)
             {
                 int selectedListId = (int)(CboEditListSel.SelectedItem as dynamic).Value;
 
+                // Carrega as empresas não alocadas na lista selecionada
+                LoadAllComp(selectedListId);
+
+                // Carrega as empresas já associadas à lista selecionada
                 List<DataRow> companyList = DataService.GetCompaniesByListId(selectedListId);
 
+                // Exibe apenas as empresas já associadas
                 EditListShowSel(companyList);
             }
         }
 
+
         private void EditListShowSel(List<DataRow> CompList)
         {
-            FlowEditViewSel.Controls.Clear();  // Altere para o painel correto
+            FlowEditViewSel.Controls.Clear(); 
 
             foreach (DataRow row in CompList)
             {
@@ -359,6 +376,7 @@ namespace BingoManager
             EditListShowComps(filteredList);
         }
 
+        //Método para adicionar empresas a uma lista no editor
         private void BtnEditAddCL_Click(object sender, EventArgs e)
         {
             List<string> selectedCompanies = new List<string>();
@@ -377,54 +395,63 @@ namespace BingoManager
                 }
             }
 
-            // Obter o ID da lista selecionada no ComboBox
             if (CboEditListSel.SelectedItem != null)
             {
                 var selectedList = CboEditListSel.SelectedItem as dynamic;
                 int selectedListId = selectedList.Value;
 
+                List<DataRow> companyList = DataService.GetCompaniesByListId(selectedListId);
+
                 if (selectedCompanies.Count > 0)
                 {
                     DataService.AddCompaniesToAllocation(selectedListId, selectedCompanies);
-                    MessageBox.Show("Empresas alocadas com sucesso!");
+                    TxtEditListMsg.Text = "Empresas alocadas com sucesso!";
+                    EditListShowSel(companyList);
+                    LoadAllComp(selectedListId);
                 }
                 else
                 {
-                    MessageBox.Show("Nenhuma empresa foi selecionada.");
+                    TxtEditListMsg.Text = "Nenhuma empresa foi alocada!";
                 }
             }
             else
             {
-                MessageBox.Show("Nenhuma lista foi selecionada.");
+                TxtEditListMsg.Text = "Nenhuma Lista foi selecionada!";
             }
         }
 
-        //Método para carregar as Listas ao Criar Cartelas
-        private void CreateCardLoadLists()
+        //Método para carregar as ComboBox de Listas
+        private void LoadLists()
         {
             DataTable listsTable = DataService.GetLists();
 
             CboCreateCardsList.Items.Clear();
+            CboCreateCompanyList.Items.Clear();
+            CboEditListSel.Items.Clear();
 
             foreach (DataRow row in listsTable.Rows)
             {
                 string listName = row["Name"].ToString();
                 int listId = Convert.ToInt32(row["Id"]);
 
-                CboCreateCardsList.Items.Add(new { Text = listName, Value = listId });
+                // Use a classe ListItem
+                CboCreateCardsList.Items.Add(new ListItem { Text = listName, Value = listId });
+                CboCreateCompanyList.Items.Add(new ListItem { Text = listName, Value = listId });
+                CboEditListSel.Items.Add(new ListItem { Text = listName, Value = listId });
             }
 
             CboCreateCardsList.DisplayMember = "Text";
-            CboCreateCardsList.ValueMember = "Value";
+            CboCreateCompanyList.DisplayMember = "Text";
+            CboEditListSel.DisplayMember = "Text";
         }
 
         //Método para detectar entradas ao Criar Cartelas
-        //Adicionar Nome
         private void BtnCreateCards_Click(object sender, EventArgs e)
         {
             TxtCreateCardsMsg.Text = "";
             int Qnt;
 
+            string CardsName = BoxCreateCardsName.Text.Trim();
             string CardsQuant = BoxCreateCardsQuant.Text.Trim();
             string CardsEnd = BoxCreateCardsEnd.Text.Trim();
             string CardsTitle = BoxCreateCardsTitle.Text.Trim();
@@ -451,7 +478,7 @@ namespace BingoManager
 
                 if (int.TryParse(CardsQuant, out Qnt))
                 {
-                    CardsService.CreateCards(CompList, CardsList, CompanyCount, Qnt, CardsTitle, CardsEnd);
+                    CardsService.CreateCards(CompList, CardsList, CompanyCount, Qnt, CardsTitle, CardsEnd, CardsName);
                 }
                 else
                 {
@@ -485,7 +512,7 @@ namespace BingoManager
         }
 
         //Método para carregar a lista de Empresas para Edição
-        private void EditCompLoadList()
+        private void LoadComps()
         {
             List<CompanyModel> companyList = new List<CompanyModel>();
 
@@ -556,7 +583,7 @@ namespace BingoManager
                     BoxEditEmailComp.Text = "";
                     PicEditLogoComp.Image = null;
                     CboEditComp.SelectedIndex = -1;
-                    EditCompLoadList();
+                    LoadComps();
                 }
                 catch (Exception ex)
                 {
@@ -624,7 +651,7 @@ namespace BingoManager
                 BoxEditEmailComp.Text = "";
                 PicEditLogoComp.Image = null;
                 CboEditComp.SelectedIndex = -1;
-                EditCompLoadList();
+                LoadComps();
             }
             else
             {

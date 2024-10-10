@@ -11,10 +11,10 @@ namespace BingoManager.Services
 {
     public static class CardsService
     {
-        public static void CreateCards(List<DataRow> CompList, int listId, int CompNumber, int Qnt, string Title, string End)
+        public static void CreateCards(List<DataRow> CompList, int listId, int CompNumber, int Qnt, string Title, string End, string CardsName)
         {
             // Chama o método que cria a lista de cartelas no banco de dados
-            DataService.CreateCardList(listId, Qnt, End, Title);
+            DataService.CreateCardList(listId, Qnt, End, Title, CardsName);
 
             // Lista para armazenar todas as cartelas geradas
             List<List<DataRow>> allCards = new List<List<DataRow>>();
