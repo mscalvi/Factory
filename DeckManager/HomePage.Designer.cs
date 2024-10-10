@@ -35,6 +35,7 @@
             TxtFinder = new Label();
             FlwFinder = new FlowLayoutPanel();
             BoxFinder = new TextBox();
+            BtnFinder = new Button();
             tabControl1.SuspendLayout();
             TabFinder.SuspendLayout();
             PnlFinder.SuspendLayout();
@@ -75,6 +76,7 @@
             // PnlFinder
             // 
             PnlFinder.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            PnlFinder.Controls.Add(BtnFinder);
             PnlFinder.Controls.Add(TxtFinder);
             PnlFinder.Controls.Add(FlwFinder);
             PnlFinder.Controls.Add(BoxFinder);
@@ -106,11 +108,21 @@
             // 
             // BoxFinder
             // 
-            BoxFinder.Location = new Point(582, 149);
+            BoxFinder.Location = new Point(582, 131);
             BoxFinder.Name = "BoxFinder";
             BoxFinder.Size = new Size(727, 23);
             BoxFinder.TabIndex = 0;
             BoxFinder.TextChanged += BoxFinder_TextChanged;
+            // 
+            // BtnFinder
+            // 
+            BtnFinder.Location = new Point(908, 160);
+            BtnFinder.Name = "BtnFinder";
+            BtnFinder.Size = new Size(75, 23);
+            BtnFinder.TabIndex = 3;
+            BtnFinder.Text = "Procurar";
+            BtnFinder.UseVisualStyleBackColor = true;
+            BtnFinder.Click += BtnFinder_Click;
             // 
             // HomePage
             // 
@@ -136,5 +148,6 @@
         private Label TxtFinder;
         private FlowLayoutPanel FlwFinder;
         private TextBox BoxFinder;
+        private Button BtnFinder;
     }
 }

@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "r56gO0dQEmw=",
+  "dgSpecHash": "ybXG+FGQ3oI=",
   "success": true,
   "projectFilePath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\DeckManager.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Marcelo Scalvi\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+    "C:\\Users\\Marcelo Scalvi\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Marcelo Scalvi\\.nuget\\packages\\restsharp\\112.1.0\\restsharp.112.1.0.nupkg.sha512"
   ],
   "logs": []
 }

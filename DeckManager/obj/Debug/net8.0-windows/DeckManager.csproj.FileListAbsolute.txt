@@ -18,3 +18,4 @@ C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\obj\Debug\net8.0-windows\ref
 C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\obj\Debug\net8.0-windows\DeckManager.pdb
 C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\obj\Debug\net8.0-windows\DeckManager.genruntimeconfig.cache
 C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\obj\Debug\net8.0-windows\ref\DeckManager.dll
+C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\bin\Debug\net8.0-windows\RestSharp.dll
