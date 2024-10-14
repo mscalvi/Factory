@@ -11,7 +11,7 @@
       "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
@@ -60,7 +60,7 @@
               "RelativeDocumentMoniker": "Services\\DataService.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Services\\DataService.cs",
               "RelativeToolTip": "Services\\DataService.cs",
-              "ViewState": "AQIAABUBAAAAAAAAAAAAADQBAABfAAAA",
+              "ViewState": "AQIAAJsAAAAAAAAAAAAwwLcAAAA3AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-13T15:35:50.338Z",
               "EditorCaption": ""
@@ -73,7 +73,7 @@
               "RelativeDocumentMoniker": "Views\\MainView.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Views\\MainView.cs",
               "RelativeToolTip": "Views\\MainView.cs",
-              "ViewState": "AQIAAO8BAAAAAAAAAAAQwDECAAANAAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAcwOEAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-13T15:19:26.589Z",
               "EditorCaption": ""

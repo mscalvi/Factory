@@ -27,9 +27,9 @@ namespace BingoManager
             LoadComps();
             EditListConfigureLayout();
             LoadAllComp();
-            
         }
 
+        //Criação
         //Método para Criar uma Lista
         private void BtnCreateList_Click(object sender, EventArgs e)
         {
@@ -81,6 +81,7 @@ namespace BingoManager
                 selectedImagePath = openFileDialog.FileName;
                 PicCreateCompanyLogo.Image = Image.FromFile(selectedImagePath);
             }
+            LoadLists();
         }
 
         private void SaveImageToPC(Image image, string fileName)
@@ -123,6 +124,13 @@ namespace BingoManager
 
             if (!string.IsNullOrEmpty(company.Name) && !string.IsNullOrEmpty(company.CardName))
             {
+                // Verifica se a empresa já existe
+                if (DataService.CompanyExists(company.Name, company.CardName))
+                {
+                    TxtCreateCompanyMessage.Text = "Já existe uma empresa com o mesmo Nome ou Nome para Cartela.";
+                    return;
+                }
+
                 if (PicCreateCompanyLogo.Image != null)
                 {
                     SaveImageToPC(PicCreateCompanyLogo.Image, company.Logo);
@@ -151,6 +159,7 @@ namespace BingoManager
                     TxtCreateCompanyMessage.Text = "Erro ao adicionar a empresa: " + ex.Message;
                 }
 
+                // Limpa os campos após a criação
                 BoxCreateCompanyName.Text = "";
                 BoxCreateCompanyCardName.Text = "";
                 BoxCreateCompanyEmail.Text = "";
@@ -164,285 +173,6 @@ namespace BingoManager
             {
                 TxtCreateCompanyMessage.Text = "Nome e Nome para Cartela são obrigatórios.";
             }
-        }
-
-        private void EditListConfigureLayout()
-        {
-            FlowEditViewAll.AutoScroll = true;
-            FlowEditViewSel.AutoScroll = true;
-        }
-
-        // Método para carregar todas as empresas e filtrar as que já estão na lista selecionada
-        private void LoadAllComp(int? selectedListId = null)
-        {
-            FlowEditViewAll.Controls.Clear();
-
-            // Carregar todas as empresas
-            DataTable companiesTable = DataService.GetCompanies();
-            allCompaniesList = companiesTable.AsEnumerable()
-                                             .OrderBy(row => row.Field<string>("Name"))
-                                             .ToList();
-
-            if (selectedListId.HasValue)
-            {
-                // Carregar as empresas que já estão na lista selecionada
-                List<DataRow> companiesInList = DataService.GetCompaniesByListId(selectedListId.Value);
-
-                // Filtrar as empresas que ainda não estão na lista selecionada
-                allCompaniesList = allCompaniesList.Where(row => !companiesInList.Any(c => c["Id"].ToString() == row["Id"].ToString()))
-                                                   .ToList();
-            }
-
-            // Exibir as empresas filtradas
-            EditListShowComps(allCompaniesList);
-        }
-
-
-        private void EditListShowComps(List<DataRow> CompList)
-        {
-            FlowEditViewAll.Controls.Clear();
-
-            foreach (DataRow row in CompList)
-            {
-                string CompanyId = row["Id"].ToString();
-                string companyName = row["Name"].ToString();
-                string logoName = row["Logo"].ToString();
-                string companyFull = companyName;
-
-                if (companyName.Length > 10)
-                {
-                    companyFull = companyName;
-                    companyName = companyName.Substring(0, 10);
-                }
-
-                Panel companyPanel = new Panel();
-                companyPanel.Width = 100;
-                companyPanel.Height = 70;
-                companyPanel.Margin = new Padding(1);
-
-                companyPanel.Tag = CompanyId;
-
-                PictureBox picBox = new PictureBox();
-                if (!string.IsNullOrEmpty(logoName))
-                {
-                    picBox.Image = Image.FromFile(@"Images/" + logoName);
-                }
-                else
-                {
-                    picBox.Image = Image.FromFile(@"Images/default_logo.png");
-                }
-
-                picBox.SizeMode = PictureBoxSizeMode.Zoom;
-                picBox.Width = 75;
-                picBox.Height = 50;
-                picBox.Location = new Point(20, 5);
-
-                CheckBox chkBox = new CheckBox();
-                chkBox.Width = 20;
-                chkBox.Height = 20;
-                chkBox.Location = new Point(0, 50);
-
-                Label lblName = new Label();
-                lblName.Text = companyName;
-                lblName.Width = 70;
-                lblName.Height = 20;
-                lblName.Location = new Point(22, 50);
-                lblName.TextAlign = ContentAlignment.MiddleLeft;
-
-                toolTip.SetToolTip(picBox, companyFull);
-                toolTip.SetToolTip(lblName, companyFull);
-
-                chkBox.CheckedChanged += (sender, e) =>
-                {
-                    if (chkBox.Checked)
-                    {
-                        companyPanel.BackColor = Color.LightBlue;
-                    }
-                    else
-                    {
-                        companyPanel.BackColor = Color.LightGray;
-                    }
-                };
-
-                companyPanel.Controls.Add(picBox);
-                companyPanel.Controls.Add(chkBox);
-                companyPanel.Controls.Add(lblName);
-
-                FlowEditViewAll.Controls.Add(companyPanel);
-            }
-        }
-        
-        // Método para manipular a mudança de valor da ComboBox de listas
-        private void CboEditListSel_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (CboEditListSel.SelectedItem != null)
-            {
-                int selectedListId = (int)(CboEditListSel.SelectedItem as dynamic).Value;
-
-                // Carrega as empresas não alocadas na lista selecionada
-                LoadAllComp(selectedListId);
-
-                // Carrega as empresas já associadas à lista selecionada
-                List<DataRow> companyList = DataService.GetCompaniesByListId(selectedListId);
-
-                // Exibe apenas as empresas já associadas
-                EditListShowSel(companyList);
-            }
-        }
-
-
-        private void EditListShowSel(List<DataRow> CompList)
-        {
-            FlowEditViewSel.Controls.Clear(); 
-
-            foreach (DataRow row in CompList)
-            {
-                string CompanyId = row["Id"].ToString();
-                string companyName = row["Name"].ToString();
-                string logoName = row["Logo"].ToString();
-                string companyFull = companyName;
-
-                if (companyName.Length > 10)
-                {
-                    companyFull = companyName;
-                    companyName = companyName.Substring(0, 10);
-                }
-
-                Panel companyPanel = new Panel();
-                companyPanel.Width = 100;
-                companyPanel.Height = 70;
-                companyPanel.Margin = new Padding(1);
-
-                companyPanel.Tag = CompanyId;
-
-                PictureBox picBox = new PictureBox();
-                if (!string.IsNullOrEmpty(logoName))
-                {
-                    picBox.Image = Image.FromFile(@"Images/" + logoName);
-                }
-                else
-                {
-                    picBox.Image = Image.FromFile(@"Images/default_logo.png");
-                }
-
-                picBox.SizeMode = PictureBoxSizeMode.Zoom;
-                picBox.Width = 75;
-                picBox.Height = 50;
-                picBox.Location = new Point(20, 5);
-
-                CheckBox chkBox = new CheckBox();
-                chkBox.Width = 20;
-                chkBox.Height = 20;
-                chkBox.Location = new Point(0, 50);
-
-                Label lblName = new Label();
-                lblName.Text = companyName;
-                lblName.Width = 70;
-                lblName.Height = 20;
-                lblName.Location = new Point(22, 50);
-                lblName.TextAlign = ContentAlignment.MiddleLeft;
-
-                toolTip.SetToolTip(picBox, companyFull);
-                toolTip.SetToolTip(lblName, companyFull);
-
-                chkBox.CheckedChanged += (sender, e) =>
-                {
-                    if (chkBox.Checked)
-                    {
-                        companyPanel.BackColor = Color.LightBlue;
-                    }
-                    else
-                    {
-                        companyPanel.BackColor = Color.LightGray;
-                    }
-                };
-
-                companyPanel.Controls.Add(picBox);
-                companyPanel.Controls.Add(chkBox);
-                companyPanel.Controls.Add(lblName);
-
-                FlowEditViewSel.Controls.Add(companyPanel);  // Altere para o painel correto
-            }
-        }
-
-        private void BoxEditFilterCL_TextChanged(object sender, EventArgs e)
-        {
-            string filterText = BoxEditFilterCL.Text.ToLower();
-
-            var filteredList = allCompaniesList
-                .Where(row => row.Field<string>("Name").ToLower().Contains(filterText))
-                .ToList();
-
-            EditListShowComps(filteredList);
-        }
-
-        //Método para adicionar empresas a uma lista no editor
-        private void BtnEditAddCL_Click(object sender, EventArgs e)
-        {
-            List<string> selectedCompanies = new List<string>();
-
-            foreach (Control panel in FlowEditViewAll.Controls)
-            {
-                if (panel is Panel companyPanel)
-                {
-                    CheckBox companyCheckBox = companyPanel.Controls.OfType<CheckBox>().FirstOrDefault();
-
-                    if (companyCheckBox != null && companyCheckBox.Checked)
-                    {
-                        string companyId = companyPanel.Tag.ToString();
-                        selectedCompanies.Add(companyId);
-                    }
-                }
-            }
-
-            if (CboEditListSel.SelectedItem != null)
-            {
-                var selectedList = CboEditListSel.SelectedItem as dynamic;
-                int selectedListId = selectedList.Value;
-
-                List<DataRow> companyList = DataService.GetCompaniesByListId(selectedListId);
-
-                if (selectedCompanies.Count > 0)
-                {
-                    DataService.AddCompaniesToAllocation(selectedListId, selectedCompanies);
-                    TxtEditListMsg.Text = "Empresas alocadas com sucesso!";
-                    EditListShowSel(companyList);
-                    LoadAllComp(selectedListId);
-                }
-                else
-                {
-                    TxtEditListMsg.Text = "Nenhuma empresa foi alocada!";
-                }
-            }
-            else
-            {
-                TxtEditListMsg.Text = "Nenhuma Lista foi selecionada!";
-            }
-        }
-
-        //Método para carregar as ComboBox de Listas
-        private void LoadLists()
-        {
-            DataTable listsTable = DataService.GetLists();
-
-            CboCreateCardsList.Items.Clear();
-            CboCreateCompanyList.Items.Clear();
-            CboEditListSel.Items.Clear();
-
-            foreach (DataRow row in listsTable.Rows)
-            {
-                string listName = row["Name"].ToString();
-                int listId = Convert.ToInt32(row["Id"]);
-
-                // Use a classe ListItem
-                CboCreateCardsList.Items.Add(new ListItem { Text = listName, Value = listId });
-                CboCreateCompanyList.Items.Add(new ListItem { Text = listName, Value = listId });
-                CboEditListSel.Items.Add(new ListItem { Text = listName, Value = listId });
-            }
-
-            CboCreateCardsList.DisplayMember = "Text";
-            CboCreateCompanyList.DisplayMember = "Text";
-            CboEditListSel.DisplayMember = "Text";
         }
 
         //Método para detectar entradas ao Criar Cartelas
@@ -492,6 +222,307 @@ namespace BingoManager
             }
         }
 
+
+        //Edição
+        //Configuração da Edição de Listas
+        private void EditListConfigureLayout()
+        {
+            FlowEditViewAll.AutoScroll = true;
+            FlowEditViewSel.AutoScroll = true;
+        }
+
+        // Método para carregar todas as empresas e filtrar as que já estão na lista selecionada
+        private void LoadAllComp(int? selectedListId = null)
+        {
+            FlowEditViewAll.Controls.Clear();
+
+            // Carregar todas as empresas
+            DataTable companiesTable = DataService.GetCompanies();
+            allCompaniesList = companiesTable.AsEnumerable()
+                                             .OrderBy(row => row.Field<string>("Name"))
+                                             .ToList();
+
+            if (selectedListId.HasValue)
+            {
+                // Carregar as empresas que já estão na lista selecionada
+                List<DataRow> companiesInList = DataService.GetCompaniesByListId(selectedListId.Value);
+
+                // Filtrar as empresas que ainda não estão na lista selecionada
+                allCompaniesList = allCompaniesList.Where(row => !companiesInList.Any(c => c["Id"].ToString() == row["Id"].ToString()))
+                                                   .ToList();
+            }
+
+            // Exibir as empresas filtradas
+            EditListShowComps(allCompaniesList);
+        }
+
+        // Método para manipular a mudança de valor da ComboBox de listas
+        private void CboEditListSel_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (CboEditListSel.SelectedItem != null)
+            {
+                int selectedListId = (int)(CboEditListSel.SelectedItem as dynamic).Value;
+
+                // Carrega as empresas não alocadas na lista selecionada
+                LoadAllComp(selectedListId);
+
+                // Carrega as empresas já associadas à lista selecionada
+                List<DataRow> companyList = DataService.GetCompaniesByListId(selectedListId);
+
+                // Exibe apenas as empresas já associadas
+                EditListShowSel(companyList);
+            }
+        }
+
+        //Método para exibir as empresas de uma lista selecionada
+        private void EditListShowComps(List<DataRow> CompList)
+        {
+            FlowEditViewAll.Controls.Clear();
+
+            foreach (DataRow row in CompList)
+            {
+                string CompanyId = row["Id"].ToString();
+                string companyName = row["Name"].ToString();
+                string logoName = row["Logo"].ToString();
+                string companyFull = companyName;
+
+                if (companyName.Length > 10)
+                {
+                    companyFull = companyName;
+                    companyName = companyName.Substring(0, 10);
+                }
+
+                Panel companyPanel = new Panel();
+                companyPanel.Tag = CompanyId;
+                companyPanel.Width = 100;
+                companyPanel.Height = 70;
+                companyPanel.Margin = new Padding(15, 0, 14, 0);
+
+
+                PictureBox picBox = new PictureBox();
+                if (!string.IsNullOrEmpty(logoName))
+                {
+                    picBox.Image = Image.FromFile(@"Images/" + logoName);
+                }
+                else
+                {
+                    picBox.Image = Image.FromFile(@"Images/default_logo.png");
+                }
+
+                picBox.SizeMode = PictureBoxSizeMode.Zoom;
+                picBox.Width = 80;
+                picBox.Height = 50;
+                picBox.Location = new Point(10, 5);
+
+                CheckBox chkBox = new CheckBox();
+                chkBox.Width = 15;
+                chkBox.Height = 15;
+                chkBox.Location = new Point(5, 55);
+
+                Label lblName = new Label();
+                lblName.Text = companyName;
+                lblName.Width = 75;
+                lblName.Height = 20;
+                lblName.Location = new Point(25, 50);
+                lblName.TextAlign = ContentAlignment.MiddleLeft;
+
+                toolTip.SetToolTip(picBox, companyFull);
+                toolTip.SetToolTip(lblName, companyFull);
+
+                chkBox.CheckedChanged += (sender, e) =>
+                {
+                    if (chkBox.Checked)
+                    {
+                        companyPanel.BackColor = Color.LightBlue;
+                    }
+                    else
+                    {
+                        companyPanel.BackColor = Color.LightGray;
+                    }
+                };
+
+                companyPanel.Controls.Add(picBox);
+                companyPanel.Controls.Add(chkBox);
+                companyPanel.Controls.Add(lblName);
+
+                FlowEditViewAll.Controls.Add(companyPanel);
+            }
+        }
+
+        //Método para mostrar as Empresas de uma Lista
+        private void EditListShowSel(List<DataRow> CompList)
+        {
+            FlowEditViewSel.Controls.Clear();
+
+            foreach (DataRow row in CompList)
+            {
+                string CompanyId = row["Id"].ToString();
+                string companyName = row["Name"].ToString();
+                string logoName = row["Logo"].ToString();
+                string companyFull = companyName;
+
+                if (companyName.Length > 10)
+                {
+                    companyFull = companyName;
+                    companyName = companyName.Substring(0, 10);
+                }
+
+                Panel companyPanel = new Panel();
+                companyPanel.Tag = CompanyId;
+                companyPanel.Width = 100;
+                companyPanel.Height = 70;
+                companyPanel.Margin = new Padding(15, 0, 14, 0);
+
+
+                PictureBox picBox = new PictureBox();
+                if (!string.IsNullOrEmpty(logoName))
+                {
+                    picBox.Image = Image.FromFile(@"Images/" + logoName);
+                }
+                else
+                {
+                    picBox.Image = Image.FromFile(@"Images/default_logo.png");
+                }
+
+                picBox.SizeMode = PictureBoxSizeMode.Zoom;
+                picBox.Width = 80;
+                picBox.Height = 50;
+                picBox.Location = new Point(10, 5);
+
+                CheckBox chkBox = new CheckBox();
+                chkBox.Width = 15;
+                chkBox.Height = 15;
+                chkBox.Location = new Point(5, 55);
+
+                Label lblName = new Label();
+                lblName.Text = companyName;
+                lblName.Width = 75;
+                lblName.Height = 20;
+                lblName.Location = new Point(25, 50);
+                lblName.TextAlign = ContentAlignment.MiddleLeft;
+
+                toolTip.SetToolTip(picBox, companyFull);
+                toolTip.SetToolTip(lblName, companyFull);
+
+                chkBox.CheckedChanged += (sender, e) =>
+                {
+                    if (chkBox.Checked)
+                    {
+                        companyPanel.BackColor = Color.LightBlue;
+                    }
+                    else
+                    {
+                        companyPanel.BackColor = Color.LightGray;
+                    }
+                };
+
+                companyPanel.Controls.Add(picBox);
+                companyPanel.Controls.Add(chkBox);
+                companyPanel.Controls.Add(lblName);
+
+                FlowEditViewSel.Controls.Add(companyPanel);  // Altere para o painel correto
+            }
+        }
+
+        //Método para filtrar as Empresas mostradas
+        private void BoxEditFilterCL_TextChanged(object sender, EventArgs e)
+        {
+            string filterText = BoxEditFilterCL.Text.ToLower();
+
+            var filteredList = allCompaniesList
+                .Where(row => row.Field<string>("Name").ToLower().Contains(filterText))
+                .ToList();
+
+            EditListShowComps(filteredList);
+        }
+
+        //Método para adicionar empresas a uma lista no editor
+        private void BtnEditAddCL_Click(object sender, EventArgs e)
+        {
+            List<string> selectedCompanies = new List<string>();
+
+            foreach (Control panel in FlowEditViewAll.Controls)
+            {
+                if (panel is Panel companyPanel)
+                {
+                    CheckBox companyCheckBox = companyPanel.Controls.OfType<CheckBox>().FirstOrDefault();
+
+                    if (companyCheckBox != null && companyCheckBox.Checked)
+                    {
+                        string companyId = companyPanel.Tag.ToString();
+                        selectedCompanies.Add(companyId);
+                    }
+                }
+            }
+
+            if (CboEditListSel.SelectedItem != null)
+            {
+                var selectedList = CboEditListSel.SelectedItem as dynamic;
+                int selectedListId = selectedList.Value;
+
+                List<DataRow> companyList = DataService.GetCompaniesByListId(selectedListId);
+
+                if (selectedCompanies.Count > 0)
+                {
+                    DataService.AddCompaniesToAllocation(selectedListId, selectedCompanies);
+                    LblEditListMsg.Text = "Empresas alocadas com sucesso!";
+                    EditListShowSel(companyList);
+                    LoadAllComp(selectedListId);
+                }
+                else
+                {
+                    LblEditListMsg.Text = "Nenhuma empresa foi alocada!";
+                }
+            }
+            else
+            {
+                LblEditListMsg.Text = "Nenhuma Lista foi selecionada!";
+            }
+        }
+
+        //Método para remover empresas a uma lista no editor
+        private void BtnEditRemoveCL_Click(object sender, EventArgs e)
+        {
+            List<string> selectedCompanies = new List<string>();
+
+            foreach (Control panel in FlowEditViewSel.Controls)
+            {
+                if (panel is Panel companyPanel)
+                {
+                    CheckBox companyCheckBox = companyPanel.Controls.OfType<CheckBox>().FirstOrDefault();
+
+                    if (companyCheckBox != null && companyCheckBox.Checked)
+                    {
+                        string companyId = companyPanel.Tag.ToString();
+                        selectedCompanies.Add(companyId);
+                    }
+                }
+            }
+
+            if (CboEditListSel.SelectedItem != null)
+            {
+                var selectedList = CboEditListSel.SelectedItem as dynamic;
+                int selectedListId = selectedList.Value;
+
+                if (selectedCompanies.Count > 0)
+                {
+                    DataService.RemoveCompaniesFromAllocation(selectedListId, selectedCompanies); // Método a ser implementado
+                    LblEditListMsg.Text = "Empresas removidas da lista com sucesso!";
+                    List<DataRow> companyList = DataService.GetCompaniesByListId(selectedListId);
+                    EditListShowSel(companyList);
+                    LoadAllComp(selectedListId);
+                }
+                else
+                {
+                    LblEditListMsg.Text = "Nenhuma empresa foi selecionada para remoção!";
+                }
+            }
+            else
+            {
+                LblEditListMsg.Text = "Nenhuma lista foi selecionada!";
+            }
+        }
+
         //Método para selecionar Empresa para Edição
         private void CboEditComp_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -511,42 +542,6 @@ namespace BingoManager
             }
         }
 
-        //Método para carregar a lista de Empresas para Edição
-        private void LoadComps()
-        {
-            List<CompanyModel> companyList = new List<CompanyModel>();
-
-            DataTable compsTable = DataService.GetCompanies();
-
-            foreach (DataRow row in compsTable.Rows)
-            {
-                CompanyModel company = new CompanyModel
-                {
-                    Id = Convert.ToInt32(row["Id"]),
-                    Name = row["Name"].ToString(),
-                    CardName = row["CardName"].ToString(),
-                    Email = row["Email"].ToString(),
-                    Phone = row["Phone"].ToString(),
-                    Logo = row["Logo"].ToString(),
-                    AddDate = row["AddTime"].ToString()
-                };
-
-                companyList.Add(company);
-            }
-
-            CboEditComp.DataSource = companyList;
-
-            CboEditComp.DisplayMember = "CardName";
-            CboEditComp.ValueMember = "Id";
-
-            BoxEditNameComp.Text = "";
-            BoxEditCardNameComp.Text = "";
-            BoxEditPhoneComp.Text = "";
-            BoxEditEmailComp.Text = "";
-            PicEditLogoComp.Image = null;
-            CboEditComp.SelectedIndex = -1;
-        }
-
         // Método para Excluir uma Empresa
         private void BtnRemoveComp_Click(object sender, EventArgs e)
         {
@@ -564,7 +559,8 @@ namespace BingoManager
                 return;
             }
 
-            DialogResult dialogResult = MessageBox.Show($"Tem certeza de que deseja excluir a empresa '{selectedCompany.Name}'?",
+            DialogResult dialogResult = MessageBox.Show($"Tem certeza de que deseja excluir a empresa '{selectedCompany.Name}'? Todas as Cartelas " +
+                $"que foram feitas com Listas que a utilizam também serão excluídas.",
                                                         "Confirmar Exclusão",
                                                         MessageBoxButtons.YesNo,
                                                         MessageBoxIcon.Warning);
@@ -657,6 +653,119 @@ namespace BingoManager
             {
                 LblEditMsgComp.Text = "Nome e Nome para Cartela são obrigatórios.";
             }
+        }
+
+        // Método para Excluir uma Lista
+        private void BtnEditListDelete_Click(object sender, EventArgs e)
+        {
+            if (CboEditListSel.SelectedIndex == -1)
+            {
+                LblEditListMsg.Text = "Por favor, selecione uma lista para excluir.";
+                return;
+            }
+
+            // Obtém a lista selecionada
+            dynamic selectedList = CboEditListSel.SelectedItem;
+
+            if (selectedList == null)
+            {
+                LblEditListMsg.Text = "Erro ao carregar os detalhes da lista selecionada.";
+                return;
+            }
+
+            int selectedListId = selectedList.Value;
+            string selectedListName = selectedList.Text;
+
+            DialogResult dialogResult = MessageBox.Show($"Tem certeza de que deseja excluir a lista '{selectedListName}'? Todas as cartelas associadas também serão excluídas.",
+                                                        "Confirmar Exclusão",
+                                                        MessageBoxButtons.YesNo,
+                                                        MessageBoxIcon.Warning);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                try
+                {
+                    // Chama o método de exclusão de lista no DataService
+                    DataService.DeleteList(selectedListId);
+
+                    LblEditListMsg.Text = $"Lista '{selectedListName}' excluída com sucesso.";
+
+                    CboEditListSel.SelectedIndex = -1;
+                    FlowEditViewSel.Controls.Clear();
+                    LoadLists(); // Atualiza as listas disponíveis após a exclusão
+                }
+                catch (Exception ex)
+                {
+                    LblEditListMsg.Text = "Erro ao excluir a lista. " + ex.Message;
+                }
+            }
+            else
+            {
+                LblEditListMsg.Text = "A exclusão foi cancelada.";
+            }
+        }
+
+
+        //Gerais
+        //Método para carregar as ComboBox de Listas
+        private void LoadLists()
+        {
+            DataTable listsTable = DataService.GetLists();
+
+            CboCreateCardsList.Items.Clear();
+            CboCreateCompanyList.Items.Clear();
+            CboEditListSel.Items.Clear();
+
+            foreach (DataRow row in listsTable.Rows)
+            {
+                string listName = row["Name"].ToString();
+                int listId = Convert.ToInt32(row["Id"]);
+
+                // Use a classe ListItem
+                CboCreateCardsList.Items.Add(new ListItem { Text = listName, Value = listId });
+                CboCreateCompanyList.Items.Add(new ListItem { Text = listName, Value = listId });
+                CboEditListSel.Items.Add(new ListItem { Text = listName, Value = listId });
+            }
+
+            CboCreateCardsList.DisplayMember = "Text";
+            CboCreateCompanyList.DisplayMember = "Text";
+            CboEditListSel.DisplayMember = "Text";
+        }
+
+        //Método para carregar a lista de Empresas para Edição
+        private void LoadComps()
+        {
+            List<CompanyModel> companyList = new List<CompanyModel>();
+
+            DataTable compsTable = DataService.GetCompanies();
+
+            foreach (DataRow row in compsTable.Rows)
+            {
+                CompanyModel company = new CompanyModel
+                {
+                    Id = Convert.ToInt32(row["Id"]),
+                    Name = row["Name"].ToString(),
+                    CardName = row["CardName"].ToString(),
+                    Email = row["Email"].ToString(),
+                    Phone = row["Phone"].ToString(),
+                    Logo = row["Logo"].ToString(),
+                    AddDate = row["AddTime"].ToString()
+                };
+
+                companyList.Add(company);
+            }
+
+            CboEditComp.DataSource = companyList;
+
+            CboEditComp.DisplayMember = "CardName";
+            CboEditComp.ValueMember = "Id";
+
+            BoxEditNameComp.Text = "";
+            BoxEditCardNameComp.Text = "";
+            BoxEditPhoneComp.Text = "";
+            BoxEditEmailComp.Text = "";
+            PicEditLogoComp.Image = null;
+            CboEditComp.SelectedIndex = -1;
         }
     }
 }

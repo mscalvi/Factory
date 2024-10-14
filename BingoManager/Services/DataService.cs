@@ -22,7 +22,7 @@ namespace BingoManager.Services
                 /*
                 // Obtém o caminho da pasta AppData do usuário e cria uma subpasta para seu app
                 string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                string databaseFolder = Path.Combine(appDataPath, "CustomBingo");
+                string databaseFolder = Path.Combine(appDataPath, "Database");
 
                 // Se a pasta não existir, ela será criada
                 if (!Directory.Exists(databaseFolder))
@@ -79,6 +79,70 @@ namespace BingoManager.Services
                         ListId INTEGER REFERENCES ListsTable(Id),
                         PRIMARY KEY (CompanyID, ListId)
                     );
+                    CREATE TABLE IF NOT EXISTS AllCards (
+                        Id INTEGER PRIMARY KEY NOT NULL UNIQUE,
+                        ListId INTEGER REFERENCES ListsTable (Id),
+                        Title TEXT NOT NULL,
+                        End TEXT,
+                        Qnt INTEGER NOT NULL,
+                        Name TEXT UNIQUE
+                    );
+                    CREATE TABLE CardsList (
+                        Id         INTEGER PRIMARY KEY,
+                        CardList   INTEGER REFERENCES ListsTable (Id) 
+                                           NOT NULL,
+                        CardNumber INTEGER NOT NULL,
+                        CompB1     INTEGER NOT NULL
+                                           REFERENCES CompanyTable (Id),
+                        CompB2     INTEGER NOT NULL
+                                           REFERENCES CompanyTable (Id),
+                        CompB3     INTEGER NOT NULL
+                                           REFERENCES CompanyTable (Id),
+                        CompB4     INTEGER NOT NULL
+                                           REFERENCES CompanyTable (Id),
+                        CompB5     INTEGER NOT NULL
+                                           REFERENCES CompanyTable (Id),
+                        CompI1     INTEGER NOT NULL
+                                           REFERENCES CompanyTable (Id),
+                        CompI2     INTEGER NOT NULL
+                                           REFERENCES CompanyTable (Id),
+                        CompI3     INTEGER NOT NULL
+                                           REFERENCES CompanyTable (Id),
+                        CompI4     INTEGER NOT NULL
+                                           REFERENCES CompanyTable (Id),
+                        CompI5     INTEGER NOT NULL
+                                           REFERENCES CompanyTable (Id),
+                        CompN1     INTEGER NOT NULL
+                                           REFERENCES CompanyTable (Id),
+                        CompN2     INTEGER NOT NULL
+                                           REFERENCES CompanyTable (Id),
+                        CompN3     INTEGER REFERENCES CompanyTable (Id) 
+                                           NOT NULL,
+                        CompN4     INTEGER REFERENCES CompanyTable (Id) 
+                                           NOT NULL,
+                        CompN5     INTEGER REFERENCES CompanyTable (Id) 
+                                           NOT NULL,
+                        CompG1     INTEGER REFERENCES CompanyTable (Id) 
+                                           NOT NULL,
+                        CompG2     INTEGER REFERENCES CompanyTable (Id) 
+                                           NOT NULL,
+                        CompG3     INTEGER REFERENCES CompanyTable (Id) 
+                                           NOT NULL,
+                        CompG4     INTEGER REFERENCES CompanyTable (Id) 
+                                           NOT NULL,
+                        CompG5     INTEGER REFERENCES CompanyTable (Id) 
+                                           NOT NULL,
+                        CompO1     INTEGER REFERENCES CompanyTable (Id) 
+                                           NOT NULL,
+                        CompO2     INTEGER REFERENCES CompanyTable (Id) 
+                                           NOT NULL,
+                        CompO3     INTEGER REFERENCES CompanyTable (Id) 
+                                           NOT NULL,
+                        CompO4     INTEGER REFERENCES CompanyTable (Id) 
+                                           NOT NULL,
+                        CompO5     INTEGER REFERENCES CompanyTable (Id) 
+                                           NOT NULL
+                    );
                 ";
 
                 using (var command = new SQLiteCommand(createTablesQuery, connection))
@@ -115,6 +179,27 @@ namespace BingoManager.Services
             }
 
             return companyId;  
+        }
+
+        //Método para conferir se uma empresa já existe
+        public static bool CompanyExists(string name, string cardName)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                string query = @"
+            SELECT COUNT(*) FROM CompanyTable 
+            WHERE Name = @Name OR CardName = @CardName";
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@CardName", cardName);
+
+                    int count = Convert.ToInt32(command.ExecuteScalar());
+                    return count > 0; // Retorna true se existir, false caso contrário
+                }
+            }
         }
 
         // Método para criar uma nova lista
@@ -324,7 +409,6 @@ namespace BingoManager.Services
             }
         }
 
-
         // Método para ler o endereço das imagens, aceitando caminho absoluto ou relativo
         public static Image LoadImageFromFile(string filePath)
         {
@@ -356,6 +440,28 @@ namespace BingoManager.Services
                     string insertQuery = "INSERT INTO AlocacaoTable (ListId, CompanyId) VALUES (@ListId, @CompanyId)";
 
                     using (var command = new SQLiteCommand(insertQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@ListId", listId);
+                        command.Parameters.AddWithValue("@CompanyId", companyId);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+        // Método para remover empresas de uma lista
+        public static void RemoveCompaniesFromAllocation(int listId, List<string> companyIds)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                foreach (string companyId in companyIds)
+                {
+                    string deleteQuery = "DELETE FROM AlocacaoTable WHERE ListId = @ListId AND CompanyId = @CompanyId";
+
+                    using (var command = new SQLiteCommand(deleteQuery, connection))
                     {
                         command.Parameters.AddWithValue("@ListId", listId);
                         command.Parameters.AddWithValue("@CompanyId", companyId);
@@ -464,6 +570,78 @@ namespace BingoManager.Services
                 }
             }
         }
+
+        //Método para deletar uma lista e todas as dependências
+        public static void DeleteList(int listId)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        // 1. Encontrar todos os conjuntos de cartelas associados à lista na AllCards
+                        string findCardSetsQuery = "SELECT DISTINCT Id FROM AllCards WHERE ListId = @ListId";
+                        List<int> cardSetIds = new List<int>();
+
+                        using (var command = new SQLiteCommand(findCardSetsQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@ListId", listId);
+                            using (var reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    cardSetIds.Add(reader.GetInt32(0));  // Adiciona o CardId à lista de conjuntos de cartelas
+                                }
+                            }
+                        }
+
+                        // 2. Apagar todas as cartelas associadas na CardsListTable
+                        if (cardSetIds.Count > 0)
+                        {
+                            string deleteCardsQuery = "DELETE FROM CardsList WHERE CardId IN (" + string.Join(",", cardSetIds) + ")";
+                            using (var command = new SQLiteCommand(deleteCardsQuery, connection))
+                            {
+                                command.ExecuteNonQuery();
+                            }
+
+                            // 3. Apagar os próprios conjuntos de cartelas na AllCards
+                            string deleteCardSetsQuery = "DELETE FROM AllCards WHERE Id IN (" + string.Join(",", cardSetIds) + ")";
+                            using (var command = new SQLiteCommand(deleteCardSetsQuery, connection))
+                            {
+                                command.ExecuteNonQuery();
+                            }
+                        }
+
+                        // 4. Apagar as associações da lista na AlocacaoTable
+                        string deleteFromAllocationQuery = "DELETE FROM AlocacaoTable WHERE ListId = @ListId";
+                        using (var command = new SQLiteCommand(deleteFromAllocationQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@ListId", listId);
+                            command.ExecuteNonQuery();
+                        }
+
+                        // 5. Apagar a própria lista da ListsTable
+                        string deleteListQuery = "DELETE FROM ListsTable WHERE Id = @ListId";
+                        using (var command = new SQLiteCommand(deleteListQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@ListId", listId);
+                            command.ExecuteNonQuery();
+                        }
+
+                        // Commit da transação se tudo deu certo
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Rollback em caso de erro
+                        transaction.Rollback();
+                    }
+                }
+            }
+        }
+
     }
 
 }

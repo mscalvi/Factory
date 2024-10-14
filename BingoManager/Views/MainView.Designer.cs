@@ -78,42 +78,43 @@
             BoxCreateCardsQuant = new TextBox();
             CboCreateCardsList = new ComboBox();
             TabEditPage = new TabPage();
-            TabPlayPage = new TabPage();
-            TabEditCompany = new TabPage();
-            PnlEditCompany = new Panel();
-            label9 = new Label();
-            CboEditComp = new ComboBox();
-            label10 = new Label();
-            LblEditCompName = new Label();
-            label12 = new Label();
-            label13 = new Label();
-            label14 = new Label();
-            label15 = new Label();
-            LblEditMsgComp = new Label();
-            BoxEditNameComp = new TextBox();
-            BoxEditCardNameComp = new TextBox();
-            BoxEditPhoneComp = new TextBox();
-            BoxEditEmailComp = new TextBox();
-            BtnEditLogoComp = new Button();
-            BtnEditComp = new Button();
-            PicEditLogoComp = new PictureBox();
-            BtnRemoveComp = new Button();
+            EditPage = new TabControl();
+            TabEditMain = new TabPage();
             TabEditList = new TabPage();
             PnlEditList = new Panel();
-            PnlEditSelList = new Panel();
-            FlowEditViewSel = new FlowLayoutPanel();
+            BtnEditListDelete = new Button();
+            BoxEditFilterCL = new TextBox();
+            label8 = new Label();
+            LblEditListMsg = new Label();
+            TxtEditListSel = new Label();
+            TxtEditListAll = new Label();
+            BtnEditRemoveCL = new Button();
+            BtnEditAddCL = new Button();
+            CboEditListSel = new ComboBox();
             PnlEditAllCompany = new Panel();
             FlowEditViewAll = new FlowLayoutPanel();
-            CboEditListSel = new ComboBox();
-            BtnEditAddCL = new Button();
-            BtnEditRemoveCL = new Button();
-            TxtEditListAll = new Label();
-            TxtEditListSel = new Label();
-            TxtEditListMsg = new Label();
-            label8 = new Label();
-            BoxEditFilterCL = new TextBox();
-            TabEditMain = new TabPage();
-            EditPage = new TabControl();
+            PnlEditSelList = new Panel();
+            FlowEditViewSel = new FlowLayoutPanel();
+            TabEditCompany = new TabPage();
+            PnlEditCompany = new Panel();
+            BtnRemoveComp = new Button();
+            PicEditLogoComp = new PictureBox();
+            BtnEditComp = new Button();
+            BtnEditLogoComp = new Button();
+            BoxEditEmailComp = new TextBox();
+            BoxEditPhoneComp = new TextBox();
+            BoxEditCardNameComp = new TextBox();
+            BoxEditNameComp = new TextBox();
+            LblEditMsgComp = new Label();
+            label15 = new Label();
+            label14 = new Label();
+            label13 = new Label();
+            label12 = new Label();
+            LblEditCompName = new Label();
+            label10 = new Label();
+            CboEditComp = new ComboBox();
+            label9 = new Label();
+            TabPlayPage = new TabPage();
             MainPage.SuspendLayout();
             TabCreatePage.SuspendLayout();
             CreatePage.SuspendLayout();
@@ -126,14 +127,14 @@
             TabCreateCards.SuspendLayout();
             PnlNewCards.SuspendLayout();
             TabEditPage.SuspendLayout();
+            EditPage.SuspendLayout();
+            TabEditList.SuspendLayout();
+            PnlEditList.SuspendLayout();
+            PnlEditAllCompany.SuspendLayout();
+            PnlEditSelList.SuspendLayout();
             TabEditCompany.SuspendLayout();
             PnlEditCompany.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PicEditLogoComp).BeginInit();
-            TabEditList.SuspendLayout();
-            PnlEditList.SuspendLayout();
-            PnlEditSelList.SuspendLayout();
-            PnlEditAllCompany.SuspendLayout();
-            EditPage.SuspendLayout();
             SuspendLayout();
             // 
             // MainPage
@@ -643,15 +644,188 @@
             TabEditPage.Text = "Editar";
             TabEditPage.UseVisualStyleBackColor = true;
             // 
-            // TabPlayPage
+            // EditPage
             // 
-            TabPlayPage.Location = new Point(4, 24);
-            TabPlayPage.Name = "TabPlayPage";
-            TabPlayPage.Padding = new Padding(3);
-            TabPlayPage.Size = new Size(1342, 701);
-            TabPlayPage.TabIndex = 3;
-            TabPlayPage.Text = "Jogar";
-            TabPlayPage.UseVisualStyleBackColor = true;
+            EditPage.Controls.Add(TabEditMain);
+            EditPage.Controls.Add(TabEditList);
+            EditPage.Controls.Add(TabEditCompany);
+            EditPage.Dock = DockStyle.Fill;
+            EditPage.Location = new Point(3, 3);
+            EditPage.Name = "EditPage";
+            EditPage.SelectedIndex = 0;
+            EditPage.Size = new Size(1336, 695);
+            EditPage.TabIndex = 0;
+            // 
+            // TabEditMain
+            // 
+            TabEditMain.Location = new Point(4, 24);
+            TabEditMain.Name = "TabEditMain";
+            TabEditMain.Padding = new Padding(3);
+            TabEditMain.Size = new Size(1328, 667);
+            TabEditMain.TabIndex = 0;
+            TabEditMain.Text = "Início";
+            TabEditMain.UseVisualStyleBackColor = true;
+            // 
+            // TabEditList
+            // 
+            TabEditList.Controls.Add(PnlEditList);
+            TabEditList.Location = new Point(4, 24);
+            TabEditList.Name = "TabEditList";
+            TabEditList.Padding = new Padding(3);
+            TabEditList.Size = new Size(1328, 667);
+            TabEditList.TabIndex = 1;
+            TabEditList.Text = "Editar Listas";
+            TabEditList.UseVisualStyleBackColor = true;
+            // 
+            // PnlEditList
+            // 
+            PnlEditList.Controls.Add(BtnEditListDelete);
+            PnlEditList.Controls.Add(BoxEditFilterCL);
+            PnlEditList.Controls.Add(label8);
+            PnlEditList.Controls.Add(LblEditListMsg);
+            PnlEditList.Controls.Add(TxtEditListSel);
+            PnlEditList.Controls.Add(TxtEditListAll);
+            PnlEditList.Controls.Add(BtnEditRemoveCL);
+            PnlEditList.Controls.Add(BtnEditAddCL);
+            PnlEditList.Controls.Add(CboEditListSel);
+            PnlEditList.Controls.Add(PnlEditAllCompany);
+            PnlEditList.Controls.Add(PnlEditSelList);
+            PnlEditList.Dock = DockStyle.Fill;
+            PnlEditList.Location = new Point(3, 3);
+            PnlEditList.Name = "PnlEditList";
+            PnlEditList.Size = new Size(1322, 661);
+            PnlEditList.TabIndex = 9;
+            // 
+            // BtnEditListDelete
+            // 
+            BtnEditListDelete.Anchor = AnchorStyles.Top;
+            BtnEditListDelete.Location = new Point(1169, 373);
+            BtnEditListDelete.Name = "BtnEditListDelete";
+            BtnEditListDelete.Size = new Size(114, 41);
+            BtnEditListDelete.TabIndex = 10;
+            BtnEditListDelete.Text = "Excluir Lista";
+            BtnEditListDelete.UseVisualStyleBackColor = true;
+            BtnEditListDelete.Click += BtnEditListDelete_Click;
+            // 
+            // BoxEditFilterCL
+            // 
+            BoxEditFilterCL.Anchor = AnchorStyles.Top;
+            BoxEditFilterCL.Location = new Point(3, 439);
+            BoxEditFilterCL.Name = "BoxEditFilterCL";
+            BoxEditFilterCL.Size = new Size(1316, 23);
+            BoxEditFilterCL.TabIndex = 2;
+            BoxEditFilterCL.TextChanged += BoxEditFilterCL_TextChanged;
+            // 
+            // label8
+            // 
+            label8.Dock = DockStyle.Top;
+            label8.Font = new Font("Segoe UI", 15F);
+            label8.Location = new Point(0, 0);
+            label8.Name = "label8";
+            label8.Size = new Size(1322, 120);
+            label8.TabIndex = 9;
+            label8.Text = "Editar Lista";
+            label8.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // LblEditListMsg
+            // 
+            LblEditListMsg.Anchor = AnchorStyles.Top;
+            LblEditListMsg.Location = new Point(466, 372);
+            LblEditListMsg.Name = "LblEditListMsg";
+            LblEditListMsg.Size = new Size(392, 42);
+            LblEditListMsg.TabIndex = 8;
+            // 
+            // TxtEditListSel
+            // 
+            TxtEditListSel.Anchor = AnchorStyles.Top;
+            TxtEditListSel.Location = new Point(3, 128);
+            TxtEditListSel.Name = "TxtEditListSel";
+            TxtEditListSel.Size = new Size(1316, 23);
+            TxtEditListSel.TabIndex = 7;
+            TxtEditListSel.Text = "Lista Selecionada";
+            // 
+            // TxtEditListAll
+            // 
+            TxtEditListAll.Anchor = AnchorStyles.Top;
+            TxtEditListAll.Location = new Point(3, 413);
+            TxtEditListAll.Name = "TxtEditListAll";
+            TxtEditListAll.Size = new Size(1316, 23);
+            TxtEditListAll.TabIndex = 6;
+            TxtEditListAll.Text = "Empresas Registradas";
+            // 
+            // BtnEditRemoveCL
+            // 
+            BtnEditRemoveCL.Anchor = AnchorStyles.Top;
+            BtnEditRemoveCL.Location = new Point(904, 373);
+            BtnEditRemoveCL.Name = "BtnEditRemoveCL";
+            BtnEditRemoveCL.Size = new Size(114, 41);
+            BtnEditRemoveCL.TabIndex = 5;
+            BtnEditRemoveCL.Text = "Remover Empresas";
+            BtnEditRemoveCL.UseVisualStyleBackColor = true;
+            BtnEditRemoveCL.Click += BtnEditRemoveCL_Click;
+            // 
+            // BtnEditAddCL
+            // 
+            BtnEditAddCL.Anchor = AnchorStyles.Top;
+            BtnEditAddCL.Location = new Point(304, 372);
+            BtnEditAddCL.Name = "BtnEditAddCL";
+            BtnEditAddCL.Size = new Size(114, 41);
+            BtnEditAddCL.TabIndex = 4;
+            BtnEditAddCL.Text = "Adicionar Empresas";
+            BtnEditAddCL.UseVisualStyleBackColor = true;
+            BtnEditAddCL.Click += BtnEditAddCL_Click;
+            // 
+            // CboEditListSel
+            // 
+            CboEditListSel.Anchor = AnchorStyles.Top;
+            CboEditListSel.FormattingEnabled = true;
+            CboEditListSel.Location = new Point(3, 154);
+            CboEditListSel.Name = "CboEditListSel";
+            CboEditListSel.Size = new Size(1316, 23);
+            CboEditListSel.TabIndex = 3;
+            CboEditListSel.SelectedValueChanged += CboEditListSel_SelectedValueChanged;
+            // 
+            // PnlEditAllCompany
+            // 
+            PnlEditAllCompany.Anchor = AnchorStyles.Top;
+            PnlEditAllCompany.AutoScroll = true;
+            PnlEditAllCompany.AutoSize = true;
+            PnlEditAllCompany.BackColor = Color.Black;
+            PnlEditAllCompany.Controls.Add(FlowEditViewAll);
+            PnlEditAllCompany.Location = new Point(3, 468);
+            PnlEditAllCompany.Name = "PnlEditAllCompany";
+            PnlEditAllCompany.Size = new Size(1316, 183);
+            PnlEditAllCompany.TabIndex = 0;
+            // 
+            // FlowEditViewAll
+            // 
+            FlowEditViewAll.BackColor = Color.Gray;
+            FlowEditViewAll.Dock = DockStyle.Fill;
+            FlowEditViewAll.Location = new Point(0, 0);
+            FlowEditViewAll.Name = "FlowEditViewAll";
+            FlowEditViewAll.Size = new Size(1316, 183);
+            FlowEditViewAll.TabIndex = 0;
+            // 
+            // PnlEditSelList
+            // 
+            PnlEditSelList.Anchor = AnchorStyles.Top;
+            PnlEditSelList.AutoScroll = true;
+            PnlEditSelList.AutoSize = true;
+            PnlEditSelList.BackColor = Color.Black;
+            PnlEditSelList.Controls.Add(FlowEditViewSel);
+            PnlEditSelList.Location = new Point(3, 183);
+            PnlEditSelList.Name = "PnlEditSelList";
+            PnlEditSelList.Size = new Size(1316, 183);
+            PnlEditSelList.TabIndex = 1;
+            // 
+            // FlowEditViewSel
+            // 
+            FlowEditViewSel.BackColor = Color.Gray;
+            FlowEditViewSel.Dock = DockStyle.Fill;
+            FlowEditViewSel.Location = new Point(0, 0);
+            FlowEditViewSel.Name = "FlowEditViewSel";
+            FlowEditViewSel.Size = new Size(1316, 183);
+            FlowEditViewSel.TabIndex = 0;
             // 
             // TabEditCompany
             // 
@@ -689,132 +863,26 @@
             PnlEditCompany.Size = new Size(1322, 661);
             PnlEditCompany.TabIndex = 1;
             // 
-            // label9
+            // BtnRemoveComp
             // 
-            label9.Dock = DockStyle.Top;
-            label9.Font = new Font("Segoe UI", 15F);
-            label9.Location = new Point(0, 0);
-            label9.Name = "label9";
-            label9.Size = new Size(1322, 120);
-            label9.TabIndex = 0;
-            label9.Text = "Editar Empresa";
-            label9.TextAlign = ContentAlignment.MiddleCenter;
+            BtnRemoveComp.Anchor = AnchorStyles.Top;
+            BtnRemoveComp.Location = new Point(1005, 572);
+            BtnRemoveComp.Name = "BtnRemoveComp";
+            BtnRemoveComp.Size = new Size(192, 73);
+            BtnRemoveComp.TabIndex = 16;
+            BtnRemoveComp.Text = "Excluir Empresa";
+            BtnRemoveComp.UseVisualStyleBackColor = true;
+            BtnRemoveComp.Click += BtnRemoveComp_Click;
             // 
-            // CboEditComp
+            // PicEditLogoComp
             // 
-            CboEditComp.Anchor = AnchorStyles.Top;
-            CboEditComp.FormattingEnabled = true;
-            CboEditComp.Location = new Point(0, 154);
-            CboEditComp.Name = "CboEditComp";
-            CboEditComp.Size = new Size(1322, 23);
-            CboEditComp.TabIndex = 1;
-            CboEditComp.SelectedValueChanged += CboEditComp_SelectedValueChanged;
-            // 
-            // label10
-            // 
-            label10.Anchor = AnchorStyles.Top;
-            label10.Location = new Point(3, 128);
-            label10.Name = "label10";
-            label10.Size = new Size(1319, 23);
-            label10.TabIndex = 2;
-            label10.Text = "Selecionar Empresa";
-            // 
-            // LblEditCompName
-            // 
-            LblEditCompName.Anchor = AnchorStyles.Top;
-            LblEditCompName.Location = new Point(3, 204);
-            LblEditCompName.Name = "LblEditCompName";
-            LblEditCompName.Size = new Size(1316, 23);
-            LblEditCompName.TabIndex = 3;
-            LblEditCompName.Text = "Nome";
-            // 
-            // label12
-            // 
-            label12.Anchor = AnchorStyles.Top;
-            label12.Location = new Point(3, 283);
-            label12.Name = "label12";
-            label12.Size = new Size(1316, 23);
-            label12.TabIndex = 4;
-            label12.Text = "Nome para Cartela";
-            // 
-            // label13
-            // 
-            label13.Anchor = AnchorStyles.Top;
-            label13.Location = new Point(3, 421);
-            label13.Name = "label13";
-            label13.Size = new Size(1316, 23);
-            label13.TabIndex = 5;
-            label13.Text = "Email";
-            // 
-            // label14
-            // 
-            label14.Anchor = AnchorStyles.Top;
-            label14.Location = new Point(3, 353);
-            label14.Name = "label14";
-            label14.Size = new Size(1316, 23);
-            label14.TabIndex = 6;
-            label14.Text = "Telefone";
-            // 
-            // label15
-            // 
-            label15.Anchor = AnchorStyles.Top;
-            label15.Location = new Point(3, 484);
-            label15.Name = "label15";
-            label15.Size = new Size(196, 23);
-            label15.TabIndex = 7;
-            label15.Text = "Logo";
-            // 
-            // LblEditMsgComp
-            // 
-            LblEditMsgComp.Anchor = AnchorStyles.Top;
-            LblEditMsgComp.Location = new Point(627, 484);
-            LblEditMsgComp.Name = "LblEditMsgComp";
-            LblEditMsgComp.Size = new Size(291, 161);
-            LblEditMsgComp.TabIndex = 8;
-            LblEditMsgComp.Text = "Mensagem";
-            LblEditMsgComp.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // BoxEditNameComp
-            // 
-            BoxEditNameComp.Anchor = AnchorStyles.Top;
-            BoxEditNameComp.Location = new Point(3, 230);
-            BoxEditNameComp.Name = "BoxEditNameComp";
-            BoxEditNameComp.Size = new Size(1316, 23);
-            BoxEditNameComp.TabIndex = 9;
-            // 
-            // BoxEditCardNameComp
-            // 
-            BoxEditCardNameComp.Anchor = AnchorStyles.Top;
-            BoxEditCardNameComp.Location = new Point(3, 309);
-            BoxEditCardNameComp.Name = "BoxEditCardNameComp";
-            BoxEditCardNameComp.Size = new Size(1316, 23);
-            BoxEditCardNameComp.TabIndex = 10;
-            // 
-            // BoxEditPhoneComp
-            // 
-            BoxEditPhoneComp.Anchor = AnchorStyles.Top;
-            BoxEditPhoneComp.Location = new Point(3, 379);
-            BoxEditPhoneComp.Name = "BoxEditPhoneComp";
-            BoxEditPhoneComp.Size = new Size(1316, 23);
-            BoxEditPhoneComp.TabIndex = 11;
-            // 
-            // BoxEditEmailComp
-            // 
-            BoxEditEmailComp.Anchor = AnchorStyles.Top;
-            BoxEditEmailComp.Location = new Point(3, 447);
-            BoxEditEmailComp.Name = "BoxEditEmailComp";
-            BoxEditEmailComp.Size = new Size(1316, 23);
-            BoxEditEmailComp.TabIndex = 12;
-            // 
-            // BtnEditLogoComp
-            // 
-            BtnEditLogoComp.Anchor = AnchorStyles.Top;
-            BtnEditLogoComp.Location = new Point(64, 548);
-            BtnEditLogoComp.Name = "BtnEditLogoComp";
-            BtnEditLogoComp.Size = new Size(75, 33);
-            BtnEditLogoComp.TabIndex = 13;
-            BtnEditLogoComp.Text = "Procurar";
-            BtnEditLogoComp.UseVisualStyleBackColor = true;
+            PicEditLogoComp.Anchor = AnchorStyles.Top;
+            PicEditLogoComp.Location = new Point(205, 484);
+            PicEditLogoComp.Name = "PicEditLogoComp";
+            PicEditLogoComp.Size = new Size(312, 161);
+            PicEditLogoComp.SizeMode = PictureBoxSizeMode.Zoom;
+            PicEditLogoComp.TabIndex = 15;
+            PicEditLogoComp.TabStop = false;
             // 
             // BtnEditComp
             // 
@@ -827,196 +895,142 @@
             BtnEditComp.UseVisualStyleBackColor = true;
             BtnEditComp.Click += BtnEditComp_Click;
             // 
-            // PicEditLogoComp
+            // BtnEditLogoComp
             // 
-            PicEditLogoComp.Anchor = AnchorStyles.Top;
-            PicEditLogoComp.Location = new Point(205, 484);
-            PicEditLogoComp.Name = "PicEditLogoComp";
-            PicEditLogoComp.Size = new Size(312, 161);
-            PicEditLogoComp.SizeMode = PictureBoxSizeMode.Zoom;
-            PicEditLogoComp.TabIndex = 15;
-            PicEditLogoComp.TabStop = false;
+            BtnEditLogoComp.Anchor = AnchorStyles.Top;
+            BtnEditLogoComp.Location = new Point(64, 548);
+            BtnEditLogoComp.Name = "BtnEditLogoComp";
+            BtnEditLogoComp.Size = new Size(75, 33);
+            BtnEditLogoComp.TabIndex = 13;
+            BtnEditLogoComp.Text = "Procurar";
+            BtnEditLogoComp.UseVisualStyleBackColor = true;
             // 
-            // BtnRemoveComp
+            // BoxEditEmailComp
             // 
-            BtnRemoveComp.Anchor = AnchorStyles.Top;
-            BtnRemoveComp.Location = new Point(1005, 572);
-            BtnRemoveComp.Name = "BtnRemoveComp";
-            BtnRemoveComp.Size = new Size(192, 73);
-            BtnRemoveComp.TabIndex = 16;
-            BtnRemoveComp.Text = "Remover Empresa";
-            BtnRemoveComp.UseVisualStyleBackColor = true;
-            BtnRemoveComp.Click += BtnRemoveComp_Click;
+            BoxEditEmailComp.Anchor = AnchorStyles.Top;
+            BoxEditEmailComp.Location = new Point(3, 447);
+            BoxEditEmailComp.Name = "BoxEditEmailComp";
+            BoxEditEmailComp.Size = new Size(1316, 23);
+            BoxEditEmailComp.TabIndex = 12;
             // 
-            // TabEditList
+            // BoxEditPhoneComp
             // 
-            TabEditList.Controls.Add(PnlEditList);
-            TabEditList.Location = new Point(4, 24);
-            TabEditList.Name = "TabEditList";
-            TabEditList.Padding = new Padding(3);
-            TabEditList.Size = new Size(1328, 667);
-            TabEditList.TabIndex = 1;
-            TabEditList.Text = "Editar Listas";
-            TabEditList.UseVisualStyleBackColor = true;
+            BoxEditPhoneComp.Anchor = AnchorStyles.Top;
+            BoxEditPhoneComp.Location = new Point(3, 379);
+            BoxEditPhoneComp.Name = "BoxEditPhoneComp";
+            BoxEditPhoneComp.Size = new Size(1316, 23);
+            BoxEditPhoneComp.TabIndex = 11;
             // 
-            // PnlEditList
+            // BoxEditCardNameComp
             // 
-            PnlEditList.Controls.Add(BoxEditFilterCL);
-            PnlEditList.Controls.Add(label8);
-            PnlEditList.Controls.Add(TxtEditListMsg);
-            PnlEditList.Controls.Add(TxtEditListSel);
-            PnlEditList.Controls.Add(TxtEditListAll);
-            PnlEditList.Controls.Add(BtnEditRemoveCL);
-            PnlEditList.Controls.Add(BtnEditAddCL);
-            PnlEditList.Controls.Add(CboEditListSel);
-            PnlEditList.Controls.Add(PnlEditAllCompany);
-            PnlEditList.Controls.Add(PnlEditSelList);
-            PnlEditList.Dock = DockStyle.Fill;
-            PnlEditList.Location = new Point(3, 3);
-            PnlEditList.Name = "PnlEditList";
-            PnlEditList.Size = new Size(1322, 661);
-            PnlEditList.TabIndex = 9;
+            BoxEditCardNameComp.Anchor = AnchorStyles.Top;
+            BoxEditCardNameComp.Location = new Point(3, 309);
+            BoxEditCardNameComp.Name = "BoxEditCardNameComp";
+            BoxEditCardNameComp.Size = new Size(1316, 23);
+            BoxEditCardNameComp.TabIndex = 10;
             // 
-            // PnlEditSelList
+            // BoxEditNameComp
             // 
-            PnlEditSelList.Anchor = AnchorStyles.Top;
-            PnlEditSelList.AutoScroll = true;
-            PnlEditSelList.AutoSize = true;
-            PnlEditSelList.BackColor = Color.Black;
-            PnlEditSelList.Controls.Add(FlowEditViewSel);
-            PnlEditSelList.Location = new Point(3, 183);
-            PnlEditSelList.Name = "PnlEditSelList";
-            PnlEditSelList.Size = new Size(1316, 183);
-            PnlEditSelList.TabIndex = 1;
+            BoxEditNameComp.Anchor = AnchorStyles.Top;
+            BoxEditNameComp.Location = new Point(3, 230);
+            BoxEditNameComp.Name = "BoxEditNameComp";
+            BoxEditNameComp.Size = new Size(1316, 23);
+            BoxEditNameComp.TabIndex = 9;
             // 
-            // FlowEditViewSel
+            // LblEditMsgComp
             // 
-            FlowEditViewSel.BackColor = Color.Gray;
-            FlowEditViewSel.Dock = DockStyle.Fill;
-            FlowEditViewSel.Location = new Point(0, 0);
-            FlowEditViewSel.Name = "FlowEditViewSel";
-            FlowEditViewSel.Size = new Size(1316, 183);
-            FlowEditViewSel.TabIndex = 0;
+            LblEditMsgComp.Anchor = AnchorStyles.Top;
+            LblEditMsgComp.Location = new Point(627, 484);
+            LblEditMsgComp.Name = "LblEditMsgComp";
+            LblEditMsgComp.Size = new Size(291, 161);
+            LblEditMsgComp.TabIndex = 8;
+            LblEditMsgComp.Text = "Mensagem";
+            LblEditMsgComp.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // PnlEditAllCompany
+            // label15
             // 
-            PnlEditAllCompany.Anchor = AnchorStyles.Top;
-            PnlEditAllCompany.AutoScroll = true;
-            PnlEditAllCompany.AutoSize = true;
-            PnlEditAllCompany.BackColor = Color.Black;
-            PnlEditAllCompany.Controls.Add(FlowEditViewAll);
-            PnlEditAllCompany.Location = new Point(3, 468);
-            PnlEditAllCompany.Name = "PnlEditAllCompany";
-            PnlEditAllCompany.Size = new Size(1316, 183);
-            PnlEditAllCompany.TabIndex = 0;
+            label15.Anchor = AnchorStyles.Top;
+            label15.Location = new Point(3, 484);
+            label15.Name = "label15";
+            label15.Size = new Size(196, 23);
+            label15.TabIndex = 7;
+            label15.Text = "Logo";
             // 
-            // FlowEditViewAll
+            // label14
             // 
-            FlowEditViewAll.BackColor = Color.Gray;
-            FlowEditViewAll.Dock = DockStyle.Fill;
-            FlowEditViewAll.Location = new Point(0, 0);
-            FlowEditViewAll.Name = "FlowEditViewAll";
-            FlowEditViewAll.Size = new Size(1316, 183);
-            FlowEditViewAll.TabIndex = 0;
+            label14.Anchor = AnchorStyles.Top;
+            label14.Location = new Point(3, 353);
+            label14.Name = "label14";
+            label14.Size = new Size(1316, 23);
+            label14.TabIndex = 6;
+            label14.Text = "Telefone";
             // 
-            // CboEditListSel
+            // label13
             // 
-            CboEditListSel.Anchor = AnchorStyles.Top;
-            CboEditListSel.FormattingEnabled = true;
-            CboEditListSel.Location = new Point(3, 154);
-            CboEditListSel.Name = "CboEditListSel";
-            CboEditListSel.Size = new Size(1316, 23);
-            CboEditListSel.TabIndex = 3;
-            CboEditListSel.SelectedValueChanged += CboEditListSel_SelectedValueChanged;
+            label13.Anchor = AnchorStyles.Top;
+            label13.Location = new Point(3, 421);
+            label13.Name = "label13";
+            label13.Size = new Size(1316, 23);
+            label13.TabIndex = 5;
+            label13.Text = "Email";
             // 
-            // BtnEditAddCL
+            // label12
             // 
-            BtnEditAddCL.Anchor = AnchorStyles.Top;
-            BtnEditAddCL.Location = new Point(304, 372);
-            BtnEditAddCL.Name = "BtnEditAddCL";
-            BtnEditAddCL.Size = new Size(114, 41);
-            BtnEditAddCL.TabIndex = 4;
-            BtnEditAddCL.Text = "Adicionar Empresas";
-            BtnEditAddCL.UseVisualStyleBackColor = true;
-            BtnEditAddCL.Click += BtnEditAddCL_Click;
+            label12.Anchor = AnchorStyles.Top;
+            label12.Location = new Point(3, 283);
+            label12.Name = "label12";
+            label12.Size = new Size(1316, 23);
+            label12.TabIndex = 4;
+            label12.Text = "Nome para Cartela";
             // 
-            // BtnEditRemoveCL
+            // LblEditCompName
             // 
-            BtnEditRemoveCL.Anchor = AnchorStyles.Top;
-            BtnEditRemoveCL.Location = new Point(904, 373);
-            BtnEditRemoveCL.Name = "BtnEditRemoveCL";
-            BtnEditRemoveCL.Size = new Size(114, 41);
-            BtnEditRemoveCL.TabIndex = 5;
-            BtnEditRemoveCL.Text = "Remover Empresas";
-            BtnEditRemoveCL.UseVisualStyleBackColor = true;
+            LblEditCompName.Anchor = AnchorStyles.Top;
+            LblEditCompName.Location = new Point(3, 204);
+            LblEditCompName.Name = "LblEditCompName";
+            LblEditCompName.Size = new Size(1316, 23);
+            LblEditCompName.TabIndex = 3;
+            LblEditCompName.Text = "Nome";
             // 
-            // TxtEditListAll
+            // label10
             // 
-            TxtEditListAll.Anchor = AnchorStyles.Top;
-            TxtEditListAll.Location = new Point(3, 413);
-            TxtEditListAll.Name = "TxtEditListAll";
-            TxtEditListAll.Size = new Size(1316, 23);
-            TxtEditListAll.TabIndex = 6;
-            TxtEditListAll.Text = "Empresas Registradas";
+            label10.Anchor = AnchorStyles.Top;
+            label10.Location = new Point(3, 128);
+            label10.Name = "label10";
+            label10.Size = new Size(1319, 23);
+            label10.TabIndex = 2;
+            label10.Text = "Selecionar Empresa";
             // 
-            // TxtEditListSel
+            // CboEditComp
             // 
-            TxtEditListSel.Anchor = AnchorStyles.Top;
-            TxtEditListSel.Location = new Point(3, 128);
-            TxtEditListSel.Name = "TxtEditListSel";
-            TxtEditListSel.Size = new Size(1316, 23);
-            TxtEditListSel.TabIndex = 7;
-            TxtEditListSel.Text = "Lista Selecionada";
+            CboEditComp.Anchor = AnchorStyles.Top;
+            CboEditComp.FormattingEnabled = true;
+            CboEditComp.Location = new Point(0, 154);
+            CboEditComp.Name = "CboEditComp";
+            CboEditComp.Size = new Size(1322, 23);
+            CboEditComp.TabIndex = 1;
+            CboEditComp.SelectedValueChanged += CboEditComp_SelectedValueChanged;
             // 
-            // TxtEditListMsg
+            // label9
             // 
-            TxtEditListMsg.Anchor = AnchorStyles.Top;
-            TxtEditListMsg.Location = new Point(466, 372);
-            TxtEditListMsg.Name = "TxtEditListMsg";
-            TxtEditListMsg.Size = new Size(392, 42);
-            TxtEditListMsg.TabIndex = 8;
+            label9.Dock = DockStyle.Top;
+            label9.Font = new Font("Segoe UI", 15F);
+            label9.Location = new Point(0, 0);
+            label9.Name = "label9";
+            label9.Size = new Size(1322, 120);
+            label9.TabIndex = 0;
+            label9.Text = "Editar Empresa";
+            label9.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label8
+            // TabPlayPage
             // 
-            label8.Dock = DockStyle.Top;
-            label8.Font = new Font("Segoe UI", 15F);
-            label8.Location = new Point(0, 0);
-            label8.Name = "label8";
-            label8.Size = new Size(1322, 120);
-            label8.TabIndex = 9;
-            label8.Text = "Editar Lista";
-            label8.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // BoxEditFilterCL
-            // 
-            BoxEditFilterCL.Anchor = AnchorStyles.Top;
-            BoxEditFilterCL.Location = new Point(3, 439);
-            BoxEditFilterCL.Name = "BoxEditFilterCL";
-            BoxEditFilterCL.Size = new Size(1316, 23);
-            BoxEditFilterCL.TabIndex = 2;
-            BoxEditFilterCL.TextChanged += BoxEditFilterCL_TextChanged;
-            // 
-            // TabEditMain
-            // 
-            TabEditMain.Location = new Point(4, 24);
-            TabEditMain.Name = "TabEditMain";
-            TabEditMain.Padding = new Padding(3);
-            TabEditMain.Size = new Size(1328, 667);
-            TabEditMain.TabIndex = 0;
-            TabEditMain.Text = "Início";
-            TabEditMain.UseVisualStyleBackColor = true;
-            // 
-            // EditPage
-            // 
-            EditPage.Controls.Add(TabEditMain);
-            EditPage.Controls.Add(TabEditList);
-            EditPage.Controls.Add(TabEditCompany);
-            EditPage.Dock = DockStyle.Fill;
-            EditPage.Location = new Point(3, 3);
-            EditPage.Name = "EditPage";
-            EditPage.SelectedIndex = 0;
-            EditPage.Size = new Size(1336, 695);
-            EditPage.TabIndex = 0;
+            TabPlayPage.Location = new Point(4, 24);
+            TabPlayPage.Name = "TabPlayPage";
+            TabPlayPage.Padding = new Padding(3);
+            TabPlayPage.Size = new Size(1342, 701);
+            TabPlayPage.TabIndex = 3;
+            TabPlayPage.Text = "Jogar";
+            TabPlayPage.UseVisualStyleBackColor = true;
             // 
             // MainView
             // 
@@ -1043,16 +1057,16 @@
             PnlNewCards.ResumeLayout(false);
             PnlNewCards.PerformLayout();
             TabEditPage.ResumeLayout(false);
+            EditPage.ResumeLayout(false);
+            TabEditList.ResumeLayout(false);
+            PnlEditList.ResumeLayout(false);
+            PnlEditList.PerformLayout();
+            PnlEditAllCompany.ResumeLayout(false);
+            PnlEditSelList.ResumeLayout(false);
             TabEditCompany.ResumeLayout(false);
             PnlEditCompany.ResumeLayout(false);
             PnlEditCompany.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PicEditLogoComp).EndInit();
-            TabEditList.ResumeLayout(false);
-            PnlEditList.ResumeLayout(false);
-            PnlEditList.PerformLayout();
-            PnlEditSelList.ResumeLayout(false);
-            PnlEditAllCompany.ResumeLayout(false);
-            EditPage.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1114,7 +1128,7 @@
         private Panel PnlEditList;
         private TextBox BoxEditFilterCL;
         private Label label8;
-        private Label TxtEditListMsg;
+        private Label LblEditListMsg;
         private Label TxtEditListSel;
         private Label TxtEditListAll;
         private Button BtnEditRemoveCL;
@@ -1143,5 +1157,6 @@
         private Label label10;
         private ComboBox CboEditComp;
         private Label label9;
+        private Button BtnEditListDelete;
     }
 }
