@@ -8,7 +8,6 @@ using System.Data;
 using System.Data.SQLite;
 using System.ComponentModel.Design;
 
-
 namespace BingoManager.Services
 {
     public static class DataService
@@ -233,21 +232,98 @@ namespace BingoManager.Services
             }
         }
 
-        // Método para deletar uma empresa pelo ID
+        // Método para deletar uma empresa e todas as dependências (listas, cartelas, etc.)
         public static void DeleteCompany(int companyId)
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
-                string deleteQuery = "DELETE FROM CompanyTable WHERE Id = @Id";
-
-                using (var command = new SQLiteCommand(deleteQuery, connection))
+                using (var transaction = connection.BeginTransaction())
                 {
-                    command.Parameters.AddWithValue("@Id", companyId);
-                    command.ExecuteNonQuery();
+                    try
+                    {
+                        // 1. Encontrar todas as listas que usam a empresa na AlocacaoTable
+                        string findListsQuery = @"
+                            SELECT DISTINCT ListId
+                            FROM AlocacaoTable
+                            WHERE CompanyId = @CompanyId";
+
+                        List<int> listIds = new List<int>();
+                        using (var command = new SQLiteCommand(findListsQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@CompanyId", companyId);
+                            using (var reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    listIds.Add(reader.GetInt32(0));  // Adiciona o ListId à lista de listas que usam a empresa
+                                }
+                            }
+                        }
+
+                        // 2. Encontrar todos os conjuntos de cartelas associados às listas na AllCards
+                        if (listIds.Count > 0)
+                        {
+                            string findCardSetsQuery = "SELECT DISTINCT Id FROM AllCards WHERE ListId IN (" + string.Join(",", listIds) + ")";
+                            List<int> cardSetIds = new List<int>();
+                            using (var command = new SQLiteCommand(findCardSetsQuery, connection))
+                            {
+                                using (var reader = command.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        cardSetIds.Add(reader.GetInt32(0));  // Adiciona o CardId à lista de conjuntos de cartelas
+                                    }
+                                }
+                            }
+
+                            // 3. Apagar todas as cartelas dos conjuntos encontrados e os próprios conjuntos
+                            if (cardSetIds.Count > 0)
+                            {
+                                // Apaga as cartelas na CardsListTable associadas a esses conjuntos de cartelas
+                                string deleteCardsQuery = "DELETE FROM CardsList WHERE CardList IN (" + string.Join(",", listIds) + ")";
+                                using (var command = new SQLiteCommand(deleteCardsQuery, connection))
+                                {
+                                    command.ExecuteNonQuery();
+                                }
+
+                                // Apaga os próprios conjuntos de cartelas na AllCards
+                                string deleteCardSetsQuery = "DELETE FROM AllCards WHERE Id IN (" + string.Join(",", cardSetIds) + ")";
+                                using (var command = new SQLiteCommand(deleteCardSetsQuery, connection))
+                                {
+                                    command.ExecuteNonQuery();
+                                }
+                            }
+
+                            // 4. Apagar todas as listas que usam a empresa na AlocacaoTable
+                            string deleteFromAllocationQuery = "DELETE FROM AlocacaoTable WHERE CompanyId = @CompanyId";
+                            using (var command = new SQLiteCommand(deleteFromAllocationQuery, connection))
+                            {
+                                command.Parameters.AddWithValue("@CompanyId", companyId);
+                                command.ExecuteNonQuery();
+                            }
+                        }
+
+                        // 5. Apagar a empresa da CompanyTable
+                        string deleteCompanyQuery = "DELETE FROM CompanyTable WHERE Id = @CompanyId";
+                        using (var command = new SQLiteCommand(deleteCompanyQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@CompanyId", companyId);
+                            command.ExecuteNonQuery();
+                        }
+
+                        // Commit da transação se tudo deu certo
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Rollback em caso de erro
+                        transaction.Rollback();
+                    }
                 }
             }
         }
+
 
         // Método para ler o endereço das imagens, aceitando caminho absoluto ou relativo
         public static Image LoadImageFromFile(string filePath)
