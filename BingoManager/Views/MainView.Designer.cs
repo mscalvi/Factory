@@ -115,6 +115,25 @@
             CboEditComp = new ComboBox();
             label9 = new Label();
             TabPlayPage = new TabPage();
+            TabPlay = new TabControl();
+            TabPlayAnalog = new TabPage();
+            TabPlayAnalogOption = new TabControl();
+            TabPlaySelection = new TabPage();
+            CboPlaySelection = new ComboBox();
+            BtnPlaySelection = new Button();
+            TabPlayNumbers = new TabPage();
+            PnlPlayNumbersO = new Panel();
+            PnlPlayNumbersG = new Panel();
+            PnlPlayNumberN = new Panel();
+            PnlPlayNumbersI = new Panel();
+            PnlPlayNumbersB = new Panel();
+            TabPlayLogos = new TabPage();
+            TabPlayDigital = new TabPage();
+            FlwPlayB = new FlowLayoutPanel();
+            FlwPlayI = new FlowLayoutPanel();
+            FlwPlayN = new FlowLayoutPanel();
+            FlwPlayG = new FlowLayoutPanel();
+            FlwPlayO = new FlowLayoutPanel();
             MainPage.SuspendLayout();
             TabCreatePage.SuspendLayout();
             CreatePage.SuspendLayout();
@@ -135,6 +154,17 @@
             TabEditCompany.SuspendLayout();
             PnlEditCompany.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PicEditLogoComp).BeginInit();
+            TabPlayPage.SuspendLayout();
+            TabPlay.SuspendLayout();
+            TabPlayAnalog.SuspendLayout();
+            TabPlayAnalogOption.SuspendLayout();
+            TabPlaySelection.SuspendLayout();
+            TabPlayNumbers.SuspendLayout();
+            PnlPlayNumbersO.SuspendLayout();
+            PnlPlayNumbersG.SuspendLayout();
+            PnlPlayNumberN.SuspendLayout();
+            PnlPlayNumbersI.SuspendLayout();
+            PnlPlayNumbersB.SuspendLayout();
             SuspendLayout();
             // 
             // MainPage
@@ -1024,6 +1054,7 @@
             // 
             // TabPlayPage
             // 
+            TabPlayPage.Controls.Add(TabPlay);
             TabPlayPage.Location = new Point(4, 24);
             TabPlayPage.Name = "TabPlayPage";
             TabPlayPage.Padding = new Padding(3);
@@ -1031,6 +1062,190 @@
             TabPlayPage.TabIndex = 3;
             TabPlayPage.Text = "Jogar";
             TabPlayPage.UseVisualStyleBackColor = true;
+            // 
+            // TabPlay
+            // 
+            TabPlay.Controls.Add(TabPlayAnalog);
+            TabPlay.Controls.Add(TabPlayDigital);
+            TabPlay.Dock = DockStyle.Fill;
+            TabPlay.Location = new Point(3, 3);
+            TabPlay.Name = "TabPlay";
+            TabPlay.SelectedIndex = 0;
+            TabPlay.Size = new Size(1336, 695);
+            TabPlay.TabIndex = 0;
+            // 
+            // TabPlayAnalog
+            // 
+            TabPlayAnalog.Controls.Add(TabPlayAnalogOption);
+            TabPlayAnalog.Location = new Point(4, 24);
+            TabPlayAnalog.Name = "TabPlayAnalog";
+            TabPlayAnalog.Padding = new Padding(3);
+            TabPlayAnalog.Size = new Size(1328, 667);
+            TabPlayAnalog.TabIndex = 0;
+            TabPlayAnalog.Text = "Analógico";
+            TabPlayAnalog.UseVisualStyleBackColor = true;
+            // 
+            // TabPlayAnalogOption
+            // 
+            TabPlayAnalogOption.Controls.Add(TabPlaySelection);
+            TabPlayAnalogOption.Controls.Add(TabPlayNumbers);
+            TabPlayAnalogOption.Controls.Add(TabPlayLogos);
+            TabPlayAnalogOption.Dock = DockStyle.Fill;
+            TabPlayAnalogOption.Location = new Point(3, 3);
+            TabPlayAnalogOption.Name = "TabPlayAnalogOption";
+            TabPlayAnalogOption.SelectedIndex = 0;
+            TabPlayAnalogOption.Size = new Size(1322, 661);
+            TabPlayAnalogOption.TabIndex = 0;
+            // 
+            // TabPlaySelection
+            // 
+            TabPlaySelection.Controls.Add(CboPlaySelection);
+            TabPlaySelection.Controls.Add(BtnPlaySelection);
+            TabPlaySelection.Location = new Point(4, 24);
+            TabPlaySelection.Name = "TabPlaySelection";
+            TabPlaySelection.Padding = new Padding(3);
+            TabPlaySelection.Size = new Size(1314, 633);
+            TabPlaySelection.TabIndex = 0;
+            TabPlaySelection.Text = "Lista";
+            TabPlaySelection.UseVisualStyleBackColor = true;
+            // 
+            // CboPlaySelection
+            // 
+            CboPlaySelection.FormattingEnabled = true;
+            CboPlaySelection.Location = new Point(291, 260);
+            CboPlaySelection.Name = "CboPlaySelection";
+            CboPlaySelection.Size = new Size(523, 23);
+            CboPlaySelection.TabIndex = 1;
+            // 
+            // BtnPlaySelection
+            // 
+            BtnPlaySelection.Location = new Point(863, 260);
+            BtnPlaySelection.Name = "BtnPlaySelection";
+            BtnPlaySelection.Size = new Size(161, 23);
+            BtnPlaySelection.TabIndex = 0;
+            BtnPlaySelection.Text = "Selecionar Lista";
+            BtnPlaySelection.UseVisualStyleBackColor = true;
+            BtnPlaySelection.Click += BtnPlaySelection_Click;
+            // 
+            // TabPlayNumbers
+            // 
+            TabPlayNumbers.Controls.Add(PnlPlayNumbersO);
+            TabPlayNumbers.Controls.Add(PnlPlayNumbersG);
+            TabPlayNumbers.Controls.Add(PnlPlayNumberN);
+            TabPlayNumbers.Controls.Add(PnlPlayNumbersI);
+            TabPlayNumbers.Controls.Add(PnlPlayNumbersB);
+            TabPlayNumbers.Location = new Point(4, 24);
+            TabPlayNumbers.Name = "TabPlayNumbers";
+            TabPlayNumbers.Padding = new Padding(3);
+            TabPlayNumbers.Size = new Size(1314, 633);
+            TabPlayNumbers.TabIndex = 1;
+            TabPlayNumbers.Text = "Números";
+            TabPlayNumbers.UseVisualStyleBackColor = true;
+            // 
+            // PnlPlayNumbersO
+            // 
+            PnlPlayNumbersO.Controls.Add(FlwPlayO);
+            PnlPlayNumbersO.Dock = DockStyle.Top;
+            PnlPlayNumbersO.Location = new Point(3, 503);
+            PnlPlayNumbersO.Name = "PnlPlayNumbersO";
+            PnlPlayNumbersO.Size = new Size(1308, 125);
+            PnlPlayNumbersO.TabIndex = 4;
+            // 
+            // PnlPlayNumbersG
+            // 
+            PnlPlayNumbersG.Controls.Add(FlwPlayG);
+            PnlPlayNumbersG.Dock = DockStyle.Top;
+            PnlPlayNumbersG.Location = new Point(3, 378);
+            PnlPlayNumbersG.Name = "PnlPlayNumbersG";
+            PnlPlayNumbersG.Size = new Size(1308, 125);
+            PnlPlayNumbersG.TabIndex = 3;
+            // 
+            // PnlPlayNumberN
+            // 
+            PnlPlayNumberN.Controls.Add(FlwPlayN);
+            PnlPlayNumberN.Dock = DockStyle.Top;
+            PnlPlayNumberN.Location = new Point(3, 253);
+            PnlPlayNumberN.Name = "PnlPlayNumberN";
+            PnlPlayNumberN.Size = new Size(1308, 125);
+            PnlPlayNumberN.TabIndex = 2;
+            // 
+            // PnlPlayNumbersI
+            // 
+            PnlPlayNumbersI.Controls.Add(FlwPlayI);
+            PnlPlayNumbersI.Dock = DockStyle.Top;
+            PnlPlayNumbersI.Location = new Point(3, 128);
+            PnlPlayNumbersI.Name = "PnlPlayNumbersI";
+            PnlPlayNumbersI.Size = new Size(1308, 125);
+            PnlPlayNumbersI.TabIndex = 1;
+            // 
+            // PnlPlayNumbersB
+            // 
+            PnlPlayNumbersB.Controls.Add(FlwPlayB);
+            PnlPlayNumbersB.Dock = DockStyle.Top;
+            PnlPlayNumbersB.Location = new Point(3, 3);
+            PnlPlayNumbersB.Name = "PnlPlayNumbersB";
+            PnlPlayNumbersB.Size = new Size(1308, 125);
+            PnlPlayNumbersB.TabIndex = 0;
+            // 
+            // TabPlayLogos
+            // 
+            TabPlayLogos.Location = new Point(4, 24);
+            TabPlayLogos.Name = "TabPlayLogos";
+            TabPlayLogos.Padding = new Padding(3);
+            TabPlayLogos.Size = new Size(1314, 633);
+            TabPlayLogos.TabIndex = 2;
+            TabPlayLogos.Text = "Logos";
+            TabPlayLogos.UseVisualStyleBackColor = true;
+            // 
+            // TabPlayDigital
+            // 
+            TabPlayDigital.Location = new Point(4, 24);
+            TabPlayDigital.Name = "TabPlayDigital";
+            TabPlayDigital.Padding = new Padding(3);
+            TabPlayDigital.Size = new Size(1328, 667);
+            TabPlayDigital.TabIndex = 1;
+            TabPlayDigital.Text = "Digital";
+            TabPlayDigital.UseVisualStyleBackColor = true;
+            // 
+            // FlwPlayB
+            // 
+            FlwPlayB.Dock = DockStyle.Fill;
+            FlwPlayB.Location = new Point(0, 0);
+            FlwPlayB.Name = "FlwPlayB";
+            FlwPlayB.Size = new Size(1308, 125);
+            FlwPlayB.TabIndex = 0;
+            // 
+            // FlwPlayI
+            // 
+            FlwPlayI.Dock = DockStyle.Fill;
+            FlwPlayI.Location = new Point(0, 0);
+            FlwPlayI.Name = "FlwPlayI";
+            FlwPlayI.Size = new Size(1308, 125);
+            FlwPlayI.TabIndex = 0;
+            // 
+            // FlwPlayN
+            // 
+            FlwPlayN.Dock = DockStyle.Fill;
+            FlwPlayN.Location = new Point(0, 0);
+            FlwPlayN.Name = "FlwPlayN";
+            FlwPlayN.Size = new Size(1308, 125);
+            FlwPlayN.TabIndex = 0;
+            // 
+            // FlwPlayG
+            // 
+            FlwPlayG.Dock = DockStyle.Fill;
+            FlwPlayG.Location = new Point(0, 0);
+            FlwPlayG.Name = "FlwPlayG";
+            FlwPlayG.Size = new Size(1308, 125);
+            FlwPlayG.TabIndex = 0;
+            // 
+            // FlwPlayO
+            // 
+            FlwPlayO.Dock = DockStyle.Fill;
+            FlwPlayO.Location = new Point(0, 0);
+            FlwPlayO.Name = "FlwPlayO";
+            FlwPlayO.Size = new Size(1308, 125);
+            FlwPlayO.TabIndex = 0;
             // 
             // MainView
             // 
@@ -1067,6 +1282,17 @@
             PnlEditCompany.ResumeLayout(false);
             PnlEditCompany.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PicEditLogoComp).EndInit();
+            TabPlayPage.ResumeLayout(false);
+            TabPlay.ResumeLayout(false);
+            TabPlayAnalog.ResumeLayout(false);
+            TabPlayAnalogOption.ResumeLayout(false);
+            TabPlaySelection.ResumeLayout(false);
+            TabPlayNumbers.ResumeLayout(false);
+            PnlPlayNumbersO.ResumeLayout(false);
+            PnlPlayNumbersG.ResumeLayout(false);
+            PnlPlayNumberN.ResumeLayout(false);
+            PnlPlayNumbersI.ResumeLayout(false);
+            PnlPlayNumbersB.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1158,5 +1384,24 @@
         private ComboBox CboEditComp;
         private Label label9;
         private Button BtnEditListDelete;
+        private TabControl TabPlay;
+        private TabPage TabPlayAnalog;
+        private TabControl TabPlayAnalogOption;
+        private TabPage TabPlaySelection;
+        private TabPage TabPlayNumbers;
+        private TabPage TabPlayDigital;
+        private Panel PnlPlayNumbersO;
+        private Panel PnlPlayNumbersG;
+        private Panel PnlPlayNumberN;
+        private Panel PnlPlayNumbersI;
+        private Panel PnlPlayNumbersB;
+        private TabPage TabPlayLogos;
+        private Button BtnPlaySelection;
+        private ComboBox CboPlaySelection;
+        private FlowLayoutPanel FlwPlayO;
+        private FlowLayoutPanel FlwPlayG;
+        private FlowLayoutPanel FlwPlayN;
+        private FlowLayoutPanel FlwPlayI;
+        private FlowLayoutPanel FlwPlayB;
     }
 }

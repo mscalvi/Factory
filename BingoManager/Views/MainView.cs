@@ -27,6 +27,7 @@ namespace BingoManager
             LoadComps();
             EditListConfigureLayout();
             LoadAllComp();
+            LoadGames();
         }
 
         //Criação
@@ -67,6 +68,8 @@ namespace BingoManager
                     TxtCreateListMessage.Text = "Erro ao adicionar a lista.";
                 }
             }
+
+            LoadLists();
         }
 
         private void BtnFindLogo_Click(object sender, EventArgs e)
@@ -101,7 +104,7 @@ namespace BingoManager
             }
         }
 
-        //Método para Criar uma empresa
+        // Método para Criar uma empresa
         private void BtnCreateCompany_Click(object sender, EventArgs e)
         {
             CompanyModel company = new CompanyModel();
@@ -175,7 +178,7 @@ namespace BingoManager
             }
         }
 
-        //Método para detectar entradas ao Criar Cartelas
+        // Método para Criar Cartelas
         private void BtnCreateCards_Click(object sender, EventArgs e)
         {
             TxtCreateCardsMsg.Text = "";
@@ -185,6 +188,12 @@ namespace BingoManager
             string CardsQuant = BoxCreateCardsQuant.Text.Trim();
             string CardsEnd = BoxCreateCardsEnd.Text.Trim();
             string CardsTitle = BoxCreateCardsTitle.Text.Trim();
+
+            if (string.IsNullOrEmpty(CardsName))
+            {
+                TxtCreateCardsMsg.Text = "Insira um nome para o conjunto de cartelas!";
+                return;
+            }
 
             if (CboCreateCardsList.SelectedItem != null)
             {
@@ -220,6 +229,8 @@ namespace BingoManager
             {
                 TxtCreateCardsMsg.Text = "Selecione uma lista!";
             }
+
+            LoadGames();
         }
 
 
@@ -439,6 +450,11 @@ namespace BingoManager
         //Método para adicionar empresas a uma lista no editor
         private void BtnEditAddCL_Click(object sender, EventArgs e)
         {
+            var selectedList = CboEditListSel.SelectedItem as dynamic;
+            int selectedListId = selectedList.Value;
+
+            List<DataRow> companyList = DataService.GetCompaniesByListId(selectedListId);
+
             List<string> selectedCompanies = new List<string>();
 
             foreach (Control panel in FlowEditViewAll.Controls)
@@ -457,17 +473,11 @@ namespace BingoManager
 
             if (CboEditListSel.SelectedItem != null)
             {
-                var selectedList = CboEditListSel.SelectedItem as dynamic;
-                int selectedListId = selectedList.Value;
-
-                List<DataRow> companyList = DataService.GetCompaniesByListId(selectedListId);
-
                 if (selectedCompanies.Count > 0)
                 {
                     DataService.AddCompaniesToAllocation(selectedListId, selectedCompanies);
+                    companyList = DataService.GetCompaniesByListId(selectedListId);
                     LblEditListMsg.Text = "Empresas alocadas com sucesso!";
-                    EditListShowSel(companyList);
-                    LoadAllComp(selectedListId);
                 }
                 else
                 {
@@ -478,11 +488,18 @@ namespace BingoManager
             {
                 LblEditListMsg.Text = "Nenhuma Lista foi selecionada!";
             }
+            EditListShowSel(companyList);
+            LoadAllComp(selectedListId);
         }
 
         //Método para remover empresas a uma lista no editor
         private void BtnEditRemoveCL_Click(object sender, EventArgs e)
         {
+            var selectedList = CboEditListSel.SelectedItem as dynamic;
+            int selectedListId = selectedList.Value;
+
+            List<DataRow> companyList = new List<DataRow>();
+
             List<string> selectedCompanies = new List<string>();
 
             foreach (Control panel in FlowEditViewSel.Controls)
@@ -501,16 +518,12 @@ namespace BingoManager
 
             if (CboEditListSel.SelectedItem != null)
             {
-                var selectedList = CboEditListSel.SelectedItem as dynamic;
-                int selectedListId = selectedList.Value;
 
                 if (selectedCompanies.Count > 0)
                 {
-                    DataService.RemoveCompaniesFromAllocation(selectedListId, selectedCompanies); // Método a ser implementado
+                    DataService.RemoveCompaniesFromAllocation(selectedListId, selectedCompanies);
                     LblEditListMsg.Text = "Empresas removidas da lista com sucesso!";
-                    List<DataRow> companyList = DataService.GetCompaniesByListId(selectedListId);
-                    EditListShowSel(companyList);
-                    LoadAllComp(selectedListId);
+                    companyList = DataService.GetCompaniesByListId(selectedListId);
                 }
                 else
                 {
@@ -521,6 +534,9 @@ namespace BingoManager
             {
                 LblEditListMsg.Text = "Nenhuma lista foi selecionada!";
             }
+
+            EditListShowSel(companyList);
+            LoadAllComp(selectedListId);
         }
 
         //Método para selecionar Empresa para Edição
@@ -767,5 +783,34 @@ namespace BingoManager
             PicEditLogoComp.Image = null;
             CboEditComp.SelectedIndex = -1;
         }
+
+
+
+        //Jogar
+        //Método para carregar todos os jogos para Jogar
+        private void LoadGames()
+        {
+            DataTable gamesTable = DataService.GetAllCards();
+
+            CboPlaySelection.Items.Clear();
+
+            foreach (DataRow row in gamesTable.Rows)
+            {
+                string cardName = row["Name"].ToString();
+                int cardId = Convert.ToInt32(row["Id"]);
+
+                CboPlaySelection.Items.Add(new { Text = cardName, Value = cardId });
+            }
+
+            CboPlaySelection.DisplayMember = "Text";
+            CboPlaySelection.ValueMember = "Value";
+        }
+
+        //Método para Começar Jogo
+        private void BtnPlaySelection_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

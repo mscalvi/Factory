@@ -13,9 +13,6 @@ namespace BingoManager.Services
     {
         public static void CreateCards(List<DataRow> CompList, int listId, int CompNumber, int Qnt, string Title, string End, string CardsName)
         {
-            // Chama o método que cria a lista de cartelas no banco de dados
-            DataService.CreateCardList(listId, Qnt, End, Title, CardsName);
-
             // Lista para armazenar todas as cartelas geradas
             List<List<DataRow>> allCards = new List<List<DataRow>>();
 
@@ -38,7 +35,7 @@ namespace BingoManager.Services
             for (int i = 1; i <= Qnt; i++)
             {
                 List<DataRow> selectedCompanies = new List<DataRow>();
-                
+
                 // Cria cópias temporárias dos grupos para garantir que as empresas não se repitam dentro da mesma cartela
                 List<DataRow> tempB = new List<DataRow>(columnB);
                 List<DataRow> tempI = new List<DataRow>(columnI);
@@ -65,6 +62,16 @@ namespace BingoManager.Services
                     allCards.Add(selectedCompanies);
                 }
             }
+
+            // Serializar os grupos em uma string separada por vírgulas
+            string groupB = string.Join(",", columnB.Select(c => c["Id"].ToString()));
+            string groupI = string.Join(",", columnI.Select(c => c["Id"].ToString()));
+            string groupN = string.Join(",", columnN.Select(c => c["Id"].ToString()));
+            string groupG = string.Join(",", columnG.Select(c => c["Id"].ToString()));
+            string groupO = string.Join(",", columnO.Select(c => c["Id"].ToString()));
+
+            // Chama o método que cria a lista de cartelas no banco de dados
+            DataService.CreateCardList(listId, Qnt, End, Title, CardsName, groupB, groupI, groupN, groupG, groupO);
 
             // Após criar todas as cartelas, gerar o PDF com todas elas (duas cartelas por página)
             PrintingService.PrintCards(allCards, allCards.Count, Title, End);

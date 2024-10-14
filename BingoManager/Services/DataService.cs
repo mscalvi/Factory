@@ -7,6 +7,7 @@ using System;
 using System.Data;
 using System.Data.SQLite;
 using System.ComponentModel.Design;
+using BingoManager.Models;
 
 namespace BingoManager.Services
 {
@@ -550,13 +551,13 @@ namespace BingoManager.Services
         }
 
         //Método para adicionar uma lista de cartelas
-        public static void CreateCardList(int listId, int qnt, string end, string title, string name)
+        public static void CreateCardList(int listId, int qnt, string end, string title, string name, string groupB, string groupI, string groupN, string groupG, string groupO)
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
 
-                string insertQuery = "INSERT INTO AllCards (ListId, Qnt, End, Title, Name) VALUES (@ListId, @Qnt, @End, @Title, @Name)";
+                string insertQuery = "INSERT INTO AllCards (ListId, Qnt, End, Title, Name, GroupB, GroupI, GroupN, GroupG, GroupO) VALUES (@ListId, @Qnt, @End, @Title, @Name, @GroupB, @GroupI, @GroupN, @GroupG, @GroupO)";
 
                 using (var command = new SQLiteCommand(insertQuery, connection))
                 {
@@ -565,6 +566,11 @@ namespace BingoManager.Services
                     command.Parameters.AddWithValue("@End", end);
                     command.Parameters.AddWithValue("@Title", title);
                     command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@GroupB", groupB);
+                    command.Parameters.AddWithValue("@GroupI", groupI);
+                    command.Parameters.AddWithValue("@GroupN", groupN);
+                    command.Parameters.AddWithValue("@GroupG", groupG);
+                    command.Parameters.AddWithValue("@GroupO", groupO);
 
                     command.ExecuteNonQuery();
                 }
@@ -642,6 +648,25 @@ namespace BingoManager.Services
             }
         }
 
+        //Método para selecionar todos os Jogos
+        public static DataTable GetAllCards()
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                string query = "SELECT Id, Name FROM AllCards"; // Ajuste os campos conforme necessário
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    using (var adapter = new SQLiteDataAdapter(command))
+                    {
+                        DataTable dataTable = new DataTable();
+                        adapter.Fill(dataTable);
+                        return dataTable;
+                    }
+                }
+            }
+        }
     }
 
 }
