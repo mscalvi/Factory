@@ -13,6 +13,10 @@ namespace BingoManager.Services
     {
         public static void CreateCards(List<DataRow> CompList, int listId, int CompNumber, int Qnt, string Title, string End, string CardsName)
         {
+            //Detectar SetId
+            int setId = DataService.GetLastInsertedSetId();
+            setId++;
+
             // Lista para armazenar todas as cartelas geradas
             List<List<DataRow>> allCards = new List<List<DataRow>>();
 
@@ -56,7 +60,7 @@ namespace BingoManager.Services
                 if (companyIds.Count == 25)
                 {
                     // Chama o método que insere a cartela no banco de dados
-                    DataService.CreateCard(listId, companyIds, i);
+                    DataService.CreateCard(listId, companyIds, i, setId);
 
                     // Adiciona a cartela gerada à lista de todas as cartelas
                     allCards.Add(selectedCompanies);

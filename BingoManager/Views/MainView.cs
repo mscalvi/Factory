@@ -1,5 +1,6 @@
 using BingoManager.Models;
 using BingoManager.Services;
+using System.ComponentModel.Design;
 using System.Data;
 using System.Xml.Linq;
 using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
@@ -693,7 +694,7 @@ namespace BingoManager
             int selectedListId = selectedList.Value;
             string selectedListName = selectedList.Text;
 
-            DialogResult dialogResult = MessageBox.Show($"Tem certeza de que deseja excluir a lista '{selectedListName}'? Todas as cartelas associadas também serão excluídas.",
+            DialogResult dialogResult = MessageBox.Show($"Tem certeza de que deseja excluir a lista '{selectedListId}'? Todas as cartelas associadas também serão excluídas.",
                                                         "Confirmar Exclusão",
                                                         MessageBoxButtons.YesNo,
                                                         MessageBoxIcon.Warning);
@@ -709,7 +710,7 @@ namespace BingoManager
 
                     CboEditListSel.SelectedIndex = -1;
                     FlowEditViewSel.Controls.Clear();
-                    LoadLists(); // Atualiza as listas disponíveis após a exclusão
+                    LoadLists();
                 }
                 catch (Exception ex)
                 {
@@ -720,6 +721,8 @@ namespace BingoManager
             {
                 LblEditListMsg.Text = "A exclusão foi cancelada.";
             }
+
+            LoadAllComp();
         }
 
 
@@ -798,7 +801,7 @@ namespace BingoManager
             foreach (DataRow row in gamesTable.Rows)
             {
                 string cardName = row["Name"].ToString();
-                int cardId = Convert.ToInt32(row["Id"]);
+                int cardId = Convert.ToInt32(row["SetId"]);
 
                 CboPlaySelection.Items.Add(new { Text = cardName, Value = cardId });
             }
@@ -836,7 +839,6 @@ namespace BingoManager
         // Método para mostrar as Empresas durante o jogo
         private void DisplayGamePanels(GameData gameData)
         {
-            
             int buttonSize = 50; 
             int panelWidth = FlwPlayB.Width; 
             int buttonsPerRow = panelWidth / buttonSize;
@@ -857,7 +859,7 @@ namespace BingoManager
                 Button companyButton = new Button
                 {
                     Text = Number.ToString(),
-                    Tag = company.Id,
+                    Tag = company,
                     Width = buttonSize,
                     Height = buttonSize,
                     TextAlign = ContentAlignment.MiddleCenter
@@ -873,7 +875,7 @@ namespace BingoManager
                 Button companyButton = new Button
                 {
                     Text = Number.ToString(),
-                    Tag = company.Id,
+                    Tag = company,
                     Width = buttonSize,
                     Height = buttonSize,
                     TextAlign = ContentAlignment.MiddleCenter 
@@ -889,7 +891,7 @@ namespace BingoManager
                 Button companyButton = new Button
                 {
                     Text = Number.ToString(),
-                    Tag = company.Id,
+                    Tag = company,
                     Width = buttonSize,
                     Height = buttonSize,
                     TextAlign = ContentAlignment.MiddleCenter
@@ -905,7 +907,7 @@ namespace BingoManager
                 Button companyButton = new Button
                 {
                     Text = Number.ToString(),
-                    Tag = company.Id,
+                    Tag = company,
                     Width = buttonSize,
                     Height = buttonSize,
                     TextAlign = ContentAlignment.MiddleCenter
@@ -921,7 +923,7 @@ namespace BingoManager
                 Button companyButton = new Button
                 {
                     Text = Number.ToString(),
-                    Tag = company.Id,
+                    Tag = company,
                     Width = buttonSize,
                     Height = buttonSize,
                     TextAlign = ContentAlignment.MiddleCenter
@@ -937,70 +939,63 @@ namespace BingoManager
         // Configurando os FlowLayoutPanels
         private void SetupFlowPanels()
         {
-            PnlPlayFather.Location = new Point(
-                this.ClientSize.Width / 2 - PnlPlayFather.Size.Width / 2,
-                this.ClientSize.Height / 2 - PnlPlayFather.Size.Height / 2);
-            PnlPlayFather.Anchor = AnchorStyles.None;
+            int Width = 0;
+            int Height = 0;
 
-            PnlPlayNumbersB.Location = new Point(
-                this.ClientSize.Width / 2 - PnlPlayNumbersB.Size.Width / 2,
-                this.ClientSize.Height / 2 - PnlPlayNumbersB.Size.Height / 2);
-            PnlPlayNumbersB.Anchor = AnchorStyles.None;
+            foreach (var panel in new[] { PnlPlayNumbersB, PnlPlayNumbersI, PnlPlayNumbersN, PnlPlayNumbersG, PnlPlayNumbersO})
+            {
+                Height += panel.Height;
+                panel.AutoSize = true; 
+                panel.AutoSizeMode = AutoSizeMode.GrowAndShrink; 
+                panel.Padding = new Padding(0); 
+                panel.Margin = new Padding(0); 
+                panel.Dock = DockStyle.None;
+            }
 
-            PnlPlayNumbersI.Location = new Point(
-                this.ClientSize.Width / 2 - PnlPlayNumbersI.Size.Width / 2,
-                this.ClientSize.Height / 2 - PnlPlayNumbersI.Size.Height / 2);
-            PnlPlayNumbersI.Anchor = AnchorStyles.None;
-
-            PnlPlayNumbersN.Location = new Point(
-                this.ClientSize.Width / 2 - PnlPlayNumbersN.Size.Width / 2,
-                this.ClientSize.Height / 2 - PnlPlayNumbersN.Size.Height / 2);
-            PnlPlayNumbersN.Anchor = AnchorStyles.None;
-
-            PnlPlayNumbersG.Location = new Point(
-                this.ClientSize.Width / 2 - PnlPlayNumbersG.Size.Width / 2,
-                this.ClientSize.Height / 2 - PnlPlayNumbersG.Size.Height / 2);
-            PnlPlayNumbersG.Anchor = AnchorStyles.None;
-
-            PnlPlayNumbersO.Location = new Point(
-                this.ClientSize.Width / 2 - PnlPlayNumbersO.Size.Width / 2,
-                this.ClientSize.Height / 2 - PnlPlayNumbersO.Size.Height / 2);
-            PnlPlayNumbersO.Anchor = AnchorStyles.None;
-
-            // Para cada FlowPanel (B, I, N, G, O)
             foreach (var flowPanel in new[] { FlwPlayB, FlwPlayI, FlwPlayN, FlwPlayG, FlwPlayO })
             {
-                flowPanel.FlowDirection = FlowDirection.LeftToRight; // Direção do fluxo
-                flowPanel.WrapContents = true; // Permite que os controles quebrem para a próxima linha
-                flowPanel.AutoSize = true; // Ajusta o tamanho automaticamente com base no conteúdo
-                flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink; // Permite que o FlowLayoutPanel cresça
-                flowPanel.Padding = new Padding(10); // Espaçamento interno do FlowPanel
-                flowPanel.Margin = new Padding(0); // Margem do FlowPanel
-
-                // Se o FlowPanel estiver em um painel, centralize-o
-                if (flowPanel.Parent is Panel parentPanel)
-                {
-                    parentPanel.AutoSize = true; // Ajusta o tamanho automaticamente
-                    parentPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink; // Permite que o painel cresça
-                    parentPanel.Padding = new Padding(0); // Sem margens
-                    parentPanel.Margin = new Padding(0); // Sem margens
-                }
+                flowPanel.FlowDirection = FlowDirection.LeftToRight; 
+                flowPanel.WrapContents = true; 
+                flowPanel.AutoSize = true; 
+                flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink; 
+                flowPanel.Padding = new Padding(10); 
+                flowPanel.Margin = new Padding(0);
             }
+
+            PnlPlayFather.Location = new Point(
+                (1314 / 2) - (PnlPlayNumbersB.Width / 2),
+                (633 / 2) - (Height / 2));
+            PnlPlayFather.Width = PnlPlayNumbersB.Width;
+            PnlPlayFather.Anchor = AnchorStyles.None;
+            PnlPlayFather.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+
         }
 
         // Método para o evento de clique do botão de cada empresa
         private void CompanyButton_Click(object sender, EventArgs e)
         {
-            Button button = sender as Button;
-            if (button != null)
+            Button clickedButton = sender as Button;
+
+            if (clickedButton != null && clickedButton.Tag is CompanyModel selectedCompany)
             {
-                int companyId = (int)button.Tag;
-                                                
-                MessageBox.Show($"Botão da empresa {button.Text} clicado! (ID: {companyId})");
+                string logoPath = Path.Combine(Application.StartupPath, "Images", selectedCompany.Logo);
+
+                clickedButton.BackColor = Color.Red;
+
+                PlayService.AddCompany(selectedCompany.Id);
+
+                if (File.Exists(logoPath))
+                {
+                    PicPlayLogo.Image = Image.FromFile(logoPath);
+                }
+                else
+                {
+                    PicPlayLogo.Image = null;
+                }
+
+                MessageBox.Show($"Botão {clickedButton.Text}, da empresa {selectedCompany.Name} - ID: {selectedCompany.Id}, clicado!");
             }
         }
-
-
 
     }
 }

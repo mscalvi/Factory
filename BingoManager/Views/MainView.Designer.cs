@@ -135,6 +135,8 @@
             PnlPlayNumbersO = new Panel();
             FlwPlayO = new FlowLayoutPanel();
             TabPlayLogos = new TabPage();
+            PnlPlayLogo = new Panel();
+            PicPlayLogo = new PictureBox();
             TabPlayDigital = new TabPage();
             MainPage.SuspendLayout();
             TabCreatePage.SuspendLayout();
@@ -168,6 +170,9 @@
             PnlPlayNumbersN.SuspendLayout();
             PnlPlayNumbersG.SuspendLayout();
             PnlPlayNumbersO.SuspendLayout();
+            TabPlayLogos.SuspendLayout();
+            PnlPlayLogo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PicPlayLogo).BeginInit();
             SuspendLayout();
             // 
             // MainPage
@@ -1155,6 +1160,9 @@
             // PnlPlayFather
             // 
             PnlPlayFather.Anchor = AnchorStyles.Top;
+            PnlPlayFather.AutoSize = true;
+            PnlPlayFather.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            PnlPlayFather.BackColor = Color.Transparent;
             PnlPlayFather.Controls.Add(PnlPlayNumbersB);
             PnlPlayFather.Controls.Add(PnlPlayNumbersI);
             PnlPlayFather.Controls.Add(PnlPlayNumbersN);
@@ -1162,24 +1170,26 @@
             PnlPlayFather.Controls.Add(PnlPlayNumbersO);
             PnlPlayFather.Location = new Point(3, 3);
             PnlPlayFather.Name = "PnlPlayFather";
-            PnlPlayFather.Size = new Size(1308, 627);
+            PnlPlayFather.Size = new Size(1311, 628);
             PnlPlayFather.TabIndex = 0;
             // 
             // PnlPlayNumbersB
             // 
+            PnlPlayNumbersB.BackColor = Color.Transparent;
             PnlPlayNumbersB.Controls.Add(FlwPlayB);
             PnlPlayNumbersB.Dock = DockStyle.Top;
             PnlPlayNumbersB.Location = new Point(0, 0);
             PnlPlayNumbersB.Name = "PnlPlayNumbersB";
-            PnlPlayNumbersB.Size = new Size(1308, 125);
+            PnlPlayNumbersB.Size = new Size(1311, 125);
             PnlPlayNumbersB.TabIndex = 0;
             // 
             // FlwPlayB
             // 
+            FlwPlayB.BackColor = Color.Transparent;
             FlwPlayB.Dock = DockStyle.Fill;
             FlwPlayB.Location = new Point(0, 0);
             FlwPlayB.Name = "FlwPlayB";
-            FlwPlayB.Size = new Size(1308, 125);
+            FlwPlayB.Size = new Size(1311, 125);
             FlwPlayB.TabIndex = 0;
             // 
             // PnlPlayNumbersI
@@ -1248,6 +1258,7 @@
             // 
             // TabPlayLogos
             // 
+            TabPlayLogos.Controls.Add(PnlPlayLogo);
             TabPlayLogos.Location = new Point(4, 24);
             TabPlayLogos.Name = "TabPlayLogos";
             TabPlayLogos.Padding = new Padding(3);
@@ -1255,6 +1266,25 @@
             TabPlayLogos.TabIndex = 2;
             TabPlayLogos.Text = "Logos";
             TabPlayLogos.UseVisualStyleBackColor = true;
+            // 
+            // PnlPlayLogo
+            // 
+            PnlPlayLogo.Controls.Add(PicPlayLogo);
+            PnlPlayLogo.Dock = DockStyle.Fill;
+            PnlPlayLogo.Location = new Point(3, 3);
+            PnlPlayLogo.Name = "PnlPlayLogo";
+            PnlPlayLogo.Size = new Size(1308, 627);
+            PnlPlayLogo.TabIndex = 0;
+            // 
+            // PicPlayLogo
+            // 
+            PicPlayLogo.Dock = DockStyle.Fill;
+            PicPlayLogo.Location = new Point(0, 0);
+            PicPlayLogo.Name = "PicPlayLogo";
+            PicPlayLogo.Size = new Size(1308, 627);
+            PicPlayLogo.SizeMode = PictureBoxSizeMode.Zoom;
+            PicPlayLogo.TabIndex = 0;
+            PicPlayLogo.TabStop = false;
             // 
             // TabPlayDigital
             // 
@@ -1307,12 +1337,16 @@
             TabPlayAnalogOption.ResumeLayout(false);
             TabPlaySelection.ResumeLayout(false);
             TabPlayNumbers.ResumeLayout(false);
+            TabPlayNumbers.PerformLayout();
             PnlPlayFather.ResumeLayout(false);
             PnlPlayNumbersB.ResumeLayout(false);
             PnlPlayNumbersI.ResumeLayout(false);
             PnlPlayNumbersN.ResumeLayout(false);
             PnlPlayNumbersG.ResumeLayout(false);
             PnlPlayNumbersO.ResumeLayout(false);
+            TabPlayLogos.ResumeLayout(false);
+            PnlPlayLogo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)PicPlayLogo).EndInit();
             ResumeLayout(false);
         }
 
@@ -1425,5 +1459,7 @@
         private FlowLayoutPanel FlwPlayB;
         private Label LblPlayMsg;
         private Panel PnlPlayFather;
+        private Panel PnlPlayLogo;
+        private PictureBox PicPlayLogo;
     }
 }

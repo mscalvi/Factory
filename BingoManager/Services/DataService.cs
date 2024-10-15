@@ -509,16 +509,16 @@ namespace BingoManager.Services
         }
 
         //Método para adicionar cartela a uma lista de cartelas
-        public static void CreateCard(int listId, List<int> companyIds, int cardNumber)
+        public static void CreateCard(int listId, List<int> companyIds, int cardNumber, int setId)
         {
             string query = @"INSERT INTO CardsList 
-                     (CardList, CardNumber, CompB1, CompB2, CompB3, CompB4, CompB5,
+                     (ListId, SetId, CardNumber, CompB1, CompB2, CompB3, CompB4, CompB5,
                       CompI1, CompI2, CompI3, CompI4, CompI5,
                       CompN1, CompN2, CompN3, CompN4, CompN5,
                       CompG1, CompG2, CompG3, CompG4, CompG5,
                       CompO1, CompO2, CompO3, CompO4, CompO5) 
                      VALUES 
-                     (@CardList, @CardNumber, @CompB1, @CompB2, @CompB3, @CompB4, @CompB5,
+                     (@ListId, @SetId, @CardNumber, @CompB1, @CompB2, @CompB3, @CompB4, @CompB5,
                       @CompI1, @CompI2, @CompI3, @CompI4, @CompI5,
                       @CompN1, @CompN2, @CompN3, @CompN4, @CompN5,
                       @CompG1, @CompG2, @CompG3, @CompG4, @CompG5,
@@ -531,7 +531,8 @@ namespace BingoManager.Services
                 using (var command = new SQLiteCommand(query, connection))
                 {
                     // Adiciona o valor da lista
-                    command.Parameters.AddWithValue("@CardList", listId);
+                    command.Parameters.AddWithValue("@ListId", listId);
+                    command.Parameters.AddWithValue("@SetId", setId);
                     command.Parameters.AddWithValue("@CardNumber", cardNumber);
 
                     // Associa os parâmetros para as empresas nos diferentes grupos
@@ -557,7 +558,7 @@ namespace BingoManager.Services
             {
                 connection.Open();
 
-                string insertQuery = "INSERT INTO AllCards (ListId, Qnt, End, Title, Name, GroupB, GroupI, GroupN, GroupG, GroupO) VALUES (@ListId, @Qnt, @End, @Title, @Name, @GroupB, @GroupI, @GroupN, @GroupG, @GroupO)";
+                string insertQuery = "INSERT INTO CardsSets (ListId, Qnt, End, Title, Name, GroupB, GroupI, GroupN, GroupG, GroupO) VALUES (@ListId, @Qnt, @End, @Title, @Name, @GroupB, @GroupI, @GroupN, @GroupG, @GroupO)";
 
                 using (var command = new SQLiteCommand(insertQuery, connection))
                 {
@@ -579,7 +580,7 @@ namespace BingoManager.Services
 
         //Método para deletar uma lista e todas as dependências
         public static void DeleteList(int listId)
-        {
+        { 
             using (var connection = GetConnection())
             {
                 connection.Open();
@@ -587,8 +588,8 @@ namespace BingoManager.Services
                 {
                     try
                     {
-                        // 1. Encontrar todos os conjuntos de cartelas associados à lista na AllCards
-                        string findCardSetsQuery = "SELECT DISTINCT Id FROM AllCards WHERE ListId = @ListId";
+                        // 1. Encontrar todos os conjuntos de cartelas associados à lista na CardsSets
+                        string findCardSetsQuery = "SELECT SetId FROM CardsSets WHERE ListId = @ListId";
                         List<int> cardSetIds = new List<int>();
 
                         using (var command = new SQLiteCommand(findCardSetsQuery, connection))
@@ -598,42 +599,47 @@ namespace BingoManager.Services
                             {
                                 while (reader.Read())
                                 {
-                                    cardSetIds.Add(reader.GetInt32(0));  // Adiciona o CardId à lista de conjuntos de cartelas
+                                    int cardSetId = reader.GetInt32(0); // Adiciona o Id do card à lista de conjuntos de cartelas
+                                    cardSetIds.Add(cardSetId); // Adiciona o ID à lista
                                 }
                             }
                         }
 
-                        // 2. Apagar todas as cartelas associadas na CardsListTable
+                        // 2. Apagar todas as cartelas associadas na CardsListTable usando os SetIds encontrados
                         if (cardSetIds.Count > 0)
                         {
-                            string deleteCardsQuery = "DELETE FROM CardsList WHERE CardId IN (" + string.Join(",", cardSetIds) + ")";
+                            string deleteCardsQuery = "DELETE FROM CardsList WHERE SetId IN (" + string.Join(",", cardSetIds) + ")";
                             using (var command = new SQLiteCommand(deleteCardsQuery, connection))
                             {
                                 command.ExecuteNonQuery();
+                                MessageBox.Show("Cartelas associadas foram excluídas da CardsList.");
                             }
 
-                            // 3. Apagar os próprios conjuntos de cartelas na AllCards
-                            string deleteCardSetsQuery = "DELETE FROM AllCards WHERE Id IN (" + string.Join(",", cardSetIds) + ")";
+                            // 3. Apagar os próprios conjuntos de cartelas na CardsSets usando os SetIds encontrados
+                            string deleteCardSetsQuery = "DELETE FROM CardsSets WHERE SetId IN (" + string.Join(",", cardSetIds) + ")";
                             using (var command = new SQLiteCommand(deleteCardSetsQuery, connection))
                             {
                                 command.ExecuteNonQuery();
+                                MessageBox.Show("Conjuntos de cartelas foram excluídos da CardsSets.");
                             }
                         }
 
-                        // 4. Apagar as associações da lista na AlocacaoTable
+                        // 3. Apagar as associações da lista na AlocacaoTable
                         string deleteFromAllocationQuery = "DELETE FROM AlocacaoTable WHERE ListId = @ListId";
                         using (var command = new SQLiteCommand(deleteFromAllocationQuery, connection))
                         {
                             command.Parameters.AddWithValue("@ListId", listId);
                             command.ExecuteNonQuery();
+                            MessageBox.Show("Alocações Excluídas.");
                         }
 
-                        // 5. Apagar a própria lista da ListsTable
+                        // 4. Apagar a própria lista da ListsTable
                         string deleteListQuery = "DELETE FROM ListsTable WHERE Id = @ListId";
                         using (var command = new SQLiteCommand(deleteListQuery, connection))
                         {
                             command.Parameters.AddWithValue("@ListId", listId);
                             command.ExecuteNonQuery();
+                            MessageBox.Show("Lista excluída.");
                         }
 
                         // Commit da transação se tudo deu certo
@@ -654,7 +660,7 @@ namespace BingoManager.Services
             using (var connection = GetConnection())
             {
                 connection.Open();
-                string query = "SELECT Id, Name FROM AllCards"; // Ajuste os campos conforme necessário
+                string query = "SELECT SetId, Name FROM CardsSets"; // Ajuste os campos conforme necessário
 
                 using (var command = new SQLiteCommand(query, connection))
                 {
@@ -668,14 +674,14 @@ namespace BingoManager.Services
             }
         }
         
-        // Método para selecionar as empresas de um jogo
+        //Método para selecionar as empresas de um jogo
         public static GameData GetGameCompanies(int gameId)
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
 
-                string selectQuery = "SELECT GroupB, GroupI, GroupN, GroupG, GroupO FROM AllCards WHERE Id = @GameId";
+                string selectQuery = "SELECT GroupB, GroupI, GroupN, GroupG, GroupO FROM CardsSets WHERE SetId = @GameId";
 
                 using (var command = new SQLiteCommand(selectQuery, connection))
                 {
@@ -713,7 +719,7 @@ namespace BingoManager.Services
             return null;
         }
 
-        // Método para buscar as informações das empresas de um jogo
+        //Método para buscar as informações das empresas de um jogo
         public static List<CompanyModel> GetCompaniesInfoGame(string companyIds)
         {
             List<CompanyModel> companies = new List<CompanyModel>();
@@ -761,6 +767,18 @@ namespace BingoManager.Services
             return companies;
         }
 
+        //Método para buscar o último SetId dos Conjuntos de Cartelas
+        public static int GetLastInsertedSetId()
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new SQLiteCommand("SELECT last_insert_rowid();", connection))
+                {
+                    return Convert.ToInt32(command.ExecuteScalar());
+                }
+            }
+        }
 
     }
 
