@@ -552,12 +552,13 @@ namespace BingoManager.Services
         }
 
         //Método para adicionar uma lista de cartelas
-        public static void CreateCardList(int listId, int qnt, string end, string title, string name, string groupB, string groupI, string groupN, string groupG, string groupO)
+        public static int CreateCardList(int listId, int qnt, string end, string title, string name, string groupB, string groupI, string groupN, string groupG, string groupO)
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
 
+                // Query para inserir uma nova linha na tabela CardsSets
                 string insertQuery = "INSERT INTO CardsSets (ListId, Qnt, End, Title, Name, GroupB, GroupI, GroupN, GroupG, GroupO) VALUES (@ListId, @Qnt, @End, @Title, @Name, @GroupB, @GroupI, @GroupN, @GroupG, @GroupO)";
 
                 using (var command = new SQLiteCommand(insertQuery, connection))
@@ -574,6 +575,12 @@ namespace BingoManager.Services
                     command.Parameters.AddWithValue("@GroupO", groupO);
 
                     command.ExecuteNonQuery();
+                }
+
+                // Recupera o último SetId inserido
+                using (var command = new SQLiteCommand("SELECT last_insert_rowid();", connection))
+                {
+                    return Convert.ToInt32(command.ExecuteScalar());
                 }
             }
         }
@@ -767,19 +774,142 @@ namespace BingoManager.Services
             return companies;
         }
 
-        //Método para buscar o último SetId dos Conjuntos de Cartelas
-        public static int GetLastInsertedSetId()
+        // Método para verificar quais cartelas têm uma empresa em um jogo específico
+        public static List<(int CardId, int CardNum)> GetCardsByCompanyId(int companyId, int setId)
+        {
+            List<(int CardId, int CardNum)> cards = new List<(int, int)>();
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                string selectQuery = @"
+            SELECT Id, CardNumber 
+            FROM CardsList 
+            WHERE 
+                (CompB1 = @CompanyId OR CompB2 = @CompanyId OR CompB3 = @CompanyId OR CompB4 = @CompanyId OR CompB5 = @CompanyId OR
+                 CompI1 = @CompanyId OR CompI2 = @CompanyId OR CompI3 = @CompanyId OR CompI4 = @CompanyId OR CompI5 = @CompanyId OR
+                 CompN1 = @CompanyId OR CompN2 = @CompanyId OR CompN3 = @CompanyId OR CompN4 = @CompanyId OR CompN5 = @CompanyId OR
+                 CompG1 = @CompanyId OR CompG2 = @CompanyId OR CompG3 = @CompanyId OR CompG4 = @CompanyId OR CompG5 = @CompanyId OR
+                 CompO1 = @CompanyId OR CompO2 = @CompanyId OR CompO3 = @CompanyId OR CompO4 = @CompanyId OR CompO5 = @CompanyId)
+                AND SetId = @SetId"; 
+
+                using (var command = new SQLiteCommand(selectQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@CompanyId", companyId);
+                    command.Parameters.AddWithValue("@SetId", setId); 
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int cardId = reader.GetInt32(0); 
+                            int cardNum = reader.GetInt32(1); 
+                            cards.Add((cardId, cardNum));
+                        }
+                    }
+                }
+            }
+
+            return cards;
+        }
+
+        // Método para retornar todas as empresas de uma Cartela
+        public static CardModel GetCardDetails(int cardNum, int setId)
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
-                using (var command = new SQLiteCommand("SELECT last_insert_rowid();", connection))
+                string selectQuery = @"
+            SELECT Id, CardNumber, 
+                   CompB1, CompB2, CompB3, CompB4, CompB5,
+                   CompI1, CompI2, CompI3, CompI4, CompI5,
+                   CompN1, CompN2, CompN3, CompN4, CompN5,
+                   CompG1, CompG2, CompG3, CompG4, CompG5,
+                   CompO1, CompO2, CompO3, CompO4, CompO5
+            FROM CardsList 
+            WHERE CardNumber = @CardNum AND SetId = @SetId";
+
+                using (var command = new SQLiteCommand(selectQuery, connection))
                 {
-                    return Convert.ToInt32(command.ExecuteScalar());
+                    command.Parameters.AddWithValue("@CardNum", cardNum);
+                    command.Parameters.AddWithValue("@SetId", setId);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Ler os dados da cartela
+                            int cardId = reader.GetInt32(0);
+                            int cardNumber = reader.GetInt32(1);
+
+                            // Inicializa listas para as empresas
+                            var bCompanies = new List<int>();
+                            var iCompanies = new List<int>();
+                            var nCompanies = new List<int>();
+                            var gCompanies = new List<int>();
+                            var oCompanies = new List<int>();
+
+                            // Lê as empresas da coluna B
+                            for (int i = 2; i <= 6; i++)
+                            {
+                                bCompanies.Add(reader.GetInt32(i)); // CompB1 a CompB5
+                            }
+
+                            // Lê as empresas da coluna I
+                            for (int i = 7; i <= 11; i++)
+                            {
+                                iCompanies.Add(reader.GetInt32(i)); // CompI1 a CompI5
+                            }
+
+                            // Lê as empresas da coluna N
+                            for (int i = 12; i <= 16; i++)
+                            {
+                                nCompanies.Add(reader.GetInt32(i)); // CompN1 a CompN5
+                            }
+
+                            // Lê as empresas da coluna G
+                            for (int i = 17; i <= 21; i++)
+                            {
+                                gCompanies.Add(reader.GetInt32(i)); // CompG1 a CompG5
+                            }
+
+                            // Lê as empresas da coluna O
+                            for (int i = 22; i <= 26; i++)
+                            {
+                                oCompanies.Add(reader.GetInt32(i)); // CompO1 a CompO5
+                            }
+
+                            // Monta a lista de empresas por linha
+                            var companies1 = new List<int> { bCompanies[0], iCompanies[0], nCompanies[0], gCompanies[0], oCompanies[0] };
+                            var companies2 = new List<int> { bCompanies[1], iCompanies[1], nCompanies[1], gCompanies[1], oCompanies[1] };
+                            var companies3 = new List<int> { bCompanies[2], iCompanies[2], nCompanies[2], gCompanies[2], oCompanies[2] };
+                            var companies4 = new List<int> { bCompanies[3], iCompanies[3], nCompanies[3], gCompanies[3], oCompanies[3] };
+                            var companies5 = new List<int> { bCompanies[4], iCompanies[4], nCompanies[4], gCompanies[4], oCompanies[4] };
+
+                            return new CardModel
+                            {
+                                CardId = cardId,
+                                CardNumber = cardNumber,
+                                AllCompanies = bCompanies.Concat(iCompanies).Concat(nCompanies).Concat(gCompanies).Concat(oCompanies).ToList(),
+                                BCompanies = bCompanies,
+                                ICompanies = iCompanies,
+                                NCompanies = nCompanies,
+                                GCompanies = gCompanies,
+                                OCompanies = oCompanies,
+                                Companies1 = companies1,
+                                Companies2 = companies2,
+                                Companies3 = companies3,
+                                Companies4 = companies4,
+                                Companies5 = companies5
+                            };
+                        }
+                    }
                 }
             }
+
+            return null;
         }
 
     }
-
 }

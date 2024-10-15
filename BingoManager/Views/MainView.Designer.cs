@@ -119,6 +119,9 @@
             TabPlayAnalog = new TabPage();
             TabPlayAnalogOption = new TabControl();
             TabPlaySelection = new TabPage();
+            GrpPlayPhase = new GroupBox();
+            RdPlay2 = new RadioButton();
+            RdPlay1 = new RadioButton();
             LblPlayMsg = new Label();
             CboPlaySelection = new ComboBox();
             BtnPlaySelection = new Button();
@@ -163,6 +166,7 @@
             TabPlayAnalog.SuspendLayout();
             TabPlayAnalogOption.SuspendLayout();
             TabPlaySelection.SuspendLayout();
+            GrpPlayPhase.SuspendLayout();
             TabPlayNumbers.SuspendLayout();
             PnlPlayFather.SuspendLayout();
             PnlPlayNumbersB.SuspendLayout();
@@ -1107,6 +1111,7 @@
             // 
             // TabPlaySelection
             // 
+            TabPlaySelection.Controls.Add(GrpPlayPhase);
             TabPlaySelection.Controls.Add(LblPlayMsg);
             TabPlaySelection.Controls.Add(CboPlaySelection);
             TabPlaySelection.Controls.Add(BtnPlaySelection);
@@ -1118,12 +1123,46 @@
             TabPlaySelection.Text = "Lista";
             TabPlaySelection.UseVisualStyleBackColor = true;
             // 
+            // GrpPlayPhase
+            // 
+            GrpPlayPhase.Anchor = AnchorStyles.Top;
+            GrpPlayPhase.Controls.Add(RdPlay2);
+            GrpPlayPhase.Controls.Add(RdPlay1);
+            GrpPlayPhase.Location = new Point(291, 328);
+            GrpPlayPhase.Name = "GrpPlayPhase";
+            GrpPlayPhase.Size = new Size(129, 248);
+            GrpPlayPhase.TabIndex = 3;
+            GrpPlayPhase.TabStop = false;
+            GrpPlayPhase.Text = "Fase do Jogo";
+            // 
+            // RdPlay2
+            // 
+            RdPlay2.AutoSize = true;
+            RdPlay2.Location = new Point(7, 144);
+            RdPlay2.Name = "RdPlay2";
+            RdPlay2.Size = new Size(95, 19);
+            RdPlay2.TabIndex = 1;
+            RdPlay2.Text = "Cartela Cheia";
+            RdPlay2.UseVisualStyleBackColor = true;
+            // 
+            // RdPlay1
+            // 
+            RdPlay1.AutoSize = true;
+            RdPlay1.Checked = true;
+            RdPlay1.Location = new Point(6, 99);
+            RdPlay1.Name = "RdPlay1";
+            RdPlay1.Size = new Size(57, 19);
+            RdPlay1.TabIndex = 0;
+            RdPlay1.TabStop = true;
+            RdPlay1.Text = "Quina";
+            RdPlay1.UseVisualStyleBackColor = true;
+            // 
             // LblPlayMsg
             // 
-            LblPlayMsg.Anchor = AnchorStyles.Top;
-            LblPlayMsg.Location = new Point(437, 328);
+            LblPlayMsg.Anchor = AnchorStyles.Right;
+            LblPlayMsg.Location = new Point(807, 23);
             LblPlayMsg.Name = "LblPlayMsg";
-            LblPlayMsg.Size = new Size(440, 104);
+            LblPlayMsg.Size = new Size(483, 581);
             LblPlayMsg.TabIndex = 2;
             // 
             // CboPlaySelection
@@ -1336,6 +1375,8 @@
             TabPlayAnalog.ResumeLayout(false);
             TabPlayAnalogOption.ResumeLayout(false);
             TabPlaySelection.ResumeLayout(false);
+            GrpPlayPhase.ResumeLayout(false);
+            GrpPlayPhase.PerformLayout();
             TabPlayNumbers.ResumeLayout(false);
             TabPlayNumbers.PerformLayout();
             PnlPlayFather.ResumeLayout(false);
@@ -1461,5 +1502,8 @@
         private Panel PnlPlayFather;
         private Panel PnlPlayLogo;
         private PictureBox PicPlayLogo;
+        private GroupBox GrpPlayPhase;
+        private RadioButton RdPlay2;
+        private RadioButton RdPlay1;
     }
 }

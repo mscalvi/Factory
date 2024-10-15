@@ -233,6 +233,12 @@ namespace BingoManager
             }
 
             LoadGames();
+            BoxCreateCardsEnd.Text = string.Empty;
+            BoxCreateCardsName.Text = string.Empty;
+            BoxCreateCardsQuant.Text = string.Empty;
+            BoxCreateCardsTitle.Text = string.Empty;
+            CboCreateCardsList.SelectedIndex = -1;
+            TxtCreateCardsMsg.Text = "Cartelas criadas com sucesso!";
         }
 
 
@@ -824,6 +830,7 @@ namespace BingoManager
                 if (gameData != null)
                 {
                     DisplayGamePanels(gameData);
+                    CboPlaySelection.Enabled = false;
                 }
                 else
                 {
@@ -974,6 +981,21 @@ namespace BingoManager
         // Método para o evento de clique do botão de cada empresa
         private void CompanyButton_Click(object sender, EventArgs e)
         {
+            int bingoPhase = 0;
+
+            if (RdPlay1.Checked)
+            {
+                bingoPhase = 1;
+            }
+            else if (RdPlay2.Checked)
+            {
+                bingoPhase = 2;
+            }
+
+            var selectedGame = CboPlaySelection.SelectedItem as dynamic;
+
+            int setId = selectedGame.Value;
+
             Button clickedButton = sender as Button;
 
             if (clickedButton != null && clickedButton.Tag is CompanyModel selectedCompany)
@@ -993,9 +1015,29 @@ namespace BingoManager
                     PicPlayLogo.Image = null;
                 }
 
-                MessageBox.Show($"Botão {clickedButton.Text}, da empresa {selectedCompany.Name} - ID: {selectedCompany.Id}, clicado!");
+                List<int> winningCards = new List<int>();
+
+                List<int> cardNumbers = PlayService.CheckCards(selectedCompany.Id, setId);
+
+                string cardNumbersText = string.Join(", ", cardNumbers);
+
+                LblPlayMsg.Text = string.IsNullOrEmpty(cardNumbersText) ? "Nenhuma cartela sorteada." : cardNumbersText;
+
+                if (!string.IsNullOrEmpty(cardNumbersText))
+                {
+                    winningCards = PlayService.CheckBingo(cardNumbers, setId, bingoPhase, selectedCompany.Id);
+
+                    if (winningCards.Count > 0)
+                    {
+                        string winningCardsText = string.Join(", ", winningCards);
+
+                        LblPlayMsg.Text += string.IsNullOrEmpty(LblPlayMsg.Text) ? "" : "\n\n";
+                        LblPlayMsg.Text += $"Cartelas vencedoras: {winningCardsText}";
+                    }
+                }
             }
         }
+
 
     }
 }
