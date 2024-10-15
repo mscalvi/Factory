@@ -667,6 +667,101 @@ namespace BingoManager.Services
                 }
             }
         }
+        
+        // Método para selecionar as empresas de um jogo
+        public static GameData GetGameCompanies(int gameId)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                string selectQuery = "SELECT GroupB, GroupI, GroupN, GroupG, GroupO FROM AllCards WHERE Id = @GameId";
+
+                using (var command = new SQLiteCommand(selectQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@GameId", gameId);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string groupBIds = reader["GroupB"].ToString();
+                            string groupIIds = reader["GroupI"].ToString();
+                            string groupNIds = reader["GroupN"].ToString();
+                            string groupGIds = reader["GroupG"].ToString();
+                            string groupOIds = reader["GroupO"].ToString();
+
+                            var groupB = GetCompaniesInfoGame(groupBIds);
+                            var groupI = GetCompaniesInfoGame(groupIIds);
+                            var groupN = GetCompaniesInfoGame(groupNIds);
+                            var groupG = GetCompaniesInfoGame(groupGIds);
+                            var groupO = GetCompaniesInfoGame(groupOIds);
+
+                            return new GameData
+                            {
+                                GroupB = groupB,
+                                GroupI = groupI,
+                                GroupN = groupN,
+                                GroupG = groupG,
+                                GroupO = groupO
+                            };
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        // Método para buscar as informações das empresas de um jogo
+        public static List<CompanyModel> GetCompaniesInfoGame(string companyIds)
+        {
+            List<CompanyModel> companies = new List<CompanyModel>();
+
+            if (string.IsNullOrWhiteSpace(companyIds))
+            {
+                return companies; // Retorna lista vazia se não houver IDs
+            }
+
+            // Separa os IDs e faz uma consulta mantendo a ordem
+            var ids = companyIds.Split(',').Select(id => id.Trim()).ToList();
+            string query = $"SELECT Id, Name, CardName, Logo FROM CompanyTable WHERE Id IN ({string.Join(",", ids)})";
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        // Cria um dicionário para mapear as IDs à suas informações
+                        var companyDictionary = new Dictionary<int, CompanyModel>();
+
+                        while (reader.Read())
+                        {
+                            CompanyModel company = new CompanyModel
+                            {
+                                Id = Convert.ToInt32(reader["Id"]),
+                                Name = reader["Name"].ToString(),
+                                CardName = reader["CardName"].ToString(),
+                                Logo = reader["Logo"].ToString()
+                            };
+
+                            // Adiciona ao dicionário
+                            companyDictionary[company.Id] = company;
+                        }
+
+                        // Monta a lista na ordem original dos IDs
+                        companies = ids.Select(id => companyDictionary[int.Parse(id)]).ToList();
+                    }
+                }
+            }
+
+            return companies;
+        }
+
+
     }
 
 }

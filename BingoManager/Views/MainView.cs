@@ -2,6 +2,7 @@ using BingoManager.Models;
 using BingoManager.Services;
 using System.Data;
 using System.Xml.Linq;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace BingoManager
 {
@@ -806,11 +807,200 @@ namespace BingoManager
             CboPlaySelection.ValueMember = "Value";
         }
 
-        //Método para Começar Jogo
+        // Método para começar o jogo com base no conjunto de fichas selecionado
         private void BtnPlaySelection_Click(object sender, EventArgs e)
         {
+            if (CboPlaySelection.SelectedItem != null)
+            {
+                var selectedGame = CboPlaySelection.SelectedItem as dynamic;
 
+                int selectedGameId = selectedGame.Value;
+
+                var gameData = DataService.GetGameCompanies(selectedGameId);
+
+                if (gameData != null)
+                {
+                    DisplayGamePanels(gameData);
+                }
+                else
+                {
+                    LblPlayMsg.Text = "Erro ao carregar os dados do jogo selecionado.";
+                }
+            }
+            else
+            {
+                LblPlayMsg.Text = "Por favor, selecione um jogo.";
+            }
         }
+
+        // Método para mostrar as Empresas durante o jogo
+        private void DisplayGamePanels(GameData gameData)
+        {
+            
+            int buttonSize = 50; 
+            int panelWidth = FlwPlayB.Width; 
+            int buttonsPerRow = panelWidth / buttonSize;
+
+            int Number = 1;
+
+            FlwPlayB.Controls.Clear();
+            FlwPlayI.Controls.Clear();
+            FlwPlayN.Controls.Clear();
+            FlwPlayG.Controls.Clear();
+            FlwPlayO.Controls.Clear();
+
+            SetupFlowPanels();
+
+            // Adicionar botões ao grupo B
+            foreach (var company in gameData.GroupB)
+            {
+                Button companyButton = new Button
+                {
+                    Text = Number.ToString(),
+                    Tag = company.Id,
+                    Width = buttonSize,
+                    Height = buttonSize,
+                    TextAlign = ContentAlignment.MiddleCenter
+                };
+                Number++;
+                companyButton.Click += CompanyButton_Click;
+                FlwPlayB.Controls.Add(companyButton);
+            }
+
+            // Adicionar botões ao grupo I
+            foreach (var company in gameData.GroupI)
+            {
+                Button companyButton = new Button
+                {
+                    Text = Number.ToString(),
+                    Tag = company.Id,
+                    Width = buttonSize,
+                    Height = buttonSize,
+                    TextAlign = ContentAlignment.MiddleCenter 
+                };
+                Number++;
+                companyButton.Click += CompanyButton_Click;
+                FlwPlayI.Controls.Add(companyButton);
+            }
+
+            // Adicionar botões ao grupo N
+            foreach (var company in gameData.GroupN)
+            {
+                Button companyButton = new Button
+                {
+                    Text = Number.ToString(),
+                    Tag = company.Id,
+                    Width = buttonSize,
+                    Height = buttonSize,
+                    TextAlign = ContentAlignment.MiddleCenter
+                };
+                Number++;
+                companyButton.Click += CompanyButton_Click;
+                FlwPlayN.Controls.Add(companyButton);
+            }
+
+            // Adicionar botões ao grupo G
+            foreach (var company in gameData.GroupG)
+            {
+                Button companyButton = new Button
+                {
+                    Text = Number.ToString(),
+                    Tag = company.Id,
+                    Width = buttonSize,
+                    Height = buttonSize,
+                    TextAlign = ContentAlignment.MiddleCenter
+                };
+                Number++;
+                companyButton.Click += CompanyButton_Click;
+                FlwPlayG.Controls.Add(companyButton);
+            }
+
+            // Adicionar botões ao grupo O
+            foreach (var company in gameData.GroupO)
+            {
+                Button companyButton = new Button
+                {
+                    Text = Number.ToString(),
+                    Tag = company.Id,
+                    Width = buttonSize,
+                    Height = buttonSize,
+                    TextAlign = ContentAlignment.MiddleCenter
+                };
+                Number++;
+                companyButton.Click += CompanyButton_Click;
+                FlwPlayO.Controls.Add(companyButton);
+            }
+
+            LblPlayMsg.Text = "Jogo carregado!";
+        }
+
+        // Configurando os FlowLayoutPanels
+        private void SetupFlowPanels()
+        {
+            PnlPlayFather.Location = new Point(
+                this.ClientSize.Width / 2 - PnlPlayFather.Size.Width / 2,
+                this.ClientSize.Height / 2 - PnlPlayFather.Size.Height / 2);
+            PnlPlayFather.Anchor = AnchorStyles.None;
+
+            PnlPlayNumbersB.Location = new Point(
+                this.ClientSize.Width / 2 - PnlPlayNumbersB.Size.Width / 2,
+                this.ClientSize.Height / 2 - PnlPlayNumbersB.Size.Height / 2);
+            PnlPlayNumbersB.Anchor = AnchorStyles.None;
+
+            PnlPlayNumbersI.Location = new Point(
+                this.ClientSize.Width / 2 - PnlPlayNumbersI.Size.Width / 2,
+                this.ClientSize.Height / 2 - PnlPlayNumbersI.Size.Height / 2);
+            PnlPlayNumbersI.Anchor = AnchorStyles.None;
+
+            PnlPlayNumbersN.Location = new Point(
+                this.ClientSize.Width / 2 - PnlPlayNumbersN.Size.Width / 2,
+                this.ClientSize.Height / 2 - PnlPlayNumbersN.Size.Height / 2);
+            PnlPlayNumbersN.Anchor = AnchorStyles.None;
+
+            PnlPlayNumbersG.Location = new Point(
+                this.ClientSize.Width / 2 - PnlPlayNumbersG.Size.Width / 2,
+                this.ClientSize.Height / 2 - PnlPlayNumbersG.Size.Height / 2);
+            PnlPlayNumbersG.Anchor = AnchorStyles.None;
+
+            PnlPlayNumbersO.Location = new Point(
+                this.ClientSize.Width / 2 - PnlPlayNumbersO.Size.Width / 2,
+                this.ClientSize.Height / 2 - PnlPlayNumbersO.Size.Height / 2);
+            PnlPlayNumbersO.Anchor = AnchorStyles.None;
+
+            // Para cada FlowPanel (B, I, N, G, O)
+            foreach (var flowPanel in new[] { FlwPlayB, FlwPlayI, FlwPlayN, FlwPlayG, FlwPlayO })
+            {
+                flowPanel.FlowDirection = FlowDirection.LeftToRight; // Direção do fluxo
+                flowPanel.WrapContents = true; // Permite que os controles quebrem para a próxima linha
+                flowPanel.AutoSize = true; // Ajusta o tamanho automaticamente com base no conteúdo
+                flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink; // Permite que o FlowLayoutPanel cresça
+                flowPanel.Padding = new Padding(10); // Espaçamento interno do FlowPanel
+                flowPanel.Margin = new Padding(0); // Margem do FlowPanel
+
+                // Se o FlowPanel estiver em um painel, centralize-o
+                if (flowPanel.Parent is Panel parentPanel)
+                {
+                    parentPanel.AutoSize = true; // Ajusta o tamanho automaticamente
+                    parentPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink; // Permite que o painel cresça
+                    parentPanel.Padding = new Padding(0); // Sem margens
+                    parentPanel.Margin = new Padding(0); // Sem margens
+                }
+            }
+        }
+
+        // Método para o evento de clique do botão de cada empresa
+        private void CompanyButton_Click(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+            {
+                int companyId = (int)button.Tag;
+                                                
+                MessageBox.Show($"Botão da empresa {button.Text} clicado! (ID: {companyId})");
+            }
+        }
+
+
 
     }
 }
