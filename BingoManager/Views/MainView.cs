@@ -5,6 +5,7 @@ using System.ComponentModel.Design;
 using System.Data;
 using System.Xml.Linq;
 using Microsoft.Win32;
+using System.Windows.Forms;
 
 namespace BingoManager
 {
@@ -14,24 +15,6 @@ namespace BingoManager
         private ToolTip toolTip;
         private List<DataRow> allCompaniesList = new List<DataRow>();
         private LogoView logoDisplayForm;
-
-        private void MainView_Load(object sender, EventArgs e)
-        {
-            // Inicializa a segunda tela ao carregar o formulário principal
-            ShowLogoOnSecondScreen();
-        }
-        private void MainView_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            // Cancelar a subscrição do evento ao fechar o formulário
-            SystemEvents.DisplaySettingsChanged -= new EventHandler(SystemEvents_DisplaySettingsChanged);
-        }
-
-        // Evento que é chamado quando as configurações de exibição mudam (telas conectadas/desconectadas)
-        private void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
-        {
-            // Verificar novamente as telas disponíveis e mover o logo para a segunda tela
-            ShowLogoOnSecondScreen();
-        }
 
         public MainView()
         {
@@ -142,10 +125,11 @@ namespace BingoManager
             if (PicCreateCompanyLogo.Image != null)
             {
                 company.Logo = "logo_" + Guid.NewGuid().ToString() + Path.GetExtension(selectedImagePath);
+                SaveImageToPC(PicCreateCompanyLogo.Image, company.Logo);
             }
             else
             {
-                company.Logo = "";
+                company.Logo = "default_logo.jpg";
             }
 
             company.AddDate = DateTime.Now.ToString("MMddyyyy - HH:mm:ss");
@@ -157,11 +141,6 @@ namespace BingoManager
                 {
                     TxtCreateCompanyMessage.Text = "Já existe uma empresa com o mesmo Nome ou Nome para Cartela.";
                     return;
-                }
-
-                if (PicCreateCompanyLogo.Image != null)
-                {
-                    SaveImageToPC(PicCreateCompanyLogo.Image, company.Logo);
                 }
 
                 try
@@ -265,6 +244,7 @@ namespace BingoManager
         }
 
 
+
         //Edição
         //Configuração da Edição de Listas
         private void EditListConfigureLayout()
@@ -323,7 +303,7 @@ namespace BingoManager
 
             foreach (DataRow row in CompList)
             {
-                string CompanyId = row["Id"].ToString();
+                string companyId = row["Id"].ToString();
                 string companyName = row["Name"].ToString();
                 string logoName = row["Logo"].ToString();
                 string companyFull = companyName;
@@ -335,7 +315,7 @@ namespace BingoManager
                 }
 
                 Panel companyPanel = new Panel();
-                companyPanel.Tag = CompanyId;
+                companyPanel.Tag = companyId;
                 companyPanel.Width = 100;
                 companyPanel.Height = 70;
                 companyPanel.Margin = new Padding(15, 0, 14, 0);
@@ -348,7 +328,7 @@ namespace BingoManager
                 }
                 else
                 {
-                    picBox.Image = Image.FromFile(@"Images/default_logo.png");
+                    picBox.Image = Image.FromFile(@"Images/default_logo.jpg");
                 }
 
                 picBox.SizeMode = PictureBoxSizeMode.Zoom;
@@ -423,7 +403,7 @@ namespace BingoManager
                 }
                 else
                 {
-                    picBox.Image = Image.FromFile(@"Images/default_logo.png");
+                    picBox.Image = Image.FromFile(@"Images/default_logo.jpg");
                 }
 
                 picBox.SizeMode = PictureBoxSizeMode.Zoom;
@@ -584,7 +564,7 @@ namespace BingoManager
                     BoxEditEmailComp.Text = selectedCompany.Email;
                     BoxEditPhoneComp.Text = selectedCompany.Phone;
 
-                    PicEditLogoComp.Image = DataService.LoadImageFromFile(selectedCompany.Logo) ?? Image.FromFile(@"Images\default_logo.png");
+                    PicEditLogoComp.Image = DataService.LoadImageFromFile(selectedCompany.Logo) ?? Image.FromFile(@"Images\default_logo.jpg");
                 }
             }
         }
@@ -857,6 +837,24 @@ namespace BingoManager
             }
         }
 
+        private void MainView_Load(object sender, EventArgs e)
+        {
+            // Inicializa a segunda tela ao carregar o formulário principal
+            ShowLogoOnSecondScreen();
+        }
+        private void MainView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Cancelar a subscrição do evento ao fechar o formulário
+            SystemEvents.DisplaySettingsChanged -= new EventHandler(SystemEvents_DisplaySettingsChanged);
+        }
+
+        // Evento que é chamado quando as configurações de exibição mudam (telas conectadas/desconectadas)
+        private void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        {
+            // Verificar novamente as telas disponíveis e mover o logo para a segunda tela
+            ShowLogoOnSecondScreen();
+        }
+
 
 
         //Jogar
@@ -909,8 +907,8 @@ namespace BingoManager
         // Método para mostrar as Empresas durante o jogo
         private void DisplayGamePanels(GameData gameData)
         {
-            int buttonSize = 50; 
-            int panelWidth = FlwPlayB.Width; 
+            int buttonSize = 50;
+            int panelWidth = FlwPlayB.Width;
             int buttonsPerRow = panelWidth / buttonSize;
 
             int Number = 1;
@@ -948,7 +946,7 @@ namespace BingoManager
                     Tag = company,
                     Width = buttonSize,
                     Height = buttonSize,
-                    TextAlign = ContentAlignment.MiddleCenter 
+                    TextAlign = ContentAlignment.MiddleCenter
                 };
                 Number++;
                 companyButton.Click += CompanyButton_Click;
@@ -1012,23 +1010,23 @@ namespace BingoManager
             int Width = 0;
             int Height = 0;
 
-            foreach (var panel in new[] { PnlPlayNumbersB, PnlPlayNumbersI, PnlPlayNumbersN, PnlPlayNumbersG, PnlPlayNumbersO})
+            foreach (var panel in new[] { PnlPlayNumbersB, PnlPlayNumbersI, PnlPlayNumbersN, PnlPlayNumbersG, PnlPlayNumbersO })
             {
                 Height += panel.Height;
-                panel.AutoSize = true; 
-                panel.AutoSizeMode = AutoSizeMode.GrowAndShrink; 
-                panel.Padding = new Padding(0); 
-                panel.Margin = new Padding(0); 
+                panel.AutoSize = true;
+                panel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                panel.Padding = new Padding(0);
+                panel.Margin = new Padding(0);
                 panel.Dock = DockStyle.None;
             }
 
             foreach (var flowPanel in new[] { FlwPlayB, FlwPlayI, FlwPlayN, FlwPlayG, FlwPlayO })
             {
-                flowPanel.FlowDirection = FlowDirection.LeftToRight; 
-                flowPanel.WrapContents = true; 
-                flowPanel.AutoSize = true; 
-                flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink; 
-                flowPanel.Padding = new Padding(10); 
+                flowPanel.FlowDirection = FlowDirection.LeftToRight;
+                flowPanel.WrapContents = true;
+                flowPanel.AutoSize = true;
+                flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                flowPanel.Padding = new Padding(10);
                 flowPanel.Margin = new Padding(0);
             }
 
@@ -1105,6 +1103,72 @@ namespace BingoManager
                     }
                 }
             }
+        }
+
+
+        //Design
+        //Home Screen
+        private void BtnCreateScreen_MouseHover(object sender, EventArgs e)
+        {
+            LblHomeCreate.Visible = true;
+        }
+
+        private void BtnEditScreen_MouseHover(object sender, EventArgs e)
+        {
+            LblHomeEdit.Visible = true;
+        }
+
+        private void BtnPlayScreen_MouseHover(object sender, EventArgs e)
+        {
+            LblHomePlay.Visible = true;
+        }
+
+        private void BtnCreateScreen_MouseLeave(object sender, EventArgs e)
+        {
+            LblHomeCreate.Visible = false;
+        }
+
+        private void BtnEditScreen_MouseLeave(object sender, EventArgs e)
+        {
+            LblHomeEdit.Visible = false;
+        }
+
+        private void BtnPlayScreen_MouseLeave(object sender, EventArgs e)
+        {
+            LblHomePlay.Visible = false;
+        }
+
+        private void BtnCreateScreen_Click(object sender, EventArgs e)
+        {
+            CreatePage.SelectedTab = TabCreateMain;
+            MainPage.SelectedTab = TabCreatePage;
+        }
+
+        private void BtnEditScreen_Click(object sender, EventArgs e)
+        {
+            EditPage.SelectedTab = TabEditMain;
+            MainPage.SelectedTab = TabEditPage;
+        }
+
+        private void BtnPlayScreen_Click(object sender, EventArgs e)
+        {
+            PlayPage.SelectedTab = TabPlayMain;
+            MainPage.SelectedTab = TabPlayPage;
+        }
+
+        private void BtnNewList_Click(object sender, EventArgs e)
+        {
+            CreatePage.SelectedTab = TabCreateList;
+        }
+
+        private void BtnNewComp_Click(object sender, EventArgs e)
+        {
+            CreatePage.SelectedTab = TabCreateCompany;
+        }
+
+        private void BtnNewCards_Click(object sender, EventArgs e)
+        {
+            CreatePage.SelectedTab = TabCreateCards;
         }
     }
 }

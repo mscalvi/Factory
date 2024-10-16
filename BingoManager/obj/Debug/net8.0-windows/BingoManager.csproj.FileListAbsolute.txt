@@ -412,3 +412,6 @@ C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\bin\Debug\net8.0-windows\tr
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\bin\Debug\net8.0-windows\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\bin\Debug\net8.0-windows\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.Views.LogoView.resources
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\bin\Debug\net8.0-windows\Images\default_logo.jpg
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\bin\Debug\net8.0-windows\Resources\default_logo.jpg
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\obj\Debug\net8.0-windows\BingoManager.Properties.Resources.resources

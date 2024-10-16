@@ -20,10 +20,9 @@ namespace BingoManager.Services
         {
             try
             {
-                /*
                 // Obtém o caminho da pasta AppData do usuário e cria uma subpasta para seu app
                 string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                string databaseFolder = Path.Combine(appDataPath, "Database");
+                string databaseFolder = Path.Combine(appDataPath, "BingoManager", "Database");
 
                 // Se a pasta não existir, ela será criada
                 if (!Directory.Exists(databaseFolder))
@@ -35,10 +34,9 @@ namespace BingoManager.Services
                 string databasePath = Path.Combine(databaseFolder, "CustomBingoDB.db");
 
                 // Inicializa a string de conexão com o caminho do banco de dados
-                _connectionString = $"Data Source={databasePath};Version=3;"; */
-                string connectionString = @"Data Source=C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager\Database\CustomBingoDB.db";
-                _connectionString = connectionString;
+                _connectionString = $"Data Source={databasePath};Version=3;";
 
+                InitializeDatabase();
             }
             catch (Exception ex)
             {
@@ -47,6 +45,7 @@ namespace BingoManager.Services
                 throw;
             }
         }
+
 
         // Método para abrir uma conexão com o banco de dados
         private static SQLiteConnection GetConnection()
@@ -60,98 +59,95 @@ namespace BingoManager.Services
             using (var connection = GetConnection())
             {
                 connection.Open();
-                string createTablesQuery = @"
-                    CREATE TABLE IF NOT EXISTS CompanyTable (
-                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        Name TEXT NOT NULL,
-                        CardName TEXT NOT NULL,
-                        Email TEXT,
-                        Phone TEXT,
-                        Logo TEXT,
-                        AddTime TEXT
-                    );
-                    CREATE TABLE IF NOT EXISTS ListsTable (
-                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        Name TEXT NOT NULL,
-                        Description TEXT
-                    );
-                    CREATE TABLE IF NOT EXISTS AlocacaoTable (
-                        CompanyID INTEGER REFERENCES CompanyTable(Id),
-                        ListId INTEGER REFERENCES ListsTable(Id),
-                        PRIMARY KEY (CompanyID, ListId)
-                    );
-                    CREATE TABLE IF NOT EXISTS AllCards (
-                        Id INTEGER PRIMARY KEY NOT NULL UNIQUE,
-                        ListId INTEGER REFERENCES ListsTable (Id),
-                        Title TEXT NOT NULL,
-                        End TEXT,
-                        Qnt INTEGER NOT NULL,
-                        Name TEXT UNIQUE
-                    );
-                    CREATE TABLE CardsList (
-                        Id         INTEGER PRIMARY KEY,
-                        CardList   INTEGER REFERENCES ListsTable (Id) 
-                                           NOT NULL,
-                        CardNumber INTEGER NOT NULL,
-                        CompB1     INTEGER NOT NULL
-                                           REFERENCES CompanyTable (Id),
-                        CompB2     INTEGER NOT NULL
-                                           REFERENCES CompanyTable (Id),
-                        CompB3     INTEGER NOT NULL
-                                           REFERENCES CompanyTable (Id),
-                        CompB4     INTEGER NOT NULL
-                                           REFERENCES CompanyTable (Id),
-                        CompB5     INTEGER NOT NULL
-                                           REFERENCES CompanyTable (Id),
-                        CompI1     INTEGER NOT NULL
-                                           REFERENCES CompanyTable (Id),
-                        CompI2     INTEGER NOT NULL
-                                           REFERENCES CompanyTable (Id),
-                        CompI3     INTEGER NOT NULL
-                                           REFERENCES CompanyTable (Id),
-                        CompI4     INTEGER NOT NULL
-                                           REFERENCES CompanyTable (Id),
-                        CompI5     INTEGER NOT NULL
-                                           REFERENCES CompanyTable (Id),
-                        CompN1     INTEGER NOT NULL
-                                           REFERENCES CompanyTable (Id),
-                        CompN2     INTEGER NOT NULL
-                                           REFERENCES CompanyTable (Id),
-                        CompN3     INTEGER REFERENCES CompanyTable (Id) 
-                                           NOT NULL,
-                        CompN4     INTEGER REFERENCES CompanyTable (Id) 
-                                           NOT NULL,
-                        CompN5     INTEGER REFERENCES CompanyTable (Id) 
-                                           NOT NULL,
-                        CompG1     INTEGER REFERENCES CompanyTable (Id) 
-                                           NOT NULL,
-                        CompG2     INTEGER REFERENCES CompanyTable (Id) 
-                                           NOT NULL,
-                        CompG3     INTEGER REFERENCES CompanyTable (Id) 
-                                           NOT NULL,
-                        CompG4     INTEGER REFERENCES CompanyTable (Id) 
-                                           NOT NULL,
-                        CompG5     INTEGER REFERENCES CompanyTable (Id) 
-                                           NOT NULL,
-                        CompO1     INTEGER REFERENCES CompanyTable (Id) 
-                                           NOT NULL,
-                        CompO2     INTEGER REFERENCES CompanyTable (Id) 
-                                           NOT NULL,
-                        CompO3     INTEGER REFERENCES CompanyTable (Id) 
-                                           NOT NULL,
-                        CompO4     INTEGER REFERENCES CompanyTable (Id) 
-                                           NOT NULL,
-                        CompO5     INTEGER REFERENCES CompanyTable (Id) 
-                                           NOT NULL
-                    );
-                ";
 
-                using (var command = new SQLiteCommand(createTablesQuery, connection))
+                // Lista de comandos SQL para criar as tabelas
+                var createTableCommands = new List<string>
+        {
+            @"
+            CREATE TABLE IF NOT EXISTS CompanyTable (
+                Id INTEGER PRIMARY KEY NOT NULL UNIQUE,
+                Name TEXT NOT NULL,
+                CardName TEXT NOT NULL,
+                Email TEXT,
+                Phone TEXT,
+                Logo TEXT NOT NULL,
+                AddTime TEXT NOT NULL
+            );",
+
+            @"
+            CREATE TABLE IF NOT EXISTS ListsTable (
+                Id INTEGER PRIMARY KEY,
+                Name TEXT,
+                Description TEXT
+            );",
+
+            @"
+            CREATE TABLE IF NOT EXISTS AlocacaoTable (
+                CompanyID INTEGER REFERENCES CompanyTable(Id),
+                ListId INTEGER REFERENCES ListsTable(Id),
+                PRIMARY KEY (CompanyID, ListId)
+            );",
+
+            @"
+            CREATE TABLE IF NOT EXISTS CardsSets (
+                SetId INTEGER PRIMARY KEY NOT NULL UNIQUE,
+                ListId INTEGER REFERENCES ListsTable(Id),
+                Title TEXT NOT NULL,
+                End TEXT,
+                Qnt INTEGER NOT NULL,
+                Name TEXT UNIQUE,
+                GroupB TEXT,
+                GroupI TEXT,
+                GroupN TEXT,
+                GroupG TEXT,
+                GroupO TEXT
+            );",
+
+            @"
+            CREATE TABLE IF NOT EXISTS CardsList (
+                Id INTEGER PRIMARY KEY,
+                SetId INTEGER NOT NULL REFERENCES CardsSets(SetId),
+                ListId INTEGER NOT NULL REFERENCES ListsTable(Id),
+                CardNumber INTEGER NOT NULL,
+                CompB1 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompB2 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompB3 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompB4 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompB5 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompI1 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompI2 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompI3 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompI4 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompI5 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompN1 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompN2 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompN3 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompN4 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompN5 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompG1 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompG2 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompG3 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompG4 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompG5 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompO1 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompO2 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompO3 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompO4 INTEGER NOT NULL REFERENCES CompanyTable(Id),
+                CompO5 INTEGER NOT NULL REFERENCES CompanyTable(Id)
+            );"
+        };
+
+                // Executa cada comando para criar as tabelas
+                foreach (var commandText in createTableCommands)
                 {
-                    command.ExecuteNonQuery();
+                    using (var command = new SQLiteCommand(commandText, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
         }
+
 
         // Método para criar uma nova empresa e retornar o ID
         public static int AddCompany(string name, string cardName, string email, string phone, string logo, string addTime)

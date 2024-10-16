@@ -31,9 +31,21 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
             MainPage = new TabControl();
             TabMainPage = new TabPage();
+            LblHomePlay = new Label();
+            LblHomeEdit = new Label();
+            LblHomeCreate = new Label();
+            label18 = new Label();
+            label17 = new Label();
+            BtnPlayScreen = new Button();
+            BtnEditScreen = new Button();
+            BtnCreateScreen = new Button();
             TabCreatePage = new TabPage();
             CreatePage = new TabControl();
             TabCreateMain = new TabPage();
+            BtnNewCards = new Button();
+            BtnNewComp = new Button();
+            BtnNewList = new Button();
+            label19 = new Label();
             label1 = new Label();
             TabCreateList = new TabPage();
             PnlNewList = new Panel();
@@ -115,7 +127,7 @@
             CboEditComp = new ComboBox();
             label9 = new Label();
             TabPlayPage = new TabPage();
-            TabPlay = new TabControl();
+            PlayPage = new TabControl();
             TabPlayAnalog = new TabPage();
             TabPlayAnalogOption = new TabControl();
             TabPlaySelection = new TabPage();
@@ -139,10 +151,12 @@
             FlwPlayO = new FlowLayoutPanel();
             TabPlayLogos = new TabPage();
             PnlPlayLogo = new Panel();
+            LblPlayName = new Label();
             PicPlayLogo = new PictureBox();
             TabPlayDigital = new TabPage();
-            LblPlayName = new Label();
+            TabPlayMain = new TabPage();
             MainPage.SuspendLayout();
+            TabMainPage.SuspendLayout();
             TabCreatePage.SuspendLayout();
             CreatePage.SuspendLayout();
             TabCreateMain.SuspendLayout();
@@ -163,7 +177,7 @@
             PnlEditCompany.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PicEditLogoComp).BeginInit();
             TabPlayPage.SuspendLayout();
-            TabPlay.SuspendLayout();
+            PlayPage.SuspendLayout();
             TabPlayAnalog.SuspendLayout();
             TabPlayAnalogOption.SuspendLayout();
             TabPlaySelection.SuspendLayout();
@@ -195,6 +209,14 @@
             // 
             // TabMainPage
             // 
+            TabMainPage.Controls.Add(LblHomePlay);
+            TabMainPage.Controls.Add(LblHomeEdit);
+            TabMainPage.Controls.Add(LblHomeCreate);
+            TabMainPage.Controls.Add(label18);
+            TabMainPage.Controls.Add(label17);
+            TabMainPage.Controls.Add(BtnPlayScreen);
+            TabMainPage.Controls.Add(BtnEditScreen);
+            TabMainPage.Controls.Add(BtnCreateScreen);
             TabMainPage.Location = new Point(4, 24);
             TabMainPage.Name = "TabMainPage";
             TabMainPage.Padding = new Padding(3);
@@ -202,6 +224,106 @@
             TabMainPage.TabIndex = 0;
             TabMainPage.Text = "Início";
             TabMainPage.UseVisualStyleBackColor = true;
+            // 
+            // LblHomePlay
+            // 
+            LblHomePlay.Anchor = AnchorStyles.Top;
+            LblHomePlay.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LblHomePlay.Location = new Point(889, 574);
+            LblHomePlay.Name = "LblHomePlay";
+            LblHomePlay.Size = new Size(260, 120);
+            LblHomePlay.TabIndex = 7;
+            LblHomePlay.Text = resources.GetString("LblHomePlay.Text");
+            LblHomePlay.TextAlign = ContentAlignment.MiddleCenter;
+            LblHomePlay.Visible = false;
+            // 
+            // LblHomeEdit
+            // 
+            LblHomeEdit.Anchor = AnchorStyles.Top;
+            LblHomeEdit.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LblHomeEdit.Location = new Point(541, 574);
+            LblHomeEdit.Name = "LblHomeEdit";
+            LblHomeEdit.Size = new Size(260, 120);
+            LblHomeEdit.TabIndex = 6;
+            LblHomeEdit.Text = "Clique em Editar para conferir suas listas, mudar os elementos que fazem parte dela, ou alterar as características dos próprios elementos.\r\n";
+            LblHomeEdit.TextAlign = ContentAlignment.MiddleCenter;
+            LblHomeEdit.Visible = false;
+            // 
+            // LblHomeCreate
+            // 
+            LblHomeCreate.Anchor = AnchorStyles.Top;
+            LblHomeCreate.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LblHomeCreate.Location = new Point(193, 574);
+            LblHomeCreate.Name = "LblHomeCreate";
+            LblHomeCreate.Size = new Size(260, 120);
+            LblHomeCreate.TabIndex = 5;
+            LblHomeCreate.Text = "Clique em Criar para criar seus próprios elementos, listas para agrupá-los, e cartelas para jogar!\r\n";
+            LblHomeCreate.TextAlign = ContentAlignment.MiddleCenter;
+            LblHomeCreate.Visible = false;
+            // 
+            // label18
+            // 
+            label18.Anchor = AnchorStyles.Top;
+            label18.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label18.Location = new Point(193, 150);
+            label18.Name = "label18";
+            label18.Size = new Size(956, 99);
+            label18.TabIndex = 4;
+            label18.Text = "Crie suas cartelas de bingo personalizadas, e use nosso sistema de sorteio, apresentação e correção para se divertir sem ter trabalho!";
+            label18.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label17
+            // 
+            label17.Dock = DockStyle.Top;
+            label17.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label17.Location = new Point(3, 3);
+            label17.Name = "label17";
+            label17.Size = new Size(1336, 121);
+            label17.TabIndex = 3;
+            label17.Text = "Bingo Manager";
+            label17.TextAlign = ContentAlignment.BottomCenter;
+            // 
+            // BtnPlayScreen
+            // 
+            BtnPlayScreen.Anchor = AnchorStyles.Top;
+            BtnPlayScreen.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnPlayScreen.Location = new Point(889, 278);
+            BtnPlayScreen.Name = "BtnPlayScreen";
+            BtnPlayScreen.Size = new Size(260, 260);
+            BtnPlayScreen.TabIndex = 2;
+            BtnPlayScreen.Text = "Jogar";
+            BtnPlayScreen.UseVisualStyleBackColor = true;
+            BtnPlayScreen.Click += BtnPlayScreen_Click;
+            BtnPlayScreen.MouseLeave += BtnPlayScreen_MouseLeave;
+            BtnPlayScreen.MouseHover += BtnPlayScreen_MouseHover;
+            // 
+            // BtnEditScreen
+            // 
+            BtnEditScreen.Anchor = AnchorStyles.Top;
+            BtnEditScreen.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnEditScreen.Location = new Point(541, 278);
+            BtnEditScreen.Name = "BtnEditScreen";
+            BtnEditScreen.Size = new Size(260, 260);
+            BtnEditScreen.TabIndex = 1;
+            BtnEditScreen.Text = "Editar";
+            BtnEditScreen.UseVisualStyleBackColor = true;
+            BtnEditScreen.Click += BtnEditScreen_Click;
+            BtnEditScreen.MouseLeave += BtnEditScreen_MouseLeave;
+            BtnEditScreen.MouseHover += BtnEditScreen_MouseHover;
+            // 
+            // BtnCreateScreen
+            // 
+            BtnCreateScreen.Anchor = AnchorStyles.Top;
+            BtnCreateScreen.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnCreateScreen.Location = new Point(193, 278);
+            BtnCreateScreen.Name = "BtnCreateScreen";
+            BtnCreateScreen.Size = new Size(260, 260);
+            BtnCreateScreen.TabIndex = 0;
+            BtnCreateScreen.Text = "Criar";
+            BtnCreateScreen.UseVisualStyleBackColor = true;
+            BtnCreateScreen.Click += BtnCreateScreen_Click;
+            BtnCreateScreen.MouseLeave += BtnCreateScreen_MouseLeave;
+            BtnCreateScreen.MouseHover += BtnCreateScreen_MouseHover;
             // 
             // TabCreatePage
             // 
@@ -229,6 +351,10 @@
             // 
             // TabCreateMain
             // 
+            TabCreateMain.Controls.Add(BtnNewCards);
+            TabCreateMain.Controls.Add(BtnNewComp);
+            TabCreateMain.Controls.Add(BtnNewList);
+            TabCreateMain.Controls.Add(label19);
             TabCreateMain.Controls.Add(label1);
             TabCreateMain.Location = new Point(4, 24);
             TabCreateMain.Name = "TabCreateMain";
@@ -238,13 +364,60 @@
             TabCreateMain.Text = "Início";
             TabCreateMain.UseVisualStyleBackColor = true;
             // 
+            // BtnNewCards
+            // 
+            BtnNewCards.Anchor = AnchorStyles.Top;
+            BtnNewCards.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnNewCards.Location = new Point(954, 475);
+            BtnNewCards.Name = "BtnNewCards";
+            BtnNewCards.Size = new Size(260, 138);
+            BtnNewCards.TabIndex = 7;
+            BtnNewCards.Text = "Novas Cartelas";
+            BtnNewCards.UseVisualStyleBackColor = true;
+            BtnNewCards.Click += BtnNewCards_Click;
+            // 
+            // BtnNewComp
+            // 
+            BtnNewComp.Anchor = AnchorStyles.Top;
+            BtnNewComp.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnNewComp.Location = new Point(954, 331);
+            BtnNewComp.Name = "BtnNewComp";
+            BtnNewComp.Size = new Size(260, 138);
+            BtnNewComp.TabIndex = 6;
+            BtnNewComp.Text = "Novo Elemento";
+            BtnNewComp.UseVisualStyleBackColor = true;
+            BtnNewComp.Click += BtnNewComp_Click;
+            // 
+            // BtnNewList
+            // 
+            BtnNewList.Anchor = AnchorStyles.Top;
+            BtnNewList.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnNewList.Location = new Point(954, 187);
+            BtnNewList.Name = "BtnNewList";
+            BtnNewList.Size = new Size(260, 138);
+            BtnNewList.TabIndex = 5;
+            BtnNewList.Text = "Nova Lista";
+            BtnNewList.UseVisualStyleBackColor = true;
+            BtnNewList.Click += BtnNewList_Click;
+            // 
+            // label19
+            // 
+            label19.Dock = DockStyle.Top;
+            label19.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label19.Location = new Point(3, 3);
+            label19.Name = "label19";
+            label19.Size = new Size(1322, 121);
+            label19.TabIndex = 4;
+            label19.Text = "Bingo Manager\r\nÁrea de Criação";
+            label19.TextAlign = ContentAlignment.BottomCenter;
+            // 
             // label1
             // 
-            label1.Dock = DockStyle.Fill;
+            label1.Anchor = AnchorStyles.Top;
             label1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(3, 3);
+            label1.Location = new Point(115, 145);
             label1.Name = "label1";
-            label1.Size = new Size(1322, 661);
+            label1.Size = new Size(745, 519);
             label1.TabIndex = 0;
             label1.Text = resources.GetString("label1.Text");
             label1.TextAlign = ContentAlignment.MiddleLeft;
@@ -349,7 +522,7 @@
             TabCreateCompany.Padding = new Padding(3);
             TabCreateCompany.Size = new Size(1328, 667);
             TabCreateCompany.TabIndex = 2;
-            TabCreateCompany.Text = "Nova Empresa";
+            TabCreateCompany.Text = "Novo Elemento";
             TabCreateCompany.UseVisualStyleBackColor = true;
             // 
             // PnlNewComp
@@ -1067,7 +1240,7 @@
             // 
             // TabPlayPage
             // 
-            TabPlayPage.Controls.Add(TabPlay);
+            TabPlayPage.Controls.Add(PlayPage);
             TabPlayPage.Location = new Point(4, 24);
             TabPlayPage.Name = "TabPlayPage";
             TabPlayPage.Padding = new Padding(3);
@@ -1076,16 +1249,17 @@
             TabPlayPage.Text = "Jogar";
             TabPlayPage.UseVisualStyleBackColor = true;
             // 
-            // TabPlay
+            // PlayPage
             // 
-            TabPlay.Controls.Add(TabPlayAnalog);
-            TabPlay.Controls.Add(TabPlayDigital);
-            TabPlay.Dock = DockStyle.Fill;
-            TabPlay.Location = new Point(3, 3);
-            TabPlay.Name = "TabPlay";
-            TabPlay.SelectedIndex = 0;
-            TabPlay.Size = new Size(1336, 695);
-            TabPlay.TabIndex = 0;
+            PlayPage.Controls.Add(TabPlayMain);
+            PlayPage.Controls.Add(TabPlayAnalog);
+            PlayPage.Controls.Add(TabPlayDigital);
+            PlayPage.Dock = DockStyle.Fill;
+            PlayPage.Location = new Point(3, 3);
+            PlayPage.Name = "PlayPage";
+            PlayPage.SelectedIndex = 0;
+            PlayPage.Size = new Size(1336, 695);
+            PlayPage.TabIndex = 0;
             // 
             // TabPlayAnalog
             // 
@@ -1317,6 +1491,15 @@
             PnlPlayLogo.Size = new Size(1308, 627);
             PnlPlayLogo.TabIndex = 0;
             // 
+            // LblPlayName
+            // 
+            LblPlayName.Dock = DockStyle.Top;
+            LblPlayName.Location = new Point(0, 0);
+            LblPlayName.Name = "LblPlayName";
+            LblPlayName.Size = new Size(1308, 54);
+            LblPlayName.TabIndex = 1;
+            LblPlayName.Text = "LblPlayName";
+            // 
             // PicPlayLogo
             // 
             PicPlayLogo.Dock = DockStyle.Fill;
@@ -1337,14 +1520,15 @@
             TabPlayDigital.Text = "Digital";
             TabPlayDigital.UseVisualStyleBackColor = true;
             // 
-            // LblPlayName
+            // TabPlayMain
             // 
-            LblPlayName.Dock = DockStyle.Top;
-            LblPlayName.Location = new Point(0, 0);
-            LblPlayName.Name = "LblPlayName";
-            LblPlayName.Size = new Size(1308, 54);
-            LblPlayName.TabIndex = 1;
-            LblPlayName.Text = "LblPlayName";
+            TabPlayMain.Location = new Point(4, 24);
+            TabPlayMain.Name = "TabPlayMain";
+            TabPlayMain.Padding = new Padding(3);
+            TabPlayMain.Size = new Size(1328, 667);
+            TabPlayMain.TabIndex = 2;
+            TabPlayMain.Text = "Início";
+            TabPlayMain.UseVisualStyleBackColor = true;
             // 
             // MainView
             // 
@@ -1358,6 +1542,7 @@
             WindowState = FormWindowState.Maximized;
             Load += MainView_Load;
             MainPage.ResumeLayout(false);
+            TabMainPage.ResumeLayout(false);
             TabCreatePage.ResumeLayout(false);
             CreatePage.ResumeLayout(false);
             TabCreateMain.ResumeLayout(false);
@@ -1383,7 +1568,7 @@
             PnlEditCompany.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PicEditLogoComp).EndInit();
             TabPlayPage.ResumeLayout(false);
-            TabPlay.ResumeLayout(false);
+            PlayPage.ResumeLayout(false);
             TabPlayAnalog.ResumeLayout(false);
             TabPlayAnalogOption.ResumeLayout(false);
             TabPlaySelection.ResumeLayout(false);
@@ -1491,7 +1676,7 @@
         private ComboBox CboEditComp;
         private Label label9;
         private Button BtnEditListDelete;
-        private TabControl TabPlay;
+        private TabControl PlayPage;
         private TabPage TabPlayAnalog;
         private TabControl TabPlayAnalogOption;
         private TabPage TabPlaySelection;
@@ -1518,5 +1703,18 @@
         private RadioButton RdPlay2;
         private RadioButton RdPlay1;
         private Label LblPlayName;
+        private Button BtnEditScreen;
+        private Button BtnCreateScreen;
+        private Button BtnPlayScreen;
+        private Label label18;
+        private Label label17;
+        private Label LblHomeCreate;
+        private Label LblHomePlay;
+        private Label LblHomeEdit;
+        private Label label19;
+        private Button BtnNewList;
+        private Button BtnNewCards;
+        private Button BtnNewComp;
+        private TabPage TabPlayMain;
     }
 }
