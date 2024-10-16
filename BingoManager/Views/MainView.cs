@@ -1,9 +1,10 @@
 using BingoManager.Models;
 using BingoManager.Services;
+using BingoManager.Views;
 using System.ComponentModel.Design;
 using System.Data;
 using System.Xml.Linq;
-using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
+using Microsoft.Win32;
 
 namespace BingoManager
 {
@@ -12,6 +13,25 @@ namespace BingoManager
         private string selectedImagePath;
         private ToolTip toolTip;
         private List<DataRow> allCompaniesList = new List<DataRow>();
+        private LogoView logoDisplayForm;
+
+        private void MainView_Load(object sender, EventArgs e)
+        {
+            // Inicializa a segunda tela ao carregar o formulário principal
+            ShowLogoOnSecondScreen();
+        }
+        private void MainView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Cancelar a subscrição do evento ao fechar o formulário
+            SystemEvents.DisplaySettingsChanged -= new EventHandler(SystemEvents_DisplaySettingsChanged);
+        }
+
+        // Evento que é chamado quando as configurações de exibição mudam (telas conectadas/desconectadas)
+        private void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        {
+            // Verificar novamente as telas disponíveis e mover o logo para a segunda tela
+            ShowLogoOnSecondScreen();
+        }
 
         public MainView()
         {
@@ -24,6 +44,9 @@ namespace BingoManager
                 ReshowDelay = 500,
                 ShowAlways = true
             };
+
+            // Subscrição ao evento para detectar mudanças nos monitores
+            SystemEvents.DisplaySettingsChanged += new EventHandler(SystemEvents_DisplaySettingsChanged);
 
             LoadLists();
             LoadComps();
@@ -794,6 +817,46 @@ namespace BingoManager
             CboEditComp.SelectedIndex = -1;
         }
 
+        //Método para mostrar Segunda Tela
+        private void ShowLogoOnSecondScreen()
+        {
+            // Verificar se existem várias telas conectadas
+            if (Screen.AllScreens.Length > 1)
+            {
+                // Exibir todas as telas conectadas (para fins de depuração)
+                foreach (var screen in Screen.AllScreens)
+                {
+                    Console.WriteLine($"Screen: {screen.DeviceName}, Resolution: {screen.Bounds.Width}x{screen.Bounds.Height}");
+                }
+
+                // Usa a segunda tela (índice 1, já que a primeira é 0)
+                Screen secondScreen = Screen.AllScreens[1];
+
+                // Inicializa o formulário de exibição do logotipo se ainda não estiver criado
+                if (logoDisplayForm == null || logoDisplayForm.IsDisposed)
+                {
+                    logoDisplayForm = new LogoView();
+                }
+
+                // Move o formulário para a segunda tela
+                logoDisplayForm.StartPosition = FormStartPosition.Manual;
+                logoDisplayForm.Location = secondScreen.WorkingArea.Location; // Define a localização na segunda tela
+                logoDisplayForm.WindowState = FormWindowState.Maximized; // Maximiza na segunda tela
+                logoDisplayForm.Show();
+
+                // Se já houver uma imagem no PicPlayLogo, exibi-la na segunda tela
+                if (PicPlayLogo.Image != null)
+                {
+                    // Atualiza o logo e o nome da empresa na segunda tela
+                    logoDisplayForm.UpdateLogoAndName(PicPlayLogo.Image, LblPlayName.Text);
+                }
+            }
+            else
+            {
+                MessageBox.Show("A segunda tela não está disponível.");
+            }
+        }
+
 
 
         //Jogar
@@ -978,7 +1041,6 @@ namespace BingoManager
 
         }
 
-        // Método para o evento de clique do botão de cada empresa
         private void CompanyButton_Click(object sender, EventArgs e)
         {
             int bingoPhase = 0;
@@ -1006,14 +1068,21 @@ namespace BingoManager
 
                 PlayService.AddCompany(selectedCompany.Id);
 
+                Image logoImage = null;
                 if (File.Exists(logoPath))
                 {
-                    PicPlayLogo.Image = Image.FromFile(logoPath);
+                    logoImage = Image.FromFile(logoPath);
                 }
-                else
+
+                // Atualiza a imagem no logoDisplayForm se estiver visível
+                if (logoDisplayForm != null && logoDisplayForm.Visible)
                 {
-                    PicPlayLogo.Image = null;
+                    logoDisplayForm.UpdateLogoAndName(logoImage, selectedCompany.Name);
                 }
+
+                // Atualiza o PicPlayLogo na tela principal
+                PicPlayLogo.Image = logoImage;
+                LblPlayName.Text = selectedCompany.Name;
 
                 List<int> winningCards = new List<int>();
 
@@ -1037,7 +1106,5 @@ namespace BingoManager
                 }
             }
         }
-
-
     }
 }

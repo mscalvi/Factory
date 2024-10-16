@@ -141,6 +141,7 @@
             PnlPlayLogo = new Panel();
             PicPlayLogo = new PictureBox();
             TabPlayDigital = new TabPage();
+            LblPlayName = new Label();
             MainPage.SuspendLayout();
             TabCreatePage.SuspendLayout();
             CreatePage.SuspendLayout();
@@ -1308,6 +1309,7 @@
             // 
             // PnlPlayLogo
             // 
+            PnlPlayLogo.Controls.Add(LblPlayName);
             PnlPlayLogo.Controls.Add(PicPlayLogo);
             PnlPlayLogo.Dock = DockStyle.Fill;
             PnlPlayLogo.Location = new Point(3, 3);
@@ -1335,6 +1337,15 @@
             TabPlayDigital.Text = "Digital";
             TabPlayDigital.UseVisualStyleBackColor = true;
             // 
+            // LblPlayName
+            // 
+            LblPlayName.Dock = DockStyle.Top;
+            LblPlayName.Location = new Point(0, 0);
+            LblPlayName.Name = "LblPlayName";
+            LblPlayName.Size = new Size(1308, 54);
+            LblPlayName.TabIndex = 1;
+            LblPlayName.Text = "LblPlayName";
+            // 
             // MainView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1345,6 +1356,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Bingo Manager";
             WindowState = FormWindowState.Maximized;
+            Load += MainView_Load;
             MainPage.ResumeLayout(false);
             TabCreatePage.ResumeLayout(false);
             CreatePage.ResumeLayout(false);
@@ -1505,5 +1517,6 @@
         private GroupBox GrpPlayPhase;
         private RadioButton RdPlay2;
         private RadioButton RdPlay1;
+        private Label LblPlayName;
     }
 }
