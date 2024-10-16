@@ -139,7 +139,7 @@ namespace BingoManager
                 // Verifica se a empresa já existe
                 if (DataService.CompanyExists(company.Name, company.CardName))
                 {
-                    TxtCreateCompanyMessage.Text = "Já existe uma empresa com o mesmo Nome ou Nome para Cartela.";
+                    LblCreateCompanyMessage.Text = "Já existe uma empresa com o mesmo Nome ou Nome para Cartela.";
                     return;
                 }
 
@@ -154,16 +154,16 @@ namespace BingoManager
 
                         DataService.AddCompaniesToAllocation(selectedListId, new List<string> { companyId.ToString() });
 
-                        TxtCreateCompanyMessage.Text = $"Empresa {company.Name} adicionada ao banco de dados e à lista com sucesso.";
+                        LblCreateCompanyMessage.Text = $"Empresa {company.Name} adicionada ao banco de dados e à lista com sucesso.";
                     }
                     else
                     {
-                        TxtCreateCompanyMessage.Text = $"Empresa {company.Name} adicionada ao banco de dados com sucesso.";
+                        LblCreateCompanyMessage.Text = $"Empresa {company.Name} adicionada ao banco de dados com sucesso.";
                     }
                 }
                 catch (Exception ex)
                 {
-                    TxtCreateCompanyMessage.Text = "Erro ao adicionar a empresa: " + ex.Message;
+                    LblCreateCompanyMessage.Text = "Erro ao adicionar a empresa: " + ex.Message;
                 }
 
                 // Limpa os campos após a criação
@@ -178,14 +178,14 @@ namespace BingoManager
             }
             else
             {
-                TxtCreateCompanyMessage.Text = "Nome e Nome para Cartela são obrigatórios.";
+                LblCreateCompanyMessage.Text = "Nome e Nome para Cartela são obrigatórios.";
             }
         }
 
         // Método para Criar Cartelas
         private void BtnCreateCards_Click(object sender, EventArgs e)
         {
-            TxtCreateCardsMsg.Text = "";
+            LblCreateCardsMsg.Text = "";
             int Qnt;
 
             string CardsName = BoxCreateCardsName.Text.Trim();
@@ -195,7 +195,7 @@ namespace BingoManager
 
             if (string.IsNullOrEmpty(CardsName))
             {
-                TxtCreateCardsMsg.Text = "Insira um nome para o conjunto de cartelas!";
+                LblCreateCardsMsg.Text = "Insira um nome para o conjunto de cartelas!";
                 return;
             }
 
@@ -209,13 +209,13 @@ namespace BingoManager
 
                 if (CompanyCount < 40)
                 {
-                    TxtCreateCardsMsg.Text = "A lista deve ter pelo menos 40 empresas, a lista " + CardsList + " tem apenas " + CompanyCount + "!";
+                    LblCreateCardsMsg.Text = "A lista deve ter pelo menos 40 empresas, a lista " + CardsList + " tem apenas " + CompanyCount + "!";
                     return;
                 }
 
                 if (string.IsNullOrEmpty(CardsTitle))
                 {
-                    TxtCreateCardsMsg.Text = "Insira um título para as cartelas!";
+                    LblCreateCardsMsg.Text = "Insira um título para as cartelas!";
                     return;
                 }
 
@@ -225,13 +225,13 @@ namespace BingoManager
                 }
                 else
                 {
-                    TxtCreateCardsMsg.Text = "Apenas números na quantidade!";
+                    LblCreateCardsMsg.Text = "Apenas números na quantidade!";
                     return;
                 }
             }
             else
             {
-                TxtCreateCardsMsg.Text = "Selecione uma lista!";
+                LblCreateCardsMsg.Text = "Selecione uma lista!";
             }
 
             LoadGames();
@@ -240,7 +240,7 @@ namespace BingoManager
             BoxCreateCardsQuant.Text = string.Empty;
             BoxCreateCardsTitle.Text = string.Empty;
             CboCreateCardsList.SelectedIndex = -1;
-            TxtCreateCardsMsg.Text = "Cartelas criadas com sucesso!";
+            LblCreateCardsMsg.Text = "Cartelas criadas com sucesso!";
         }
 
 
@@ -825,10 +825,10 @@ namespace BingoManager
                 logoDisplayForm.Show();
 
                 // Se já houver uma imagem no PicPlayLogo, exibi-la na segunda tela
-                if (PicPlayLogo.Image != null)
+                if (PicPlayAnLogo.Image != null)
                 {
                     // Atualiza o logo e o nome da empresa na segunda tela
-                    logoDisplayForm.UpdateLogoAndName(PicPlayLogo.Image, LblPlayName.Text);
+                    logoDisplayForm.UpdateLogoAndName(PicPlayAnLogo.Image, LblPlayAnName.Text);
                 }
             }
             else
@@ -863,26 +863,26 @@ namespace BingoManager
         {
             DataTable gamesTable = DataService.GetAllCards();
 
-            CboPlaySelection.Items.Clear();
+            CboPlayAnSelection.Items.Clear();
 
             foreach (DataRow row in gamesTable.Rows)
             {
                 string cardName = row["Name"].ToString();
                 int cardId = Convert.ToInt32(row["SetId"]);
 
-                CboPlaySelection.Items.Add(new { Text = cardName, Value = cardId });
+                CboPlayAnSelection.Items.Add(new { Text = cardName, Value = cardId });
             }
 
-            CboPlaySelection.DisplayMember = "Text";
-            CboPlaySelection.ValueMember = "Value";
+            CboPlayAnSelection.DisplayMember = "Text";
+            CboPlayAnSelection.ValueMember = "Value";
         }
 
         // Método para começar o jogo com base no conjunto de fichas selecionado
         private void BtnPlaySelection_Click(object sender, EventArgs e)
         {
-            if (CboPlaySelection.SelectedItem != null)
+            if (CboPlayAnSelection.SelectedItem != null)
             {
-                var selectedGame = CboPlaySelection.SelectedItem as dynamic;
+                var selectedGame = CboPlayAnSelection.SelectedItem as dynamic;
 
                 int selectedGameId = selectedGame.Value;
 
@@ -891,16 +891,16 @@ namespace BingoManager
                 if (gameData != null)
                 {
                     DisplayGamePanels(gameData);
-                    CboPlaySelection.Enabled = false;
+                    CboPlayAnSelection.Enabled = false;
                 }
                 else
                 {
-                    LblPlayMsg.Text = "Erro ao carregar os dados do jogo selecionado.";
+                    LblPlayAnMsg.Text = "Erro ao carregar os dados do jogo selecionado.";
                 }
             }
             else
             {
-                LblPlayMsg.Text = "Por favor, selecione um jogo.";
+                LblPlayAnMsg.Text = "Por favor, selecione um jogo.";
             }
         }
 
@@ -908,16 +908,16 @@ namespace BingoManager
         private void DisplayGamePanels(GameData gameData)
         {
             int buttonSize = 50;
-            int panelWidth = FlwPlayB.Width;
+            int panelWidth = FlwPlayAnB.Width;
             int buttonsPerRow = panelWidth / buttonSize;
 
             int Number = 1;
 
-            FlwPlayB.Controls.Clear();
-            FlwPlayI.Controls.Clear();
-            FlwPlayN.Controls.Clear();
-            FlwPlayG.Controls.Clear();
-            FlwPlayO.Controls.Clear();
+            FlwPlayAnB.Controls.Clear();
+            FlwPlayAnI.Controls.Clear();
+            FlwPlayAnN.Controls.Clear();
+            FlwPlayAnG.Controls.Clear();
+            FlwPlayAnO.Controls.Clear();
 
             SetupFlowPanels();
 
@@ -934,7 +934,7 @@ namespace BingoManager
                 };
                 Number++;
                 companyButton.Click += CompanyButton_Click;
-                FlwPlayB.Controls.Add(companyButton);
+                FlwPlayAnB.Controls.Add(companyButton);
             }
 
             // Adicionar botões ao grupo I
@@ -950,7 +950,7 @@ namespace BingoManager
                 };
                 Number++;
                 companyButton.Click += CompanyButton_Click;
-                FlwPlayI.Controls.Add(companyButton);
+                FlwPlayAnI.Controls.Add(companyButton);
             }
 
             // Adicionar botões ao grupo N
@@ -966,7 +966,7 @@ namespace BingoManager
                 };
                 Number++;
                 companyButton.Click += CompanyButton_Click;
-                FlwPlayN.Controls.Add(companyButton);
+                FlwPlayAnN.Controls.Add(companyButton);
             }
 
             // Adicionar botões ao grupo G
@@ -982,7 +982,7 @@ namespace BingoManager
                 };
                 Number++;
                 companyButton.Click += CompanyButton_Click;
-                FlwPlayG.Controls.Add(companyButton);
+                FlwPlayAnG.Controls.Add(companyButton);
             }
 
             // Adicionar botões ao grupo O
@@ -998,10 +998,10 @@ namespace BingoManager
                 };
                 Number++;
                 companyButton.Click += CompanyButton_Click;
-                FlwPlayO.Controls.Add(companyButton);
+                FlwPlayAnO.Controls.Add(companyButton);
             }
 
-            LblPlayMsg.Text = "Jogo carregado!";
+            LblPlayAnMsg.Text = "Jogo carregado!";
         }
 
         // Configurando os FlowLayoutPanels
@@ -1010,7 +1010,7 @@ namespace BingoManager
             int Width = 0;
             int Height = 0;
 
-            foreach (var panel in new[] { PnlPlayNumbersB, PnlPlayNumbersI, PnlPlayNumbersN, PnlPlayNumbersG, PnlPlayNumbersO })
+            foreach (var panel in new[] { PnlPlayAnNumbersB, PnlPlayAnNumbersI, PnlPlayAnNumbersN, PnlPlayAnNumbersG, PnlPlayAnNumbersO })
             {
                 Height += panel.Height;
                 panel.AutoSize = true;
@@ -1020,7 +1020,7 @@ namespace BingoManager
                 panel.Dock = DockStyle.None;
             }
 
-            foreach (var flowPanel in new[] { FlwPlayB, FlwPlayI, FlwPlayN, FlwPlayG, FlwPlayO })
+            foreach (var flowPanel in new[] { FlwPlayAnB, FlwPlayAnI, FlwPlayAnN, FlwPlayAnG, FlwPlayAnO })
             {
                 flowPanel.FlowDirection = FlowDirection.LeftToRight;
                 flowPanel.WrapContents = true;
@@ -1030,12 +1030,12 @@ namespace BingoManager
                 flowPanel.Margin = new Padding(0);
             }
 
-            PnlPlayFather.Location = new Point(
-                (1314 / 2) - (PnlPlayNumbersB.Width / 2),
+            PnlPlayAnFather.Location = new Point(
+                (1314 / 2) - (PnlPlayAnNumbersB.Width / 2),
                 (633 / 2) - (Height / 2));
-            PnlPlayFather.Width = PnlPlayNumbersB.Width;
-            PnlPlayFather.Anchor = AnchorStyles.None;
-            PnlPlayFather.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            PnlPlayAnFather.Width = PnlPlayAnNumbersB.Width;
+            PnlPlayAnFather.Anchor = AnchorStyles.None;
+            PnlPlayAnFather.AutoSizeMode = AutoSizeMode.GrowAndShrink;
 
         }
 
@@ -1043,16 +1043,16 @@ namespace BingoManager
         {
             int bingoPhase = 0;
 
-            if (RdPlay1.Checked)
+            if (RdPlayAn1.Checked)
             {
                 bingoPhase = 1;
             }
-            else if (RdPlay2.Checked)
+            else if (RdPlayAn2.Checked)
             {
                 bingoPhase = 2;
             }
 
-            var selectedGame = CboPlaySelection.SelectedItem as dynamic;
+            var selectedGame = CboPlayAnSelection.SelectedItem as dynamic;
 
             int setId = selectedGame.Value;
 
@@ -1079,8 +1079,8 @@ namespace BingoManager
                 }
 
                 // Atualiza o PicPlayLogo na tela principal
-                PicPlayLogo.Image = logoImage;
-                LblPlayName.Text = selectedCompany.Name;
+                PicPlayAnLogo.Image = logoImage;
+                LblPlayAnName.Text = selectedCompany.Name;
 
                 List<int> winningCards = new List<int>();
 
@@ -1088,7 +1088,7 @@ namespace BingoManager
 
                 string cardNumbersText = string.Join(", ", cardNumbers);
 
-                LblPlayMsg.Text = string.IsNullOrEmpty(cardNumbersText) ? "Nenhuma cartela sorteada." : cardNumbersText;
+                LblPlayAnMsg.Text = string.IsNullOrEmpty(cardNumbersText) ? "Nenhuma cartela sorteada." : cardNumbersText;
 
                 if (!string.IsNullOrEmpty(cardNumbersText))
                 {
@@ -1098,8 +1098,8 @@ namespace BingoManager
                     {
                         string winningCardsText = string.Join(", ", winningCards);
 
-                        LblPlayMsg.Text += string.IsNullOrEmpty(LblPlayMsg.Text) ? "" : "\n\n";
-                        LblPlayMsg.Text += $"Cartelas vencedoras: {winningCardsText}";
+                        LblPlayAnMsg.Text += string.IsNullOrEmpty(LblPlayAnMsg.Text) ? "" : "\n\n";
+                        LblPlayAnMsg.Text += $"Cartelas vencedoras: {winningCardsText}";
                     }
                 }
             }
@@ -1169,6 +1169,60 @@ namespace BingoManager
         private void BtnNewCards_Click(object sender, EventArgs e)
         {
             CreatePage.SelectedTab = TabCreateCards;
+        }
+
+        private void BtnReturnCreateMain_Click(object sender, EventArgs e)
+        {
+            ReturnToMain();
+        }
+
+        private void BtnReturnPlayMain_Click(object sender, EventArgs e)
+        {
+            ReturnToMain();
+        }
+
+        private void BtnReturnEditMain_Click(object sender, EventArgs e)
+        {
+            ReturnToMain();
+        }
+
+        private void BtnReturnCreateList_Click(object sender, EventArgs e)
+        {
+            ReturnToCreate();
+        }
+
+        private void BtnReturnCreateCompany_Click(object sender, EventArgs e)
+        {
+            ReturnToCreate();
+        }
+
+        private void BtnReturnCreateCards_Click(object sender, EventArgs e)
+        {
+            ReturnToCreate();
+        }
+
+        private void BtnReturnEditCompany_Click(object sender, EventArgs e)
+        {
+            ReturnToEdit();
+        }
+
+        private void BtnReturnEditList_Click(object sender, EventArgs e)
+        {
+            ReturnToEdit();
+        }
+
+        private void BtnReturnVisu_Click(object sender, EventArgs e)
+        {
+            ReturnToEdit();
+        }
+
+        private void BtnReturnPlayDigital_Click(object sender, EventArgs e)
+        {
+            ReturnToPlay();
+        }
+        private void BtnReturnPlayAnalog_Click(object sender, EventArgs e)
+        {
+            ReturnToPlay();
         }
     }
 }

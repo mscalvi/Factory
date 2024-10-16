@@ -42,6 +42,7 @@
             TabCreatePage = new TabPage();
             CreatePage = new TabControl();
             TabCreateMain = new TabPage();
+            BtnReturnCreateMain = new Button();
             BtnNewCards = new Button();
             BtnNewComp = new Button();
             BtnNewList = new Button();
@@ -49,6 +50,10 @@
             label1 = new Label();
             TabCreateList = new TabPage();
             PnlNewList = new Panel();
+            BtnReturnCreateList = new Button();
+            BtnCreateListLogo = new Button();
+            PicCreateListLogo = new PictureBox();
+            label20 = new Label();
             TxtCreateListTitle = new Label();
             TxtCreateListMessage = new Label();
             BtnCreateList = new Button();
@@ -58,6 +63,7 @@
             BoxCreateListDescription = new TextBox();
             TabCreateCompany = new TabPage();
             PnlNewComp = new Panel();
+            BtnReturnCreateCompany = new Button();
             CboCreateCompanyList = new ComboBox();
             label11 = new Label();
             TxtCreateCompanyTitle = new Label();
@@ -72,14 +78,15 @@
             label2 = new Label();
             label4 = new Label();
             label5 = new Label();
-            TxtCreateCompanyMessage = new Label();
+            LblCreateCompanyMessage = new Label();
             label3 = new Label();
             TabCreateCards = new TabPage();
             PnlNewCards = new Panel();
+            BtnReturnCreateCards = new Button();
             BoxCreateCardsName = new TextBox();
             label16 = new Label();
             label6 = new Label();
-            TxtCreateCardsMsg = new Label();
+            LblCreateCardsMsg = new Label();
             BtnCreateCards = new Button();
             TxtCreatCardsEnd = new Label();
             TxtCreateCardsTitle = new Label();
@@ -92,12 +99,19 @@
             TabEditPage = new TabPage();
             EditPage = new TabControl();
             TabEditMain = new TabPage();
+            button3 = new Button();
+            button1 = new Button();
+            button2 = new Button();
+            label29 = new Label();
+            BtnReturnEditMain = new Button();
+            label21 = new Label();
             TabEditList = new TabPage();
             PnlEditList = new Panel();
+            LblEditListMsg = new Label();
+            BtnReturnEditList = new Button();
             BtnEditListDelete = new Button();
             BoxEditFilterCL = new TextBox();
             label8 = new Label();
-            LblEditListMsg = new Label();
             TxtEditListSel = new Label();
             TxtEditListAll = new Label();
             BtnEditRemoveCL = new Button();
@@ -109,6 +123,7 @@
             FlowEditViewSel = new FlowLayoutPanel();
             TabEditCompany = new TabPage();
             PnlEditCompany = new Panel();
+            BtnReturnEditCompany = new Button();
             BtnRemoveComp = new Button();
             PicEditLogoComp = new PictureBox();
             BtnEditComp = new Button();
@@ -126,35 +141,82 @@
             label10 = new Label();
             CboEditComp = new ComboBox();
             label9 = new Label();
+            TabEditVisualize = new TabPage();
+            LblVisuName = new Label();
+            label37 = new Label();
+            label36 = new Label();
+            label35 = new Label();
+            label34 = new Label();
+            label33 = new Label();
+            FlwEditVisu = new FlowLayoutPanel();
+            BtnReturnVisu = new Button();
+            label31 = new Label();
             TabPlayPage = new TabPage();
             PlayPage = new TabControl();
-            TabPlayAnalog = new TabPage();
-            TabPlayAnalogOption = new TabControl();
-            TabPlaySelection = new TabPage();
-            GrpPlayPhase = new GroupBox();
-            RdPlay2 = new RadioButton();
-            RdPlay1 = new RadioButton();
-            LblPlayMsg = new Label();
-            CboPlaySelection = new ComboBox();
-            BtnPlaySelection = new Button();
-            TabPlayNumbers = new TabPage();
-            PnlPlayFather = new Panel();
-            PnlPlayNumbersB = new Panel();
-            FlwPlayB = new FlowLayoutPanel();
-            PnlPlayNumbersI = new Panel();
-            FlwPlayI = new FlowLayoutPanel();
-            PnlPlayNumbersN = new Panel();
-            FlwPlayN = new FlowLayoutPanel();
-            PnlPlayNumbersG = new Panel();
-            FlwPlayG = new FlowLayoutPanel();
-            PnlPlayNumbersO = new Panel();
-            FlwPlayO = new FlowLayoutPanel();
-            TabPlayLogos = new TabPage();
-            PnlPlayLogo = new Panel();
-            LblPlayName = new Label();
-            PicPlayLogo = new PictureBox();
-            TabPlayDigital = new TabPage();
             TabPlayMain = new TabPage();
+            BtnReturnPlayMain = new Button();
+            label22 = new Label();
+            TabPlayDigital = new TabPage();
+            BtnPlayDiRandom = new Button();
+            LblPlayDiMsg = new Label();
+            label30 = new Label();
+            LblPlayDiLogo = new PictureBox();
+            LblPlayDiName = new Label();
+            label32 = new Label();
+            panel2 = new Panel();
+            BtnRestartDigital = new Button();
+            label28 = new Label();
+            CboPlayDiSelection = new ComboBox();
+            GrpPlayDiPhase = new GroupBox();
+            RdPlayDi2 = new RadioButton();
+            RdPlayDi1 = new RadioButton();
+            BtnPlayDiSelection = new Button();
+            PnlPlayDiFather = new Panel();
+            PnlPlayDiNumbersB = new Panel();
+            FlwPlayDiB = new FlowLayoutPanel();
+            PnlPlayDiNumbersI = new Panel();
+            FlwPlayDiI = new FlowLayoutPanel();
+            PnlPlayDiNumbersN = new Panel();
+            FlwPlayDiN = new FlowLayoutPanel();
+            PnlPlayDiNumbersG = new Panel();
+            FlwPlayDiG = new FlowLayoutPanel();
+            PnlPlayDiNumbersO = new Panel();
+            FlwPlayDiO = new FlowLayoutPanel();
+            BtnReturnPlayDigital = new Button();
+            label27 = new Label();
+            TabPlayAnalog = new TabPage();
+            LblPlayAnMsg = new Label();
+            label25 = new Label();
+            PicPlayAnLogo = new PictureBox();
+            LblPlayAnName = new Label();
+            label26 = new Label();
+            PnlPlayAnFather = new Panel();
+            PnlPlayAnNumbersB = new Panel();
+            FlwPlayAnB = new FlowLayoutPanel();
+            PnlPlayAnNumbersI = new Panel();
+            FlwPlayAnI = new FlowLayoutPanel();
+            PnlPlayAnNumbersN = new Panel();
+            FlwPlayAnN = new FlowLayoutPanel();
+            PnlPlayAnNumbersG = new Panel();
+            FlwPlayAnG = new FlowLayoutPanel();
+            PnlPlayAnNumbersO = new Panel();
+            FlwPlayAnO = new FlowLayoutPanel();
+            panel1 = new Panel();
+            BtnRestartAn = new Button();
+            label24 = new Label();
+            CboPlayAnSelection = new ComboBox();
+            GrpPlayAnPhase = new GroupBox();
+            RdPlayAn2 = new RadioButton();
+            RdPlayAn1 = new RadioButton();
+            BtnPlayAnSelection = new Button();
+            BtnReturnPlayAnalog = new Button();
+            label23 = new Label();
+            LblVisuCardName = new Label();
+            LblVisuPhone = new Label();
+            LblVisuEmail = new Label();
+            LblVisuLists = new Label();
+            PicVisuLogo = new PictureBox();
+            BtnEditVisu = new Button();
             MainPage.SuspendLayout();
             TabMainPage.SuspendLayout();
             TabCreatePage.SuspendLayout();
@@ -162,6 +224,7 @@
             TabCreateMain.SuspendLayout();
             TabCreateList.SuspendLayout();
             PnlNewList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PicCreateListLogo).BeginInit();
             TabCreateCompany.SuspendLayout();
             PnlNewComp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PicCreateCompanyLogo).BeginInit();
@@ -169,6 +232,7 @@
             PnlNewCards.SuspendLayout();
             TabEditPage.SuspendLayout();
             EditPage.SuspendLayout();
+            TabEditMain.SuspendLayout();
             TabEditList.SuspendLayout();
             PnlEditList.SuspendLayout();
             PnlEditAllCompany.SuspendLayout();
@@ -176,22 +240,31 @@
             TabEditCompany.SuspendLayout();
             PnlEditCompany.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PicEditLogoComp).BeginInit();
+            TabEditVisualize.SuspendLayout();
             TabPlayPage.SuspendLayout();
             PlayPage.SuspendLayout();
+            TabPlayMain.SuspendLayout();
+            TabPlayDigital.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)LblPlayDiLogo).BeginInit();
+            panel2.SuspendLayout();
+            GrpPlayDiPhase.SuspendLayout();
+            PnlPlayDiFather.SuspendLayout();
+            PnlPlayDiNumbersB.SuspendLayout();
+            PnlPlayDiNumbersI.SuspendLayout();
+            PnlPlayDiNumbersN.SuspendLayout();
+            PnlPlayDiNumbersG.SuspendLayout();
+            PnlPlayDiNumbersO.SuspendLayout();
             TabPlayAnalog.SuspendLayout();
-            TabPlayAnalogOption.SuspendLayout();
-            TabPlaySelection.SuspendLayout();
-            GrpPlayPhase.SuspendLayout();
-            TabPlayNumbers.SuspendLayout();
-            PnlPlayFather.SuspendLayout();
-            PnlPlayNumbersB.SuspendLayout();
-            PnlPlayNumbersI.SuspendLayout();
-            PnlPlayNumbersN.SuspendLayout();
-            PnlPlayNumbersG.SuspendLayout();
-            PnlPlayNumbersO.SuspendLayout();
-            TabPlayLogos.SuspendLayout();
-            PnlPlayLogo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)PicPlayLogo).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PicPlayAnLogo).BeginInit();
+            PnlPlayAnFather.SuspendLayout();
+            PnlPlayAnNumbersB.SuspendLayout();
+            PnlPlayAnNumbersI.SuspendLayout();
+            PnlPlayAnNumbersN.SuspendLayout();
+            PnlPlayAnNumbersG.SuspendLayout();
+            PnlPlayAnNumbersO.SuspendLayout();
+            panel1.SuspendLayout();
+            GrpPlayAnPhase.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PicVisuLogo).BeginInit();
             SuspendLayout();
             // 
             // MainPage
@@ -351,6 +424,7 @@
             // 
             // TabCreateMain
             // 
+            TabCreateMain.Controls.Add(BtnReturnCreateMain);
             TabCreateMain.Controls.Add(BtnNewCards);
             TabCreateMain.Controls.Add(BtnNewComp);
             TabCreateMain.Controls.Add(BtnNewList);
@@ -364,11 +438,23 @@
             TabCreateMain.Text = "Início";
             TabCreateMain.UseVisualStyleBackColor = true;
             // 
+            // BtnReturnCreateMain
+            // 
+            BtnReturnCreateMain.Anchor = AnchorStyles.Top;
+            BtnReturnCreateMain.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnReturnCreateMain.Location = new Point(6, 6);
+            BtnReturnCreateMain.Name = "BtnReturnCreateMain";
+            BtnReturnCreateMain.Size = new Size(68, 59);
+            BtnReturnCreateMain.TabIndex = 12;
+            BtnReturnCreateMain.Text = "Voltar";
+            BtnReturnCreateMain.UseVisualStyleBackColor = true;
+            BtnReturnCreateMain.Click += BtnReturnCreateMain_Click;
+            // 
             // BtnNewCards
             // 
             BtnNewCards.Anchor = AnchorStyles.Top;
             BtnNewCards.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnNewCards.Location = new Point(954, 475);
+            BtnNewCards.Location = new Point(956, 475);
             BtnNewCards.Name = "BtnNewCards";
             BtnNewCards.Size = new Size(260, 138);
             BtnNewCards.TabIndex = 7;
@@ -380,7 +466,7 @@
             // 
             BtnNewComp.Anchor = AnchorStyles.Top;
             BtnNewComp.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnNewComp.Location = new Point(954, 331);
+            BtnNewComp.Location = new Point(956, 331);
             BtnNewComp.Name = "BtnNewComp";
             BtnNewComp.Size = new Size(260, 138);
             BtnNewComp.TabIndex = 6;
@@ -392,7 +478,7 @@
             // 
             BtnNewList.Anchor = AnchorStyles.Top;
             BtnNewList.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnNewList.Location = new Point(954, 187);
+            BtnNewList.Location = new Point(956, 187);
             BtnNewList.Name = "BtnNewList";
             BtnNewList.Size = new Size(260, 138);
             BtnNewList.TabIndex = 5;
@@ -414,7 +500,7 @@
             // label1
             // 
             label1.Anchor = AnchorStyles.Top;
-            label1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.Location = new Point(115, 145);
             label1.Name = "label1";
             label1.Size = new Size(745, 519);
@@ -436,6 +522,10 @@
             // PnlNewList
             // 
             PnlNewList.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            PnlNewList.Controls.Add(BtnReturnCreateList);
+            PnlNewList.Controls.Add(BtnCreateListLogo);
+            PnlNewList.Controls.Add(PicCreateListLogo);
+            PnlNewList.Controls.Add(label20);
             PnlNewList.Controls.Add(TxtCreateListTitle);
             PnlNewList.Controls.Add(TxtCreateListMessage);
             PnlNewList.Controls.Add(BtnCreateList);
@@ -449,31 +539,79 @@
             PnlNewList.Size = new Size(1322, 661);
             PnlNewList.TabIndex = 6;
             // 
+            // BtnReturnCreateList
+            // 
+            BtnReturnCreateList.Anchor = AnchorStyles.Top;
+            BtnReturnCreateList.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnReturnCreateList.Location = new Point(3, 3);
+            BtnReturnCreateList.Name = "BtnReturnCreateList";
+            BtnReturnCreateList.Size = new Size(68, 59);
+            BtnReturnCreateList.TabIndex = 11;
+            BtnReturnCreateList.Text = "Voltar";
+            BtnReturnCreateList.UseVisualStyleBackColor = true;
+            BtnReturnCreateList.Click += BtnReturnCreateList_Click;
+            // 
+            // BtnCreateListLogo
+            // 
+            BtnCreateListLogo.Anchor = AnchorStyles.Top;
+            BtnCreateListLogo.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnCreateListLogo.Location = new Point(144, 505);
+            BtnCreateListLogo.Name = "BtnCreateListLogo";
+            BtnCreateListLogo.Size = new Size(150, 71);
+            BtnCreateListLogo.TabIndex = 3;
+            BtnCreateListLogo.Text = "Procurar";
+            BtnCreateListLogo.UseVisualStyleBackColor = true;
+            // 
+            // PicCreateListLogo
+            // 
+            PicCreateListLogo.Anchor = AnchorStyles.Top;
+            PicCreateListLogo.Location = new Point(401, 407);
+            PicCreateListLogo.Name = "PicCreateListLogo";
+            PicCreateListLogo.Size = new Size(336, 233);
+            PicCreateListLogo.SizeMode = PictureBoxSizeMode.StretchImage;
+            PicCreateListLogo.TabIndex = 9;
+            PicCreateListLogo.TabStop = false;
+            // 
+            // label20
+            // 
+            label20.Anchor = AnchorStyles.Top;
+            label20.Font = new Font("Segoe UI", 12F);
+            label20.Location = new Point(118, 447);
+            label20.Name = "label20";
+            label20.Size = new Size(202, 23);
+            label20.TabIndex = 7;
+            label20.Text = "Logo Padrão da Lista:";
+            label20.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // TxtCreateListTitle
             // 
             TxtCreateListTitle.Dock = DockStyle.Top;
-            TxtCreateListTitle.Font = new Font("Segoe UI", 15F);
+            TxtCreateListTitle.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TxtCreateListTitle.ImageAlign = ContentAlignment.BottomCenter;
             TxtCreateListTitle.Location = new Point(0, 0);
             TxtCreateListTitle.Name = "TxtCreateListTitle";
-            TxtCreateListTitle.Size = new Size(1322, 112);
+            TxtCreateListTitle.Size = new Size(1322, 121);
             TxtCreateListTitle.TabIndex = 6;
             TxtCreateListTitle.Text = "Nova Lista";
-            TxtCreateListTitle.TextAlign = ContentAlignment.MiddleCenter;
+            TxtCreateListTitle.TextAlign = ContentAlignment.BottomCenter;
             // 
             // TxtCreateListMessage
             // 
             TxtCreateListMessage.Anchor = AnchorStyles.Top;
-            TxtCreateListMessage.Location = new Point(195, 508);
+            TxtCreateListMessage.Font = new Font("Segoe UI", 12F);
+            TxtCreateListMessage.Location = new Point(920, 195);
             TxtCreateListMessage.Name = "TxtCreateListMessage";
-            TxtCreateListMessage.Size = new Size(932, 23);
+            TxtCreateListMessage.Size = new Size(329, 149);
             TxtCreateListMessage.TabIndex = 5;
+            TxtCreateListMessage.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // BtnCreateList
             // 
             BtnCreateList.Anchor = AnchorStyles.Top;
-            BtnCreateList.Location = new Point(356, 404);
+            BtnCreateList.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnCreateList.Location = new Point(934, 395);
             BtnCreateList.Name = "BtnCreateList";
-            BtnCreateList.Size = new Size(610, 67);
+            BtnCreateList.Size = new Size(300, 121);
             BtnCreateList.TabIndex = 4;
             BtnCreateList.Text = "Criar Lista";
             BtnCreateList.UseVisualStyleBackColor = true;
@@ -482,36 +620,38 @@
             // TxtCreatListeName
             // 
             TxtCreatListeName.Anchor = AnchorStyles.Top;
-            TxtCreatListeName.Location = new Point(3, 112);
+            TxtCreatListeName.Font = new Font("Segoe UI", 12F);
+            TxtCreatListeName.Location = new Point(40, 140);
             TxtCreatListeName.Name = "TxtCreatListeName";
-            TxtCreatListeName.Size = new Size(1192, 23);
+            TxtCreatListeName.Size = new Size(782, 23);
             TxtCreatListeName.TabIndex = 0;
             TxtCreatListeName.Text = "Nome";
             // 
             // BoxCreateListName
             // 
             BoxCreateListName.Anchor = AnchorStyles.Top;
-            BoxCreateListName.Location = new Point(3, 138);
+            BoxCreateListName.Location = new Point(40, 166);
             BoxCreateListName.Name = "BoxCreateListName";
-            BoxCreateListName.Size = new Size(1316, 23);
-            BoxCreateListName.TabIndex = 3;
+            BoxCreateListName.Size = new Size(782, 23);
+            BoxCreateListName.TabIndex = 1;
             // 
             // TxtCreateListDescription
             // 
             TxtCreateListDescription.Anchor = AnchorStyles.Top;
-            TxtCreateListDescription.Location = new Point(3, 179);
+            TxtCreateListDescription.Font = new Font("Segoe UI", 12F);
+            TxtCreateListDescription.Location = new Point(40, 192);
             TxtCreateListDescription.Name = "TxtCreateListDescription";
-            TxtCreateListDescription.Size = new Size(1316, 23);
+            TxtCreateListDescription.Size = new Size(782, 23);
             TxtCreateListDescription.TabIndex = 1;
             TxtCreateListDescription.Text = "Descrição";
             // 
             // BoxCreateListDescription
             // 
             BoxCreateListDescription.Anchor = AnchorStyles.Top;
-            BoxCreateListDescription.Location = new Point(3, 205);
+            BoxCreateListDescription.Location = new Point(40, 218);
             BoxCreateListDescription.Multiline = true;
             BoxCreateListDescription.Name = "BoxCreateListDescription";
-            BoxCreateListDescription.Size = new Size(1316, 161);
+            BoxCreateListDescription.Size = new Size(782, 183);
             BoxCreateListDescription.TabIndex = 2;
             // 
             // TabCreateCompany
@@ -528,6 +668,7 @@
             // PnlNewComp
             // 
             PnlNewComp.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            PnlNewComp.Controls.Add(BtnReturnCreateCompany);
             PnlNewComp.Controls.Add(CboCreateCompanyList);
             PnlNewComp.Controls.Add(label11);
             PnlNewComp.Controls.Add(TxtCreateCompanyTitle);
@@ -542,71 +683,87 @@
             PnlNewComp.Controls.Add(label2);
             PnlNewComp.Controls.Add(label4);
             PnlNewComp.Controls.Add(label5);
-            PnlNewComp.Controls.Add(TxtCreateCompanyMessage);
+            PnlNewComp.Controls.Add(LblCreateCompanyMessage);
             PnlNewComp.Controls.Add(label3);
             PnlNewComp.Dock = DockStyle.Fill;
+            PnlNewComp.Font = new Font("Segoe UI", 12F);
             PnlNewComp.Location = new Point(3, 3);
             PnlNewComp.Name = "PnlNewComp";
             PnlNewComp.Size = new Size(1322, 661);
             PnlNewComp.TabIndex = 13;
             // 
+            // BtnReturnCreateCompany
+            // 
+            BtnReturnCreateCompany.Anchor = AnchorStyles.Top;
+            BtnReturnCreateCompany.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnReturnCreateCompany.Location = new Point(3, 3);
+            BtnReturnCreateCompany.Name = "BtnReturnCreateCompany";
+            BtnReturnCreateCompany.Size = new Size(68, 59);
+            BtnReturnCreateCompany.TabIndex = 16;
+            BtnReturnCreateCompany.Text = "Voltar";
+            BtnReturnCreateCompany.UseVisualStyleBackColor = true;
+            BtnReturnCreateCompany.Click += BtnReturnCreateCompany_Click;
+            // 
             // CboCreateCompanyList
             // 
             CboCreateCompanyList.Anchor = AnchorStyles.Top;
             CboCreateCompanyList.FormattingEnabled = true;
-            CboCreateCompanyList.Location = new Point(842, 323);
+            CboCreateCompanyList.Location = new Point(37, 490);
             CboCreateCompanyList.Name = "CboCreateCompanyList";
-            CboCreateCompanyList.Size = new Size(448, 23);
-            CboCreateCompanyList.TabIndex = 15;
+            CboCreateCompanyList.Size = new Size(753, 29);
+            CboCreateCompanyList.TabIndex = 5;
             // 
             // label11
             // 
             label11.Anchor = AnchorStyles.Top;
-            label11.Location = new Point(1016, 297);
+            label11.Font = new Font("Segoe UI", 12F);
+            label11.Location = new Point(37, 464);
             label11.Name = "label11";
-            label11.Size = new Size(100, 23);
+            label11.Size = new Size(753, 23);
             label11.TabIndex = 14;
             label11.Text = "Adicionar a Lista:";
             // 
             // TxtCreateCompanyTitle
             // 
             TxtCreateCompanyTitle.Dock = DockStyle.Top;
-            TxtCreateCompanyTitle.Font = new Font("Segoe UI", 15F);
+            TxtCreateCompanyTitle.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             TxtCreateCompanyTitle.Location = new Point(0, 0);
             TxtCreateCompanyTitle.Name = "TxtCreateCompanyTitle";
-            TxtCreateCompanyTitle.Size = new Size(1322, 120);
+            TxtCreateCompanyTitle.Size = new Size(1322, 121);
             TxtCreateCompanyTitle.TabIndex = 13;
-            TxtCreateCompanyTitle.Text = "Nova Empresa";
-            TxtCreateCompanyTitle.TextAlign = ContentAlignment.MiddleCenter;
+            TxtCreateCompanyTitle.Text = "Novo Elemento";
+            TxtCreateCompanyTitle.TextAlign = ContentAlignment.BottomCenter;
             // 
             // BoxCreateCompanyEmail
             // 
             BoxCreateCompanyEmail.Anchor = AnchorStyles.Top;
-            BoxCreateCompanyEmail.Location = new Point(6, 364);
+            BoxCreateCompanyEmail.Location = new Point(37, 385);
+            BoxCreateCompanyEmail.Multiline = true;
             BoxCreateCompanyEmail.Name = "BoxCreateCompanyEmail";
-            BoxCreateCompanyEmail.Size = new Size(780, 23);
-            BoxCreateCompanyEmail.TabIndex = 12;
+            BoxCreateCompanyEmail.Size = new Size(753, 60);
+            BoxCreateCompanyEmail.TabIndex = 4;
             // 
             // BoxCreateCompanyPhone
             // 
             BoxCreateCompanyPhone.Anchor = AnchorStyles.Top;
-            BoxCreateCompanyPhone.Location = new Point(3, 294);
+            BoxCreateCompanyPhone.Location = new Point(37, 296);
+            BoxCreateCompanyPhone.Multiline = true;
             BoxCreateCompanyPhone.Name = "BoxCreateCompanyPhone";
-            BoxCreateCompanyPhone.Size = new Size(783, 23);
-            BoxCreateCompanyPhone.TabIndex = 11;
+            BoxCreateCompanyPhone.Size = new Size(753, 60);
+            BoxCreateCompanyPhone.TabIndex = 3;
             // 
             // BoxCreateCompanyCardName
             // 
             BoxCreateCompanyCardName.Anchor = AnchorStyles.Top;
-            BoxCreateCompanyCardName.Location = new Point(3, 214);
+            BoxCreateCompanyCardName.Location = new Point(37, 225);
             BoxCreateCompanyCardName.Name = "BoxCreateCompanyCardName";
-            BoxCreateCompanyCardName.Size = new Size(1316, 23);
-            BoxCreateCompanyCardName.TabIndex = 10;
+            BoxCreateCompanyCardName.Size = new Size(753, 29);
+            BoxCreateCompanyCardName.TabIndex = 2;
             // 
             // PicCreateCompanyLogo
             // 
             PicCreateCompanyLogo.Anchor = AnchorStyles.Top;
-            PicCreateCompanyLogo.Location = new Point(278, 407);
+            PicCreateCompanyLogo.Location = new Point(881, 237);
             PicCreateCompanyLogo.Name = "PicCreateCompanyLogo";
             PicCreateCompanyLogo.Size = new Size(367, 251);
             PicCreateCompanyLogo.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -616,17 +773,17 @@
             // BoxCreateCompanyName
             // 
             BoxCreateCompanyName.Anchor = AnchorStyles.Top;
-            BoxCreateCompanyName.Location = new Point(3, 146);
+            BoxCreateCompanyName.Location = new Point(37, 157);
             BoxCreateCompanyName.Name = "BoxCreateCompanyName";
-            BoxCreateCompanyName.Size = new Size(1316, 23);
-            BoxCreateCompanyName.TabIndex = 9;
+            BoxCreateCompanyName.Size = new Size(753, 29);
+            BoxCreateCompanyName.TabIndex = 1;
             // 
             // BtnFindLogo
             // 
             BtnFindLogo.Anchor = AnchorStyles.Top;
-            BtnFindLogo.Location = new Point(90, 499);
+            BtnFindLogo.Location = new Point(1012, 166);
             BtnFindLogo.Name = "BtnFindLogo";
-            BtnFindLogo.Size = new Size(104, 71);
+            BtnFindLogo.Size = new Size(104, 41);
             BtnFindLogo.TabIndex = 6;
             BtnFindLogo.Text = "Procurar";
             BtnFindLogo.UseVisualStyleBackColor = true;
@@ -635,66 +792,74 @@
             // label7
             // 
             label7.Anchor = AnchorStyles.Top;
-            label7.Location = new Point(6, 407);
+            label7.Font = new Font("Segoe UI", 12F);
+            label7.ImageAlign = ContentAlignment.BottomCenter;
+            label7.Location = new Point(931, 125);
             label7.Name = "label7";
             label7.Size = new Size(266, 23);
             label7.TabIndex = 5;
             label7.Text = "Logo";
+            label7.TextAlign = ContentAlignment.BottomCenter;
             // 
             // BtnCreateCompany
             // 
             BtnCreateCompany.Anchor = AnchorStyles.Top;
-            BtnCreateCompany.Location = new Point(769, 447);
+            BtnCreateCompany.Location = new Point(825, 511);
             BtnCreateCompany.Name = "BtnCreateCompany";
             BtnCreateCompany.Size = new Size(479, 82);
             BtnCreateCompany.TabIndex = 7;
-            BtnCreateCompany.Text = "Criar Empresa";
+            BtnCreateCompany.Text = "Criar Elemento";
             BtnCreateCompany.UseVisualStyleBackColor = true;
             BtnCreateCompany.Click += BtnCreateCompany_Click;
             // 
             // label2
             // 
             label2.Anchor = AnchorStyles.Top;
-            label2.Location = new Point(3, 120);
+            label2.Font = new Font("Segoe UI", 12F);
+            label2.Location = new Point(37, 131);
             label2.Name = "label2";
-            label2.Size = new Size(1316, 23);
+            label2.Size = new Size(753, 23);
             label2.TabIndex = 0;
-            label2.Text = "Nome";
+            label2.Text = "Nome:";
             // 
             // label4
             // 
             label4.Anchor = AnchorStyles.Top;
-            label4.Location = new Point(3, 268);
+            label4.Font = new Font("Segoe UI", 12F);
+            label4.Location = new Point(37, 270);
             label4.Name = "label4";
-            label4.Size = new Size(1316, 23);
+            label4.Size = new Size(753, 23);
             label4.TabIndex = 2;
-            label4.Text = "Telefone";
+            label4.Text = "Anotação 1:";
             // 
             // label5
             // 
             label5.Anchor = AnchorStyles.Top;
-            label5.Location = new Point(6, 338);
+            label5.Font = new Font("Segoe UI", 12F);
+            label5.Location = new Point(37, 359);
             label5.Name = "label5";
-            label5.Size = new Size(1313, 23);
+            label5.Size = new Size(753, 23);
             label5.TabIndex = 3;
-            label5.Text = "E-mail";
+            label5.Text = "Anotação :";
             // 
-            // TxtCreateCompanyMessage
+            // LblCreateCompanyMessage
             // 
-            TxtCreateCompanyMessage.Anchor = AnchorStyles.Top;
-            TxtCreateCompanyMessage.Location = new Point(816, 556);
-            TxtCreateCompanyMessage.Name = "TxtCreateCompanyMessage";
-            TxtCreateCompanyMessage.Size = new Size(385, 71);
-            TxtCreateCompanyMessage.TabIndex = 4;
+            LblCreateCompanyMessage.Anchor = AnchorStyles.Top;
+            LblCreateCompanyMessage.Location = new Point(193, 544);
+            LblCreateCompanyMessage.Name = "LblCreateCompanyMessage";
+            LblCreateCompanyMessage.Size = new Size(441, 82);
+            LblCreateCompanyMessage.TabIndex = 4;
+            LblCreateCompanyMessage.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
             label3.Anchor = AnchorStyles.Top;
-            label3.Location = new Point(3, 188);
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.Location = new Point(37, 199);
             label3.Name = "label3";
-            label3.Size = new Size(1316, 23);
+            label3.Size = new Size(753, 23);
             label3.TabIndex = 1;
-            label3.Text = "Nome para Cartela";
+            label3.Text = "Nome para Cartela:";
             // 
             // TabCreateCards
             // 
@@ -710,10 +875,11 @@
             // PnlNewCards
             // 
             PnlNewCards.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            PnlNewCards.Controls.Add(BtnReturnCreateCards);
             PnlNewCards.Controls.Add(BoxCreateCardsName);
             PnlNewCards.Controls.Add(label16);
             PnlNewCards.Controls.Add(label6);
-            PnlNewCards.Controls.Add(TxtCreateCardsMsg);
+            PnlNewCards.Controls.Add(LblCreateCardsMsg);
             PnlNewCards.Controls.Add(BtnCreateCards);
             PnlNewCards.Controls.Add(TxtCreatCardsEnd);
             PnlNewCards.Controls.Add(TxtCreateCardsTitle);
@@ -729,49 +895,65 @@
             PnlNewCards.Size = new Size(1322, 661);
             PnlNewCards.TabIndex = 11;
             // 
+            // BtnReturnCreateCards
+            // 
+            BtnReturnCreateCards.Anchor = AnchorStyles.Top;
+            BtnReturnCreateCards.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnReturnCreateCards.Location = new Point(3, 3);
+            BtnReturnCreateCards.Name = "BtnReturnCreateCards";
+            BtnReturnCreateCards.Size = new Size(68, 59);
+            BtnReturnCreateCards.TabIndex = 14;
+            BtnReturnCreateCards.Text = "Voltar";
+            BtnReturnCreateCards.UseVisualStyleBackColor = true;
+            BtnReturnCreateCards.Click += BtnReturnCreateCards_Click;
+            // 
             // BoxCreateCardsName
             // 
             BoxCreateCardsName.Anchor = AnchorStyles.Top;
-            BoxCreateCardsName.Location = new Point(0, 150);
+            BoxCreateCardsName.Location = new Point(49, 178);
             BoxCreateCardsName.Name = "BoxCreateCardsName";
             BoxCreateCardsName.Size = new Size(640, 23);
-            BoxCreateCardsName.TabIndex = 13;
+            BoxCreateCardsName.TabIndex = 1;
             // 
             // label16
             // 
             label16.Anchor = AnchorStyles.Top;
-            label16.Location = new Point(0, 132);
+            label16.Font = new Font("Segoe UI", 12F);
+            label16.Location = new Point(49, 149);
             label16.Name = "label16";
-            label16.Size = new Size(516, 15);
+            label16.Size = new Size(640, 26);
             label16.TabIndex = 12;
-            label16.Text = "Nome do Jogo";
+            label16.Text = "Nome do Conjunto:";
             // 
             // label6
             // 
             label6.Dock = DockStyle.Top;
-            label6.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.Location = new Point(0, 0);
             label6.Name = "label6";
             label6.Size = new Size(1322, 120);
             label6.TabIndex = 11;
             label6.Text = "Criar Cartelas";
-            label6.TextAlign = ContentAlignment.MiddleCenter;
+            label6.TextAlign = ContentAlignment.BottomCenter;
             // 
-            // TxtCreateCardsMsg
+            // LblCreateCardsMsg
             // 
-            TxtCreateCardsMsg.Anchor = AnchorStyles.Top;
-            TxtCreateCardsMsg.Location = new Point(803, 290);
-            TxtCreateCardsMsg.Name = "TxtCreateCardsMsg";
-            TxtCreateCardsMsg.Size = new Size(389, 85);
-            TxtCreateCardsMsg.TabIndex = 10;
+            LblCreateCardsMsg.Anchor = AnchorStyles.Top;
+            LblCreateCardsMsg.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LblCreateCardsMsg.Location = new Point(824, 181);
+            LblCreateCardsMsg.Name = "LblCreateCardsMsg";
+            LblCreateCardsMsg.Size = new Size(389, 263);
+            LblCreateCardsMsg.TabIndex = 10;
+            LblCreateCardsMsg.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // BtnCreateCards
             // 
             BtnCreateCards.Anchor = AnchorStyles.Top;
-            BtnCreateCards.Location = new Point(803, 153);
+            BtnCreateCards.Font = new Font("Segoe UI", 12F);
+            BtnCreateCards.Location = new Point(824, 468);
             BtnCreateCards.Name = "BtnCreateCards";
             BtnCreateCards.Size = new Size(389, 85);
-            BtnCreateCards.TabIndex = 9;
+            BtnCreateCards.TabIndex = 6;
             BtnCreateCards.Text = "Gerar Cartelas";
             BtnCreateCards.UseVisualStyleBackColor = true;
             BtnCreateCards.Click += BtnCreateCards_Click;
@@ -779,75 +961,76 @@
             // TxtCreatCardsEnd
             // 
             TxtCreatCardsEnd.Anchor = AnchorStyles.Top;
-            TxtCreatCardsEnd.AutoSize = true;
-            TxtCreatCardsEnd.Location = new Point(0, 348);
+            TxtCreatCardsEnd.Font = new Font("Segoe UI", 12F);
+            TxtCreatCardsEnd.Location = new Point(49, 473);
             TxtCreatCardsEnd.Name = "TxtCreatCardsEnd";
-            TxtCreatCardsEnd.Size = new Size(94, 15);
+            TxtCreatCardsEnd.Size = new Size(640, 26);
             TxtCreatCardsEnd.TabIndex = 8;
-            TxtCreatCardsEnd.Text = "Mensagem Final";
+            TxtCreatCardsEnd.Text = "Mensagem Final:";
             // 
             // TxtCreateCardsTitle
             // 
             TxtCreateCardsTitle.Anchor = AnchorStyles.Top;
-            TxtCreateCardsTitle.AutoSize = true;
-            TxtCreateCardsTitle.Location = new Point(0, 290);
+            TxtCreateCardsTitle.Font = new Font("Segoe UI", 12F);
+            TxtCreateCardsTitle.Location = new Point(49, 392);
             TxtCreateCardsTitle.Name = "TxtCreateCardsTitle";
-            TxtCreateCardsTitle.Size = new Size(37, 15);
+            TxtCreateCardsTitle.Size = new Size(640, 26);
             TxtCreateCardsTitle.TabIndex = 7;
-            TxtCreateCardsTitle.Text = "Título";
+            TxtCreateCardsTitle.Text = "Título:";
             // 
             // TxtCreateCardsQuant
             // 
             TxtCreateCardsQuant.Anchor = AnchorStyles.Top;
-            TxtCreateCardsQuant.AutoSize = true;
-            TxtCreateCardsQuant.Location = new Point(0, 232);
+            TxtCreateCardsQuant.Font = new Font("Segoe UI", 12F);
+            TxtCreateCardsQuant.Location = new Point(49, 311);
             TxtCreateCardsQuant.Name = "TxtCreateCardsQuant";
-            TxtCreateCardsQuant.Size = new Size(69, 15);
+            TxtCreateCardsQuant.Size = new Size(640, 26);
             TxtCreateCardsQuant.TabIndex = 6;
-            TxtCreateCardsQuant.Text = "Quantidade";
+            TxtCreateCardsQuant.Text = "Quantidade:";
             // 
             // TxtCreateCardsList
             // 
             TxtCreateCardsList.Anchor = AnchorStyles.Top;
-            TxtCreateCardsList.Location = new Point(0, 188);
+            TxtCreateCardsList.Font = new Font("Segoe UI", 12F);
+            TxtCreateCardsList.Location = new Point(49, 230);
             TxtCreateCardsList.Name = "TxtCreateCardsList";
-            TxtCreateCardsList.Size = new Size(516, 15);
+            TxtCreateCardsList.Size = new Size(640, 26);
             TxtCreateCardsList.TabIndex = 5;
-            TxtCreateCardsList.Text = "Lista";
+            TxtCreateCardsList.Text = "Lista:";
             // 
             // BoxCreateCardsEnd
             // 
             BoxCreateCardsEnd.Anchor = AnchorStyles.Top;
-            BoxCreateCardsEnd.Location = new Point(0, 375);
+            BoxCreateCardsEnd.Location = new Point(49, 502);
             BoxCreateCardsEnd.Multiline = true;
             BoxCreateCardsEnd.Name = "BoxCreateCardsEnd";
             BoxCreateCardsEnd.Size = new Size(640, 68);
-            BoxCreateCardsEnd.TabIndex = 3;
+            BoxCreateCardsEnd.TabIndex = 5;
             // 
             // BoxCreateCardsTitle
             // 
             BoxCreateCardsTitle.Anchor = AnchorStyles.Top;
-            BoxCreateCardsTitle.Location = new Point(0, 308);
+            BoxCreateCardsTitle.Location = new Point(49, 421);
             BoxCreateCardsTitle.Name = "BoxCreateCardsTitle";
             BoxCreateCardsTitle.Size = new Size(640, 23);
-            BoxCreateCardsTitle.TabIndex = 2;
+            BoxCreateCardsTitle.TabIndex = 4;
             // 
             // BoxCreateCardsQuant
             // 
             BoxCreateCardsQuant.Anchor = AnchorStyles.Top;
-            BoxCreateCardsQuant.Location = new Point(0, 253);
+            BoxCreateCardsQuant.Location = new Point(49, 340);
             BoxCreateCardsQuant.Name = "BoxCreateCardsQuant";
             BoxCreateCardsQuant.Size = new Size(640, 23);
-            BoxCreateCardsQuant.TabIndex = 1;
+            BoxCreateCardsQuant.TabIndex = 3;
             // 
             // CboCreateCardsList
             // 
             CboCreateCardsList.Anchor = AnchorStyles.Top;
             CboCreateCardsList.FormattingEnabled = true;
-            CboCreateCardsList.Location = new Point(0, 206);
+            CboCreateCardsList.Location = new Point(49, 259);
             CboCreateCardsList.Name = "CboCreateCardsList";
             CboCreateCardsList.Size = new Size(640, 23);
-            CboCreateCardsList.TabIndex = 0;
+            CboCreateCardsList.TabIndex = 2;
             // 
             // TabEditPage
             // 
@@ -865,6 +1048,7 @@
             EditPage.Controls.Add(TabEditMain);
             EditPage.Controls.Add(TabEditList);
             EditPage.Controls.Add(TabEditCompany);
+            EditPage.Controls.Add(TabEditVisualize);
             EditPage.Dock = DockStyle.Fill;
             EditPage.Location = new Point(3, 3);
             EditPage.Name = "EditPage";
@@ -874,6 +1058,12 @@
             // 
             // TabEditMain
             // 
+            TabEditMain.Controls.Add(button3);
+            TabEditMain.Controls.Add(button1);
+            TabEditMain.Controls.Add(button2);
+            TabEditMain.Controls.Add(label29);
+            TabEditMain.Controls.Add(BtnReturnEditMain);
+            TabEditMain.Controls.Add(label21);
             TabEditMain.Location = new Point(4, 24);
             TabEditMain.Name = "TabEditMain";
             TabEditMain.Padding = new Padding(3);
@@ -881,6 +1071,73 @@
             TabEditMain.TabIndex = 0;
             TabEditMain.Text = "Início";
             TabEditMain.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            button3.Anchor = AnchorStyles.Top;
+            button3.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button3.Location = new Point(956, 475);
+            button3.Name = "button3";
+            button3.Size = new Size(260, 138);
+            button3.TabIndex = 24;
+            button3.Text = "Visualizar Elementos";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Top;
+            button1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Location = new Point(956, 331);
+            button1.Name = "button1";
+            button1.Size = new Size(260, 138);
+            button1.TabIndex = 23;
+            button1.Text = "Editar Elementos";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Anchor = AnchorStyles.Top;
+            button2.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button2.Location = new Point(956, 187);
+            button2.Name = "button2";
+            button2.Size = new Size(260, 138);
+            button2.TabIndex = 22;
+            button2.Text = "Editar Listas";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // label29
+            // 
+            label29.Anchor = AnchorStyles.Top;
+            label29.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label29.Location = new Point(107, 136);
+            label29.Name = "label29";
+            label29.Size = new Size(745, 519);
+            label29.TabIndex = 21;
+            label29.Text = resources.GetString("label29.Text");
+            label29.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // BtnReturnEditMain
+            // 
+            BtnReturnEditMain.Anchor = AnchorStyles.Top;
+            BtnReturnEditMain.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnReturnEditMain.Location = new Point(6, 6);
+            BtnReturnEditMain.Name = "BtnReturnEditMain";
+            BtnReturnEditMain.Size = new Size(68, 59);
+            BtnReturnEditMain.TabIndex = 19;
+            BtnReturnEditMain.Text = "Voltar";
+            BtnReturnEditMain.UseVisualStyleBackColor = true;
+            BtnReturnEditMain.Click += BtnReturnEditMain_Click;
+            // 
+            // label21
+            // 
+            label21.Dock = DockStyle.Top;
+            label21.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold);
+            label21.Location = new Point(3, 3);
+            label21.Name = "label21";
+            label21.Size = new Size(1322, 121);
+            label21.TabIndex = 20;
+            label21.Text = "Bingo Manager\r\nÁrea de Edição";
+            label21.TextAlign = ContentAlignment.BottomCenter;
             // 
             // TabEditList
             // 
@@ -895,10 +1152,11 @@
             // 
             // PnlEditList
             // 
+            PnlEditList.Controls.Add(LblEditListMsg);
+            PnlEditList.Controls.Add(BtnReturnEditList);
             PnlEditList.Controls.Add(BtnEditListDelete);
             PnlEditList.Controls.Add(BoxEditFilterCL);
             PnlEditList.Controls.Add(label8);
-            PnlEditList.Controls.Add(LblEditListMsg);
             PnlEditList.Controls.Add(TxtEditListSel);
             PnlEditList.Controls.Add(TxtEditListAll);
             PnlEditList.Controls.Add(BtnEditRemoveCL);
@@ -912,12 +1170,34 @@
             PnlEditList.Size = new Size(1322, 661);
             PnlEditList.TabIndex = 9;
             // 
+            // LblEditListMsg
+            // 
+            LblEditListMsg.Anchor = AnchorStyles.Top;
+            LblEditListMsg.Font = new Font("Segoe UI", 12F);
+            LblEditListMsg.Location = new Point(1049, 276);
+            LblEditListMsg.Name = "LblEditListMsg";
+            LblEditListMsg.Size = new Size(270, 164);
+            LblEditListMsg.TabIndex = 8;
+            // 
+            // BtnReturnEditList
+            // 
+            BtnReturnEditList.Anchor = AnchorStyles.Top;
+            BtnReturnEditList.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnReturnEditList.Location = new Point(3, 3);
+            BtnReturnEditList.Name = "BtnReturnEditList";
+            BtnReturnEditList.Size = new Size(68, 59);
+            BtnReturnEditList.TabIndex = 18;
+            BtnReturnEditList.Text = "Voltar";
+            BtnReturnEditList.UseVisualStyleBackColor = true;
+            BtnReturnEditList.Click += BtnReturnEditList_Click;
+            // 
             // BtnEditListDelete
             // 
             BtnEditListDelete.Anchor = AnchorStyles.Top;
-            BtnEditListDelete.Location = new Point(1169, 373);
+            BtnEditListDelete.Font = new Font("Segoe UI", 12F);
+            BtnEditListDelete.Location = new Point(1139, 593);
             BtnEditListDelete.Name = "BtnEditListDelete";
-            BtnEditListDelete.Size = new Size(114, 41);
+            BtnEditListDelete.Size = new Size(90, 53);
             BtnEditListDelete.TabIndex = 10;
             BtnEditListDelete.Text = "Excluir Lista";
             BtnEditListDelete.UseVisualStyleBackColor = true;
@@ -926,68 +1206,64 @@
             // BoxEditFilterCL
             // 
             BoxEditFilterCL.Anchor = AnchorStyles.Top;
-            BoxEditFilterCL.Location = new Point(3, 439);
+            BoxEditFilterCL.Location = new Point(3, 417);
             BoxEditFilterCL.Name = "BoxEditFilterCL";
-            BoxEditFilterCL.Size = new Size(1316, 23);
+            BoxEditFilterCL.Size = new Size(1040, 23);
             BoxEditFilterCL.TabIndex = 2;
             BoxEditFilterCL.TextChanged += BoxEditFilterCL_TextChanged;
             // 
             // label8
             // 
             label8.Dock = DockStyle.Top;
-            label8.Font = new Font("Segoe UI", 15F);
+            label8.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold);
             label8.Location = new Point(0, 0);
             label8.Name = "label8";
-            label8.Size = new Size(1322, 120);
+            label8.Size = new Size(1322, 121);
             label8.TabIndex = 9;
             label8.Text = "Editar Lista";
-            label8.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // LblEditListMsg
-            // 
-            LblEditListMsg.Anchor = AnchorStyles.Top;
-            LblEditListMsg.Location = new Point(466, 372);
-            LblEditListMsg.Name = "LblEditListMsg";
-            LblEditListMsg.Size = new Size(392, 42);
-            LblEditListMsg.TabIndex = 8;
+            label8.TextAlign = ContentAlignment.BottomCenter;
             // 
             // TxtEditListSel
             // 
             TxtEditListSel.Anchor = AnchorStyles.Top;
-            TxtEditListSel.Location = new Point(3, 128);
+            TxtEditListSel.Font = new Font("Segoe UI", 12F);
+            TxtEditListSel.Location = new Point(3, 121);
             TxtEditListSel.Name = "TxtEditListSel";
-            TxtEditListSel.Size = new Size(1316, 23);
+            TxtEditListSel.Size = new Size(1040, 23);
             TxtEditListSel.TabIndex = 7;
-            TxtEditListSel.Text = "Lista Selecionada";
+            TxtEditListSel.Text = "Selecionar Lista:";
             // 
             // TxtEditListAll
             // 
             TxtEditListAll.Anchor = AnchorStyles.Top;
-            TxtEditListAll.Location = new Point(3, 413);
+            TxtEditListAll.Font = new Font("Segoe UI", 12F);
+            TxtEditListAll.Location = new Point(3, 391);
             TxtEditListAll.Name = "TxtEditListAll";
-            TxtEditListAll.Size = new Size(1316, 23);
+            TxtEditListAll.Size = new Size(1040, 23);
             TxtEditListAll.TabIndex = 6;
-            TxtEditListAll.Text = "Empresas Registradas";
+            TxtEditListAll.Text = "Elementos Registrados:";
             // 
             // BtnEditRemoveCL
             // 
             BtnEditRemoveCL.Anchor = AnchorStyles.Top;
-            BtnEditRemoveCL.Location = new Point(904, 373);
+            BtnEditRemoveCL.Font = new Font("Segoe UI", 12F);
+            BtnEditRemoveCL.Location = new Point(1139, 183);
             BtnEditRemoveCL.Name = "BtnEditRemoveCL";
-            BtnEditRemoveCL.Size = new Size(114, 41);
+            BtnEditRemoveCL.Size = new Size(90, 90);
             BtnEditRemoveCL.TabIndex = 5;
-            BtnEditRemoveCL.Text = "Remover Empresas";
+            BtnEditRemoveCL.Text = "Remover Elementos";
             BtnEditRemoveCL.UseVisualStyleBackColor = true;
             BtnEditRemoveCL.Click += BtnEditRemoveCL_Click;
             // 
             // BtnEditAddCL
             // 
             BtnEditAddCL.Anchor = AnchorStyles.Top;
-            BtnEditAddCL.Location = new Point(304, 372);
+            BtnEditAddCL.Font = new Font("Segoe UI", 12F);
+            BtnEditAddCL.Location = new Point(1139, 446);
             BtnEditAddCL.Name = "BtnEditAddCL";
-            BtnEditAddCL.Size = new Size(114, 41);
+            BtnEditAddCL.Size = new Size(90, 90);
             BtnEditAddCL.TabIndex = 4;
-            BtnEditAddCL.Text = "Adicionar Empresas";
+            BtnEditAddCL.Text = "Adicionar Elementos";
             BtnEditAddCL.UseVisualStyleBackColor = true;
             BtnEditAddCL.Click += BtnEditAddCL_Click;
             // 
@@ -997,8 +1273,8 @@
             CboEditListSel.FormattingEnabled = true;
             CboEditListSel.Location = new Point(3, 154);
             CboEditListSel.Name = "CboEditListSel";
-            CboEditListSel.Size = new Size(1316, 23);
-            CboEditListSel.TabIndex = 3;
+            CboEditListSel.Size = new Size(1040, 23);
+            CboEditListSel.TabIndex = 1;
             CboEditListSel.SelectedValueChanged += CboEditListSel_SelectedValueChanged;
             // 
             // PnlEditAllCompany
@@ -1008,9 +1284,9 @@
             PnlEditAllCompany.AutoSize = true;
             PnlEditAllCompany.BackColor = Color.Black;
             PnlEditAllCompany.Controls.Add(FlowEditViewAll);
-            PnlEditAllCompany.Location = new Point(3, 468);
+            PnlEditAllCompany.Location = new Point(3, 446);
             PnlEditAllCompany.Name = "PnlEditAllCompany";
-            PnlEditAllCompany.Size = new Size(1316, 183);
+            PnlEditAllCompany.Size = new Size(1040, 200);
             PnlEditAllCompany.TabIndex = 0;
             // 
             // FlowEditViewAll
@@ -1019,7 +1295,7 @@
             FlowEditViewAll.Dock = DockStyle.Fill;
             FlowEditViewAll.Location = new Point(0, 0);
             FlowEditViewAll.Name = "FlowEditViewAll";
-            FlowEditViewAll.Size = new Size(1316, 183);
+            FlowEditViewAll.Size = new Size(1040, 200);
             FlowEditViewAll.TabIndex = 0;
             // 
             // PnlEditSelList
@@ -1031,7 +1307,7 @@
             PnlEditSelList.Controls.Add(FlowEditViewSel);
             PnlEditSelList.Location = new Point(3, 183);
             PnlEditSelList.Name = "PnlEditSelList";
-            PnlEditSelList.Size = new Size(1316, 183);
+            PnlEditSelList.Size = new Size(1040, 200);
             PnlEditSelList.TabIndex = 1;
             // 
             // FlowEditViewSel
@@ -1040,7 +1316,7 @@
             FlowEditViewSel.Dock = DockStyle.Fill;
             FlowEditViewSel.Location = new Point(0, 0);
             FlowEditViewSel.Name = "FlowEditViewSel";
-            FlowEditViewSel.Size = new Size(1316, 183);
+            FlowEditViewSel.Size = new Size(1040, 200);
             FlowEditViewSel.TabIndex = 0;
             // 
             // TabEditCompany
@@ -1056,6 +1332,7 @@
             // 
             // PnlEditCompany
             // 
+            PnlEditCompany.Controls.Add(BtnReturnEditCompany);
             PnlEditCompany.Controls.Add(BtnRemoveComp);
             PnlEditCompany.Controls.Add(PicEditLogoComp);
             PnlEditCompany.Controls.Add(BtnEditComp);
@@ -1079,23 +1356,36 @@
             PnlEditCompany.Size = new Size(1322, 661);
             PnlEditCompany.TabIndex = 1;
             // 
+            // BtnReturnEditCompany
+            // 
+            BtnReturnEditCompany.Anchor = AnchorStyles.Top;
+            BtnReturnEditCompany.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnReturnEditCompany.Location = new Point(3, 3);
+            BtnReturnEditCompany.Name = "BtnReturnEditCompany";
+            BtnReturnEditCompany.Size = new Size(68, 59);
+            BtnReturnEditCompany.TabIndex = 17;
+            BtnReturnEditCompany.Text = "Voltar";
+            BtnReturnEditCompany.UseVisualStyleBackColor = true;
+            BtnReturnEditCompany.Click += BtnReturnEditCompany_Click;
+            // 
             // BtnRemoveComp
             // 
             BtnRemoveComp.Anchor = AnchorStyles.Top;
-            BtnRemoveComp.Location = new Point(1005, 572);
+            BtnRemoveComp.Font = new Font("Segoe UI", 12F);
+            BtnRemoveComp.Location = new Point(1002, 546);
             BtnRemoveComp.Name = "BtnRemoveComp";
             BtnRemoveComp.Size = new Size(192, 73);
             BtnRemoveComp.TabIndex = 16;
-            BtnRemoveComp.Text = "Excluir Empresa";
+            BtnRemoveComp.Text = "Excluir Elemento";
             BtnRemoveComp.UseVisualStyleBackColor = true;
             BtnRemoveComp.Click += BtnRemoveComp_Click;
             // 
             // PicEditLogoComp
             // 
             PicEditLogoComp.Anchor = AnchorStyles.Top;
-            PicEditLogoComp.Location = new Point(205, 484);
+            PicEditLogoComp.Location = new Point(942, 232);
             PicEditLogoComp.Name = "PicEditLogoComp";
-            PicEditLogoComp.Size = new Size(312, 161);
+            PicEditLogoComp.Size = new Size(312, 202);
             PicEditLogoComp.SizeMode = PictureBoxSizeMode.Zoom;
             PicEditLogoComp.TabIndex = 15;
             PicEditLogoComp.TabStop = false;
@@ -1103,140 +1393,277 @@
             // BtnEditComp
             // 
             BtnEditComp.Anchor = AnchorStyles.Top;
-            BtnEditComp.Location = new Point(1005, 493);
+            BtnEditComp.Font = new Font("Segoe UI", 12F);
+            BtnEditComp.Location = new Point(1002, 461);
             BtnEditComp.Name = "BtnEditComp";
             BtnEditComp.Size = new Size(192, 73);
             BtnEditComp.TabIndex = 14;
-            BtnEditComp.Text = "Editar Empresa";
+            BtnEditComp.Text = "Confirmar Edição";
             BtnEditComp.UseVisualStyleBackColor = true;
             BtnEditComp.Click += BtnEditComp_Click;
             // 
             // BtnEditLogoComp
             // 
             BtnEditLogoComp.Anchor = AnchorStyles.Top;
-            BtnEditLogoComp.Location = new Point(64, 548);
+            BtnEditLogoComp.Font = new Font("Segoe UI", 12F);
+            BtnEditLogoComp.Location = new Point(1046, 185);
             BtnEditLogoComp.Name = "BtnEditLogoComp";
-            BtnEditLogoComp.Size = new Size(75, 33);
-            BtnEditLogoComp.TabIndex = 13;
+            BtnEditLogoComp.Size = new Size(104, 41);
+            BtnEditLogoComp.TabIndex = 6;
             BtnEditLogoComp.Text = "Procurar";
             BtnEditLogoComp.UseVisualStyleBackColor = true;
             // 
             // BoxEditEmailComp
             // 
             BoxEditEmailComp.Anchor = AnchorStyles.Top;
-            BoxEditEmailComp.Location = new Point(3, 447);
+            BoxEditEmailComp.Location = new Point(17, 474);
+            BoxEditEmailComp.Multiline = true;
             BoxEditEmailComp.Name = "BoxEditEmailComp";
-            BoxEditEmailComp.Size = new Size(1316, 23);
-            BoxEditEmailComp.TabIndex = 12;
+            BoxEditEmailComp.Size = new Size(799, 60);
+            BoxEditEmailComp.TabIndex = 5;
             // 
             // BoxEditPhoneComp
             // 
             BoxEditPhoneComp.Anchor = AnchorStyles.Top;
-            BoxEditPhoneComp.Location = new Point(3, 379);
+            BoxEditPhoneComp.Location = new Point(17, 392);
+            BoxEditPhoneComp.Multiline = true;
             BoxEditPhoneComp.Name = "BoxEditPhoneComp";
-            BoxEditPhoneComp.Size = new Size(1316, 23);
-            BoxEditPhoneComp.TabIndex = 11;
+            BoxEditPhoneComp.Size = new Size(799, 60);
+            BoxEditPhoneComp.TabIndex = 4;
             // 
             // BoxEditCardNameComp
             // 
             BoxEditCardNameComp.Anchor = AnchorStyles.Top;
-            BoxEditCardNameComp.Location = new Point(3, 309);
+            BoxEditCardNameComp.Location = new Point(17, 340);
             BoxEditCardNameComp.Name = "BoxEditCardNameComp";
-            BoxEditCardNameComp.Size = new Size(1316, 23);
-            BoxEditCardNameComp.TabIndex = 10;
+            BoxEditCardNameComp.Size = new Size(799, 23);
+            BoxEditCardNameComp.TabIndex = 3;
             // 
             // BoxEditNameComp
             // 
             BoxEditNameComp.Anchor = AnchorStyles.Top;
-            BoxEditNameComp.Location = new Point(3, 230);
+            BoxEditNameComp.Location = new Point(17, 270);
             BoxEditNameComp.Name = "BoxEditNameComp";
-            BoxEditNameComp.Size = new Size(1316, 23);
-            BoxEditNameComp.TabIndex = 9;
+            BoxEditNameComp.Size = new Size(799, 23);
+            BoxEditNameComp.TabIndex = 2;
             // 
             // LblEditMsgComp
             // 
             LblEditMsgComp.Anchor = AnchorStyles.Top;
-            LblEditMsgComp.Location = new Point(627, 484);
+            LblEditMsgComp.Font = new Font("Segoe UI", 12F);
+            LblEditMsgComp.Location = new Point(114, 546);
             LblEditMsgComp.Name = "LblEditMsgComp";
-            LblEditMsgComp.Size = new Size(291, 161);
+            LblEditMsgComp.Size = new Size(605, 97);
             LblEditMsgComp.TabIndex = 8;
-            LblEditMsgComp.Text = "Mensagem";
             LblEditMsgComp.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label15
             // 
             label15.Anchor = AnchorStyles.Top;
-            label15.Location = new Point(3, 484);
+            label15.Font = new Font("Segoe UI", 12F);
+            label15.Location = new Point(1000, 158);
             label15.Name = "label15";
             label15.Size = new Size(196, 23);
             label15.TabIndex = 7;
             label15.Text = "Logo";
+            label15.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label14
             // 
             label14.Anchor = AnchorStyles.Top;
-            label14.Location = new Point(3, 353);
+            label14.Font = new Font("Segoe UI", 12F);
+            label14.Location = new Point(17, 366);
             label14.Name = "label14";
-            label14.Size = new Size(1316, 23);
+            label14.Size = new Size(799, 23);
             label14.TabIndex = 6;
-            label14.Text = "Telefone";
+            label14.Text = "Anotação 1:";
             // 
             // label13
             // 
             label13.Anchor = AnchorStyles.Top;
-            label13.Location = new Point(3, 421);
+            label13.Font = new Font("Segoe UI", 12F);
+            label13.Location = new Point(17, 455);
             label13.Name = "label13";
-            label13.Size = new Size(1316, 23);
+            label13.Size = new Size(799, 23);
             label13.TabIndex = 5;
-            label13.Text = "Email";
+            label13.Text = "Anotação 2:";
             // 
             // label12
             // 
             label12.Anchor = AnchorStyles.Top;
-            label12.Location = new Point(3, 283);
+            label12.Font = new Font("Segoe UI", 12F);
+            label12.Location = new Point(17, 314);
             label12.Name = "label12";
-            label12.Size = new Size(1316, 23);
+            label12.Size = new Size(799, 23);
             label12.TabIndex = 4;
-            label12.Text = "Nome para Cartela";
+            label12.Text = "Nome para Cartela:";
             // 
             // LblEditCompName
             // 
             LblEditCompName.Anchor = AnchorStyles.Top;
-            LblEditCompName.Location = new Point(3, 204);
+            LblEditCompName.Font = new Font("Segoe UI", 12F);
+            LblEditCompName.Location = new Point(17, 244);
             LblEditCompName.Name = "LblEditCompName";
-            LblEditCompName.Size = new Size(1316, 23);
+            LblEditCompName.Size = new Size(799, 23);
             LblEditCompName.TabIndex = 3;
-            LblEditCompName.Text = "Nome";
+            LblEditCompName.Text = "Nome:";
             // 
             // label10
             // 
             label10.Anchor = AnchorStyles.Top;
-            label10.Location = new Point(3, 128);
+            label10.Font = new Font("Segoe UI", 12F);
+            label10.Location = new Point(17, 158);
             label10.Name = "label10";
-            label10.Size = new Size(1319, 23);
+            label10.Size = new Size(799, 23);
             label10.TabIndex = 2;
-            label10.Text = "Selecionar Empresa";
+            label10.Text = "Selecionar Elemento:";
             // 
             // CboEditComp
             // 
             CboEditComp.Anchor = AnchorStyles.Top;
             CboEditComp.FormattingEnabled = true;
-            CboEditComp.Location = new Point(0, 154);
+            CboEditComp.Location = new Point(17, 185);
             CboEditComp.Name = "CboEditComp";
-            CboEditComp.Size = new Size(1322, 23);
+            CboEditComp.Size = new Size(799, 23);
             CboEditComp.TabIndex = 1;
             CboEditComp.SelectedValueChanged += CboEditComp_SelectedValueChanged;
             // 
             // label9
             // 
             label9.Dock = DockStyle.Top;
-            label9.Font = new Font("Segoe UI", 15F);
+            label9.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold);
+            label9.ImageAlign = ContentAlignment.MiddleRight;
             label9.Location = new Point(0, 0);
             label9.Name = "label9";
-            label9.Size = new Size(1322, 120);
+            label9.Size = new Size(1322, 121);
             label9.TabIndex = 0;
-            label9.Text = "Editar Empresa";
-            label9.TextAlign = ContentAlignment.MiddleCenter;
+            label9.Text = "Editar Elemento";
+            label9.TextAlign = ContentAlignment.BottomCenter;
+            // 
+            // TabEditVisualize
+            // 
+            TabEditVisualize.Controls.Add(BtnEditVisu);
+            TabEditVisualize.Controls.Add(PicVisuLogo);
+            TabEditVisualize.Controls.Add(LblVisuLists);
+            TabEditVisualize.Controls.Add(LblVisuEmail);
+            TabEditVisualize.Controls.Add(LblVisuPhone);
+            TabEditVisualize.Controls.Add(LblVisuCardName);
+            TabEditVisualize.Controls.Add(LblVisuName);
+            TabEditVisualize.Controls.Add(label37);
+            TabEditVisualize.Controls.Add(label36);
+            TabEditVisualize.Controls.Add(label35);
+            TabEditVisualize.Controls.Add(label34);
+            TabEditVisualize.Controls.Add(label33);
+            TabEditVisualize.Controls.Add(FlwEditVisu);
+            TabEditVisualize.Controls.Add(BtnReturnVisu);
+            TabEditVisualize.Controls.Add(label31);
+            TabEditVisualize.Location = new Point(4, 24);
+            TabEditVisualize.Name = "TabEditVisualize";
+            TabEditVisualize.Padding = new Padding(3);
+            TabEditVisualize.Size = new Size(1328, 667);
+            TabEditVisualize.TabIndex = 3;
+            TabEditVisualize.Text = "Visualizar Elementos";
+            TabEditVisualize.UseVisualStyleBackColor = true;
+            // 
+            // LblVisuName
+            // 
+            LblVisuName.Anchor = AnchorStyles.Top;
+            LblVisuName.Font = new Font("Segoe UI", 12F);
+            LblVisuName.Location = new Point(553, 142);
+            LblVisuName.Name = "LblVisuName";
+            LblVisuName.Size = new Size(769, 23);
+            LblVisuName.TabIndex = 26;
+            LblVisuName.Text = "label38";
+            LblVisuName.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label37
+            // 
+            label37.Anchor = AnchorStyles.Top;
+            label37.Font = new Font("Segoe UI", 12F);
+            label37.Location = new Point(395, 314);
+            label37.Name = "label37";
+            label37.Size = new Size(152, 23);
+            label37.TabIndex = 25;
+            label37.Text = "Anotação 2:";
+            label37.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label36
+            // 
+            label36.Anchor = AnchorStyles.Top;
+            label36.Font = new Font("Segoe UI", 12F);
+            label36.Location = new Point(395, 396);
+            label36.Name = "label36";
+            label36.Size = new Size(152, 23);
+            label36.TabIndex = 24;
+            label36.Text = "Listas:";
+            label36.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label35
+            // 
+            label35.Anchor = AnchorStyles.Top;
+            label35.Font = new Font("Segoe UI", 12F);
+            label35.Location = new Point(395, 236);
+            label35.Name = "label35";
+            label35.Size = new Size(152, 23);
+            label35.TabIndex = 23;
+            label35.Text = "Anotação 1:";
+            label35.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label34
+            // 
+            label34.Anchor = AnchorStyles.Top;
+            label34.Font = new Font("Segoe UI", 12F);
+            label34.Location = new Point(395, 189);
+            label34.Name = "label34";
+            label34.Size = new Size(152, 23);
+            label34.TabIndex = 22;
+            label34.Text = "Nome para Cartela:";
+            label34.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label33
+            // 
+            label33.Anchor = AnchorStyles.Top;
+            label33.Font = new Font("Segoe UI", 12F);
+            label33.Location = new Point(395, 142);
+            label33.Name = "label33";
+            label33.Size = new Size(152, 23);
+            label33.TabIndex = 21;
+            label33.Text = "Nome:";
+            label33.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // FlwEditVisu
+            // 
+            FlwEditVisu.Anchor = AnchorStyles.Top;
+            FlwEditVisu.FlowDirection = FlowDirection.TopDown;
+            FlwEditVisu.Font = new Font("Segoe UI", 12F);
+            FlwEditVisu.Location = new Point(6, 127);
+            FlwEditVisu.Name = "FlwEditVisu";
+            FlwEditVisu.Size = new Size(351, 534);
+            FlwEditVisu.TabIndex = 20;
+            // 
+            // BtnReturnVisu
+            // 
+            BtnReturnVisu.Anchor = AnchorStyles.Top;
+            BtnReturnVisu.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnReturnVisu.Location = new Point(6, 6);
+            BtnReturnVisu.Name = "BtnReturnVisu";
+            BtnReturnVisu.Size = new Size(68, 59);
+            BtnReturnVisu.TabIndex = 19;
+            BtnReturnVisu.Text = "Voltar";
+            BtnReturnVisu.UseVisualStyleBackColor = true;
+            BtnReturnVisu.Click += BtnReturnVisu_Click;
+            // 
+            // label31
+            // 
+            label31.Dock = DockStyle.Top;
+            label31.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold);
+            label31.ImageAlign = ContentAlignment.MiddleRight;
+            label31.Location = new Point(3, 3);
+            label31.Name = "label31";
+            label31.Size = new Size(1322, 121);
+            label31.TabIndex = 18;
+            label31.Text = "Visualizar Elementos";
+            label31.TextAlign = ContentAlignment.BottomCenter;
             // 
             // TabPlayPage
             // 
@@ -1252,8 +1679,8 @@
             // PlayPage
             // 
             PlayPage.Controls.Add(TabPlayMain);
-            PlayPage.Controls.Add(TabPlayAnalog);
             PlayPage.Controls.Add(TabPlayDigital);
+            PlayPage.Controls.Add(TabPlayAnalog);
             PlayPage.Dock = DockStyle.Fill;
             PlayPage.Location = new Point(3, 3);
             PlayPage.Name = "PlayPage";
@@ -1261,257 +1688,53 @@
             PlayPage.Size = new Size(1336, 695);
             PlayPage.TabIndex = 0;
             // 
-            // TabPlayAnalog
+            // TabPlayMain
             // 
-            TabPlayAnalog.Controls.Add(TabPlayAnalogOption);
-            TabPlayAnalog.Location = new Point(4, 24);
-            TabPlayAnalog.Name = "TabPlayAnalog";
-            TabPlayAnalog.Padding = new Padding(3);
-            TabPlayAnalog.Size = new Size(1328, 667);
-            TabPlayAnalog.TabIndex = 0;
-            TabPlayAnalog.Text = "Analógico";
-            TabPlayAnalog.UseVisualStyleBackColor = true;
+            TabPlayMain.Controls.Add(BtnReturnPlayMain);
+            TabPlayMain.Controls.Add(label22);
+            TabPlayMain.Location = new Point(4, 24);
+            TabPlayMain.Name = "TabPlayMain";
+            TabPlayMain.Padding = new Padding(3);
+            TabPlayMain.Size = new Size(1328, 667);
+            TabPlayMain.TabIndex = 2;
+            TabPlayMain.Text = "Início";
+            TabPlayMain.UseVisualStyleBackColor = true;
             // 
-            // TabPlayAnalogOption
+            // BtnReturnPlayMain
             // 
-            TabPlayAnalogOption.Controls.Add(TabPlaySelection);
-            TabPlayAnalogOption.Controls.Add(TabPlayNumbers);
-            TabPlayAnalogOption.Controls.Add(TabPlayLogos);
-            TabPlayAnalogOption.Dock = DockStyle.Fill;
-            TabPlayAnalogOption.Location = new Point(3, 3);
-            TabPlayAnalogOption.Name = "TabPlayAnalogOption";
-            TabPlayAnalogOption.SelectedIndex = 0;
-            TabPlayAnalogOption.Size = new Size(1322, 661);
-            TabPlayAnalogOption.TabIndex = 0;
+            BtnReturnPlayMain.Anchor = AnchorStyles.Top;
+            BtnReturnPlayMain.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnReturnPlayMain.Location = new Point(6, 6);
+            BtnReturnPlayMain.Name = "BtnReturnPlayMain";
+            BtnReturnPlayMain.Size = new Size(68, 59);
+            BtnReturnPlayMain.TabIndex = 21;
+            BtnReturnPlayMain.Text = "Voltar";
+            BtnReturnPlayMain.UseVisualStyleBackColor = true;
+            BtnReturnPlayMain.Click += BtnReturnPlayMain_Click;
             // 
-            // TabPlaySelection
+            // label22
             // 
-            TabPlaySelection.Controls.Add(GrpPlayPhase);
-            TabPlaySelection.Controls.Add(LblPlayMsg);
-            TabPlaySelection.Controls.Add(CboPlaySelection);
-            TabPlaySelection.Controls.Add(BtnPlaySelection);
-            TabPlaySelection.Location = new Point(4, 24);
-            TabPlaySelection.Name = "TabPlaySelection";
-            TabPlaySelection.Padding = new Padding(3);
-            TabPlaySelection.Size = new Size(1314, 633);
-            TabPlaySelection.TabIndex = 0;
-            TabPlaySelection.Text = "Lista";
-            TabPlaySelection.UseVisualStyleBackColor = true;
-            // 
-            // GrpPlayPhase
-            // 
-            GrpPlayPhase.Anchor = AnchorStyles.Top;
-            GrpPlayPhase.Controls.Add(RdPlay2);
-            GrpPlayPhase.Controls.Add(RdPlay1);
-            GrpPlayPhase.Location = new Point(291, 328);
-            GrpPlayPhase.Name = "GrpPlayPhase";
-            GrpPlayPhase.Size = new Size(129, 248);
-            GrpPlayPhase.TabIndex = 3;
-            GrpPlayPhase.TabStop = false;
-            GrpPlayPhase.Text = "Fase do Jogo";
-            // 
-            // RdPlay2
-            // 
-            RdPlay2.AutoSize = true;
-            RdPlay2.Location = new Point(7, 144);
-            RdPlay2.Name = "RdPlay2";
-            RdPlay2.Size = new Size(95, 19);
-            RdPlay2.TabIndex = 1;
-            RdPlay2.Text = "Cartela Cheia";
-            RdPlay2.UseVisualStyleBackColor = true;
-            // 
-            // RdPlay1
-            // 
-            RdPlay1.AutoSize = true;
-            RdPlay1.Checked = true;
-            RdPlay1.Location = new Point(6, 99);
-            RdPlay1.Name = "RdPlay1";
-            RdPlay1.Size = new Size(57, 19);
-            RdPlay1.TabIndex = 0;
-            RdPlay1.TabStop = true;
-            RdPlay1.Text = "Quina";
-            RdPlay1.UseVisualStyleBackColor = true;
-            // 
-            // LblPlayMsg
-            // 
-            LblPlayMsg.Anchor = AnchorStyles.Right;
-            LblPlayMsg.Location = new Point(807, 23);
-            LblPlayMsg.Name = "LblPlayMsg";
-            LblPlayMsg.Size = new Size(483, 581);
-            LblPlayMsg.TabIndex = 2;
-            // 
-            // CboPlaySelection
-            // 
-            CboPlaySelection.Anchor = AnchorStyles.Top;
-            CboPlaySelection.FormattingEnabled = true;
-            CboPlaySelection.Location = new Point(291, 260);
-            CboPlaySelection.Name = "CboPlaySelection";
-            CboPlaySelection.Size = new Size(523, 23);
-            CboPlaySelection.TabIndex = 1;
-            // 
-            // BtnPlaySelection
-            // 
-            BtnPlaySelection.Anchor = AnchorStyles.Top;
-            BtnPlaySelection.Location = new Point(863, 260);
-            BtnPlaySelection.Name = "BtnPlaySelection";
-            BtnPlaySelection.Size = new Size(161, 23);
-            BtnPlaySelection.TabIndex = 0;
-            BtnPlaySelection.Text = "Selecionar Lista";
-            BtnPlaySelection.UseVisualStyleBackColor = true;
-            BtnPlaySelection.Click += BtnPlaySelection_Click;
-            // 
-            // TabPlayNumbers
-            // 
-            TabPlayNumbers.Controls.Add(PnlPlayFather);
-            TabPlayNumbers.Location = new Point(4, 24);
-            TabPlayNumbers.Name = "TabPlayNumbers";
-            TabPlayNumbers.Padding = new Padding(3);
-            TabPlayNumbers.Size = new Size(1314, 633);
-            TabPlayNumbers.TabIndex = 1;
-            TabPlayNumbers.Text = "Números";
-            TabPlayNumbers.UseVisualStyleBackColor = true;
-            // 
-            // PnlPlayFather
-            // 
-            PnlPlayFather.Anchor = AnchorStyles.Top;
-            PnlPlayFather.AutoSize = true;
-            PnlPlayFather.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            PnlPlayFather.BackColor = Color.Transparent;
-            PnlPlayFather.Controls.Add(PnlPlayNumbersB);
-            PnlPlayFather.Controls.Add(PnlPlayNumbersI);
-            PnlPlayFather.Controls.Add(PnlPlayNumbersN);
-            PnlPlayFather.Controls.Add(PnlPlayNumbersG);
-            PnlPlayFather.Controls.Add(PnlPlayNumbersO);
-            PnlPlayFather.Location = new Point(3, 3);
-            PnlPlayFather.Name = "PnlPlayFather";
-            PnlPlayFather.Size = new Size(1311, 628);
-            PnlPlayFather.TabIndex = 0;
-            // 
-            // PnlPlayNumbersB
-            // 
-            PnlPlayNumbersB.BackColor = Color.Transparent;
-            PnlPlayNumbersB.Controls.Add(FlwPlayB);
-            PnlPlayNumbersB.Dock = DockStyle.Top;
-            PnlPlayNumbersB.Location = new Point(0, 0);
-            PnlPlayNumbersB.Name = "PnlPlayNumbersB";
-            PnlPlayNumbersB.Size = new Size(1311, 125);
-            PnlPlayNumbersB.TabIndex = 0;
-            // 
-            // FlwPlayB
-            // 
-            FlwPlayB.BackColor = Color.Transparent;
-            FlwPlayB.Dock = DockStyle.Fill;
-            FlwPlayB.Location = new Point(0, 0);
-            FlwPlayB.Name = "FlwPlayB";
-            FlwPlayB.Size = new Size(1311, 125);
-            FlwPlayB.TabIndex = 0;
-            // 
-            // PnlPlayNumbersI
-            // 
-            PnlPlayNumbersI.Controls.Add(FlwPlayI);
-            PnlPlayNumbersI.Location = new Point(0, 125);
-            PnlPlayNumbersI.Name = "PnlPlayNumbersI";
-            PnlPlayNumbersI.Size = new Size(1308, 125);
-            PnlPlayNumbersI.TabIndex = 1;
-            // 
-            // FlwPlayI
-            // 
-            FlwPlayI.Dock = DockStyle.Fill;
-            FlwPlayI.Location = new Point(0, 0);
-            FlwPlayI.Name = "FlwPlayI";
-            FlwPlayI.Size = new Size(1308, 125);
-            FlwPlayI.TabIndex = 0;
-            // 
-            // PnlPlayNumbersN
-            // 
-            PnlPlayNumbersN.Controls.Add(FlwPlayN);
-            PnlPlayNumbersN.Location = new Point(0, 250);
-            PnlPlayNumbersN.Name = "PnlPlayNumbersN";
-            PnlPlayNumbersN.Size = new Size(1308, 125);
-            PnlPlayNumbersN.TabIndex = 2;
-            // 
-            // FlwPlayN
-            // 
-            FlwPlayN.Dock = DockStyle.Fill;
-            FlwPlayN.Location = new Point(0, 0);
-            FlwPlayN.Name = "FlwPlayN";
-            FlwPlayN.Size = new Size(1308, 125);
-            FlwPlayN.TabIndex = 0;
-            // 
-            // PnlPlayNumbersG
-            // 
-            PnlPlayNumbersG.Controls.Add(FlwPlayG);
-            PnlPlayNumbersG.Location = new Point(0, 375);
-            PnlPlayNumbersG.Name = "PnlPlayNumbersG";
-            PnlPlayNumbersG.Size = new Size(1308, 125);
-            PnlPlayNumbersG.TabIndex = 3;
-            // 
-            // FlwPlayG
-            // 
-            FlwPlayG.Dock = DockStyle.Fill;
-            FlwPlayG.Location = new Point(0, 0);
-            FlwPlayG.Name = "FlwPlayG";
-            FlwPlayG.Size = new Size(1308, 125);
-            FlwPlayG.TabIndex = 0;
-            // 
-            // PnlPlayNumbersO
-            // 
-            PnlPlayNumbersO.Controls.Add(FlwPlayO);
-            PnlPlayNumbersO.Location = new Point(0, 500);
-            PnlPlayNumbersO.Name = "PnlPlayNumbersO";
-            PnlPlayNumbersO.Size = new Size(1308, 125);
-            PnlPlayNumbersO.TabIndex = 4;
-            // 
-            // FlwPlayO
-            // 
-            FlwPlayO.Dock = DockStyle.Fill;
-            FlwPlayO.Location = new Point(0, 0);
-            FlwPlayO.Name = "FlwPlayO";
-            FlwPlayO.Size = new Size(1308, 125);
-            FlwPlayO.TabIndex = 0;
-            // 
-            // TabPlayLogos
-            // 
-            TabPlayLogos.Controls.Add(PnlPlayLogo);
-            TabPlayLogos.Location = new Point(4, 24);
-            TabPlayLogos.Name = "TabPlayLogos";
-            TabPlayLogos.Padding = new Padding(3);
-            TabPlayLogos.Size = new Size(1314, 633);
-            TabPlayLogos.TabIndex = 2;
-            TabPlayLogos.Text = "Logos";
-            TabPlayLogos.UseVisualStyleBackColor = true;
-            // 
-            // PnlPlayLogo
-            // 
-            PnlPlayLogo.Controls.Add(LblPlayName);
-            PnlPlayLogo.Controls.Add(PicPlayLogo);
-            PnlPlayLogo.Dock = DockStyle.Fill;
-            PnlPlayLogo.Location = new Point(3, 3);
-            PnlPlayLogo.Name = "PnlPlayLogo";
-            PnlPlayLogo.Size = new Size(1308, 627);
-            PnlPlayLogo.TabIndex = 0;
-            // 
-            // LblPlayName
-            // 
-            LblPlayName.Dock = DockStyle.Top;
-            LblPlayName.Location = new Point(0, 0);
-            LblPlayName.Name = "LblPlayName";
-            LblPlayName.Size = new Size(1308, 54);
-            LblPlayName.TabIndex = 1;
-            LblPlayName.Text = "LblPlayName";
-            // 
-            // PicPlayLogo
-            // 
-            PicPlayLogo.Dock = DockStyle.Fill;
-            PicPlayLogo.Location = new Point(0, 0);
-            PicPlayLogo.Name = "PicPlayLogo";
-            PicPlayLogo.Size = new Size(1308, 627);
-            PicPlayLogo.SizeMode = PictureBoxSizeMode.Zoom;
-            PicPlayLogo.TabIndex = 0;
-            PicPlayLogo.TabStop = false;
+            label22.Dock = DockStyle.Top;
+            label22.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold);
+            label22.Location = new Point(3, 3);
+            label22.Name = "label22";
+            label22.Size = new Size(1322, 121);
+            label22.TabIndex = 22;
+            label22.Text = "Bingo Manager\r\nÁrea de Jogo";
+            label22.TextAlign = ContentAlignment.BottomCenter;
             // 
             // TabPlayDigital
             // 
+            TabPlayDigital.Controls.Add(BtnPlayDiRandom);
+            TabPlayDigital.Controls.Add(LblPlayDiMsg);
+            TabPlayDigital.Controls.Add(label30);
+            TabPlayDigital.Controls.Add(LblPlayDiLogo);
+            TabPlayDigital.Controls.Add(LblPlayDiName);
+            TabPlayDigital.Controls.Add(label32);
+            TabPlayDigital.Controls.Add(panel2);
+            TabPlayDigital.Controls.Add(PnlPlayDiFather);
+            TabPlayDigital.Controls.Add(BtnReturnPlayDigital);
+            TabPlayDigital.Controls.Add(label27);
             TabPlayDigital.Location = new Point(4, 24);
             TabPlayDigital.Name = "TabPlayDigital";
             TabPlayDigital.Padding = new Padding(3);
@@ -1520,15 +1743,627 @@
             TabPlayDigital.Text = "Digital";
             TabPlayDigital.UseVisualStyleBackColor = true;
             // 
-            // TabPlayMain
+            // BtnPlayDiRandom
             // 
-            TabPlayMain.Location = new Point(4, 24);
-            TabPlayMain.Name = "TabPlayMain";
-            TabPlayMain.Padding = new Padding(3);
-            TabPlayMain.Size = new Size(1328, 667);
-            TabPlayMain.TabIndex = 2;
-            TabPlayMain.Text = "Início";
-            TabPlayMain.UseVisualStyleBackColor = true;
+            BtnPlayDiRandom.Anchor = AnchorStyles.Top;
+            BtnPlayDiRandom.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnPlayDiRandom.Location = new Point(332, 603);
+            BtnPlayDiRandom.Name = "BtnPlayDiRandom";
+            BtnPlayDiRandom.Size = new Size(173, 47);
+            BtnPlayDiRandom.TabIndex = 28;
+            BtnPlayDiRandom.Text = "Sortear!";
+            BtnPlayDiRandom.UseVisualStyleBackColor = true;
+            // 
+            // LblPlayDiMsg
+            // 
+            LblPlayDiMsg.Anchor = AnchorStyles.Top;
+            LblPlayDiMsg.Location = new Point(9, 312);
+            LblPlayDiMsg.Name = "LblPlayDiMsg";
+            LblPlayDiMsg.Size = new Size(317, 338);
+            LblPlayDiMsg.TabIndex = 33;
+            LblPlayDiMsg.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // label30
+            // 
+            label30.Anchor = AnchorStyles.Top;
+            label30.Font = new Font("Segoe UI", 12F);
+            label30.Location = new Point(12, 273);
+            label30.Name = "label30";
+            label30.Size = new Size(311, 23);
+            label30.TabIndex = 34;
+            label30.Text = "Últimos Resultados";
+            label30.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // LblPlayDiLogo
+            // 
+            LblPlayDiLogo.Anchor = AnchorStyles.Top;
+            LblPlayDiLogo.Location = new Point(332, 460);
+            LblPlayDiLogo.Name = "LblPlayDiLogo";
+            LblPlayDiLogo.Size = new Size(173, 127);
+            LblPlayDiLogo.SizeMode = PictureBoxSizeMode.Zoom;
+            LblPlayDiLogo.TabIndex = 37;
+            LblPlayDiLogo.TabStop = false;
+            // 
+            // LblPlayDiName
+            // 
+            LblPlayDiName.Anchor = AnchorStyles.Top;
+            LblPlayDiName.Font = new Font("Segoe UI", 12F);
+            LblPlayDiName.Location = new Point(332, 333);
+            LblPlayDiName.Name = "LblPlayDiName";
+            LblPlayDiName.Size = new Size(173, 127);
+            LblPlayDiName.TabIndex = 36;
+            LblPlayDiName.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label32
+            // 
+            label32.Anchor = AnchorStyles.Top;
+            label32.Font = new Font("Segoe UI", 12F);
+            label32.Location = new Point(332, 273);
+            label32.Name = "label32";
+            label32.Size = new Size(173, 60);
+            label32.TabIndex = 35;
+            label32.Text = "Último Elemento Sorteado";
+            label32.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // panel2
+            // 
+            panel2.Anchor = AnchorStyles.Top;
+            panel2.Controls.Add(BtnRestartDigital);
+            panel2.Controls.Add(label28);
+            panel2.Controls.Add(CboPlayDiSelection);
+            panel2.Controls.Add(GrpPlayDiPhase);
+            panel2.Controls.Add(BtnPlayDiSelection);
+            panel2.Location = new Point(6, 127);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(499, 131);
+            panel2.TabIndex = 31;
+            // 
+            // BtnRestartDigital
+            // 
+            BtnRestartDigital.Anchor = AnchorStyles.Top;
+            BtnRestartDigital.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnRestartDigital.Location = new Point(338, 64);
+            BtnRestartDigital.Name = "BtnRestartDigital";
+            BtnRestartDigital.Size = new Size(143, 47);
+            BtnRestartDigital.TabIndex = 27;
+            BtnRestartDigital.Text = "Reiniciar";
+            BtnRestartDigital.UseVisualStyleBackColor = true;
+            // 
+            // label28
+            // 
+            label28.Anchor = AnchorStyles.Top;
+            label28.Font = new Font("Segoe UI", 12F);
+            label28.Location = new Point(3, 9);
+            label28.Name = "label28";
+            label28.Size = new Size(311, 23);
+            label28.TabIndex = 25;
+            label28.Text = "Conjunto de Cartelas";
+            label28.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // CboPlayDiSelection
+            // 
+            CboPlayDiSelection.Anchor = AnchorStyles.Top;
+            CboPlayDiSelection.FormattingEnabled = true;
+            CboPlayDiSelection.Location = new Point(3, 35);
+            CboPlayDiSelection.Name = "CboPlayDiSelection";
+            CboPlayDiSelection.Size = new Size(311, 23);
+            CboPlayDiSelection.TabIndex = 1;
+            // 
+            // GrpPlayDiPhase
+            // 
+            GrpPlayDiPhase.Anchor = AnchorStyles.Top;
+            GrpPlayDiPhase.Controls.Add(RdPlayDi2);
+            GrpPlayDiPhase.Controls.Add(RdPlayDi1);
+            GrpPlayDiPhase.Font = new Font("Segoe UI", 12F);
+            GrpPlayDiPhase.Location = new Point(3, 64);
+            GrpPlayDiPhase.Name = "GrpPlayDiPhase";
+            GrpPlayDiPhase.Size = new Size(311, 58);
+            GrpPlayDiPhase.TabIndex = 3;
+            GrpPlayDiPhase.TabStop = false;
+            GrpPlayDiPhase.Text = "Tipo de Jogo";
+            // 
+            // RdPlayDi2
+            // 
+            RdPlayDi2.Anchor = AnchorStyles.Top;
+            RdPlayDi2.AutoSize = true;
+            RdPlayDi2.Font = new Font("Segoe UI", 12F);
+            RdPlayDi2.Location = new Point(150, 22);
+            RdPlayDi2.Name = "RdPlayDi2";
+            RdPlayDi2.Size = new Size(120, 25);
+            RdPlayDi2.TabIndex = 1;
+            RdPlayDi2.Text = "Cartela Cheia";
+            RdPlayDi2.UseVisualStyleBackColor = true;
+            // 
+            // RdPlayDi1
+            // 
+            RdPlayDi1.Anchor = AnchorStyles.Top;
+            RdPlayDi1.AutoSize = true;
+            RdPlayDi1.Checked = true;
+            RdPlayDi1.Font = new Font("Segoe UI", 12F);
+            RdPlayDi1.Location = new Point(41, 22);
+            RdPlayDi1.Name = "RdPlayDi1";
+            RdPlayDi1.Size = new Size(70, 25);
+            RdPlayDi1.TabIndex = 0;
+            RdPlayDi1.TabStop = true;
+            RdPlayDi1.Text = "Quina";
+            RdPlayDi1.UseVisualStyleBackColor = true;
+            // 
+            // BtnPlayDiSelection
+            // 
+            BtnPlayDiSelection.Anchor = AnchorStyles.Top;
+            BtnPlayDiSelection.Font = new Font("Segoe UI", 12F);
+            BtnPlayDiSelection.Location = new Point(338, 11);
+            BtnPlayDiSelection.Name = "BtnPlayDiSelection";
+            BtnPlayDiSelection.Size = new Size(143, 47);
+            BtnPlayDiSelection.TabIndex = 0;
+            BtnPlayDiSelection.Text = "Começar";
+            BtnPlayDiSelection.UseVisualStyleBackColor = true;
+            // 
+            // PnlPlayDiFather
+            // 
+            PnlPlayDiFather.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            PnlPlayDiFather.BackColor = Color.Transparent;
+            PnlPlayDiFather.Controls.Add(PnlPlayDiNumbersB);
+            PnlPlayDiFather.Controls.Add(PnlPlayDiNumbersI);
+            PnlPlayDiFather.Controls.Add(PnlPlayDiNumbersN);
+            PnlPlayDiFather.Controls.Add(PnlPlayDiNumbersG);
+            PnlPlayDiFather.Controls.Add(PnlPlayDiNumbersO);
+            PnlPlayDiFather.Location = new Point(511, 127);
+            PnlPlayDiFather.Name = "PnlPlayDiFather";
+            PnlPlayDiFather.Size = new Size(811, 523);
+            PnlPlayDiFather.TabIndex = 30;
+            // 
+            // PnlPlayDiNumbersB
+            // 
+            PnlPlayDiNumbersB.Anchor = AnchorStyles.Top;
+            PnlPlayDiNumbersB.BackColor = Color.Transparent;
+            PnlPlayDiNumbersB.Controls.Add(FlwPlayDiB);
+            PnlPlayDiNumbersB.Location = new Point(3, 3);
+            PnlPlayDiNumbersB.Name = "PnlPlayDiNumbersB";
+            PnlPlayDiNumbersB.Size = new Size(805, 95);
+            PnlPlayDiNumbersB.TabIndex = 0;
+            // 
+            // FlwPlayDiB
+            // 
+            FlwPlayDiB.BackColor = Color.Transparent;
+            FlwPlayDiB.Dock = DockStyle.Fill;
+            FlwPlayDiB.Location = new Point(0, 0);
+            FlwPlayDiB.Name = "FlwPlayDiB";
+            FlwPlayDiB.Size = new Size(805, 95);
+            FlwPlayDiB.TabIndex = 0;
+            // 
+            // PnlPlayDiNumbersI
+            // 
+            PnlPlayDiNumbersI.Controls.Add(FlwPlayDiI);
+            PnlPlayDiNumbersI.Location = new Point(3, 104);
+            PnlPlayDiNumbersI.Name = "PnlPlayDiNumbersI";
+            PnlPlayDiNumbersI.Size = new Size(805, 95);
+            PnlPlayDiNumbersI.TabIndex = 1;
+            // 
+            // FlwPlayDiI
+            // 
+            FlwPlayDiI.Dock = DockStyle.Fill;
+            FlwPlayDiI.Location = new Point(0, 0);
+            FlwPlayDiI.Name = "FlwPlayDiI";
+            FlwPlayDiI.Size = new Size(805, 95);
+            FlwPlayDiI.TabIndex = 0;
+            // 
+            // PnlPlayDiNumbersN
+            // 
+            PnlPlayDiNumbersN.Controls.Add(FlwPlayDiN);
+            PnlPlayDiNumbersN.Location = new Point(3, 205);
+            PnlPlayDiNumbersN.Name = "PnlPlayDiNumbersN";
+            PnlPlayDiNumbersN.Size = new Size(805, 95);
+            PnlPlayDiNumbersN.TabIndex = 2;
+            // 
+            // FlwPlayDiN
+            // 
+            FlwPlayDiN.Dock = DockStyle.Fill;
+            FlwPlayDiN.Location = new Point(0, 0);
+            FlwPlayDiN.Name = "FlwPlayDiN";
+            FlwPlayDiN.Size = new Size(805, 95);
+            FlwPlayDiN.TabIndex = 0;
+            // 
+            // PnlPlayDiNumbersG
+            // 
+            PnlPlayDiNumbersG.Controls.Add(FlwPlayDiG);
+            PnlPlayDiNumbersG.Location = new Point(3, 306);
+            PnlPlayDiNumbersG.Name = "PnlPlayDiNumbersG";
+            PnlPlayDiNumbersG.Size = new Size(805, 95);
+            PnlPlayDiNumbersG.TabIndex = 3;
+            // 
+            // FlwPlayDiG
+            // 
+            FlwPlayDiG.Dock = DockStyle.Fill;
+            FlwPlayDiG.Location = new Point(0, 0);
+            FlwPlayDiG.Name = "FlwPlayDiG";
+            FlwPlayDiG.Size = new Size(805, 95);
+            FlwPlayDiG.TabIndex = 0;
+            // 
+            // PnlPlayDiNumbersO
+            // 
+            PnlPlayDiNumbersO.Controls.Add(FlwPlayDiO);
+            PnlPlayDiNumbersO.Location = new Point(3, 407);
+            PnlPlayDiNumbersO.Name = "PnlPlayDiNumbersO";
+            PnlPlayDiNumbersO.Size = new Size(805, 95);
+            PnlPlayDiNumbersO.TabIndex = 4;
+            // 
+            // FlwPlayDiO
+            // 
+            FlwPlayDiO.Dock = DockStyle.Fill;
+            FlwPlayDiO.Location = new Point(0, 0);
+            FlwPlayDiO.Name = "FlwPlayDiO";
+            FlwPlayDiO.Size = new Size(805, 95);
+            FlwPlayDiO.TabIndex = 0;
+            // 
+            // BtnReturnPlayDigital
+            // 
+            BtnReturnPlayDigital.Anchor = AnchorStyles.Top;
+            BtnReturnPlayDigital.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnReturnPlayDigital.Location = new Point(6, 6);
+            BtnReturnPlayDigital.Name = "BtnReturnPlayDigital";
+            BtnReturnPlayDigital.Size = new Size(68, 59);
+            BtnReturnPlayDigital.TabIndex = 24;
+            BtnReturnPlayDigital.Text = "Voltar";
+            BtnReturnPlayDigital.UseVisualStyleBackColor = true;
+            BtnReturnPlayDigital.Click += BtnReturnPlayDigital_Click;
+            // 
+            // label27
+            // 
+            label27.Dock = DockStyle.Top;
+            label27.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold);
+            label27.Location = new Point(3, 3);
+            label27.Name = "label27";
+            label27.Size = new Size(1322, 121);
+            label27.TabIndex = 25;
+            label27.Text = "Jogo Completo";
+            label27.TextAlign = ContentAlignment.BottomCenter;
+            // 
+            // TabPlayAnalog
+            // 
+            TabPlayAnalog.Controls.Add(LblPlayAnMsg);
+            TabPlayAnalog.Controls.Add(label25);
+            TabPlayAnalog.Controls.Add(PicPlayAnLogo);
+            TabPlayAnalog.Controls.Add(LblPlayAnName);
+            TabPlayAnalog.Controls.Add(label26);
+            TabPlayAnalog.Controls.Add(PnlPlayAnFather);
+            TabPlayAnalog.Controls.Add(panel1);
+            TabPlayAnalog.Controls.Add(BtnReturnPlayAnalog);
+            TabPlayAnalog.Controls.Add(label23);
+            TabPlayAnalog.Location = new Point(4, 24);
+            TabPlayAnalog.Name = "TabPlayAnalog";
+            TabPlayAnalog.Padding = new Padding(3);
+            TabPlayAnalog.Size = new Size(1328, 667);
+            TabPlayAnalog.TabIndex = 3;
+            TabPlayAnalog.Text = "Analógico";
+            TabPlayAnalog.UseVisualStyleBackColor = true;
+            // 
+            // LblPlayAnMsg
+            // 
+            LblPlayAnMsg.Anchor = AnchorStyles.Top;
+            LblPlayAnMsg.Location = new Point(9, 312);
+            LblPlayAnMsg.Name = "LblPlayAnMsg";
+            LblPlayAnMsg.Size = new Size(317, 338);
+            LblPlayAnMsg.TabIndex = 2;
+            LblPlayAnMsg.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // label25
+            // 
+            label25.Anchor = AnchorStyles.Top;
+            label25.Font = new Font("Segoe UI", 12F);
+            label25.Location = new Point(12, 273);
+            label25.Name = "label25";
+            label25.Size = new Size(311, 23);
+            label25.TabIndex = 28;
+            label25.Text = "Últimos Resultados";
+            label25.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // PicPlayAnLogo
+            // 
+            PicPlayAnLogo.Anchor = AnchorStyles.Top;
+            PicPlayAnLogo.Location = new Point(332, 523);
+            PicPlayAnLogo.Name = "PicPlayAnLogo";
+            PicPlayAnLogo.Size = new Size(173, 127);
+            PicPlayAnLogo.SizeMode = PictureBoxSizeMode.Zoom;
+            PicPlayAnLogo.TabIndex = 32;
+            PicPlayAnLogo.TabStop = false;
+            // 
+            // LblPlayAnName
+            // 
+            LblPlayAnName.Anchor = AnchorStyles.Top;
+            LblPlayAnName.Font = new Font("Segoe UI", 12F);
+            LblPlayAnName.Location = new Point(332, 381);
+            LblPlayAnName.Name = "LblPlayAnName";
+            LblPlayAnName.Size = new Size(173, 127);
+            LblPlayAnName.TabIndex = 31;
+            LblPlayAnName.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label26
+            // 
+            label26.Anchor = AnchorStyles.Top;
+            label26.Font = new Font("Segoe UI", 12F);
+            label26.Location = new Point(332, 287);
+            label26.Name = "label26";
+            label26.Size = new Size(173, 60);
+            label26.TabIndex = 30;
+            label26.Text = "Último Elemento Sorteado";
+            label26.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // PnlPlayAnFather
+            // 
+            PnlPlayAnFather.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            PnlPlayAnFather.BackColor = Color.Transparent;
+            PnlPlayAnFather.Controls.Add(PnlPlayAnNumbersB);
+            PnlPlayAnFather.Controls.Add(PnlPlayAnNumbersI);
+            PnlPlayAnFather.Controls.Add(PnlPlayAnNumbersN);
+            PnlPlayAnFather.Controls.Add(PnlPlayAnNumbersG);
+            PnlPlayAnFather.Controls.Add(PnlPlayAnNumbersO);
+            PnlPlayAnFather.Location = new Point(511, 127);
+            PnlPlayAnFather.Name = "PnlPlayAnFather";
+            PnlPlayAnFather.Size = new Size(800, 523);
+            PnlPlayAnFather.TabIndex = 29;
+            // 
+            // PnlPlayAnNumbersB
+            // 
+            PnlPlayAnNumbersB.Anchor = AnchorStyles.Top;
+            PnlPlayAnNumbersB.BackColor = Color.Transparent;
+            PnlPlayAnNumbersB.Controls.Add(FlwPlayAnB);
+            PnlPlayAnNumbersB.Location = new Point(3, 3);
+            PnlPlayAnNumbersB.Name = "PnlPlayAnNumbersB";
+            PnlPlayAnNumbersB.Size = new Size(794, 95);
+            PnlPlayAnNumbersB.TabIndex = 0;
+            // 
+            // FlwPlayAnB
+            // 
+            FlwPlayAnB.BackColor = Color.Transparent;
+            FlwPlayAnB.Dock = DockStyle.Fill;
+            FlwPlayAnB.Location = new Point(0, 0);
+            FlwPlayAnB.Name = "FlwPlayAnB";
+            FlwPlayAnB.Size = new Size(794, 95);
+            FlwPlayAnB.TabIndex = 0;
+            // 
+            // PnlPlayAnNumbersI
+            // 
+            PnlPlayAnNumbersI.Controls.Add(FlwPlayAnI);
+            PnlPlayAnNumbersI.Location = new Point(3, 104);
+            PnlPlayAnNumbersI.Name = "PnlPlayAnNumbersI";
+            PnlPlayAnNumbersI.Size = new Size(794, 95);
+            PnlPlayAnNumbersI.TabIndex = 1;
+            // 
+            // FlwPlayAnI
+            // 
+            FlwPlayAnI.Dock = DockStyle.Fill;
+            FlwPlayAnI.Location = new Point(0, 0);
+            FlwPlayAnI.Name = "FlwPlayAnI";
+            FlwPlayAnI.Size = new Size(794, 95);
+            FlwPlayAnI.TabIndex = 0;
+            // 
+            // PnlPlayAnNumbersN
+            // 
+            PnlPlayAnNumbersN.Controls.Add(FlwPlayAnN);
+            PnlPlayAnNumbersN.Location = new Point(3, 205);
+            PnlPlayAnNumbersN.Name = "PnlPlayAnNumbersN";
+            PnlPlayAnNumbersN.Size = new Size(794, 95);
+            PnlPlayAnNumbersN.TabIndex = 2;
+            // 
+            // FlwPlayAnN
+            // 
+            FlwPlayAnN.Dock = DockStyle.Fill;
+            FlwPlayAnN.Location = new Point(0, 0);
+            FlwPlayAnN.Name = "FlwPlayAnN";
+            FlwPlayAnN.Size = new Size(794, 95);
+            FlwPlayAnN.TabIndex = 0;
+            // 
+            // PnlPlayAnNumbersG
+            // 
+            PnlPlayAnNumbersG.Controls.Add(FlwPlayAnG);
+            PnlPlayAnNumbersG.Location = new Point(3, 306);
+            PnlPlayAnNumbersG.Name = "PnlPlayAnNumbersG";
+            PnlPlayAnNumbersG.Size = new Size(794, 95);
+            PnlPlayAnNumbersG.TabIndex = 3;
+            // 
+            // FlwPlayAnG
+            // 
+            FlwPlayAnG.Dock = DockStyle.Fill;
+            FlwPlayAnG.Location = new Point(0, 0);
+            FlwPlayAnG.Name = "FlwPlayAnG";
+            FlwPlayAnG.Size = new Size(794, 95);
+            FlwPlayAnG.TabIndex = 0;
+            // 
+            // PnlPlayAnNumbersO
+            // 
+            PnlPlayAnNumbersO.Controls.Add(FlwPlayAnO);
+            PnlPlayAnNumbersO.Location = new Point(3, 407);
+            PnlPlayAnNumbersO.Name = "PnlPlayAnNumbersO";
+            PnlPlayAnNumbersO.Size = new Size(794, 95);
+            PnlPlayAnNumbersO.TabIndex = 4;
+            // 
+            // FlwPlayAnO
+            // 
+            FlwPlayAnO.Dock = DockStyle.Fill;
+            FlwPlayAnO.Location = new Point(0, 0);
+            FlwPlayAnO.Name = "FlwPlayAnO";
+            FlwPlayAnO.Size = new Size(794, 95);
+            FlwPlayAnO.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            panel1.Anchor = AnchorStyles.Top;
+            panel1.Controls.Add(BtnRestartAn);
+            panel1.Controls.Add(label24);
+            panel1.Controls.Add(CboPlayAnSelection);
+            panel1.Controls.Add(GrpPlayAnPhase);
+            panel1.Controls.Add(BtnPlayAnSelection);
+            panel1.Location = new Point(6, 127);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(499, 131);
+            panel1.TabIndex = 26;
+            // 
+            // BtnRestartAn
+            // 
+            BtnRestartAn.Anchor = AnchorStyles.Top;
+            BtnRestartAn.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnRestartAn.Location = new Point(338, 64);
+            BtnRestartAn.Name = "BtnRestartAn";
+            BtnRestartAn.Size = new Size(143, 47);
+            BtnRestartAn.TabIndex = 27;
+            BtnRestartAn.Text = "Reiniciar";
+            BtnRestartAn.UseVisualStyleBackColor = true;
+            // 
+            // label24
+            // 
+            label24.Anchor = AnchorStyles.Top;
+            label24.Font = new Font("Segoe UI", 12F);
+            label24.Location = new Point(3, 9);
+            label24.Name = "label24";
+            label24.Size = new Size(311, 23);
+            label24.TabIndex = 25;
+            label24.Text = "Conjunto de Cartelas";
+            label24.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // CboPlayAnSelection
+            // 
+            CboPlayAnSelection.Anchor = AnchorStyles.Top;
+            CboPlayAnSelection.FormattingEnabled = true;
+            CboPlayAnSelection.Location = new Point(3, 35);
+            CboPlayAnSelection.Name = "CboPlayAnSelection";
+            CboPlayAnSelection.Size = new Size(311, 23);
+            CboPlayAnSelection.TabIndex = 1;
+            // 
+            // GrpPlayAnPhase
+            // 
+            GrpPlayAnPhase.Anchor = AnchorStyles.Top;
+            GrpPlayAnPhase.Controls.Add(RdPlayAn2);
+            GrpPlayAnPhase.Controls.Add(RdPlayAn1);
+            GrpPlayAnPhase.Font = new Font("Segoe UI", 12F);
+            GrpPlayAnPhase.Location = new Point(3, 64);
+            GrpPlayAnPhase.Name = "GrpPlayAnPhase";
+            GrpPlayAnPhase.Size = new Size(311, 58);
+            GrpPlayAnPhase.TabIndex = 3;
+            GrpPlayAnPhase.TabStop = false;
+            GrpPlayAnPhase.Text = "Tipo de Jogo";
+            // 
+            // RdPlayAn2
+            // 
+            RdPlayAn2.Anchor = AnchorStyles.Top;
+            RdPlayAn2.AutoSize = true;
+            RdPlayAn2.Font = new Font("Segoe UI", 12F);
+            RdPlayAn2.Location = new Point(150, 22);
+            RdPlayAn2.Name = "RdPlayAn2";
+            RdPlayAn2.Size = new Size(120, 25);
+            RdPlayAn2.TabIndex = 1;
+            RdPlayAn2.Text = "Cartela Cheia";
+            RdPlayAn2.UseVisualStyleBackColor = true;
+            // 
+            // RdPlayAn1
+            // 
+            RdPlayAn1.Anchor = AnchorStyles.Top;
+            RdPlayAn1.AutoSize = true;
+            RdPlayAn1.Checked = true;
+            RdPlayAn1.Font = new Font("Segoe UI", 12F);
+            RdPlayAn1.Location = new Point(41, 22);
+            RdPlayAn1.Name = "RdPlayAn1";
+            RdPlayAn1.Size = new Size(70, 25);
+            RdPlayAn1.TabIndex = 0;
+            RdPlayAn1.TabStop = true;
+            RdPlayAn1.Text = "Quina";
+            RdPlayAn1.UseVisualStyleBackColor = true;
+            // 
+            // BtnPlayAnSelection
+            // 
+            BtnPlayAnSelection.Anchor = AnchorStyles.Top;
+            BtnPlayAnSelection.Font = new Font("Segoe UI", 12F);
+            BtnPlayAnSelection.Location = new Point(338, 11);
+            BtnPlayAnSelection.Name = "BtnPlayAnSelection";
+            BtnPlayAnSelection.Size = new Size(143, 47);
+            BtnPlayAnSelection.TabIndex = 0;
+            BtnPlayAnSelection.Text = "Começar";
+            BtnPlayAnSelection.UseVisualStyleBackColor = true;
+            // 
+            // BtnReturnPlayAnalog
+            // 
+            BtnReturnPlayAnalog.Anchor = AnchorStyles.Top;
+            BtnReturnPlayAnalog.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnReturnPlayAnalog.Location = new Point(6, 6);
+            BtnReturnPlayAnalog.Name = "BtnReturnPlayAnalog";
+            BtnReturnPlayAnalog.Size = new Size(68, 59);
+            BtnReturnPlayAnalog.TabIndex = 23;
+            BtnReturnPlayAnalog.Text = "Voltar";
+            BtnReturnPlayAnalog.UseVisualStyleBackColor = true;
+            BtnReturnPlayAnalog.Click += BtnReturnPlayAnalog_Click;
+            // 
+            // label23
+            // 
+            label23.Dock = DockStyle.Top;
+            label23.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold);
+            label23.Location = new Point(3, 3);
+            label23.Name = "label23";
+            label23.Size = new Size(1322, 121);
+            label23.TabIndex = 24;
+            label23.Text = "Jogo Manual";
+            label23.TextAlign = ContentAlignment.BottomCenter;
+            // 
+            // LblVisuCardName
+            // 
+            LblVisuCardName.Anchor = AnchorStyles.Top;
+            LblVisuCardName.Font = new Font("Segoe UI", 12F);
+            LblVisuCardName.Location = new Point(553, 189);
+            LblVisuCardName.Name = "LblVisuCardName";
+            LblVisuCardName.Size = new Size(769, 23);
+            LblVisuCardName.TabIndex = 27;
+            LblVisuCardName.Text = "label39";
+            LblVisuCardName.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // LblVisuPhone
+            // 
+            LblVisuPhone.Anchor = AnchorStyles.Top;
+            LblVisuPhone.Font = new Font("Segoe UI", 12F);
+            LblVisuPhone.Location = new Point(553, 236);
+            LblVisuPhone.Name = "LblVisuPhone";
+            LblVisuPhone.Size = new Size(769, 67);
+            LblVisuPhone.TabIndex = 28;
+            LblVisuPhone.Text = "label40";
+            LblVisuPhone.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // LblVisuEmail
+            // 
+            LblVisuEmail.Anchor = AnchorStyles.Top;
+            LblVisuEmail.Font = new Font("Segoe UI", 12F);
+            LblVisuEmail.Location = new Point(553, 314);
+            LblVisuEmail.Name = "LblVisuEmail";
+            LblVisuEmail.Size = new Size(769, 67);
+            LblVisuEmail.TabIndex = 29;
+            LblVisuEmail.Text = "label41";
+            LblVisuEmail.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // LblVisuLists
+            // 
+            LblVisuLists.Anchor = AnchorStyles.Top;
+            LblVisuLists.Font = new Font("Segoe UI", 12F);
+            LblVisuLists.Location = new Point(395, 432);
+            LblVisuLists.Name = "LblVisuLists";
+            LblVisuLists.Size = new Size(302, 229);
+            LblVisuLists.TabIndex = 30;
+            LblVisuLists.Text = "label42";
+            LblVisuLists.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // PicVisuLogo
+            // 
+            PicVisuLogo.Location = new Point(725, 396);
+            PicVisuLogo.Name = "PicVisuLogo";
+            PicVisuLogo.Size = new Size(344, 265);
+            PicVisuLogo.TabIndex = 31;
+            PicVisuLogo.TabStop = false;
+            // 
+            // BtnEditVisu
+            // 
+            BtnEditVisu.Font = new Font("Segoe UI", 12F);
+            BtnEditVisu.Location = new Point(1134, 497);
+            BtnEditVisu.Name = "BtnEditVisu";
+            BtnEditVisu.Size = new Size(143, 74);
+            BtnEditVisu.TabIndex = 32;
+            BtnEditVisu.Text = "Editar Elemento";
+            BtnEditVisu.UseVisualStyleBackColor = true;
             // 
             // MainView
             // 
@@ -1549,6 +2384,7 @@
             TabCreateList.ResumeLayout(false);
             PnlNewList.ResumeLayout(false);
             PnlNewList.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PicCreateListLogo).EndInit();
             TabCreateCompany.ResumeLayout(false);
             PnlNewComp.ResumeLayout(false);
             PnlNewComp.PerformLayout();
@@ -1558,6 +2394,7 @@
             PnlNewCards.PerformLayout();
             TabEditPage.ResumeLayout(false);
             EditPage.ResumeLayout(false);
+            TabEditMain.ResumeLayout(false);
             TabEditList.ResumeLayout(false);
             PnlEditList.ResumeLayout(false);
             PnlEditList.PerformLayout();
@@ -1567,24 +2404,33 @@
             PnlEditCompany.ResumeLayout(false);
             PnlEditCompany.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PicEditLogoComp).EndInit();
+            TabEditVisualize.ResumeLayout(false);
             TabPlayPage.ResumeLayout(false);
             PlayPage.ResumeLayout(false);
+            TabPlayMain.ResumeLayout(false);
+            TabPlayDigital.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)LblPlayDiLogo).EndInit();
+            panel2.ResumeLayout(false);
+            GrpPlayDiPhase.ResumeLayout(false);
+            GrpPlayDiPhase.PerformLayout();
+            PnlPlayDiFather.ResumeLayout(false);
+            PnlPlayDiNumbersB.ResumeLayout(false);
+            PnlPlayDiNumbersI.ResumeLayout(false);
+            PnlPlayDiNumbersN.ResumeLayout(false);
+            PnlPlayDiNumbersG.ResumeLayout(false);
+            PnlPlayDiNumbersO.ResumeLayout(false);
             TabPlayAnalog.ResumeLayout(false);
-            TabPlayAnalogOption.ResumeLayout(false);
-            TabPlaySelection.ResumeLayout(false);
-            GrpPlayPhase.ResumeLayout(false);
-            GrpPlayPhase.PerformLayout();
-            TabPlayNumbers.ResumeLayout(false);
-            TabPlayNumbers.PerformLayout();
-            PnlPlayFather.ResumeLayout(false);
-            PnlPlayNumbersB.ResumeLayout(false);
-            PnlPlayNumbersI.ResumeLayout(false);
-            PnlPlayNumbersN.ResumeLayout(false);
-            PnlPlayNumbersG.ResumeLayout(false);
-            PnlPlayNumbersO.ResumeLayout(false);
-            TabPlayLogos.ResumeLayout(false);
-            PnlPlayLogo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)PicPlayLogo).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PicPlayAnLogo).EndInit();
+            PnlPlayAnFather.ResumeLayout(false);
+            PnlPlayAnNumbersB.ResumeLayout(false);
+            PnlPlayAnNumbersI.ResumeLayout(false);
+            PnlPlayAnNumbersN.ResumeLayout(false);
+            PnlPlayAnNumbersG.ResumeLayout(false);
+            PnlPlayAnNumbersO.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            GrpPlayAnPhase.ResumeLayout(false);
+            GrpPlayAnPhase.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PicVisuLogo).EndInit();
             ResumeLayout(false);
         }
 
@@ -1615,7 +2461,7 @@
         private Button BtnCreateCompany;
         private Button BtnFindLogo;
         private Label label7;
-        private Label TxtCreateCompanyMessage;
+        private Label LblCreateCompanyMessage;
         private Label label5;
         private Label label4;
         private Label label3;
@@ -1630,7 +2476,7 @@
         private TextBox BoxCreateCardsTitle;
         private TextBox BoxCreateCardsQuant;
         private Button BtnCreateCards;
-        private Label TxtCreateCardsMsg;
+        private Label LblCreateCardsMsg;
         private Label TxtCreateListTitle;
         private Panel PnlNewComp;
         private Label TxtCreateCompanyTitle;
@@ -1677,32 +2523,7 @@
         private Label label9;
         private Button BtnEditListDelete;
         private TabControl PlayPage;
-        private TabPage TabPlayAnalog;
-        private TabControl TabPlayAnalogOption;
-        private TabPage TabPlaySelection;
-        private TabPage TabPlayNumbers;
         private TabPage TabPlayDigital;
-        private Panel PnlPlayNumbersO;
-        private Panel PnlPlayNumbersG;
-        private Panel PnlPlayNumbersN;
-        private Panel PnlPlayNumbersI;
-        private Panel PnlPlayNumbersB;
-        private TabPage TabPlayLogos;
-        private Button BtnPlaySelection;
-        private ComboBox CboPlaySelection;
-        private FlowLayoutPanel FlwPlayO;
-        private FlowLayoutPanel FlwPlayG;
-        private FlowLayoutPanel FlwPlayN;
-        private FlowLayoutPanel FlwPlayI;
-        private FlowLayoutPanel FlwPlayB;
-        private Label LblPlayMsg;
-        private Panel PnlPlayFather;
-        private Panel PnlPlayLogo;
-        private PictureBox PicPlayLogo;
-        private GroupBox GrpPlayPhase;
-        private RadioButton RdPlay2;
-        private RadioButton RdPlay1;
-        private Label LblPlayName;
         private Button BtnEditScreen;
         private Button BtnCreateScreen;
         private Button BtnPlayScreen;
@@ -1716,5 +2537,92 @@
         private Button BtnNewCards;
         private Button BtnNewComp;
         private TabPage TabPlayMain;
+        private Button BtnCreateListLogo;
+        private PictureBox PicCreateListLogo;
+        private Label label20;
+        private Button BtnReturnCreateList;
+        private Button BtnReturnCreateCompany;
+        private Button BtnReturnCreateCards;
+        private Button BtnReturnCreateMain;
+        private Button BtnReturnEditCompany;
+        private Button BtnReturnEditList;
+        private Button BtnReturnEditMain;
+        private Label label21;
+        private Button BtnReturnPlayMain;
+        private Label label22;
+        private TabPage TabPlayAnalog;
+        private Label LblPlayAnMsg;
+        private Label label25;
+        private PictureBox PicPlayAnLogo;
+        private Label LblPlayAnName;
+        private Label label26;
+        private Panel PnlPlayAnFather;
+        private Panel PnlPlayAnNumbersB;
+        private FlowLayoutPanel FlwPlayAnB;
+        private Panel PnlPlayAnNumbersI;
+        private FlowLayoutPanel FlwPlayAnI;
+        private Panel PnlPlayAnNumbersN;
+        private FlowLayoutPanel FlwPlayAnN;
+        private Panel PnlPlayAnNumbersG;
+        private FlowLayoutPanel FlwPlayAnG;
+        private Panel PnlPlayAnNumbersO;
+        private FlowLayoutPanel FlwPlayAnO;
+        private Panel panel1;
+        private Button BtnRestartAn;
+        private Label label24;
+        private ComboBox CboPlayAnSelection;
+        private GroupBox GrpPlayAnPhase;
+        private RadioButton RdPlayAn2;
+        private RadioButton RdPlayAn1;
+        private Button BtnPlayAnSelection;
+        private Button BtnReturnPlayAnalog;
+        private Label label23;
+        private Button BtnReturnPlayDigital;
+        private Label label27;
+        private Panel panel2;
+        private Button BtnRestartDigital;
+        private Label label28;
+        private ComboBox CboPlayDiSelection;
+        private GroupBox GrpPlayDiPhase;
+        private RadioButton RdPlayDi2;
+        private RadioButton RdPlayDi1;
+        private Button BtnPlayDiSelection;
+        private Panel PnlPlayDiFather;
+        private Panel PnlPlayDiNumbersB;
+        private FlowLayoutPanel FlwPlayDiB;
+        private Panel PnlPlayDiNumbersI;
+        private FlowLayoutPanel FlwPlayDiI;
+        private Panel PnlPlayDiNumbersN;
+        private FlowLayoutPanel FlwPlayDiN;
+        private Panel PnlPlayDiNumbersG;
+        private FlowLayoutPanel FlwPlayDiG;
+        private Panel PnlPlayDiNumbersO;
+        private FlowLayoutPanel FlwPlayDiO;
+        private Label LblPlayDiMsg;
+        private Label label30;
+        private PictureBox LblPlayDiLogo;
+        private Label LblPlayDiName;
+        private Label label32;
+        private Button BtnPlayDiRandom;
+        private Button button1;
+        private Button button2;
+        private Label label29;
+        private Button button3;
+        private TabPage TabEditVisualize;
+        private FlowLayoutPanel FlwEditVisu;
+        private Button BtnReturnVisu;
+        private Label label31;
+        private Label label37;
+        private Label label36;
+        private Label label35;
+        private Label label34;
+        private Label label33;
+        private Label LblVisuName;
+        private Label LblVisuLists;
+        private Label LblVisuEmail;
+        private Label LblVisuPhone;
+        private Label LblVisuCardName;
+        private PictureBox PicVisuLogo;
+        private Button BtnEditVisu;
     }
 }

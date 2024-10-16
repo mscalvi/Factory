@@ -131,4 +131,13 @@
 
 3- Crie Cartelas. Selecione de qual Lista serão as Cartelas, e quantas serão feitas. O Título é a mensagem que aparecerá na parte superior da Cartela, e a Mensagem Final é a mensagem na caixa de texto inferior, próximo à numeração. Ao Salvar você criará dois documentos: um PDF com todas as Cartelas, duas por página, e um PDF com a numeração que foi sorteada para cada Elemento do jogo.</value>
   </data>
+  <data name="label29.Text" xml:space="preserve">
+    <value>Na Edição você pode:
+
+1- Editar suas Listas, adicionando ou removendo Elementos dela, assim como excluí-las. Caso você exclua uma Lista todas as Cartelas salvas no banco de dados que a utilizaram também serão apagadas.
+
+2- Editar seus Elementos, mudando qualquer uma de suas propriedades, ou ainda excluí-los. Caso você exclua um Elemento todas as Cartelas salvas no banco de dados que o utilizaram também serão apagados.
+
+3- Visualizar seus Elementos, de forma rápida, para conferir suas anotações salvas com eles.</value>
+  </data>
 </root>
