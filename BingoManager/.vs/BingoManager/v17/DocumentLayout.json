@@ -3,28 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager\\services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager\\views\\logoview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:views\\logoview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager\\services\\playservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:services\\playservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\views\\logoview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:views\\logoview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager\\services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -49,77 +41,58 @@
               "Name": "ST:2:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "LogoView.cs",
-              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Views\\LogoView.cs",
-              "RelativeDocumentMoniker": "Views\\LogoView.cs",
-              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Views\\LogoView.cs",
-              "RelativeToolTip": "Views\\LogoView.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T10:07:38.608Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "LogoView.cs [Projeto]",
-              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Views\\LogoView.cs",
-              "RelativeDocumentMoniker": "Views\\LogoView.cs",
-              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Views\\LogoView.cs [Projeto]",
-              "RelativeToolTip": "Views\\LogoView.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T10:02:38.729Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "PlayService.cs",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Services\\PlayService.cs",
               "RelativeDocumentMoniker": "Services\\PlayService.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Services\\PlayService.cs",
               "RelativeToolTip": "Services\\PlayService.cs",
-              "ViewState": "AQIAACUAAAAAAAAAAAAgwDgAAAAZAAAA",
+              "ViewState": "AQIAADsAAAAAAAAAAAAwwGQAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T12:50:44.672Z"
+              "WhenOpened": "2024-10-15T12:50:44.672Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "DataService.cs",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Services\\DataService.cs",
               "RelativeDocumentMoniker": "Services\\DataService.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Services\\DataService.cs",
               "RelativeToolTip": "Services\\DataService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACIAAAAAAAAA",
+              "ViewState": "AQIAAJkAAAAAAAAAAAAIwCABAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-13T15:35:50.338Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MainView.cs",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Views\\MainView.cs",
               "RelativeDocumentMoniker": "Views\\MainView.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Views\\MainView.cs",
               "RelativeToolTip": "Views\\MainView.cs",
-              "ViewState": "AQIAALgEAAAAAAAAAAAhwMkEAAAJAAAA",
+              "ViewState": "AQIAAN0DAAAAAAAAAADgv/AEAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-13T15:19:26.589Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainView.cs [Projeto]",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Views\\MainView.cs",
               "RelativeDocumentMoniker": "Views\\MainView.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Views\\MainView.cs [Projeto]",
               "RelativeToolTip": "Views\\MainView.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T18:29:33.444Z",
+              "WhenOpened": "2024-10-17T15:39:53.326Z",
               "EditorCaption": " [Projeto]"
             }
           ]

@@ -140,4 +140,11 @@
 
 3- Visualizar seus Elementos, de forma rápida, para conferir suas anotações salvas com eles.</value>
   </data>
+  <data name="label38.Text" xml:space="preserve">
+    <value>O BingoManager possui dois modos de jogo para auxiliar sua diversão:
+
+1- O Modo Manual permite que você selecione um conjunto de cartelas criado previamente. Cada Elemento será associado a um botão, que deve ser clicado quando ele for sorteado, fazendo com que o Nome e o Logo do Elemento apareçam na Tela de Exibição. Sempre que um botão for clicado o sistema irá conferir todas as cartelas que o possuem, avisando quais cartelas bateram Bingo! nesse sorteio. O jogo disponibiliza também duas modalidades de conferência: Quina (vertical e horizontal) e Cartela Cheia, que podem ser alterados a qualquer momento.
+
+2- O Modo Completo fornece tudo o que o Modo Manual possui, mas ao invés de um botão por Elemento existe apenas um botão, o Sortear!, que irá sortear um Elemento para você, fazendo com que não seja necessários equipamentos físicos para jogar. Pode confiar, é sorteio mesmo!</value>
+  </data>
 </root>

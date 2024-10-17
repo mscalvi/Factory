@@ -95,6 +95,11 @@ namespace BingoManager.Services
 
             return winningCards;
         }
+        public static void ResetGame()
+        {
+            drawnComp.Clear(); 
+            drawnCards.Clear();
+        }
 
     }
 }

@@ -59,7 +59,10 @@ namespace BingoManager.Services
             using (var connection = GetConnection())
             {
                 connection.Open();
-
+                using (var command = new SQLiteCommand("PRAGMA foreign_keys = ON;", connection))
+                {
+                    command.ExecuteNonQuery();
+                }
                 // Lista de comandos SQL para criar as tabelas
                 var createTableCommands = new List<string>
         {
@@ -239,7 +242,7 @@ namespace BingoManager.Services
             }
         }
 
-        //Método para retornar uma única empresa
+        //Método para retornar uma única empresa pelo Id
         public static DataRow GetCompanyById(int companyId)
         {
             using (var connection = GetConnection())
@@ -266,6 +269,65 @@ namespace BingoManager.Services
                     }
                 }
             }
+        }
+
+        //Método para retornar uma única empresa pelo Nome
+        public static DataRow GetCompanyByName(string companyName)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                string query = "SELECT * FROM CompanyTable WHERE Name = @Name";
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Name", companyName);
+
+                    using (var adapter = new SQLiteDataAdapter(command))
+                    {
+                        DataTable companyTable = new DataTable();
+                        adapter.Fill(companyTable);
+
+                        if (companyTable.Rows.Count > 0)
+                        {
+                            return companyTable.Rows[0];
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
+
+        //Método para retornar todas as listas que uma empresa pertence
+        public static List<string> GetCompanyLists(int companyId)
+        {
+            List<string> lists = new List<string>();
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                string selectQuery = @"
+            SELECT l.Name 
+            FROM AlocacaoTable a
+            JOIN ListsTable l ON a.ListId = l.Id
+            WHERE a.CompanyID = @CompanyId;";
+
+                using (var command = new SQLiteCommand(selectQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@CompanyId", companyId);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lists.Add(reader["Name"].ToString());
+                        }
+                    }
+                }
+            }
+            return lists;
         }
 
         // Método para retornar todas as listas

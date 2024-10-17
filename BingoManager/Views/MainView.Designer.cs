@@ -55,7 +55,7 @@
             PicCreateListLogo = new PictureBox();
             label20 = new Label();
             TxtCreateListTitle = new Label();
-            TxtCreateListMessage = new Label();
+            LblCreateListMessage = new Label();
             BtnCreateList = new Button();
             TxtCreatListeName = new Label();
             BoxCreateListName = new TextBox();
@@ -99,9 +99,9 @@
             TabEditPage = new TabPage();
             EditPage = new TabControl();
             TabEditMain = new TabPage();
-            button3 = new Button();
-            button1 = new Button();
-            button2 = new Button();
+            BtnVisuComp = new Button();
+            BtnEditCompany = new Button();
+            BtnEditList = new Button();
             label29 = new Label();
             BtnReturnEditMain = new Button();
             label21 = new Label();
@@ -142,6 +142,12 @@
             CboEditComp = new ComboBox();
             label9 = new Label();
             TabEditVisualize = new TabPage();
+            BtnEditVisu = new Button();
+            PicVisuLogo = new PictureBox();
+            LblVisuLists = new Label();
+            LblVisuEmail = new Label();
+            LblVisuPhone = new Label();
+            LblVisuCardName = new Label();
             LblVisuName = new Label();
             label37 = new Label();
             label36 = new Label();
@@ -154,6 +160,9 @@
             TabPlayPage = new TabPage();
             PlayPage = new TabControl();
             TabPlayMain = new TabPage();
+            label38 = new Label();
+            BtnPlayDigital = new Button();
+            BtnPlayAnalog = new Button();
             BtnReturnPlayMain = new Button();
             label22 = new Label();
             TabPlayDigital = new TabPage();
@@ -211,12 +220,6 @@
             BtnPlayAnSelection = new Button();
             BtnReturnPlayAnalog = new Button();
             label23 = new Label();
-            LblVisuCardName = new Label();
-            LblVisuPhone = new Label();
-            LblVisuEmail = new Label();
-            LblVisuLists = new Label();
-            PicVisuLogo = new PictureBox();
-            BtnEditVisu = new Button();
             MainPage.SuspendLayout();
             TabMainPage.SuspendLayout();
             TabCreatePage.SuspendLayout();
@@ -241,6 +244,7 @@
             PnlEditCompany.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PicEditLogoComp).BeginInit();
             TabEditVisualize.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PicVisuLogo).BeginInit();
             TabPlayPage.SuspendLayout();
             PlayPage.SuspendLayout();
             TabPlayMain.SuspendLayout();
@@ -264,7 +268,6 @@
             PnlPlayAnNumbersO.SuspendLayout();
             panel1.SuspendLayout();
             GrpPlayAnPhase.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)PicVisuLogo).BeginInit();
             SuspendLayout();
             // 
             // MainPage
@@ -527,7 +530,7 @@
             PnlNewList.Controls.Add(PicCreateListLogo);
             PnlNewList.Controls.Add(label20);
             PnlNewList.Controls.Add(TxtCreateListTitle);
-            PnlNewList.Controls.Add(TxtCreateListMessage);
+            PnlNewList.Controls.Add(LblCreateListMessage);
             PnlNewList.Controls.Add(BtnCreateList);
             PnlNewList.Controls.Add(TxtCreatListeName);
             PnlNewList.Controls.Add(BoxCreateListName);
@@ -595,15 +598,15 @@
             TxtCreateListTitle.Text = "Nova Lista";
             TxtCreateListTitle.TextAlign = ContentAlignment.BottomCenter;
             // 
-            // TxtCreateListMessage
+            // LblCreateListMessage
             // 
-            TxtCreateListMessage.Anchor = AnchorStyles.Top;
-            TxtCreateListMessage.Font = new Font("Segoe UI", 12F);
-            TxtCreateListMessage.Location = new Point(920, 195);
-            TxtCreateListMessage.Name = "TxtCreateListMessage";
-            TxtCreateListMessage.Size = new Size(329, 149);
-            TxtCreateListMessage.TabIndex = 5;
-            TxtCreateListMessage.TextAlign = ContentAlignment.MiddleCenter;
+            LblCreateListMessage.Anchor = AnchorStyles.Top;
+            LblCreateListMessage.Font = new Font("Segoe UI", 12F);
+            LblCreateListMessage.Location = new Point(920, 195);
+            LblCreateListMessage.Name = "LblCreateListMessage";
+            LblCreateListMessage.Size = new Size(329, 149);
+            LblCreateListMessage.TabIndex = 5;
+            LblCreateListMessage.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // BtnCreateList
             // 
@@ -1058,9 +1061,9 @@
             // 
             // TabEditMain
             // 
-            TabEditMain.Controls.Add(button3);
-            TabEditMain.Controls.Add(button1);
-            TabEditMain.Controls.Add(button2);
+            TabEditMain.Controls.Add(BtnVisuComp);
+            TabEditMain.Controls.Add(BtnEditCompany);
+            TabEditMain.Controls.Add(BtnEditList);
             TabEditMain.Controls.Add(label29);
             TabEditMain.Controls.Add(BtnReturnEditMain);
             TabEditMain.Controls.Add(label21);
@@ -1072,44 +1075,47 @@
             TabEditMain.Text = "Início";
             TabEditMain.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // BtnVisuComp
             // 
-            button3.Anchor = AnchorStyles.Top;
-            button3.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.Location = new Point(956, 475);
-            button3.Name = "button3";
-            button3.Size = new Size(260, 138);
-            button3.TabIndex = 24;
-            button3.Text = "Visualizar Elementos";
-            button3.UseVisualStyleBackColor = true;
+            BtnVisuComp.Anchor = AnchorStyles.Top;
+            BtnVisuComp.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnVisuComp.Location = new Point(956, 475);
+            BtnVisuComp.Name = "BtnVisuComp";
+            BtnVisuComp.Size = new Size(260, 138);
+            BtnVisuComp.TabIndex = 24;
+            BtnVisuComp.Text = "Visualizar Elementos";
+            BtnVisuComp.UseVisualStyleBackColor = true;
+            BtnVisuComp.Click += BtnVisuComp_Click;
             // 
-            // button1
+            // BtnEditCompany
             // 
-            button1.Anchor = AnchorStyles.Top;
-            button1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.Location = new Point(956, 331);
-            button1.Name = "button1";
-            button1.Size = new Size(260, 138);
-            button1.TabIndex = 23;
-            button1.Text = "Editar Elementos";
-            button1.UseVisualStyleBackColor = true;
+            BtnEditCompany.Anchor = AnchorStyles.Top;
+            BtnEditCompany.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnEditCompany.Location = new Point(956, 331);
+            BtnEditCompany.Name = "BtnEditCompany";
+            BtnEditCompany.Size = new Size(260, 138);
+            BtnEditCompany.TabIndex = 23;
+            BtnEditCompany.Text = "Editar Elementos";
+            BtnEditCompany.UseVisualStyleBackColor = true;
+            BtnEditCompany.Click += BtnEditCompany_Click;
             // 
-            // button2
+            // BtnEditList
             // 
-            button2.Anchor = AnchorStyles.Top;
-            button2.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.Location = new Point(956, 187);
-            button2.Name = "button2";
-            button2.Size = new Size(260, 138);
-            button2.TabIndex = 22;
-            button2.Text = "Editar Listas";
-            button2.UseVisualStyleBackColor = true;
+            BtnEditList.Anchor = AnchorStyles.Top;
+            BtnEditList.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnEditList.Location = new Point(956, 187);
+            BtnEditList.Name = "BtnEditList";
+            BtnEditList.Size = new Size(260, 138);
+            BtnEditList.TabIndex = 22;
+            BtnEditList.Text = "Editar Listas";
+            BtnEditList.UseVisualStyleBackColor = true;
+            BtnEditList.Click += BtnEditList_Click;
             // 
             // label29
             // 
             label29.Anchor = AnchorStyles.Top;
             label29.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label29.Location = new Point(107, 136);
+            label29.Location = new Point(115, 145);
             label29.Name = "label29";
             label29.Size = new Size(745, 519);
             label29.TabIndex = 21;
@@ -1178,6 +1184,7 @@
             LblEditListMsg.Name = "LblEditListMsg";
             LblEditListMsg.Size = new Size(270, 164);
             LblEditListMsg.TabIndex = 8;
+            LblEditListMsg.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // BtnReturnEditList
             // 
@@ -1195,7 +1202,7 @@
             // 
             BtnEditListDelete.Anchor = AnchorStyles.Top;
             BtnEditListDelete.Font = new Font("Segoe UI", 12F);
-            BtnEditListDelete.Location = new Point(1139, 593);
+            BtnEditListDelete.Location = new Point(1139, 476);
             BtnEditListDelete.Name = "BtnEditListDelete";
             BtnEditListDelete.Size = new Size(90, 53);
             BtnEditListDelete.TabIndex = 10;
@@ -1247,7 +1254,7 @@
             // 
             BtnEditRemoveCL.Anchor = AnchorStyles.Top;
             BtnEditRemoveCL.Font = new Font("Segoe UI", 12F);
-            BtnEditRemoveCL.Location = new Point(1139, 183);
+            BtnEditRemoveCL.Location = new Point(1200, 183);
             BtnEditRemoveCL.Name = "BtnEditRemoveCL";
             BtnEditRemoveCL.Size = new Size(90, 90);
             BtnEditRemoveCL.TabIndex = 5;
@@ -1259,7 +1266,7 @@
             // 
             BtnEditAddCL.Anchor = AnchorStyles.Top;
             BtnEditAddCL.Font = new Font("Segoe UI", 12F);
-            BtnEditAddCL.Location = new Point(1139, 446);
+            BtnEditAddCL.Location = new Point(1076, 183);
             BtnEditAddCL.Name = "BtnEditAddCL";
             BtnEditAddCL.Size = new Size(90, 90);
             BtnEditAddCL.TabIndex = 4;
@@ -1291,7 +1298,7 @@
             // 
             // FlowEditViewAll
             // 
-            FlowEditViewAll.BackColor = Color.Gray;
+            FlowEditViewAll.BackColor = Color.LightGray;
             FlowEditViewAll.Dock = DockStyle.Fill;
             FlowEditViewAll.Location = new Point(0, 0);
             FlowEditViewAll.Name = "FlowEditViewAll";
@@ -1312,7 +1319,7 @@
             // 
             // FlowEditViewSel
             // 
-            FlowEditViewSel.BackColor = Color.Gray;
+            FlowEditViewSel.BackColor = Color.LightGray;
             FlowEditViewSel.Dock = DockStyle.Fill;
             FlowEditViewSel.Location = new Point(0, 0);
             FlowEditViewSel.Name = "FlowEditViewSel";
@@ -1565,6 +1572,67 @@
             TabEditVisualize.Text = "Visualizar Elementos";
             TabEditVisualize.UseVisualStyleBackColor = true;
             // 
+            // BtnEditVisu
+            // 
+            BtnEditVisu.Anchor = AnchorStyles.Top;
+            BtnEditVisu.Font = new Font("Segoe UI", 12F);
+            BtnEditVisu.Location = new Point(1134, 497);
+            BtnEditVisu.Name = "BtnEditVisu";
+            BtnEditVisu.Size = new Size(143, 74);
+            BtnEditVisu.TabIndex = 32;
+            BtnEditVisu.Text = "Editar Elemento";
+            BtnEditVisu.UseVisualStyleBackColor = true;
+            BtnEditVisu.Click += BtnEditVisu_Click;
+            // 
+            // PicVisuLogo
+            // 
+            PicVisuLogo.Anchor = AnchorStyles.Top;
+            PicVisuLogo.Location = new Point(725, 396);
+            PicVisuLogo.Name = "PicVisuLogo";
+            PicVisuLogo.Size = new Size(344, 265);
+            PicVisuLogo.TabIndex = 31;
+            PicVisuLogo.TabStop = false;
+            // 
+            // LblVisuLists
+            // 
+            LblVisuLists.Anchor = AnchorStyles.Top;
+            LblVisuLists.Font = new Font("Segoe UI", 12F);
+            LblVisuLists.Location = new Point(395, 432);
+            LblVisuLists.Name = "LblVisuLists";
+            LblVisuLists.Size = new Size(302, 229);
+            LblVisuLists.TabIndex = 30;
+            LblVisuLists.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // LblVisuEmail
+            // 
+            LblVisuEmail.Anchor = AnchorStyles.Top;
+            LblVisuEmail.Font = new Font("Segoe UI", 12F);
+            LblVisuEmail.Location = new Point(553, 314);
+            LblVisuEmail.Name = "LblVisuEmail";
+            LblVisuEmail.Size = new Size(769, 67);
+            LblVisuEmail.TabIndex = 29;
+            LblVisuEmail.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // LblVisuPhone
+            // 
+            LblVisuPhone.Anchor = AnchorStyles.Top;
+            LblVisuPhone.Font = new Font("Segoe UI", 12F);
+            LblVisuPhone.Location = new Point(553, 236);
+            LblVisuPhone.Name = "LblVisuPhone";
+            LblVisuPhone.Size = new Size(769, 67);
+            LblVisuPhone.TabIndex = 28;
+            LblVisuPhone.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // LblVisuCardName
+            // 
+            LblVisuCardName.Anchor = AnchorStyles.Top;
+            LblVisuCardName.Font = new Font("Segoe UI", 12F);
+            LblVisuCardName.Location = new Point(553, 189);
+            LblVisuCardName.Name = "LblVisuCardName";
+            LblVisuCardName.Size = new Size(769, 23);
+            LblVisuCardName.TabIndex = 27;
+            LblVisuCardName.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // LblVisuName
             // 
             LblVisuName.Anchor = AnchorStyles.Top;
@@ -1573,7 +1641,6 @@
             LblVisuName.Name = "LblVisuName";
             LblVisuName.Size = new Size(769, 23);
             LblVisuName.TabIndex = 26;
-            LblVisuName.Text = "label38";
             LblVisuName.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label37
@@ -1634,11 +1701,12 @@
             // FlwEditVisu
             // 
             FlwEditVisu.Anchor = AnchorStyles.Top;
+            FlwEditVisu.BackColor = Color.LightGray;
             FlwEditVisu.FlowDirection = FlowDirection.TopDown;
             FlwEditVisu.Font = new Font("Segoe UI", 12F);
             FlwEditVisu.Location = new Point(6, 127);
             FlwEditVisu.Name = "FlwEditVisu";
-            FlwEditVisu.Size = new Size(351, 534);
+            FlwEditVisu.Size = new Size(370, 534);
             FlwEditVisu.TabIndex = 20;
             // 
             // BtnReturnVisu
@@ -1690,6 +1758,9 @@
             // 
             // TabPlayMain
             // 
+            TabPlayMain.Controls.Add(label38);
+            TabPlayMain.Controls.Add(BtnPlayDigital);
+            TabPlayMain.Controls.Add(BtnPlayAnalog);
             TabPlayMain.Controls.Add(BtnReturnPlayMain);
             TabPlayMain.Controls.Add(label22);
             TabPlayMain.Location = new Point(4, 24);
@@ -1699,6 +1770,41 @@
             TabPlayMain.TabIndex = 2;
             TabPlayMain.Text = "Início";
             TabPlayMain.UseVisualStyleBackColor = true;
+            // 
+            // label38
+            // 
+            label38.Anchor = AnchorStyles.Top;
+            label38.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label38.Location = new Point(115, 145);
+            label38.Name = "label38";
+            label38.Size = new Size(745, 519);
+            label38.TabIndex = 25;
+            label38.Text = resources.GetString("label38.Text");
+            label38.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // BtnPlayDigital
+            // 
+            BtnPlayDigital.Anchor = AnchorStyles.Top;
+            BtnPlayDigital.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnPlayDigital.Location = new Point(956, 411);
+            BtnPlayDigital.Name = "BtnPlayDigital";
+            BtnPlayDigital.Size = new Size(260, 138);
+            BtnPlayDigital.TabIndex = 24;
+            BtnPlayDigital.Text = "Modo Completo";
+            BtnPlayDigital.UseVisualStyleBackColor = true;
+            BtnPlayDigital.Click += BtnPlayDigital_Click;
+            // 
+            // BtnPlayAnalog
+            // 
+            BtnPlayAnalog.Anchor = AnchorStyles.Top;
+            BtnPlayAnalog.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnPlayAnalog.Location = new Point(956, 267);
+            BtnPlayAnalog.Name = "BtnPlayAnalog";
+            BtnPlayAnalog.Size = new Size(260, 138);
+            BtnPlayAnalog.TabIndex = 23;
+            BtnPlayAnalog.Text = "Modo Manual";
+            BtnPlayAnalog.UseVisualStyleBackColor = true;
+            BtnPlayAnalog.Click += BtnPlayAnalog_Click;
             // 
             // BtnReturnPlayMain
             // 
@@ -1828,6 +1934,7 @@
             BtnRestartDigital.TabIndex = 27;
             BtnRestartDigital.Text = "Reiniciar";
             BtnRestartDigital.UseVisualStyleBackColor = true;
+            BtnRestartDigital.Click += BtnRestart_Click;
             // 
             // label28
             // 
@@ -1898,6 +2005,7 @@
             BtnPlayDiSelection.TabIndex = 0;
             BtnPlayDiSelection.Text = "Começar";
             BtnPlayDiSelection.UseVisualStyleBackColor = true;
+            BtnPlayDiSelection.Click += BtnPlaySelection_Click;
             // 
             // PnlPlayDiFather
             // 
@@ -2209,6 +2317,7 @@
             BtnRestartAn.TabIndex = 27;
             BtnRestartAn.Text = "Reiniciar";
             BtnRestartAn.UseVisualStyleBackColor = true;
+            BtnRestartAn.Click += BtnRestart_Click;
             // 
             // label24
             // 
@@ -2279,6 +2388,7 @@
             BtnPlayAnSelection.TabIndex = 0;
             BtnPlayAnSelection.Text = "Começar";
             BtnPlayAnSelection.UseVisualStyleBackColor = true;
+            BtnPlayAnSelection.Click += BtnPlaySelection_Click;
             // 
             // BtnReturnPlayAnalog
             // 
@@ -2302,68 +2412,6 @@
             label23.TabIndex = 24;
             label23.Text = "Jogo Manual";
             label23.TextAlign = ContentAlignment.BottomCenter;
-            // 
-            // LblVisuCardName
-            // 
-            LblVisuCardName.Anchor = AnchorStyles.Top;
-            LblVisuCardName.Font = new Font("Segoe UI", 12F);
-            LblVisuCardName.Location = new Point(553, 189);
-            LblVisuCardName.Name = "LblVisuCardName";
-            LblVisuCardName.Size = new Size(769, 23);
-            LblVisuCardName.TabIndex = 27;
-            LblVisuCardName.Text = "label39";
-            LblVisuCardName.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // LblVisuPhone
-            // 
-            LblVisuPhone.Anchor = AnchorStyles.Top;
-            LblVisuPhone.Font = new Font("Segoe UI", 12F);
-            LblVisuPhone.Location = new Point(553, 236);
-            LblVisuPhone.Name = "LblVisuPhone";
-            LblVisuPhone.Size = new Size(769, 67);
-            LblVisuPhone.TabIndex = 28;
-            LblVisuPhone.Text = "label40";
-            LblVisuPhone.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // LblVisuEmail
-            // 
-            LblVisuEmail.Anchor = AnchorStyles.Top;
-            LblVisuEmail.Font = new Font("Segoe UI", 12F);
-            LblVisuEmail.Location = new Point(553, 314);
-            LblVisuEmail.Name = "LblVisuEmail";
-            LblVisuEmail.Size = new Size(769, 67);
-            LblVisuEmail.TabIndex = 29;
-            LblVisuEmail.Text = "label41";
-            LblVisuEmail.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // LblVisuLists
-            // 
-            LblVisuLists.Anchor = AnchorStyles.Top;
-            LblVisuLists.Font = new Font("Segoe UI", 12F);
-            LblVisuLists.Location = new Point(395, 432);
-            LblVisuLists.Name = "LblVisuLists";
-            LblVisuLists.Size = new Size(302, 229);
-            LblVisuLists.TabIndex = 30;
-            LblVisuLists.Text = "label42";
-            LblVisuLists.TextAlign = ContentAlignment.TopCenter;
-            // 
-            // PicVisuLogo
-            // 
-            PicVisuLogo.Location = new Point(725, 396);
-            PicVisuLogo.Name = "PicVisuLogo";
-            PicVisuLogo.Size = new Size(344, 265);
-            PicVisuLogo.TabIndex = 31;
-            PicVisuLogo.TabStop = false;
-            // 
-            // BtnEditVisu
-            // 
-            BtnEditVisu.Font = new Font("Segoe UI", 12F);
-            BtnEditVisu.Location = new Point(1134, 497);
-            BtnEditVisu.Name = "BtnEditVisu";
-            BtnEditVisu.Size = new Size(143, 74);
-            BtnEditVisu.TabIndex = 32;
-            BtnEditVisu.Text = "Editar Elemento";
-            BtnEditVisu.UseVisualStyleBackColor = true;
             // 
             // MainView
             // 
@@ -2405,6 +2453,7 @@
             PnlEditCompany.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PicEditLogoComp).EndInit();
             TabEditVisualize.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)PicVisuLogo).EndInit();
             TabPlayPage.ResumeLayout(false);
             PlayPage.ResumeLayout(false);
             TabPlayMain.ResumeLayout(false);
@@ -2430,7 +2479,6 @@
             panel1.ResumeLayout(false);
             GrpPlayAnPhase.ResumeLayout(false);
             GrpPlayAnPhase.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)PicVisuLogo).EndInit();
             ResumeLayout(false);
         }
 
@@ -2443,7 +2491,7 @@
         private TabPage TabCreateMain;
         private TabPage TabCreateList;
         private Label label1;
-        private Label TxtCreateListMessage;
+        private Label LblCreateListMessage;
         private Button BtnCreateList;
         private TextBox BoxCreateListName;
         private TextBox BoxCreateListDescription;
@@ -2604,10 +2652,10 @@
         private Label LblPlayDiName;
         private Label label32;
         private Button BtnPlayDiRandom;
-        private Button button1;
-        private Button button2;
+        private Button BtnEditCompany;
+        private Button BtnEditList;
         private Label label29;
-        private Button button3;
+        private Button BtnVisuComp;
         private TabPage TabEditVisualize;
         private FlowLayoutPanel FlwEditVisu;
         private Button BtnReturnVisu;
@@ -2624,5 +2672,8 @@
         private Label LblVisuCardName;
         private PictureBox PicVisuLogo;
         private Button BtnEditVisu;
+        private Button BtnPlayDigital;
+        private Button BtnPlayAnalog;
+        private Label label38;
     }
 }
