@@ -169,7 +169,7 @@
             BtnPlayDiRandom = new Button();
             LblPlayDiMsg = new Label();
             label30 = new Label();
-            LblPlayDiLogo = new PictureBox();
+            PicPlayDiLogo = new PictureBox();
             LblPlayDiName = new Label();
             label32 = new Label();
             panel2 = new Panel();
@@ -249,7 +249,7 @@
             PlayPage.SuspendLayout();
             TabPlayMain.SuspendLayout();
             TabPlayDigital.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)LblPlayDiLogo).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PicPlayDiLogo).BeginInit();
             panel2.SuspendLayout();
             GrpPlayDiPhase.SuspendLayout();
             PnlPlayDiFather.SuspendLayout();
@@ -1025,6 +1025,7 @@
             BoxCreateCardsQuant.Name = "BoxCreateCardsQuant";
             BoxCreateCardsQuant.Size = new Size(640, 23);
             BoxCreateCardsQuant.TabIndex = 3;
+            BoxCreateCardsQuant.KeyPress += BoxCreateCardsQuant_KeyPress;
             // 
             // CboCreateCardsList
             // 
@@ -1834,7 +1835,7 @@
             TabPlayDigital.Controls.Add(BtnPlayDiRandom);
             TabPlayDigital.Controls.Add(LblPlayDiMsg);
             TabPlayDigital.Controls.Add(label30);
-            TabPlayDigital.Controls.Add(LblPlayDiLogo);
+            TabPlayDigital.Controls.Add(PicPlayDiLogo);
             TabPlayDigital.Controls.Add(LblPlayDiName);
             TabPlayDigital.Controls.Add(label32);
             TabPlayDigital.Controls.Add(panel2);
@@ -1859,6 +1860,7 @@
             BtnPlayDiRandom.TabIndex = 28;
             BtnPlayDiRandom.Text = "Sortear!";
             BtnPlayDiRandom.UseVisualStyleBackColor = true;
+            BtnPlayDiRandom.Click += BtnPlayDiRandom_Click;
             // 
             // LblPlayDiMsg
             // 
@@ -1880,15 +1882,15 @@
             label30.Text = "Últimos Resultados";
             label30.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // LblPlayDiLogo
+            // PicPlayDiLogo
             // 
-            LblPlayDiLogo.Anchor = AnchorStyles.Top;
-            LblPlayDiLogo.Location = new Point(332, 460);
-            LblPlayDiLogo.Name = "LblPlayDiLogo";
-            LblPlayDiLogo.Size = new Size(173, 127);
-            LblPlayDiLogo.SizeMode = PictureBoxSizeMode.Zoom;
-            LblPlayDiLogo.TabIndex = 37;
-            LblPlayDiLogo.TabStop = false;
+            PicPlayDiLogo.Anchor = AnchorStyles.Top;
+            PicPlayDiLogo.Location = new Point(332, 460);
+            PicPlayDiLogo.Name = "PicPlayDiLogo";
+            PicPlayDiLogo.Size = new Size(173, 127);
+            PicPlayDiLogo.SizeMode = PictureBoxSizeMode.Zoom;
+            PicPlayDiLogo.TabIndex = 37;
+            PicPlayDiLogo.TabStop = false;
             // 
             // LblPlayDiName
             // 
@@ -2009,6 +2011,7 @@
             // 
             // PnlPlayDiFather
             // 
+            PnlPlayDiFather.Anchor = AnchorStyles.Top;
             PnlPlayDiFather.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             PnlPlayDiFather.BackColor = Color.Transparent;
             PnlPlayDiFather.Controls.Add(PnlPlayDiNumbersB);
@@ -2042,6 +2045,7 @@
             // 
             // PnlPlayDiNumbersI
             // 
+            PnlPlayDiNumbersI.Anchor = AnchorStyles.Top;
             PnlPlayDiNumbersI.Controls.Add(FlwPlayDiI);
             PnlPlayDiNumbersI.Location = new Point(3, 104);
             PnlPlayDiNumbersI.Name = "PnlPlayDiNumbersI";
@@ -2058,6 +2062,7 @@
             // 
             // PnlPlayDiNumbersN
             // 
+            PnlPlayDiNumbersN.Anchor = AnchorStyles.Top;
             PnlPlayDiNumbersN.Controls.Add(FlwPlayDiN);
             PnlPlayDiNumbersN.Location = new Point(3, 205);
             PnlPlayDiNumbersN.Name = "PnlPlayDiNumbersN";
@@ -2074,6 +2079,7 @@
             // 
             // PnlPlayDiNumbersG
             // 
+            PnlPlayDiNumbersG.Anchor = AnchorStyles.Top;
             PnlPlayDiNumbersG.Controls.Add(FlwPlayDiG);
             PnlPlayDiNumbersG.Location = new Point(3, 306);
             PnlPlayDiNumbersG.Name = "PnlPlayDiNumbersG";
@@ -2090,6 +2096,7 @@
             // 
             // PnlPlayDiNumbersO
             // 
+            PnlPlayDiNumbersO.Anchor = AnchorStyles.Top;
             PnlPlayDiNumbersO.Controls.Add(FlwPlayDiO);
             PnlPlayDiNumbersO.Location = new Point(3, 407);
             PnlPlayDiNumbersO.Name = "PnlPlayDiNumbersO";
@@ -2199,6 +2206,7 @@
             // 
             // PnlPlayAnFather
             // 
+            PnlPlayAnFather.Anchor = AnchorStyles.Top;
             PnlPlayAnFather.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             PnlPlayAnFather.BackColor = Color.Transparent;
             PnlPlayAnFather.Controls.Add(PnlPlayAnNumbersB);
@@ -2232,6 +2240,7 @@
             // 
             // PnlPlayAnNumbersI
             // 
+            PnlPlayAnNumbersI.Anchor = AnchorStyles.Top;
             PnlPlayAnNumbersI.Controls.Add(FlwPlayAnI);
             PnlPlayAnNumbersI.Location = new Point(3, 104);
             PnlPlayAnNumbersI.Name = "PnlPlayAnNumbersI";
@@ -2248,6 +2257,7 @@
             // 
             // PnlPlayAnNumbersN
             // 
+            PnlPlayAnNumbersN.Anchor = AnchorStyles.Top;
             PnlPlayAnNumbersN.Controls.Add(FlwPlayAnN);
             PnlPlayAnNumbersN.Location = new Point(3, 205);
             PnlPlayAnNumbersN.Name = "PnlPlayAnNumbersN";
@@ -2264,6 +2274,7 @@
             // 
             // PnlPlayAnNumbersG
             // 
+            PnlPlayAnNumbersG.Anchor = AnchorStyles.Top;
             PnlPlayAnNumbersG.Controls.Add(FlwPlayAnG);
             PnlPlayAnNumbersG.Location = new Point(3, 306);
             PnlPlayAnNumbersG.Name = "PnlPlayAnNumbersG";
@@ -2280,6 +2291,7 @@
             // 
             // PnlPlayAnNumbersO
             // 
+            PnlPlayAnNumbersO.Anchor = AnchorStyles.Top;
             PnlPlayAnNumbersO.Controls.Add(FlwPlayAnO);
             PnlPlayAnNumbersO.Location = new Point(3, 407);
             PnlPlayAnNumbersO.Name = "PnlPlayAnNumbersO";
@@ -2458,7 +2470,7 @@
             PlayPage.ResumeLayout(false);
             TabPlayMain.ResumeLayout(false);
             TabPlayDigital.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)LblPlayDiLogo).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PicPlayDiLogo).EndInit();
             panel2.ResumeLayout(false);
             GrpPlayDiPhase.ResumeLayout(false);
             GrpPlayDiPhase.PerformLayout();
@@ -2648,7 +2660,7 @@
         private FlowLayoutPanel FlwPlayDiO;
         private Label LblPlayDiMsg;
         private Label label30;
-        private PictureBox LblPlayDiLogo;
+        private PictureBox PicPlayDiLogo;
         private Label LblPlayDiName;
         private Label label32;
         private Button BtnPlayDiRandom;

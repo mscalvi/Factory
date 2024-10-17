@@ -48,8 +48,25 @@ namespace BingoManager
             list.Name = BoxCreateListName.Text.ToUpper().Trim();
             list.Description = BoxCreateListDescription.Text.Trim();
 
+            // Definindo limites de caracteres
+            int maxNameLength = 40;
+            int maxDescriptionLength = 250;
+
+            // Verifica se o nome e a descrição não estão vazios e se estão dentro dos limites
             if (!string.IsNullOrEmpty(list.Name) && !string.IsNullOrEmpty(list.Description))
             {
+                if (list.Name.Length > maxNameLength)
+                {
+                    LblCreateListMessage.Text = $"O nome da Lista deve ter no máximo {maxNameLength} caracteres.";
+                    return;
+                }
+
+                if (list.Description.Length > maxDescriptionLength)
+                {
+                    LblCreateListMessage.Text = $"A descrição da Lista deve ter no máximo {maxDescriptionLength} caracteres.";
+                    return;
+                }
+
                 try
                 {
                     DataService.AddList(list.Name, list.Description);
@@ -59,7 +76,7 @@ namespace BingoManager
                 }
                 catch
                 {
-                    LblCreateListMessage.Text = "Erro ao conectar no Banco de Dados.";
+                    LblCreateListMessage.Text = "Erro ao conectar ao Banco de Dados.";
                 }
             }
             else
@@ -74,7 +91,7 @@ namespace BingoManager
                 }
                 else
                 {
-                    LblCreateListMessage.Text = "Erro ao adicionar a lista.";
+                    LblCreateListMessage.Text = "Erro ao adicionar a Lista.";
                 }
             }
 
@@ -113,7 +130,7 @@ namespace BingoManager
             }
         }
 
-        // Método para Criar uma empresa
+        // Método para Criar uma Elemento
         private void BtnCreateCompany_Click(object sender, EventArgs e)
         {
             CompanyModel company = new CompanyModel();
@@ -123,6 +140,43 @@ namespace BingoManager
             company.Phone = BoxCreateCompanyPhone.Text.Trim();
             company.Email = BoxCreateCompanyEmail.Text.Trim();
 
+            // Definindo limites de caracteres
+            int maxNameLength = 40;
+            int maxCardNameLength = 30;
+            int maxContactLength = 250;
+
+            // Validação dos campos
+            if (string.IsNullOrEmpty(company.Name) || string.IsNullOrEmpty(company.CardName))
+            {
+                LblCreateCompanyMessage.Text = "Nome e Nome para Cartela são obrigatórios.";
+                return;
+            }
+
+            if (company.Name.Length > maxNameLength)
+            {
+                LblCreateCompanyMessage.Text = $"O nome da Elemento deve ter no máximo {maxNameLength} caracteres.";
+                return;
+            }
+
+            if (company.CardName.Length > maxCardNameLength)
+            {
+                LblCreateCompanyMessage.Text = $"O nome para cartela deve ter no máximo {maxCardNameLength} caracteres.";
+                return;
+            }
+
+            if (company.Phone.Length > maxContactLength)
+            {
+                LblCreateCompanyMessage.Text = $"O telefone deve ter no máximo {maxContactLength} caracteres.";
+                return;
+            }
+
+            if (company.Email.Length > maxContactLength)
+            {
+                LblCreateCompanyMessage.Text = $"O email deve ter no máximo {maxContactLength} caracteres.";
+                return;
+            }
+
+            // Atribuição do logo
             if (PicCreateCompanyLogo.Image != null)
             {
                 company.Logo = "logo_" + Guid.NewGuid().ToString() + Path.GetExtension(selectedImagePath);
@@ -135,52 +189,45 @@ namespace BingoManager
 
             company.AddDate = DateTime.Now.ToString("MMddyyyy - HH:mm:ss");
 
-            if (!string.IsNullOrEmpty(company.Name) && !string.IsNullOrEmpty(company.CardName))
+            // Verifica se a Elemento já existe
+            if (DataService.CompanyExists(company.Name, company.CardName))
             {
-                // Verifica se a empresa já existe
-                if (DataService.CompanyExists(company.Name, company.CardName))
-                {
-                    LblCreateCompanyMessage.Text = "Já existe uma empresa com o mesmo Nome ou Nome para Cartela.";
-                    return;
-                }
-
-                try
-                {
-                    int companyId = DataService.AddCompany(company.Name, company.CardName, company.Phone, company.Email, company.Logo, company.AddDate);
-
-                    if (CboCreateCompanyList.SelectedItem != null)
-                    {
-                        ListItem selectedList = CboCreateCompanyList.SelectedItem as ListItem;
-                        int selectedListId = selectedList.Value;
-
-                        DataService.AddCompaniesToAllocation(selectedListId, new List<string> { companyId.ToString() });
-
-                        LblCreateCompanyMessage.Text = $"Empresa {company.Name} adicionada ao banco de dados e à lista com sucesso.";
-                    }
-                    else
-                    {
-                        LblCreateCompanyMessage.Text = $"Empresa {company.Name} adicionada ao banco de dados com sucesso.";
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LblCreateCompanyMessage.Text = "Erro ao adicionar a empresa: " + ex.Message;
-                }
-
-                // Limpa os campos após a criação
-                BoxCreateCompanyName.Text = "";
-                BoxCreateCompanyCardName.Text = "";
-                BoxCreateCompanyEmail.Text = "";
-                BoxCreateCompanyPhone.Text = "";
-                PicCreateCompanyLogo.Image = null;
-                CboCreateCompanyList.SelectedIndex = -1;
+                LblCreateCompanyMessage.Text = "Já existe um Elemento com o mesmo Nome ou Nome para Cartela.";
+                return;
             }
-            else
+
+            try
             {
-                LblCreateCompanyMessage.Text = "Nome e Nome para Cartela são obrigatórios.";
+                int companyId = DataService.AddCompany(company.Name, company.CardName, company.Phone, company.Email, company.Logo, company.AddDate);
+
+                if (CboCreateCompanyList.SelectedItem != null)
+                {
+                    ListItem selectedList = CboCreateCompanyList.SelectedItem as ListItem;
+                    int selectedListId = selectedList.Value;
+
+                    DataService.AddCompaniesToAllocation(selectedListId, new List<string> { companyId.ToString() });
+
+                    LblCreateCompanyMessage.Text = $"Elemento, {company.Name}, adicionado ao banco de dados e à Lista, {CboCreateCompanyList.Text}, com sucesso.";
+                }
+                else
+                {
+                    LblCreateCompanyMessage.Text = $"Elemento, {company.Name}, adicionado ao banco de dados com sucesso.";
+                }
             }
+            catch (Exception ex)
+            {
+                LblCreateCompanyMessage.Text = "Erro ao adicionar o Elemento: " + ex.Message;
+            }
+
+            // Limpa os campos após a criação
+            BoxCreateCompanyName.Text = "";
+            BoxCreateCompanyCardName.Text = "";
+            BoxCreateCompanyEmail.Text = "";
+            BoxCreateCompanyPhone.Text = "";
+            PicCreateCompanyLogo.Image = null;
+            CboCreateCompanyList.SelectedIndex = -1;
         }
-
+        
         // Método para Criar Cartelas
         private void BtnCreateCards_Click(object sender, EventArgs e)
         {
@@ -192,9 +239,15 @@ namespace BingoManager
             string CardsEnd = BoxCreateCardsEnd.Text.Trim();
             string CardsTitle = BoxCreateCardsTitle.Text.Trim();
 
-            if (string.IsNullOrEmpty(CardsName))
+            // Definindo limites de caracteres e quantidade
+            int maxNameLength = 40;
+            int maxTitleLength = 80;
+            int maxEndLength = 150;
+            int maxQuantity = 1000;
+
+            if (string.IsNullOrEmpty(CardsName) || CardsName.Length > maxNameLength)
             {
-                LblCreateCardsMsg.Text = "Insira um nome para o conjunto de cartelas!";
+                LblCreateCardsMsg.Text = $"Insira um nome para o conjunto de cartelas com no máximo {maxNameLength} caracteres!";
                 return;
             }
 
@@ -208,23 +261,29 @@ namespace BingoManager
 
                 if (CompanyCount < 40)
                 {
-                    LblCreateCardsMsg.Text = "A lista deve ter pelo menos 40 empresas, a lista " + CardsList + " tem apenas " + CompanyCount + "!";
+                    LblCreateCardsMsg.Text = $"A lista deve ter pelo menos 40 Elementos, a lista {CardsList} tem apenas {CompanyCount}!";
                     return;
                 }
 
-                if (string.IsNullOrEmpty(CardsTitle))
+                if (string.IsNullOrEmpty(CardsTitle) || CardsTitle.Length > maxTitleLength)
                 {
-                    LblCreateCardsMsg.Text = "Insira um título para as cartelas!";
+                    LblCreateCardsMsg.Text = $"Insira um título para as cartelas com no máximo {maxTitleLength} caracteres!";
                     return;
                 }
 
-                if (int.TryParse(CardsQuant, out Qnt))
+                if (string.IsNullOrEmpty(CardsEnd) || CardsEnd.Length > maxEndLength)
+                {
+                    LblCreateCardsMsg.Text = $"O final deve ter no máximo {maxEndLength} caracteres!";
+                    return;
+                }
+
+                if (int.TryParse(CardsQuant, out Qnt) && Qnt <= maxQuantity)
                 {
                     CardsService.CreateCards(CompList, CardsList, CompanyCount, Qnt, CardsTitle, CardsEnd, CardsName);
                 }
                 else
                 {
-                    LblCreateCardsMsg.Text = "Apenas números na quantidade!";
+                    LblCreateCardsMsg.Text = $"Apenas números na quantidade! A quantidade máxima permitida é {maxQuantity}.";
                     return;
                 }
             }
@@ -233,12 +292,22 @@ namespace BingoManager
                 LblCreateCardsMsg.Text = "Selecione uma lista!";
             }
 
+            // Limpar campos após a criação
             BoxCreateCardsEnd.Text = string.Empty;
             BoxCreateCardsName.Text = string.Empty;
             BoxCreateCardsQuant.Text = string.Empty;
             BoxCreateCardsTitle.Text = string.Empty;
             CboCreateCardsList.SelectedIndex = -1;
             LblCreateCardsMsg.Text = "Cartelas criadas com sucesso!";
+        }
+
+        //Apenas números na quantidade de cartelas
+        private void BoxCreateCardsQuant_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
 
 
@@ -251,12 +320,12 @@ namespace BingoManager
             FlowEditViewSel.AutoScroll = true;
         }
 
-        // Método para carregar todas as empresas e filtrar as que já estão na lista selecionada
+        // Método para carregar todas as Elementos e filtrar as que já estão na lista selecionada
         private void LoadAllComp(int? selectedListId = null)
         {
             FlowEditViewAll.Controls.Clear();
 
-            // Carregar todas as empresas
+            // Carregar todas as Elementos
             DataTable companiesTable = DataService.GetCompanies();
             allCompaniesList = companiesTable.AsEnumerable()
                                              .OrderBy(row => row.Field<string>("Name"))
@@ -264,37 +333,41 @@ namespace BingoManager
 
             if (selectedListId.HasValue)
             {
-                // Carregar as empresas que já estão na lista selecionada
+                // Carregar as Elementos que já estão na lista selecionada
                 List<DataRow> companiesInList = DataService.GetCompaniesByListId(selectedListId.Value);
 
-                // Filtrar as empresas que ainda não estão na lista selecionada
+                // Filtrar as Elementos que ainda não estão na lista selecionada
                 allCompaniesList = allCompaniesList.Where(row => !companiesInList.Any(c => c["Id"].ToString() == row["Id"].ToString()))
                                                    .ToList();
             }
 
-            // Exibir as empresas filtradas
+            // Exibir as Elementos filtradas
             EditListShowComps(allCompaniesList);
         }
 
         // Método para manipular a mudança de valor da ComboBox de listas
         private void CboEditListSel_SelectedValueChanged(object sender, EventArgs e)
         {
+            BtnEditAddCL.Enabled = true;
+            BtnEditRemoveCL.Enabled = true;
+            BtnEditListDelete.Enabled = true;
+
             if (CboEditListSel.SelectedItem != null)
             {
                 int selectedListId = (int)(CboEditListSel.SelectedItem as dynamic).Value;
 
-                // Carrega as empresas não alocadas na lista selecionada
+                // Carrega as Elementos não alocadas na lista selecionada
                 LoadAllComp(selectedListId);
 
-                // Carrega as empresas já associadas à lista selecionada
+                // Carrega as Elementos já associadas à lista selecionada
                 List<DataRow> companyList = DataService.GetCompaniesByListId(selectedListId);
 
-                // Exibe apenas as empresas já associadas
+                // Exibe apenas as Elementos já associadas
                 EditListShowSel(companyList);
             }
         }
 
-        //Método para Exibir todas as Empresas
+        //Método para Exibir todas as Elementos
         private void EditListShowComps(List<DataRow> CompList)
         {
             FlowEditViewAll.Controls.Clear();
@@ -369,7 +442,7 @@ namespace BingoManager
             }
         }
 
-        //Método para mostrar as Empresas de uma Lista
+        //Método para mostrar as Elementos de uma Lista
         private void EditListShowSel(List<DataRow> CompList)
         {
             FlowEditViewSel.Controls.Clear();
@@ -444,7 +517,7 @@ namespace BingoManager
             }
         }
 
-        //Método para filtrar as Empresas mostradas
+        //Método para filtrar as Elementos mostradas
         private void BoxEditFilterCL_TextChanged(object sender, EventArgs e)
         {
             string filterText = BoxEditFilterCL.Text.ToLower();
@@ -456,7 +529,7 @@ namespace BingoManager
             EditListShowComps(filteredList);
         }
 
-        //Método para adicionar empresas a uma lista no editor
+        // Método para adicionar Elementos a uma lista no editor
         private void BtnEditAddCL_Click(object sender, EventArgs e)
         {
             var selectedList = CboEditListSel.SelectedItem as dynamic;
@@ -480,28 +553,53 @@ namespace BingoManager
                 }
             }
 
-            if (CboEditListSel.SelectedItem != null)
+            if (selectedCompanies.Count > 0)
             {
-                if (selectedCompanies.Count > 0)
+
+                DialogResult dialogResult = MessageBox.Show($"Tem certeza de que deseja inserir Elementos na Lista? Todas as Cartelas " +
+                    $"que foram feitas com Listas que o utilizam serão excluídas.",
+                                                            "Confirmar Exclusão",
+                                                            MessageBoxButtons.YesNo,
+                                                            MessageBoxIcon.Warning);
+
+                if (dialogResult == DialogResult.Yes)
                 {
-                    DataService.AddCompaniesToAllocation(selectedListId, selectedCompanies);
-                    companyList = DataService.GetCompaniesByListId(selectedListId);
-                    LblEditListMsg.Text = "Empresas alocadas com sucesso!";
+                    if (CboEditListSel.SelectedItem != null)
+                    {
+                        if (selectedCompanies.Count > 0)
+                        {
+                            DataService.AddCompaniesToAllocation(selectedListId, selectedCompanies);
+                            DataService.RemoveCardsByListId(selectedListId);
+                            companyList = DataService.GetCompaniesByListId(selectedListId);
+
+                            LblEditListMsg.Text = "Elementos adicionados à Lista!";
+
+
+                            EditListShowSel(companyList);
+                            LoadAllComp(selectedListId);
+                            LoadGames();
+                        }
+                        else
+                        {
+                            LblEditListMsg.Text = "Falha ao adicionar Elementos!";
+                        }
+                    }
+                    else
+                    {
+                        LblEditListMsg.Text = "Nenhuma Lista foi selecionada!";
+                    }
                 }
                 else
                 {
-                    LblEditListMsg.Text = "Nenhuma empresa foi alocada!";
+                    return;
                 }
+            } else {
+                return;
             }
-            else
-            {
-                LblEditListMsg.Text = "Nenhuma Lista foi selecionada!";
-            }
-            EditListShowSel(companyList);
-            LoadAllComp(selectedListId);
+               
         }
 
-        //Método para remover empresas a uma lista no editor
+        // Método para remover Elementos a uma lista no editor
         private void BtnEditRemoveCL_Click(object sender, EventArgs e)
         {
             var selectedList = CboEditListSel.SelectedItem as dynamic;
@@ -525,30 +623,104 @@ namespace BingoManager
                 }
             }
 
-            if (CboEditListSel.SelectedItem != null)
+            if (selectedCompanies.Count > 0)
             {
+                DialogResult dialogResult = MessageBox.Show($"Tem certeza de que deseja remover Elementos da Lista'? Todas as Cartelas " +
+                    $"que foram feitas com Listas que o utilizam serão excluídas.",
+                                                            "Confirmar Exclusão",
+                                                            MessageBoxButtons.YesNo,
+                                                            MessageBoxIcon.Warning);
 
-                if (selectedCompanies.Count > 0)
+                if (dialogResult == DialogResult.Yes)
                 {
-                    DataService.RemoveCompaniesFromAllocation(selectedListId, selectedCompanies);
-                    LblEditListMsg.Text = "Empresas removidas da lista com sucesso!";
-                    companyList = DataService.GetCompaniesByListId(selectedListId);
+                    if (CboEditListSel.SelectedItem != null)
+                    {
+                        if (selectedCompanies.Count > 0)
+                        {
+                            DataService.RemoveCompaniesFromAllocation(selectedListId, selectedCompanies);
+                            DataService.RemoveCardsByListId(selectedListId);
+                            companyList = DataService.GetCompaniesByListId(selectedListId);
+
+                            LblEditListMsg.Text = "Elementos removidos da Lista!";
+
+                            EditListShowSel(companyList);
+                            LoadAllComp(selectedListId);
+                            LoadGames();
+                        }
+                        else
+                        {
+                            LblEditListMsg.Text = "Nenhum Elemento foi selecionada para remoção!";
+                        }
+                    }
+                    else
+                    {
+                        LblEditListMsg.Text = "Nenhuma Lista foi selecionada!";
+                    }
                 }
                 else
                 {
-                    LblEditListMsg.Text = "Nenhuma empresa foi selecionada para remoção!";
+                    return;
+                }
+            } else
+            {
+                return; 
+            }
+        }
+
+        // Método para Excluir uma Elemento
+        private void BtnRemoveComp_Click(object sender, EventArgs e)
+        {
+            if (CboEditComp.SelectedIndex == -1)
+            {
+                LblEditCompName.Text = "Por favor, selecione um Elemento para excluir.";
+                return;
+            }
+
+            CompanyModel selectedCompany = CboEditComp.SelectedItem as CompanyModel;
+
+            if (selectedCompany == null)
+            {
+                LblEditCompName.Text = "Erro ao carregar os detalhes do Elemento selecionado.";
+                return;
+            }
+
+            DialogResult dialogResult = MessageBox.Show($"Tem certeza de que deseja excluir o Elemento '{selectedCompany.Name}'? Todas as Cartelas " +
+                $"que foram feitas com Listas que o utilizam também serão excluídas.",
+                                                        "Confirmar Exclusão",
+                                                        MessageBoxButtons.YesNo,
+                                                        MessageBoxIcon.Warning);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                try
+                {
+                    DataService.DeleteCompany(selectedCompany.Id);
+
+                    LblEditCompName.Text = $"Elemento '{selectedCompany.Name}' excluído com sucesso.";
+
+                    BoxEditNameComp.Text = "";
+                    BoxEditCardNameComp.Text = "";
+                    BoxEditPhoneComp.Text = "";
+                    BoxEditEmailComp.Text = "";
+                    PicEditLogoComp.Image = null;
+                    CboEditComp.Text = "";
+                    CboEditComp.SelectedIndex = -1;
+                    LoadComps();
+                    LoadAllComp();
+                    PopulateFlwEditVisu();
+                }
+                catch (Exception ex)
+                {
+                    LblEditCompName.Text = "Erro ao excluir o Elemento. " + ex.Message;
                 }
             }
             else
             {
-                LblEditListMsg.Text = "Nenhuma lista foi selecionada!";
+                LblEditCompName.Text = "A exclusão foi cancelada.";
             }
-
-            EditListShowSel(companyList);
-            LoadAllComp(selectedListId);
         }
 
-        //Método para selecionar Empresa para Edição
+        //Método para selecionar Elemento para Edição
         private void CboEditComp_SelectedValueChanged(object sender, EventArgs e)
         {
             if (CboEditComp.SelectedItem != null)
@@ -567,64 +739,12 @@ namespace BingoManager
             }
         }
 
-        // Método para Excluir uma Empresa
-        private void BtnRemoveComp_Click(object sender, EventArgs e)
-        {
-            if (CboEditComp.SelectedIndex == -1)
-            {
-                LblEditCompName.Text = "Por favor, selecione uma empresa para excluir.";
-                return;
-            }
-
-            CompanyModel selectedCompany = CboEditComp.SelectedItem as CompanyModel;
-
-            if (selectedCompany == null)
-            {
-                LblEditCompName.Text = "Erro ao carregar os detalhes da empresa selecionada.";
-                return;
-            }
-
-            DialogResult dialogResult = MessageBox.Show($"Tem certeza de que deseja excluir a empresa '{selectedCompany.Name}'? Todas as Cartelas " +
-                $"que foram feitas com Listas que a utilizam também serão excluídas.",
-                                                        "Confirmar Exclusão",
-                                                        MessageBoxButtons.YesNo,
-                                                        MessageBoxIcon.Warning);
-
-            if (dialogResult == DialogResult.Yes)
-            {
-                try
-                {
-                    DataService.DeleteCompany(selectedCompany.Id);
-
-                    LblEditCompName.Text = $"Empresa '{selectedCompany.Name}' excluída com sucesso.";
-
-                    BoxEditNameComp.Text = "";
-                    BoxEditCardNameComp.Text = "";
-                    BoxEditPhoneComp.Text = "";
-                    BoxEditEmailComp.Text = "";
-                    PicEditLogoComp.Image = null;
-                    CboEditComp.SelectedIndex = -1;
-                    LoadComps();
-                    LoadAllComp();
-                    PopulateFlwEditVisu();
-                }
-                catch (Exception ex)
-                {
-                    LblEditCompName.Text = "Erro ao excluir a empresa. " + ex.Message;
-                }
-            }
-            else
-            {
-                LblEditCompName.Text = "A exclusão foi cancelada.";
-            }
-        }
-
-        //Método para Editar uma Empresa
+        //Método para Editar uma Elemento
         private void BtnEditComp_Click(object sender, EventArgs e)
         {
             if (CboEditComp.SelectedIndex == -1)
             {
-                LblEditMsgComp.Text = "Por favor, selecione uma empresa para editar.";
+                LblEditMsgComp.Text = "Por favor, selecione um Elemento para editar.";
                 return;
             }
 
@@ -632,7 +752,7 @@ namespace BingoManager
 
             if (selectedCompany == null)
             {
-                LblEditCompName.Text = "Erro ao carregar os detalhes da empresa selecionada.";
+                LblEditCompName.Text = "Erro ao carregar os detalhes do Elemento selecionada.";
                 return;
             }
 
@@ -661,11 +781,11 @@ namespace BingoManager
                 try
                 {
                     DataService.UpdateCompany(company.Id, company.Name, company.CardName, company.Phone, company.Email, company.Logo, company.AddDate);
-                    LblEditMsgComp.Text = "Empresa " + company.Name + " editada com sucesso.";
+                    LblEditMsgComp.Text = "Elemento " + company.Name + " editado com sucesso.";
                 }
                 catch
                 {
-                    LblEditMsgComp.Text = "Erro ao editar a empresa.";
+                    LblEditMsgComp.Text = "Erro ao editar o Elemento.";
                 }
 
                 BoxEditNameComp.Text = "";
@@ -673,6 +793,7 @@ namespace BingoManager
                 BoxEditPhoneComp.Text = "";
                 BoxEditEmailComp.Text = "";
                 PicEditLogoComp.Image = null;
+                CboEditComp.Text = "";
                 CboEditComp.SelectedIndex = -1;
                 LoadComps();
                 LoadAllComp();
@@ -720,6 +841,7 @@ namespace BingoManager
                     LblEditListMsg.Text = $"Lista '{selectedListName}' excluída com sucesso.";
 
                     CboEditListSel.SelectedIndex = -1;
+                    CboEditListSel.Text = "";
                     FlowEditViewSel.Controls.Clear();
                     LoadLists();
                 }
@@ -736,23 +858,23 @@ namespace BingoManager
             LoadAllComp();
         }
 
-        //Métodos para visualizar uma empresa
+        //Métodos para visualizar uma Elemento
         private void PopulateFlwEditVisu()
         {
             // Limpa o FlowLayoutPanel antes de adicionar novos controles
             FlwEditVisu.Controls.Clear();
 
-            // Obtém a tabela de empresas
+            // Obtém a tabela de Elementos
             DataTable companiesTable = DataService.GetCompanies();
 
             // Ordena os dados em ordem alfabética
             DataView sortedCompanies = new DataView(companiesTable);
             sortedCompanies.Sort = "Name ASC";
 
-            // Itera pelas empresas e cria Labels clicáveis
+            // Itera pelas Elementos e cria Labels clicáveis
             foreach (DataRowView row in sortedCompanies)
             {
-                // Cria um Label para o nome da empresa
+                // Cria um Label para o nome da Elemento
                 Label lblName = new Label
                 {
                     Text = row["Name"].ToString(),
@@ -761,7 +883,7 @@ namespace BingoManager
                     Padding = new Padding(0, 5, 0, 5),
                     Height = 30,
                     Width = FlwEditVisu.Width, // Certifique-se de preencher a largura do FlowPanel
-                    Tag = row["Id"], // Armazena o ID da empresa no Tag para referência
+                    Tag = row["Id"], // Armazena o ID da Elemento no Tag para referência
                     Cursor = Cursors.Hand, // Muda o cursor para mão
                 };
 
@@ -786,20 +908,20 @@ namespace BingoManager
             // Destaca o Label clicado
             clickedLabel.BackColor = Color.LightBlue;
 
-            // Obtém o ID da empresa do Tag do Label
+            // Obtém o ID da Elemento do Tag do Label
             int companyId = Convert.ToInt32(clickedLabel.Tag);
 
-            // Carrega as informações da empresa
+            // Carrega as informações da Elemento
             LoadCompanyDetails(companyId);
         }
         private void LoadCompanyDetails(int companyId)
         {
-            // Obter as informações da empresa do banco de dados
+            // Obter as informações da Elemento do banco de dados
             DataRow company = DataService.GetCompanyById(companyId);
 
             if (company != null)
             {
-                // Atualiza os Labels com as informações da empresa
+                // Atualiza os Labels com as informações da Elemento
                 LblVisuName.Text = company["Name"].ToString();
                 LblVisuCardName.Text = company["CardName"].ToString();
                 LblVisuPhone.Text = company["Phone"].ToString();
@@ -816,7 +938,7 @@ namespace BingoManager
                     PicVisuLogo.Image = Image.FromFile(@"Images/default_logo.png");
                 }
 
-                // Carrega as listas a que a empresa pertence
+                // Carrega as listas a que a Elemento pertence
                 List<string> lists = DataService.GetCompanyLists(companyId);
 
                 if (lists.Count == 0)
@@ -836,7 +958,7 @@ namespace BingoManager
             {
                 string companyName = LblVisuName.Text;
 
-                // Obtém a linha da empresa pelo nome
+                // Obtém a linha da Elemento pelo nome
                 DataRow company = DataService.GetCompanyByName(companyName);
 
                 if (company != null)
@@ -853,12 +975,12 @@ namespace BingoManager
                 }
                 else
                 {
-                    MessageBox.Show("Empresa não encontrada.");
+                    MessageBox.Show("Elemento não encontrado.");
                 }
             }
             else
             {
-                MessageBox.Show("Nenhuma empresa selecionada.");
+                MessageBox.Show("Nenhuma Elemento selecionado.");
             }
         }
 
@@ -890,7 +1012,7 @@ namespace BingoManager
             CboEditListSel.DisplayMember = "Text";
         }
 
-        //Método para carregar a lista de Empresas para Edição
+        //Método para carregar a lista de Elementos para Edição
         private void LoadComps()
         {
             List<CompanyModel> companyList = new List<CompanyModel>();
@@ -923,6 +1045,7 @@ namespace BingoManager
             BoxEditPhoneComp.Text = "";
             BoxEditEmailComp.Text = "";
             PicEditLogoComp.Image = null;
+            CboEditComp.Text = "";
             CboEditComp.SelectedIndex = -1;
         }
 
@@ -956,7 +1079,7 @@ namespace BingoManager
                 // Se já houver uma imagem no PicPlayLogo, exibi-la na segunda tela
                 if (PicPlayAnLogo.Image != null)
                 {
-                    // Atualiza o logo e o nome da empresa na segunda tela
+                    // Atualiza o logo e o nome da Elemento na segunda tela
                     logoDisplayForm.UpdateLogoAndName(PicPlayAnLogo.Image, LblPlayAnName.Text);
                 }
             }
@@ -993,6 +1116,7 @@ namespace BingoManager
             DataTable gamesTable = DataService.GetAllCards();
 
             CboPlayAnSelection.Items.Clear();
+            CboPlayDiSelection.Items.Clear();
 
             foreach (DataRow row in gamesTable.Rows)
             {
@@ -1000,10 +1124,13 @@ namespace BingoManager
                 int cardId = Convert.ToInt32(row["SetId"]);
 
                 CboPlayAnSelection.Items.Add(new { Text = cardName, Value = cardId });
+                CboPlayDiSelection.Items.Add(new { Text = cardName, Value = cardId });
             }
 
             CboPlayAnSelection.DisplayMember = "Text";
             CboPlayAnSelection.ValueMember = "Value";
+            CboPlayDiSelection.DisplayMember = "Text";
+            CboPlayDiSelection.ValueMember = "Value";
         }
 
         // Método para começar o jogo com base no conjunto de fichas selecionado
@@ -1011,34 +1138,66 @@ namespace BingoManager
         {
             PlayService.ResetGame();
 
-            if (CboPlayAnSelection.SelectedItem != null)
+            if (PlayPage.SelectedTab == TabPlayAnalog)
             {
-                var selectedGame = CboPlayAnSelection.SelectedItem as dynamic;
-
-                int selectedGameId = selectedGame.Value;
-
-                var gameData = DataService.GetGameCompanies(selectedGameId);
-
-                if (gameData != null)
+                if (CboPlayAnSelection.SelectedItem != null)
                 {
-                    DisplayGamePanels(gameData);
-                    CboPlayAnSelection.Enabled = false;
+                    var selectedGame = CboPlayAnSelection.SelectedItem as dynamic;
+
+                    int selectedGameId = selectedGame.Value;
+
+                    var gameData = DataService.GetGameCompanies(selectedGameId);
+
+                    if (gameData != null)
+                    {
+                        DisplayGamePanels(gameData);
+                        CboPlayAnSelection.Enabled = false;
+                        BtnRestartAn.Enabled = true;
+                    }
+                    else
+                    {
+                        LblPlayAnMsg.Text = "Erro ao carregar os dados do jogo selecionado.";
+                    }
                 }
                 else
                 {
-                    LblPlayAnMsg.Text = "Erro ao carregar os dados do jogo selecionado.";
+                    LblPlayAnMsg.Text = "Por favor, selecione um jogo.";
                 }
             }
-            else
+            else if (PlayPage.SelectedTab == TabPlayDigital)
             {
-                LblPlayAnMsg.Text = "Por favor, selecione um jogo.";
+                if (CboPlayDiSelection.SelectedItem != null)
+                {
+                    BtnPlayDiRandom.Enabled = true;
+
+                    var selectedGame = CboPlayDiSelection.SelectedItem as dynamic;
+
+                    int selectedGameId = selectedGame.Value;
+
+                    var gameData = DataService.GetGameCompanies(selectedGameId);
+
+                    if (gameData != null)
+                    {
+                        DisplayGamePanelsDi(gameData);
+                        CboPlayDiSelection.Enabled = false;
+                        BtnRestartDigital.Enabled = true;
+                    }
+                    else
+                    {
+                        LblPlayDiMsg.Text = "Erro ao carregar os dados do jogo selecionado.";
+                    }
+                }
+                else
+                {
+                    LblPlayDiMsg.Text = "Por favor, selecione um jogo.";
+                }
             }
         }
 
-        // Método para mostrar as Empresas durante o jogo
+        // Método para mostrar as Elementos durante o jogo
         private void DisplayGamePanels(GameData gameData)
         {
-            int buttonSize = 50;
+            int buttonSize = 35;
             int panelWidth = FlwPlayAnB.Width;
             int buttonsPerRow = panelWidth / buttonSize;
 
@@ -1132,7 +1291,118 @@ namespace BingoManager
                 FlwPlayAnO.Controls.Add(companyButton);
             }
 
-            LblPlayAnMsg.Text = "Jogo carregado!";
+            LblPlayAnMsg.Text = "Jogo iniciado!";
+        }
+
+        // Método para mostrar as Elementos durante o jogo digital
+        private void DisplayGamePanelsDi(GameData gameData)
+        {
+            int labelSize = 35;
+            int panelWidth = FlwPlayDiB.Width;
+            int labelsPerRow = panelWidth / labelSize;
+
+            int Number = 1;
+
+            // Limpar os controles existentes nos novos FlowLayoutPanels
+            FlwPlayDiB.Controls.Clear();
+            FlwPlayDiI.Controls.Clear();
+            FlwPlayDiN.Controls.Clear();
+            FlwPlayDiG.Controls.Clear();
+            FlwPlayDiO.Controls.Clear();
+
+            SetupFlowPanels(); // Configurar os painéis (se necessário)
+
+            // Adicionar Labels ao grupo B
+            foreach (var company in gameData.GroupB)
+            {
+                Label companyLabel = new Label
+                {
+                    Text = Number.ToString(),
+                    Tag = company,
+                    Width = labelSize,
+                    Height = labelSize,
+                    BorderStyle = BorderStyle.FixedSingle,  // Adiciona a borda
+                    TextAlign = ContentAlignment.MiddleCenter, // Centraliza o texto
+                    BackColor = Color.White, // Cor de fundo branca
+                    ForeColor = Color.Black  // Cor do texto
+                };
+                Number++;
+                FlwPlayDiB.Controls.Add(companyLabel);
+            }
+
+            // Adicionar Labels ao grupo I
+            foreach (var company in gameData.GroupI)
+            {
+                Label companyLabel = new Label
+                {
+                    Text = Number.ToString(),
+                    Tag = company,
+                    Width = labelSize,
+                    Height = labelSize,
+                    BorderStyle = BorderStyle.FixedSingle,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    BackColor = Color.White,
+                    ForeColor = Color.Black
+                };
+                Number++;
+                FlwPlayDiI.Controls.Add(companyLabel);
+            }
+
+            // Adicionar Labels ao grupo N
+            foreach (var company in gameData.GroupN)
+            {
+                Label companyLabel = new Label
+                {
+                    Text = Number.ToString(),
+                    Tag = company,
+                    Width = labelSize,
+                    Height = labelSize,
+                    BorderStyle = BorderStyle.FixedSingle,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    BackColor = Color.White,
+                    ForeColor = Color.Black
+                };
+                Number++;
+                FlwPlayDiN.Controls.Add(companyLabel);
+            }
+
+            // Adicionar Labels ao grupo G
+            foreach (var company in gameData.GroupG)
+            {
+                Label companyLabel = new Label
+                {
+                    Text = Number.ToString(),
+                    Tag = company,
+                    Width = labelSize,
+                    Height = labelSize,
+                    BorderStyle = BorderStyle.FixedSingle,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    BackColor = Color.White,
+                    ForeColor = Color.Black
+                };
+                Number++;
+                FlwPlayDiG.Controls.Add(companyLabel);
+            }
+
+            // Adicionar Labels ao grupo O
+            foreach (var company in gameData.GroupO)
+            {
+                Label companyLabel = new Label
+                {
+                    Text = Number.ToString(),
+                    Tag = company,
+                    Width = labelSize,
+                    Height = labelSize,
+                    BorderStyle = BorderStyle.FixedSingle,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    BackColor = Color.White,
+                    ForeColor = Color.Black
+                };
+                Number++;
+                FlwPlayDiO.Controls.Add(companyLabel);
+            }
+
+            LblPlayAnMsg.Text = "Jogo iniciado!";
         }
 
         // Configurando os FlowLayoutPanels
@@ -1141,7 +1411,7 @@ namespace BingoManager
             int Width = 0;
             int Height = 0;
 
-            foreach (var panel in new[] { PnlPlayAnNumbersB, PnlPlayAnNumbersI, PnlPlayAnNumbersN, PnlPlayAnNumbersG, PnlPlayAnNumbersO })
+            foreach (var panel in new[] { PnlPlayAnNumbersB, PnlPlayAnNumbersI, PnlPlayAnNumbersN, PnlPlayAnNumbersG, PnlPlayAnNumbersO, PnlPlayDiNumbersB, PnlPlayDiNumbersI, PnlPlayDiNumbersN, PnlPlayDiNumbersG, PnlPlayDiNumbersO })
             {
                 Height += panel.Height;
                 panel.AutoSize = true;
@@ -1151,7 +1421,7 @@ namespace BingoManager
                 panel.Dock = DockStyle.None;
             }
 
-            foreach (var flowPanel in new[] { FlwPlayAnB, FlwPlayAnI, FlwPlayAnN, FlwPlayAnG, FlwPlayAnO })
+            foreach (var flowPanel in new[] { FlwPlayAnB, FlwPlayAnI, FlwPlayAnN, FlwPlayAnG, FlwPlayAnO, FlwPlayDiB, FlwPlayDiI, FlwPlayDiN, FlwPlayDiG, FlwPlayDiO })
             {
                 flowPanel.FlowDirection = FlowDirection.LeftToRight;
                 flowPanel.WrapContents = true;
@@ -1160,14 +1430,6 @@ namespace BingoManager
                 flowPanel.Padding = new Padding(10);
                 flowPanel.Margin = new Padding(0);
             }
-
-            PnlPlayAnFather.Location = new Point(
-                (1314 / 2) - (PnlPlayAnNumbersB.Width / 2),
-                (633 / 2) - (Height / 2));
-            PnlPlayAnFather.Width = PnlPlayAnNumbersB.Width;
-            PnlPlayAnFather.Anchor = AnchorStyles.None;
-            PnlPlayAnFather.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-
         }
 
         private void CompanyButton_Click(object sender, EventArgs e)
@@ -1242,6 +1504,11 @@ namespace BingoManager
             PicPlayAnLogo.Image = null;
             LblPlayAnName.Text = string.Empty;
             LblPlayAnMsg.Text = string.Empty;
+            PicPlayDiLogo.Image = null;
+            LblPlayDiName.Text = string.Empty;
+            LblPlayDiMsg.Text = string.Empty;
+
+            BtnPlayDiRandom.Enabled = false;
 
             FlwPlayAnB.Controls.Clear();
             FlwPlayAnI.Controls.Clear();
@@ -1249,12 +1516,24 @@ namespace BingoManager
             FlwPlayAnG.Controls.Clear();
             FlwPlayAnO.Controls.Clear();
 
+            FlwPlayDiB.Controls.Clear();
+            FlwPlayDiI.Controls.Clear();
+            FlwPlayDiN.Controls.Clear();
+            FlwPlayDiG.Controls.Clear();
+            FlwPlayDiO.Controls.Clear();
+
             PlayService.ResetGame();
 
             LoadGames();
-            CboPlayAnSelection.Enabled = true;
-        }
 
+            CboPlayAnSelection.Text = string.Empty;
+            CboPlayAnSelection.SelectedIndex = -1;
+            CboPlayAnSelection.Enabled = true;
+
+            CboPlayDiSelection.Text = string.Empty;
+            CboPlayDiSelection.SelectedIndex = -1;
+            CboPlayDiSelection.Enabled = true;
+        }
         private void BtnRestart_Click(object sender, EventArgs e)
         {
             // Confirmação do usuário
@@ -1265,6 +1544,88 @@ namespace BingoManager
                 ResetGame();
             }
         }
+
+        // Método para sortear uma Elemento no modo Digital e verificar as cartelas sorteadas e vencedoras
+        private void BtnPlayDiRandom_Click(object sender, EventArgs e)
+        {
+            // Coleta todas as Elementos disponíveis para sorteio
+            var availableCompanies = new List<Label>();
+
+            // Adiciona os labels de todas as colunas ao availableCompanies, que ainda não foram sorteados (brancos)
+            availableCompanies.AddRange(FlwPlayDiB.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
+            availableCompanies.AddRange(FlwPlayDiI.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
+            availableCompanies.AddRange(FlwPlayDiN.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
+            availableCompanies.AddRange(FlwPlayDiG.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
+            availableCompanies.AddRange(FlwPlayDiO.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
+
+            // Verifica se ainda há Elementos disponíveis para sortear
+            if (availableCompanies.Count == 0)
+            {
+                MessageBox.Show("Todos os Elementos já foram sorteados.");
+                return;
+            }
+
+            // Seleciona aleatoriamente uma Elemento disponível
+            Random random = new Random();
+            int randomIndex = random.Next(availableCompanies.Count);
+            Label selectedLabel = availableCompanies[randomIndex];
+
+            // Muda a cor do label sorteado para vermelho (marca como sorteado)
+            selectedLabel.BackColor = Color.Red;
+
+            // Atualiza a lógica do jogo para adicionar a Elemento sorteada e remover da lista de sorteio
+            if (selectedLabel.Tag is CompanyModel selectedCompany)
+            {
+                // Adiciona a Elemento à lista de sorteadas no PlayService
+                PlayService.AddCompany(selectedCompany.Id);
+
+                // Atualiza a imagem e nome da Elemento sorteada (similar ao modo analógico)
+                string logoPath = Path.Combine(Application.StartupPath, "Images", selectedCompany.Logo);
+                Image logoImage = null;
+                if (File.Exists(logoPath))
+                {
+                    logoImage = Image.FromFile(logoPath);
+                }
+
+                // Atualiza a imagem e nome no modo digital
+                PicPlayDiLogo.Image = logoImage;
+                LblPlayDiName.Text = selectedCompany.Name;
+
+                // Atualiza o logo na segunda tela, se estiver visível
+                if (logoDisplayForm != null && logoDisplayForm.Visible)
+                {
+                    logoDisplayForm.UpdateLogoAndName(logoImage, selectedCompany.Name);
+                }
+
+                // Verifica se há cartelas com essa Elemento sorteada
+                var selectedGame = CboPlayDiSelection.SelectedItem as dynamic;
+                int setId = selectedGame.Value;
+                int bingoPhase = RdPlayDi1.Checked ? 1 : 2;
+
+                // Verifica as cartelas que possuem a Elemento sorteada
+                List<int> cardNumbers = PlayService.CheckCards(selectedCompany.Id, setId);
+
+                string cardNumbersText = string.Join(", ", cardNumbers);
+                LblPlayDiMsg.Text = string.IsNullOrEmpty(cardNumbersText) ? "\nNenhuma cartela sorteada." : $"\nCartelas sorteadas: {cardNumbersText}";
+
+                if (!string.IsNullOrEmpty(cardNumbersText))
+                {
+                    // Verifica se há cartelas que bateram bingo
+                    List<int> winningCards = PlayService.CheckBingo(cardNumbers, setId, bingoPhase, selectedCompany.Id);
+
+                    if (winningCards.Count > 0)
+                    {
+                        string winningCardsText = string.Join(", ", winningCards);
+                        LblPlayDiMsg.Text += string.IsNullOrEmpty(LblPlayDiMsg.Text) ? "" : "\n\n";
+                        LblPlayDiMsg.Text += $"Cartelas vencedoras: {winningCardsText}";
+                    }
+                }
+
+                // Não remover a label do painel, apenas a Elemento do sorteio (já feito acima).
+            }
+        }
+
+
 
 
         //Design
@@ -1322,6 +1683,12 @@ namespace BingoManager
         }
         private void BtnEditList_Click(object sender, EventArgs e)
         {
+            BtnEditAddCL.Enabled = false;
+            BtnEditRemoveCL.Enabled = false;
+            BtnEditListDelete.Enabled = false;
+
+            FlowEditViewSel.Controls.Clear();
+
             LoadLists();
             LoadComps();
             EditListConfigureLayout();
@@ -1346,10 +1713,12 @@ namespace BingoManager
         }
         private void BtnPlayAnalog_Click(object sender, EventArgs e)
         {
+            BtnRestartAn.Enabled = false;
             PlayPage.SelectedTab = TabPlayAnalog;
         }
         private void BtnPlayDigital_Click(object sender, EventArgs e)
         {
+            BtnRestartDigital.Enabled = false;
             PlayPage.SelectedTab = TabPlayDigital;
         }
         private void BtnReturnCreateMain_Click(object sender, EventArgs e)
@@ -1403,10 +1772,12 @@ namespace BingoManager
         private void ReturnToEdit()
         {
             CboEditListSel.SelectedIndex = -1;
+            CboEditListSel.Text = String.Empty;
             BoxEditFilterCL.Text = String.Empty;
             LblEditListMsg.Text = String.Empty;
 
             CboEditComp.SelectedIndex = -1;
+            CboEditComp.Text = String.Empty;
             BoxEditNameComp.Text = String.Empty;
             BoxEditCardNameComp.Text = String.Empty;
             BoxEditPhoneComp.Text = String.Empty;
@@ -1450,10 +1821,12 @@ namespace BingoManager
             BoxCreateCompanyPhone.Text = String.Empty;
             BoxCreateCompanyEmail.Text = String.Empty;
             CboCreateCompanyList.SelectedIndex = -1;
+            CboCreateCompanyList.Text = String.Empty;
             PicCreateCompanyLogo.Image = null;
             LblCreateCompanyMessage.Text = String.Empty;
 
             CboCreateCardsList.SelectedIndex = -1;
+            CboCreateCardsList.Text = String.Empty;
             BoxCreateCardsName.Text = String.Empty;
             BoxCreateCardsQuant.Text = String.Empty;
             BoxCreateCardsTitle.Text = String.Empty;
@@ -1471,27 +1844,51 @@ namespace BingoManager
         }
         private void ReturnToPlay()
         {
-            var result = MessageBox.Show("Você tem certeza que deseja retornar ao menu de jogo? A partida será reinicada e todos os sorteios serão perdidos.",
-                                           "Confirmar Retorno",
-                                           MessageBoxButtons.YesNo,
-                                           MessageBoxIcon.Question);
-
-            if (result == DialogResult.No)
+            if (string.IsNullOrEmpty(CboPlayAnSelection.Text) && string.IsNullOrEmpty(CboPlayDiSelection.Text))
             {
-                return;
+                ResetGame();
+
+                CboPlayAnSelection.SelectedIndex = -1;
+                CboPlayAnSelection.Text = String.Empty;
+                CboPlayDiSelection.SelectedIndex = -1;
+                CboPlayDiSelection.Text = String.Empty;
+
+                LoadLists();
+                LoadComps();
+                EditListConfigureLayout();
+                LoadAllComp();
+                LoadGames();
+                PopulateFlwEditVisu();
+
+                PlayPage.SelectedTab = TabPlayMain;
+            } else
+            {
+                var result = MessageBox.Show("Você tem certeza que deseja retornar ao menu de jogo? A partida será reinicada e todos os sorteios serão perdidos.",
+                                               "Confirmar Retorno",
+                                               MessageBoxButtons.YesNo,
+                                               MessageBoxIcon.Question);
+
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+
+                ResetGame();
+
+                CboPlayAnSelection.SelectedIndex = -1;
+                CboPlayAnSelection.Text = String.Empty;
+                CboPlayDiSelection.SelectedIndex = -1;
+                CboPlayDiSelection.Text = String.Empty;
+
+                LoadLists();
+                LoadComps();
+                EditListConfigureLayout();
+                LoadAllComp();
+                LoadGames();
+                PopulateFlwEditVisu();
+
+                PlayPage.SelectedTab = TabPlayMain;
             }
-
-            ResetGame();
-
-            CboPlayAnSelection.SelectedIndex = -1;
-            CboPlayDiSelection.SelectedIndex = -1;
-
-            LoadLists();
-            LoadComps();
-            EditListConfigureLayout();
-            LoadAllComp();
-            LoadGames();
-            PopulateFlwEditVisu();
         }
     }
 }

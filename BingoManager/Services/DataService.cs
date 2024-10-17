@@ -374,9 +374,9 @@ namespace BingoManager.Services
                     command.ExecuteNonQuery();
                 }
             }
-        }
-
-        // Método para deletar uma empresa e todas as dependências (listas, cartelas, etc.)
+        }// Método para deletar uma empresa e todas as dependências (listas, cartelas, etc.)
+        
+        //Método para excluir uma empresa
         public static void DeleteCompany(int companyId)
         {
             using (var connection = GetConnection())
@@ -388,9 +388,9 @@ namespace BingoManager.Services
                     {
                         // 1. Encontrar todas as listas que usam a empresa na AlocacaoTable
                         string findListsQuery = @"
-                            SELECT DISTINCT ListId
-                            FROM AlocacaoTable
-                            WHERE CompanyId = @CompanyId";
+                    SELECT DISTINCT ListId
+                    FROM AlocacaoTable
+                    WHERE CompanyId = @CompanyId";
 
                         List<int> listIds = new List<int>();
                         using (var command = new SQLiteCommand(findListsQuery, connection))
@@ -406,46 +406,46 @@ namespace BingoManager.Services
                         }
 
                         // 2. Encontrar todos os conjuntos de cartelas associados às listas na AllCards
+                        List<int> cardSetIds = new List<int>();
                         if (listIds.Count > 0)
                         {
-                            string findCardSetsQuery = "SELECT DISTINCT Id FROM AllCards WHERE ListId IN (" + string.Join(",", listIds) + ")";
-                            List<int> cardSetIds = new List<int>();
+                            string findCardSetsQuery = "SELECT DISTINCT SetId FROM CardsSets WHERE ListId IN (" + string.Join(",", listIds) + ")";
                             using (var command = new SQLiteCommand(findCardSetsQuery, connection))
                             {
                                 using (var reader = command.ExecuteReader())
                                 {
                                     while (reader.Read())
                                     {
-                                        cardSetIds.Add(reader.GetInt32(0));  // Adiciona o CardId à lista de conjuntos de cartelas
+                                        cardSetIds.Add(reader.GetInt32(0));  // Adiciona o SetId à lista de conjuntos de cartelas
                                     }
                                 }
                             }
 
-                            // 3. Apagar todas as cartelas dos conjuntos encontrados e os próprios conjuntos
+                            // 3. Apagar todas as cartelas dos conjuntos encontrados
                             if (cardSetIds.Count > 0)
                             {
-                                // Apaga as cartelas na CardsListTable associadas a esses conjuntos de cartelas
-                                string deleteCardsQuery = "DELETE FROM CardsList WHERE CardList IN (" + string.Join(",", listIds) + ")";
+                                // Apaga as cartelas na CardsList associadas a esses conjuntos de cartelas
+                                string deleteCardsQuery = "DELETE FROM CardsList WHERE SetId IN (" + string.Join(",", cardSetIds) + ")";
                                 using (var command = new SQLiteCommand(deleteCardsQuery, connection))
                                 {
                                     command.ExecuteNonQuery();
                                 }
 
-                                // Apaga os próprios conjuntos de cartelas na AllCards
-                                string deleteCardSetsQuery = "DELETE FROM AllCards WHERE Id IN (" + string.Join(",", cardSetIds) + ")";
+                                // Apaga os próprios conjuntos de cartelas na CardsSets
+                                string deleteCardSetsQuery = "DELETE FROM CardsSets WHERE Id IN (" + string.Join(",", cardSetIds) + ")";
                                 using (var command = new SQLiteCommand(deleteCardSetsQuery, connection))
                                 {
                                     command.ExecuteNonQuery();
                                 }
                             }
+                        }
 
-                            // 4. Apagar todas as listas que usam a empresa na AlocacaoTable
-                            string deleteFromAllocationQuery = "DELETE FROM AlocacaoTable WHERE CompanyId = @CompanyId";
-                            using (var command = new SQLiteCommand(deleteFromAllocationQuery, connection))
-                            {
-                                command.Parameters.AddWithValue("@CompanyId", companyId);
-                                command.ExecuteNonQuery();
-                            }
+                        // 4. Apagar todas as listas que usam a empresa na AlocacaoTable
+                        string deleteFromAllocationQuery = "DELETE FROM AlocacaoTable WHERE CompanyId = @CompanyId";
+                        using (var command = new SQLiteCommand(deleteFromAllocationQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@CompanyId", companyId);
+                            command.ExecuteNonQuery();
                         }
 
                         // 5. Apagar a empresa da CompanyTable
@@ -463,7 +463,37 @@ namespace BingoManager.Services
                     {
                         // Rollback em caso de erro
                         transaction.Rollback();
+                        // Lide com a exceção (log, rethrow, etc.)
+                        Console.WriteLine($"Erro ao excluir empresa: {ex.Message}");
                     }
+                }
+            }
+        }
+
+        // Método para remover todas as cartelas associadas a uma lista
+        public static void RemoveCardsByListId(int listId)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                string deleteCardsQuery = "DELETE FROM CardsList WHERE ListId = @ListId";
+
+                using (var command = new SQLiteCommand(deleteCardsQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@ListId", listId);
+                    command.ExecuteNonQuery();
+                }
+            }
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                string deleteCardsQuery = "DELETE FROM CardsSets WHERE ListId = @ListId";
+
+                using (var command = new SQLiteCommand(deleteCardsQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@ListId", listId);
+                    command.ExecuteNonQuery();
                 }
             }
         }
