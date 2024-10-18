@@ -564,6 +564,7 @@
             BtnCreateListLogo.TabIndex = 3;
             BtnCreateListLogo.Text = "Procurar";
             BtnCreateListLogo.UseVisualStyleBackColor = true;
+            BtnCreateListLogo.Click += BtnCreateListLogo_Click;
             // 
             // PicCreateListLogo
             // 
@@ -583,7 +584,7 @@
             label20.Name = "label20";
             label20.Size = new Size(202, 23);
             label20.TabIndex = 7;
-            label20.Text = "Logo Padrão da Lista:";
+            label20.Text = "Imagem Padrão da Lista:";
             label20.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // TxtCreateListTitle
@@ -801,7 +802,7 @@
             label7.Name = "label7";
             label7.Size = new Size(266, 23);
             label7.TabIndex = 5;
-            label7.Text = "Logo";
+            label7.Text = "Imagem";
             label7.TextAlign = ContentAlignment.BottomCenter;
             // 
             // BtnCreateCompany
@@ -1473,7 +1474,7 @@
             label15.Name = "label15";
             label15.Size = new Size(196, 23);
             label15.TabIndex = 7;
-            label15.Text = "Logo";
+            label15.Text = "Imagem";
             label15.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label14

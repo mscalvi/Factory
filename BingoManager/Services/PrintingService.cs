@@ -11,7 +11,7 @@ namespace BingoManager.Services
 {
     public static class PrintingService
     {
-        public static void PrintCards(List<List<DataRow>> allCards, int CardQnt, string title, string footer)
+        public static (string fileNameWithoutExtension, string directoryPath) PrintCards(List<List<DataRow>> allCards, int CardQnt, string title, string footer)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
@@ -22,6 +22,8 @@ namespace BingoManager.Services
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = saveFileDialog.FileName;
+                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath); // Obter apenas o nome sem extensão
+                string directoryPath = Path.GetDirectoryName(filePath); // Obter o diretório
 
                 // Cria o documento PDF
                 Document document = new Document(PageSize.A4);
@@ -51,12 +53,17 @@ namespace BingoManager.Services
 
                 // Mensagem de sucesso
                 MessageBox.Show("Cartelas criadas com sucesso!");
+
+                return (fileNameWithoutExtension, directoryPath); // Retorna o nome sem extensão e o diretório
             }
             else
             {
                 MessageBox.Show("Erro ao criar PDF das Cartelas!");
+                return (string.Empty, string.Empty);
             }
         }
+
+
 
         // Método auxiliar para desenhar o layout de uma cartela
         private static void CardLayout(Document document, List<DataRow> cardComps, int cardNumber, string titleCard, string footerCard)

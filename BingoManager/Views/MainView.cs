@@ -69,14 +69,46 @@ namespace BingoManager
 
                 try
                 {
-                    DataService.AddList(list.Name, list.Description);
+                    // Insere a lista sem o logo correto, pois ainda não temos o ID
+                    int listId = DataService.AddList(list.Name, list.Description, "default_logo.jpg");
+
+                    // Atualiza o logo com base no listId gerado
+                    string logoFileName = "default_logo_" + listId;
+
+                    // Se houver uma imagem no PictureBox, salva com o nome do arquivo correto
+                    if (PicCreateListLogo.Image != null)
+                    {
+                        logoFileName = "logo_" + Guid.NewGuid().ToString() + Path.GetExtension(selectedImagePath);
+                        SaveImageToPC(PicCreateListLogo.Image, logoFileName);
+                    }
+
+                    // Atualiza o logo no banco de dados
+                    DataService.UpdateListLogo(listId, logoFileName);
+
                     LblCreateListMessage.Text = "Lista " + list.Name + " adicionada com sucesso.";
                     BoxCreateListName.Text = "";
                     BoxCreateListDescription.Text = "";
+                    PicCreateListLogo.Image = null;
+
+                    // Pergunta ao usuário se ele deseja adicionar elementos à lista
+                    DialogResult result = MessageBox.Show("Deseja adicionar Elementos que já foram criados à nova Lista?", "Adicionar Elementos", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        FlowEditViewSel.Controls.Clear();
+
+                        LoadLists();
+                        LoadComps();
+                        EditListConfigureLayout();
+                        LoadAllComp();
+
+                        MainPage.SelectedTab = TabEditPage;
+                        EditPage.SelectedTab = TabEditList;
+                    }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    LblCreateListMessage.Text = "Erro ao conectar ao Banco de Dados.";
+                    LblCreateListMessage.Text = "Erro ao conectar ao Banco de Dados: " + ex.Message;
                 }
             }
             else
@@ -98,6 +130,20 @@ namespace BingoManager
             LoadLists();
         }
 
+        private void BtnCreateListLogo_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp"
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                selectedImagePath = openFileDialog.FileName;
+                PicCreateListLogo.Image = Image.FromFile(selectedImagePath);
+            }
+        }
+
         private void BtnFindLogo_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
@@ -110,7 +156,6 @@ namespace BingoManager
                 selectedImagePath = openFileDialog.FileName;
                 PicCreateCompanyLogo.Image = Image.FromFile(selectedImagePath);
             }
-            LoadLists();
         }
 
         private void SaveImageToPC(Image image, string fileName)
@@ -227,7 +272,7 @@ namespace BingoManager
             PicCreateCompanyLogo.Image = null;
             CboCreateCompanyList.SelectedIndex = -1;
         }
-        
+
         // Método para Criar Cartelas
         private void BtnCreateCards_Click(object sender, EventArgs e)
         {
@@ -578,6 +623,24 @@ namespace BingoManager
                             EditListShowSel(companyList);
                             LoadAllComp(selectedListId);
                             LoadGames();
+
+                            // Pergunta ao usuário se ele deseja criar cartelas
+                            DialogResult result = MessageBox.Show("Deseja criar Cartelas?", "Criar Cartelas", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                            if (result == DialogResult.Yes)
+                            {
+                                FlowEditViewSel.Controls.Clear();
+                                CboEditListSel.SelectedIndex = -1;
+                                LblEditListMsg.Text = string.Empty;
+
+                                LoadLists();
+                                LoadComps();
+                                EditListConfigureLayout();
+                                LoadAllComp();
+
+                                MainPage.SelectedTab = TabCreatePage;
+                                CreatePage.SelectedTab = TabCreateCards;
+                            }
                         }
                         else
                         {
@@ -593,10 +656,12 @@ namespace BingoManager
                 {
                     return;
                 }
-            } else {
+            }
+            else
+            {
                 return;
             }
-               
+
         }
 
         // Método para remover Elementos a uma lista no editor
@@ -661,9 +726,10 @@ namespace BingoManager
                 {
                     return;
                 }
-            } else
+            }
+            else
             {
-                return; 
+                return;
             }
         }
 
@@ -1088,7 +1154,6 @@ namespace BingoManager
                 MessageBox.Show("A segunda tela não está disponível.");
             }
         }
-
         private void MainView_Load(object sender, EventArgs e)
         {
             // Inicializa a segunda tela ao carregar o formulário principal
@@ -1453,36 +1518,67 @@ namespace BingoManager
 
             if (clickedButton != null && clickedButton.Tag is CompanyModel selectedCompany)
             {
+                // Tenta carregar o logo da empresa
                 string logoPath = Path.Combine(Application.StartupPath, "Images", selectedCompany.Logo);
-
-                clickedButton.BackColor = Color.Red;
-
-                PlayService.AddCompany(selectedCompany.Id);
-
                 Image logoImage = null;
+
                 if (File.Exists(logoPath))
                 {
+                    // Logo da empresa encontrado
                     logoImage = Image.FromFile(logoPath);
                 }
+                else
+                {
+                    // Se não houver logo da empresa, busca o logo da lista associada pelo CardsList
+                    var listData = DataService.GetListByCompanyIdFromCards(selectedCompany.Id, setId);
+                    if (listData != null)
+                    {
+                        // Caminho do logo da lista
+                        string listLogoPath = Path.Combine(Application.StartupPath, "Images", listData["Logo"].ToString());
+                        if (File.Exists(listLogoPath))
+                        {
+                            // Logo da lista encontrado
+                            logoImage = Image.FromFile(listLogoPath);
+                        }
+                        else
+                        {
+                            // Logo da lista não encontrado, usar logo padrão
+                            logoImage = Image.FromFile(@"Images/default_logo.jpg");
+                        }
+                    }
+                    else
+                    {
+                        // Nenhuma lista associada ou logo, usar logo padrão
+                        logoImage = Image.FromFile(@"Images/default_logo.jpg");
+                    }
+                }
 
-                // Atualiza a imagem no logoDisplayForm se estiver visível
+                // Marca o botão como sorteado, alterando a cor para vermelho
+                clickedButton.BackColor = Color.Red;
+
+                // Adiciona a empresa sorteada ao serviço de jogo
+                PlayService.AddCompany(selectedCompany.Id);
+
+                // Atualiza o logo e nome na interface do jogo
                 if (logoDisplayForm != null && logoDisplayForm.Visible)
                 {
                     logoDisplayForm.UpdateLogoAndName(logoImage, selectedCompany.Name);
                 }
 
-                // Atualiza o PicPlayLogo na tela principal
+                // Atualiza o logo na tela principal
                 PicPlayAnLogo.Image = logoImage;
                 LblPlayAnName.Text = selectedCompany.Name;
 
                 List<int> winningCards = new List<int>();
 
+                // Verifica as cartelas que possuem a empresa sorteada
                 List<int> cardNumbers = PlayService.CheckCards(selectedCompany.Id, setId);
 
                 string cardNumbersText = string.Join(", ", cardNumbers);
 
                 LblPlayAnMsg.Text = string.IsNullOrEmpty(cardNumbersText) ? "Nenhuma cartela sorteada." : cardNumbersText;
 
+                // Se houver cartelas sorteadas, verifica se há vencedoras
                 if (!string.IsNullOrEmpty(cardNumbersText))
                 {
                     winningCards = PlayService.CheckBingo(cardNumbers, setId, bingoPhase, selectedCompany.Id);
@@ -1490,7 +1586,6 @@ namespace BingoManager
                     if (winningCards.Count > 0)
                     {
                         string winningCardsText = string.Join(", ", winningCards);
-
                         LblPlayAnMsg.Text += string.IsNullOrEmpty(LblPlayAnMsg.Text) ? "" : "\n\n";
                         LblPlayAnMsg.Text += $"Cartelas vencedoras: {winningCardsText}";
                     }
@@ -1548,7 +1643,19 @@ namespace BingoManager
         // Método para sortear uma Elemento no modo Digital e verificar as cartelas sorteadas e vencedoras
         private void BtnPlayDiRandom_Click(object sender, EventArgs e)
         {
-            // Coleta todas as Elementos disponíveis para sorteio
+            // Obter o jogo selecionado
+            var selectedGame = CboPlayDiSelection.SelectedItem as dynamic;
+
+            if (selectedGame == null)
+            {
+                MessageBox.Show("Por favor, selecione um jogo antes de sortear uma empresa.");
+                return;
+            }
+
+            // Carregar o setId do jogo selecionado
+            int setId = selectedGame.Value;
+
+            // Coleta todas as empresas disponíveis para sorteio
             var availableCompanies = new List<Label>();
 
             // Adiciona os labels de todas as colunas ao availableCompanies, que ainda não foram sorteados (brancos)
@@ -1558,14 +1665,14 @@ namespace BingoManager
             availableCompanies.AddRange(FlwPlayDiG.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
             availableCompanies.AddRange(FlwPlayDiO.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
 
-            // Verifica se ainda há Elementos disponíveis para sortear
+            // Verifica se ainda há empresas disponíveis para sortear
             if (availableCompanies.Count == 0)
             {
                 MessageBox.Show("Todos os Elementos já foram sorteados.");
                 return;
             }
 
-            // Seleciona aleatoriamente uma Elemento disponível
+            // Seleciona aleatoriamente uma empresa disponível
             Random random = new Random();
             int randomIndex = random.Next(availableCompanies.Count);
             Label selectedLabel = availableCompanies[randomIndex];
@@ -1573,21 +1680,48 @@ namespace BingoManager
             // Muda a cor do label sorteado para vermelho (marca como sorteado)
             selectedLabel.BackColor = Color.Red;
 
-            // Atualiza a lógica do jogo para adicionar a Elemento sorteada e remover da lista de sorteio
+            // Atualiza a lógica do jogo para adicionar a empresa sorteada e remover da lista de sorteio
             if (selectedLabel.Tag is CompanyModel selectedCompany)
             {
-                // Adiciona a Elemento à lista de sorteadas no PlayService
+                // Adiciona a empresa à lista de sorteadas no PlayService
                 PlayService.AddCompany(selectedCompany.Id);
 
-                // Atualiza a imagem e nome da Elemento sorteada (similar ao modo analógico)
+                // Busca o logo da empresa, lista ou padrão
                 string logoPath = Path.Combine(Application.StartupPath, "Images", selectedCompany.Logo);
                 Image logoImage = null;
+
+                // Atualiza o logo e nome da empresa sorteada na interface do modo digital
                 if (File.Exists(logoPath))
                 {
+                    // Logo da empresa encontrado
                     logoImage = Image.FromFile(logoPath);
                 }
+                else
+                {
+                    // Se não houver logo da empresa, tenta buscar o logo da lista associada
+                    var listData = DataService.GetListByCompanyIdFromCards(selectedCompany.Id, setId);  // Inclui setId aqui
+                    if (listData != null)
+                    {
+                        string listLogoPath = Path.Combine(Application.StartupPath, "Images", listData["Logo"].ToString());
+                        if (File.Exists(listLogoPath))
+                        {
+                            // Logo da lista encontrado
+                            logoImage = Image.FromFile(listLogoPath);
+                        }
+                        else
+                        {
+                            // Logo da lista não encontrado, usar logo padrão
+                            logoImage = Image.FromFile(@"Images/default_logo.jpg");
+                        }
+                    }
+                    else
+                    {
+                        // Nenhuma lista associada ou logo, usar logo padrão
+                        logoImage = Image.FromFile(@"Images/default_logo.jpg");
+                    }
+                }
 
-                // Atualiza a imagem e nome no modo digital
+                // Atualiza o logo e nome da empresa sorteada na interface do modo digital
                 PicPlayDiLogo.Image = logoImage;
                 LblPlayDiName.Text = selectedCompany.Name;
 
@@ -1597,20 +1731,16 @@ namespace BingoManager
                     logoDisplayForm.UpdateLogoAndName(logoImage, selectedCompany.Name);
                 }
 
-                // Verifica se há cartelas com essa Elemento sorteada
-                var selectedGame = CboPlayDiSelection.SelectedItem as dynamic;
-                int setId = selectedGame.Value;
+                // Verifica as cartelas que possuem a empresa sorteada
                 int bingoPhase = RdPlayDi1.Checked ? 1 : 2;
 
-                // Verifica as cartelas que possuem a Elemento sorteada
                 List<int> cardNumbers = PlayService.CheckCards(selectedCompany.Id, setId);
-
                 string cardNumbersText = string.Join(", ", cardNumbers);
                 LblPlayDiMsg.Text = string.IsNullOrEmpty(cardNumbersText) ? "\nNenhuma cartela sorteada." : $"\nCartelas sorteadas: {cardNumbersText}";
 
+                // Se houver cartelas sorteadas, verifica se há vencedoras
                 if (!string.IsNullOrEmpty(cardNumbersText))
                 {
-                    // Verifica se há cartelas que bateram bingo
                     List<int> winningCards = PlayService.CheckBingo(cardNumbers, setId, bingoPhase, selectedCompany.Id);
 
                     if (winningCards.Count > 0)
@@ -1621,9 +1751,10 @@ namespace BingoManager
                     }
                 }
 
-                // Não remover a label do painel, apenas a Elemento do sorteio (já feito acima).
+                // Não remover a label do painel, apenas a empresa da lista de sorteio.
             }
         }
+
 
 
 
@@ -1861,7 +1992,8 @@ namespace BingoManager
                 PopulateFlwEditVisu();
 
                 PlayPage.SelectedTab = TabPlayMain;
-            } else
+            }
+            else
             {
                 var result = MessageBox.Show("Você tem certeza que deseja retornar ao menu de jogo? A partida será reinicada e todos os sorteios serão perdidos.",
                                                "Confirmar Retorno",

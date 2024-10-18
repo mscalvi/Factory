@@ -124,10 +124,10 @@
   <data name="label1.Text" xml:space="preserve">
     <value>Para criar um Bingo você deve seguir os seguintes passos:
 
-1- Criar uma Lista, que depois será preenchida com os nomes dos Elementos que participarão do bingo. A Lista deve ter um Nome, e pode ter também uma breve descrição, para que você a identifique facilmente depois.
+1- Criar uma Lista, que depois será preenchida com os nomes dos Elementos que participarão do bingo. A Lista deve ter um Nome, e pode ter também uma breve descrição, para que você a identifique facilmente depois. A Imagem Padrão da Lista é opcional, e será exibida caso um Elemento que não tenha Imagem seja projetado.
 
 2- Registrar Elementos. Você pode registrar quantos Elementos (empresas, alunos, operações matemáticas, marcas de carro, jogadores da copa do mundo) desejar, e pode já adicioná-las a uma Lista conforme fizer o registro. Se não quiser adicionar ainda, você pode apenas registrar o Elemento e depois vinculá-la a uma Lista. Os Elementos devem ter um Nome, e um Nome para Cartela, e podem ter também uma Imagem, como uma foto ou logo, e até duas anotações diferentes (como telefones e e-mails, para conferir depois).
--Atente-se a imagem! Se for de baixa qualidade, poderá ter sua visualização comprometida durante a exibição. Caso você não coloque uma imagem e resolva utilizar o Elemento em uma projeção, será exibido nosso logo padrão.
+-Atente-se a Imagem! Se for de baixa qualidade, poderá ter sua visualização comprometida durante a exibição. Caso você não coloque uma imagem e resolva utilizar o Elemento em uma projeção, será exibido nosso logo padrão.
 
 3- Crie Cartelas. Selecione de qual Lista serão as Cartelas, e quantas serão feitas. O Título é a mensagem que aparecerá na parte superior da Cartela, e a Mensagem Final é a mensagem na caixa de texto inferior, próximo à numeração. Ao Salvar você criará dois documentos: um PDF com todas as Cartelas, duas por página, e um PDF com a numeração que foi sorteada para cada Elemento do jogo.</value>
   </data>

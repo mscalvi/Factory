@@ -81,7 +81,8 @@ namespace BingoManager.Services
             CREATE TABLE IF NOT EXISTS ListsTable (
                 Id INTEGER PRIMARY KEY,
                 Name TEXT,
-                Description TEXT
+                Description TEXT,
+                Logo TEXT
             );",
 
             @"
@@ -202,20 +203,40 @@ namespace BingoManager.Services
             }
         }
 
-        // Método para criar uma nova lista
-        public static void AddList(string name, string description)
+        // Método para criar uma nova lista e retornar o ID gerado
+        public static int AddList(string name, string description, string logo)
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
                 string insertQuery = @"
-                    INSERT INTO ListsTable (Name, Description)
-                    VALUES (@Name, @Description);";
+            INSERT INTO ListsTable (Name, Description, Logo)
+            VALUES (@Name, @Description, @Logo);
+            SELECT last_insert_rowid();"; // Retorna o ID gerado
 
                 using (var command = new SQLiteCommand(insertQuery, connection))
                 {
                     command.Parameters.AddWithValue("@Name", name);
                     command.Parameters.AddWithValue("@Description", description);
+                    command.Parameters.AddWithValue("@Logo", logo);
+
+                    return Convert.ToInt32(command.ExecuteScalar()); // Retorna o Id da nova lista
+                }
+            }
+        }
+
+        // Método para atualizar o logo da lista após salvar o arquivo de imagem
+        public static void UpdateListLogo(int listId, string logo)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                string updateQuery = "UPDATE ListsTable SET Logo = @Logo WHERE Id = @Id";
+
+                using (var command = new SQLiteCommand(updateQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@Logo", logo);
+                    command.Parameters.AddWithValue("@Id", listId);
 
                     command.ExecuteNonQuery();
                 }
@@ -999,5 +1020,46 @@ namespace BingoManager.Services
             return null;
         }
 
+        //Método para utilizar o dafult_logo da lista
+        public static DataRow GetListByCompanyIdFromCards(int companyId, int setId)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                string query = @"
+            SELECT l.* 
+            FROM ListsTable l
+            INNER JOIN CardsList c ON l.Id = c.ListId
+            WHERE c.SetId = @SetId
+              AND (c.CompB1 = @CompanyId OR c.CompB2 = @CompanyId OR c.CompB3 = @CompanyId OR c.CompB4 = @CompanyId OR c.CompB5 = @CompanyId
+              OR c.CompI1 = @CompanyId OR c.CompI2 = @CompanyId OR c.CompI3 = @CompanyId OR c.CompI4 = @CompanyId OR c.CompI5 = @CompanyId
+              OR c.CompN1 = @CompanyId OR c.CompN2 = @CompanyId OR c.CompN3 = @CompanyId OR c.CompN4 = @CompanyId OR c.CompN5 = @CompanyId
+              OR c.CompG1 = @CompanyId OR c.CompG2 = @CompanyId OR c.CompG3 = @CompanyId OR c.CompG4 = @CompanyId OR c.CompG5 = @CompanyId
+              OR c.CompO1 = @CompanyId OR c.CompO2 = @CompanyId OR c.CompO3 = @CompanyId OR c.CompO4 = @CompanyId OR c.CompO5 = @CompanyId)
+            LIMIT 1";
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@CompanyId", companyId);
+                    command.Parameters.AddWithValue("@SetId", setId);
+
+                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                    {
+                        DataTable listTable = new DataTable();
+                        adapter.Fill(listTable);
+
+                        if (listTable.Rows.Count > 0)
+                        {
+                            return listTable.Rows[0];
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

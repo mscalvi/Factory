@@ -74,9 +74,15 @@ namespace BingoManager.Services
             }
 
             // Após criar todas as cartelas, gerar o PDF com todas elas (duas cartelas por página)
-            PrintingService.PrintCards(allCards, allCards.Count, Title, End);
+            string saveName;
+            string savePath;
 
-            SavePdfWithCompaniesByGroup(CompList);
+            (saveName, savePath) = PrintingService.PrintCards(allCards, allCards.Count, Title, End);
+
+            if (!string.IsNullOrEmpty(saveName))
+            {
+                PrintList(CompList, saveName, savePath);
+            }
         }
 
         // Método para selecionar e remover empresas de um grupo temporário
@@ -94,45 +100,37 @@ namespace BingoManager.Services
         }
 
         // Método para gerar e salvar o PDF com todas as empresas separadas por grupo (B, I, N, G, O) e numeradas
-        public static void SavePdfWithCompaniesByGroup(List<DataRow> allCompanies)
+        public static void PrintList(List<DataRow> allCompanies, string nameWithoutExtension, string path)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog
-            {
-                Filter = "PDF Document|*.pdf",
-                Title = "Salvar Lista de Empresas por Coluna"
-            };
+            string fileName = $"list_{nameWithoutExtension}.pdf"; // Usa o nome sem extensão
+            string filePath = Path.Combine(path, fileName);
 
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string filePath = saveFileDialog.FileName;
+            // Cria o documento PDF
+            Document document = new Document();
+            PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+            document.Open();
 
-                // Cria o documento PDF
-                Document document = new Document();
-                PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
-                document.Open();
+            // Adiciona título ao documento
+            document.Add(new Paragraph("Lista de Elementos nas Cartelas\n\n"));
 
-                // Adiciona título ao documento
-                document.Add(new Paragraph("Lista de Empresas nas Cartelas\n\n"));
+            // Adiciona as empresas separadas por grupo em formato de lista numerada
+            int companyIndex = 1;
 
-                // Adiciona as empresas separadas por grupo em formato de lista numerada
-                int companyIndex = 1;
+            // Determina quantas empresas haverá em cada coluna de forma dinâmica
+            int companiesPerColumn = allCompanies.Count / 5;
+            int remainder = allCompanies.Count % 5;
 
-                // Determina quantas empresas haverá em cada coluna de forma dinâmica
-                int companiesPerColumn = allCompanies.Count / 5;
-                int remainder = allCompanies.Count % 5;
+            // Dividir as empresas em grupos (Colunas B, I, N, G, O)
+            AddCompaniesToPdfList(document, "Coluna B", allCompanies.Take(companiesPerColumn + (remainder > 0 ? 1 : 0)).ToList(), ref companyIndex);
+            AddCompaniesToPdfList(document, "Coluna I", allCompanies.Skip(companyIndex - 1).Take(companiesPerColumn + (remainder > 1 ? 1 : 0)).ToList(), ref companyIndex);
+            AddCompaniesToPdfList(document, "Coluna N", allCompanies.Skip(companyIndex - 1).Take(companiesPerColumn + (remainder > 2 ? 1 : 0)).ToList(), ref companyIndex);
+            AddCompaniesToPdfList(document, "Coluna G", allCompanies.Skip(companyIndex - 1).Take(companiesPerColumn + (remainder > 3 ? 1 : 0)).ToList(), ref companyIndex);
+            AddCompaniesToPdfList(document, "Coluna O", allCompanies.Skip(companyIndex - 1).Take(companiesPerColumn).ToList(), ref companyIndex);
 
-                // Dividir as empresas em grupos (Colunas B, I, N, G, O)
-                AddCompaniesToPdfList(document, "Coluna B", allCompanies.Take(companiesPerColumn + (remainder > 0 ? 1 : 0)).ToList(), ref companyIndex);
-                AddCompaniesToPdfList(document, "Coluna I", allCompanies.Skip(companyIndex - 1).Take(companiesPerColumn + (remainder > 1 ? 1 : 0)).ToList(), ref companyIndex);
-                AddCompaniesToPdfList(document, "Coluna N", allCompanies.Skip(companyIndex - 1).Take(companiesPerColumn + (remainder > 2 ? 1 : 0)).ToList(), ref companyIndex);
-                AddCompaniesToPdfList(document, "Coluna G", allCompanies.Skip(companyIndex - 1).Take(companiesPerColumn + (remainder > 3 ? 1 : 0)).ToList(), ref companyIndex);
-                AddCompaniesToPdfList(document, "Coluna O", allCompanies.Skip(companyIndex - 1).Take(companiesPerColumn).ToList(), ref companyIndex);
+            // Fecha o documento PDF
+            document.Close();
 
-                // Fecha o documento PDF
-                document.Close();
-
-                MessageBox.Show("PDF criado com sucesso!");
-            }
+            MessageBox.Show("Lista de Elementos criada com sucesso!");
         }
 
         // Método auxiliar para adicionar empresas ao PDF agrupadas por coluna e numeradas
