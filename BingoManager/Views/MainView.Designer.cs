@@ -142,18 +142,19 @@
             CboEditComp = new ComboBox();
             label9 = new Label();
             TabEditVisualize = new TabPage();
+            CboVisu = new ComboBox();
             BtnEditVisu = new Button();
             PicVisuLogo = new PictureBox();
-            LblVisuLists = new Label();
-            LblVisuEmail = new Label();
-            LblVisuPhone = new Label();
-            LblVisuCardName = new Label();
-            LblVisuName = new Label();
-            label37 = new Label();
-            label36 = new Label();
-            label35 = new Label();
-            label34 = new Label();
-            label33 = new Label();
+            LblVisuCont5 = new Label();
+            LblVisuCont4 = new Label();
+            LblVisuCont3 = new Label();
+            LblVisuCont2 = new Label();
+            LblVisuCont1 = new Label();
+            LblVisu4 = new Label();
+            LblVisu5 = new Label();
+            LblVisu3 = new Label();
+            LblVisu2 = new Label();
+            LblVisu1 = new Label();
             FlwEditVisu = new FlowLayoutPanel();
             BtnReturnVisu = new Button();
             label31 = new Label();
@@ -1085,7 +1086,7 @@
             BtnVisuComp.Name = "BtnVisuComp";
             BtnVisuComp.Size = new Size(260, 138);
             BtnVisuComp.TabIndex = 24;
-            BtnVisuComp.Text = "Visualizar Elementos";
+            BtnVisuComp.Text = "Visualizar Dados Salvos";
             BtnVisuComp.UseVisualStyleBackColor = true;
             BtnVisuComp.Click += BtnVisuComp_Click;
             // 
@@ -1551,18 +1552,19 @@
             // 
             // TabEditVisualize
             // 
+            TabEditVisualize.Controls.Add(CboVisu);
             TabEditVisualize.Controls.Add(BtnEditVisu);
             TabEditVisualize.Controls.Add(PicVisuLogo);
-            TabEditVisualize.Controls.Add(LblVisuLists);
-            TabEditVisualize.Controls.Add(LblVisuEmail);
-            TabEditVisualize.Controls.Add(LblVisuPhone);
-            TabEditVisualize.Controls.Add(LblVisuCardName);
-            TabEditVisualize.Controls.Add(LblVisuName);
-            TabEditVisualize.Controls.Add(label37);
-            TabEditVisualize.Controls.Add(label36);
-            TabEditVisualize.Controls.Add(label35);
-            TabEditVisualize.Controls.Add(label34);
-            TabEditVisualize.Controls.Add(label33);
+            TabEditVisualize.Controls.Add(LblVisuCont5);
+            TabEditVisualize.Controls.Add(LblVisuCont4);
+            TabEditVisualize.Controls.Add(LblVisuCont3);
+            TabEditVisualize.Controls.Add(LblVisuCont2);
+            TabEditVisualize.Controls.Add(LblVisuCont1);
+            TabEditVisualize.Controls.Add(LblVisu4);
+            TabEditVisualize.Controls.Add(LblVisu5);
+            TabEditVisualize.Controls.Add(LblVisu3);
+            TabEditVisualize.Controls.Add(LblVisu2);
+            TabEditVisualize.Controls.Add(LblVisu1);
             TabEditVisualize.Controls.Add(FlwEditVisu);
             TabEditVisualize.Controls.Add(BtnReturnVisu);
             TabEditVisualize.Controls.Add(label31);
@@ -1574,6 +1576,17 @@
             TabEditVisualize.Text = "Visualizar Elementos";
             TabEditVisualize.UseVisualStyleBackColor = true;
             // 
+            // CboVisu
+            // 
+            CboVisu.Anchor = AnchorStyles.Top;
+            CboVisu.FormattingEnabled = true;
+            CboVisu.Items.AddRange(new object[] { "Listas", "Elementos", "Cartelas" });
+            CboVisu.Location = new Point(6, 127);
+            CboVisu.Name = "CboVisu";
+            CboVisu.Size = new Size(370, 23);
+            CboVisu.TabIndex = 1;
+            CboVisu.SelectedIndexChanged += CboVisu_SelectedIndexChanged;
+            // 
             // BtnEditVisu
             // 
             BtnEditVisu.Anchor = AnchorStyles.Top;
@@ -1582,7 +1595,7 @@
             BtnEditVisu.Name = "BtnEditVisu";
             BtnEditVisu.Size = new Size(143, 74);
             BtnEditVisu.TabIndex = 32;
-            BtnEditVisu.Text = "Editar Elemento";
+            BtnEditVisu.Text = "Excluir e Limpar Dependências";
             BtnEditVisu.UseVisualStyleBackColor = true;
             BtnEditVisu.Click += BtnEditVisu_Click;
             // 
@@ -1592,113 +1605,114 @@
             PicVisuLogo.Location = new Point(725, 396);
             PicVisuLogo.Name = "PicVisuLogo";
             PicVisuLogo.Size = new Size(344, 265);
+            PicVisuLogo.SizeMode = PictureBoxSizeMode.Zoom;
             PicVisuLogo.TabIndex = 31;
             PicVisuLogo.TabStop = false;
             // 
-            // LblVisuLists
+            // LblVisuCont5
             // 
-            LblVisuLists.Anchor = AnchorStyles.Top;
-            LblVisuLists.Font = new Font("Segoe UI", 12F);
-            LblVisuLists.Location = new Point(395, 432);
-            LblVisuLists.Name = "LblVisuLists";
-            LblVisuLists.Size = new Size(302, 229);
-            LblVisuLists.TabIndex = 30;
-            LblVisuLists.TextAlign = ContentAlignment.TopCenter;
+            LblVisuCont5.Anchor = AnchorStyles.Top;
+            LblVisuCont5.Font = new Font("Segoe UI", 12F);
+            LblVisuCont5.Location = new Point(395, 432);
+            LblVisuCont5.Name = "LblVisuCont5";
+            LblVisuCont5.Size = new Size(302, 229);
+            LblVisuCont5.TabIndex = 30;
+            LblVisuCont5.TextAlign = ContentAlignment.TopCenter;
             // 
-            // LblVisuEmail
+            // LblVisuCont4
             // 
-            LblVisuEmail.Anchor = AnchorStyles.Top;
-            LblVisuEmail.Font = new Font("Segoe UI", 12F);
-            LblVisuEmail.Location = new Point(553, 314);
-            LblVisuEmail.Name = "LblVisuEmail";
-            LblVisuEmail.Size = new Size(769, 67);
-            LblVisuEmail.TabIndex = 29;
-            LblVisuEmail.TextAlign = ContentAlignment.MiddleLeft;
+            LblVisuCont4.Anchor = AnchorStyles.Top;
+            LblVisuCont4.Font = new Font("Segoe UI", 12F);
+            LblVisuCont4.Location = new Point(553, 314);
+            LblVisuCont4.Name = "LblVisuCont4";
+            LblVisuCont4.Size = new Size(769, 67);
+            LblVisuCont4.TabIndex = 29;
+            LblVisuCont4.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // LblVisuPhone
+            // LblVisuCont3
             // 
-            LblVisuPhone.Anchor = AnchorStyles.Top;
-            LblVisuPhone.Font = new Font("Segoe UI", 12F);
-            LblVisuPhone.Location = new Point(553, 236);
-            LblVisuPhone.Name = "LblVisuPhone";
-            LblVisuPhone.Size = new Size(769, 67);
-            LblVisuPhone.TabIndex = 28;
-            LblVisuPhone.TextAlign = ContentAlignment.MiddleLeft;
+            LblVisuCont3.Anchor = AnchorStyles.Top;
+            LblVisuCont3.Font = new Font("Segoe UI", 12F);
+            LblVisuCont3.Location = new Point(553, 236);
+            LblVisuCont3.Name = "LblVisuCont3";
+            LblVisuCont3.Size = new Size(769, 67);
+            LblVisuCont3.TabIndex = 28;
+            LblVisuCont3.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // LblVisuCardName
+            // LblVisuCont2
             // 
-            LblVisuCardName.Anchor = AnchorStyles.Top;
-            LblVisuCardName.Font = new Font("Segoe UI", 12F);
-            LblVisuCardName.Location = new Point(553, 189);
-            LblVisuCardName.Name = "LblVisuCardName";
-            LblVisuCardName.Size = new Size(769, 23);
-            LblVisuCardName.TabIndex = 27;
-            LblVisuCardName.TextAlign = ContentAlignment.MiddleLeft;
+            LblVisuCont2.Anchor = AnchorStyles.Top;
+            LblVisuCont2.Font = new Font("Segoe UI", 12F);
+            LblVisuCont2.Location = new Point(553, 189);
+            LblVisuCont2.Name = "LblVisuCont2";
+            LblVisuCont2.Size = new Size(769, 23);
+            LblVisuCont2.TabIndex = 27;
+            LblVisuCont2.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // LblVisuName
+            // LblVisuCont1
             // 
-            LblVisuName.Anchor = AnchorStyles.Top;
-            LblVisuName.Font = new Font("Segoe UI", 12F);
-            LblVisuName.Location = new Point(553, 142);
-            LblVisuName.Name = "LblVisuName";
-            LblVisuName.Size = new Size(769, 23);
-            LblVisuName.TabIndex = 26;
-            LblVisuName.TextAlign = ContentAlignment.MiddleLeft;
+            LblVisuCont1.Anchor = AnchorStyles.Top;
+            LblVisuCont1.Font = new Font("Segoe UI", 12F);
+            LblVisuCont1.Location = new Point(553, 142);
+            LblVisuCont1.Name = "LblVisuCont1";
+            LblVisuCont1.Size = new Size(769, 23);
+            LblVisuCont1.TabIndex = 26;
+            LblVisuCont1.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label37
+            // LblVisu4
             // 
-            label37.Anchor = AnchorStyles.Top;
-            label37.Font = new Font("Segoe UI", 12F);
-            label37.Location = new Point(395, 314);
-            label37.Name = "label37";
-            label37.Size = new Size(152, 23);
-            label37.TabIndex = 25;
-            label37.Text = "Anotação 2:";
-            label37.TextAlign = ContentAlignment.MiddleLeft;
+            LblVisu4.Anchor = AnchorStyles.Top;
+            LblVisu4.Font = new Font("Segoe UI", 12F);
+            LblVisu4.Location = new Point(395, 314);
+            LblVisu4.Name = "LblVisu4";
+            LblVisu4.Size = new Size(152, 23);
+            LblVisu4.TabIndex = 25;
+            LblVisu4.Text = "Anotação 2:";
+            LblVisu4.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label36
+            // LblVisu5
             // 
-            label36.Anchor = AnchorStyles.Top;
-            label36.Font = new Font("Segoe UI", 12F);
-            label36.Location = new Point(395, 396);
-            label36.Name = "label36";
-            label36.Size = new Size(152, 23);
-            label36.TabIndex = 24;
-            label36.Text = "Listas:";
-            label36.TextAlign = ContentAlignment.MiddleLeft;
+            LblVisu5.Anchor = AnchorStyles.Top;
+            LblVisu5.Font = new Font("Segoe UI", 12F);
+            LblVisu5.Location = new Point(395, 396);
+            LblVisu5.Name = "LblVisu5";
+            LblVisu5.Size = new Size(152, 23);
+            LblVisu5.TabIndex = 24;
+            LblVisu5.Text = "Listas:";
+            LblVisu5.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label35
+            // LblVisu3
             // 
-            label35.Anchor = AnchorStyles.Top;
-            label35.Font = new Font("Segoe UI", 12F);
-            label35.Location = new Point(395, 236);
-            label35.Name = "label35";
-            label35.Size = new Size(152, 23);
-            label35.TabIndex = 23;
-            label35.Text = "Anotação 1:";
-            label35.TextAlign = ContentAlignment.MiddleLeft;
+            LblVisu3.Anchor = AnchorStyles.Top;
+            LblVisu3.Font = new Font("Segoe UI", 12F);
+            LblVisu3.Location = new Point(395, 236);
+            LblVisu3.Name = "LblVisu3";
+            LblVisu3.Size = new Size(152, 23);
+            LblVisu3.TabIndex = 23;
+            LblVisu3.Text = "Anotação 1:";
+            LblVisu3.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label34
+            // LblVisu2
             // 
-            label34.Anchor = AnchorStyles.Top;
-            label34.Font = new Font("Segoe UI", 12F);
-            label34.Location = new Point(395, 189);
-            label34.Name = "label34";
-            label34.Size = new Size(152, 23);
-            label34.TabIndex = 22;
-            label34.Text = "Nome para Cartela:";
-            label34.TextAlign = ContentAlignment.MiddleLeft;
+            LblVisu2.Anchor = AnchorStyles.Top;
+            LblVisu2.Font = new Font("Segoe UI", 12F);
+            LblVisu2.Location = new Point(395, 189);
+            LblVisu2.Name = "LblVisu2";
+            LblVisu2.Size = new Size(152, 23);
+            LblVisu2.TabIndex = 22;
+            LblVisu2.Text = "Nome para Cartela:";
+            LblVisu2.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label33
+            // LblVisu1
             // 
-            label33.Anchor = AnchorStyles.Top;
-            label33.Font = new Font("Segoe UI", 12F);
-            label33.Location = new Point(395, 142);
-            label33.Name = "label33";
-            label33.Size = new Size(152, 23);
-            label33.TabIndex = 21;
-            label33.Text = "Nome:";
-            label33.TextAlign = ContentAlignment.MiddleLeft;
+            LblVisu1.Anchor = AnchorStyles.Top;
+            LblVisu1.Font = new Font("Segoe UI", 12F);
+            LblVisu1.Location = new Point(395, 142);
+            LblVisu1.Name = "LblVisu1";
+            LblVisu1.Size = new Size(152, 23);
+            LblVisu1.TabIndex = 21;
+            LblVisu1.Text = "Nome:";
+            LblVisu1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // FlwEditVisu
             // 
@@ -1706,10 +1720,11 @@
             FlwEditVisu.BackColor = Color.LightGray;
             FlwEditVisu.FlowDirection = FlowDirection.TopDown;
             FlwEditVisu.Font = new Font("Segoe UI", 12F);
-            FlwEditVisu.Location = new Point(6, 127);
+            FlwEditVisu.Location = new Point(6, 156);
             FlwEditVisu.Name = "FlwEditVisu";
-            FlwEditVisu.Size = new Size(370, 534);
+            FlwEditVisu.Size = new Size(370, 505);
             FlwEditVisu.TabIndex = 20;
+            FlwEditVisu.WrapContents = false;
             // 
             // BtnReturnVisu
             // 
@@ -1732,7 +1747,7 @@
             label31.Name = "label31";
             label31.Size = new Size(1322, 121);
             label31.TabIndex = 18;
-            label31.Text = "Visualizar Elementos";
+            label31.Text = "Visualizar Dados";
             label31.TextAlign = ContentAlignment.BottomCenter;
             // 
             // TabPlayPage
@@ -2673,20 +2688,21 @@
         private FlowLayoutPanel FlwEditVisu;
         private Button BtnReturnVisu;
         private Label label31;
-        private Label label37;
-        private Label label36;
-        private Label label35;
-        private Label label34;
-        private Label label33;
-        private Label LblVisuName;
-        private Label LblVisuLists;
-        private Label LblVisuEmail;
-        private Label LblVisuPhone;
-        private Label LblVisuCardName;
+        private Label LblVisu4;
+        private Label LblVisu5;
+        private Label LblVisu3;
+        private Label LblVisu2;
+        private Label LblVisu1;
+        private Label LblVisuCont1;
+        private Label LblVisuCont5;
+        private Label LblVisuCont4;
+        private Label LblVisuCont3;
+        private Label LblVisuCont2;
         private PictureBox PicVisuLogo;
         private Button BtnEditVisu;
         private Button BtnPlayDigital;
         private Button BtnPlayAnalog;
         private Label label38;
+        private ComboBox CboVisu;
     }
 }

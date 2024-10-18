@@ -102,7 +102,7 @@ namespace BingoManager.Services
         // Método para gerar e salvar o PDF com todas as empresas separadas por grupo (B, I, N, G, O) e numeradas
         public static void PrintList(List<DataRow> allCompanies, string nameWithoutExtension, string path)
         {
-            string fileName = $"list_{nameWithoutExtension}.pdf"; // Usa o nome sem extensão
+            string fileName = $"lista_{nameWithoutExtension}.pdf"; // Usa o nome sem extensão
             string filePath = Path.Combine(path, fileName);
 
             // Cria o documento PDF

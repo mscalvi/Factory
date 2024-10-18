@@ -36,7 +36,6 @@ namespace BingoManager
             EditListConfigureLayout();
             LoadAllComp();
             LoadGames();
-            PopulateFlwEditVisu();
         }
 
         //Criação
@@ -273,7 +272,7 @@ namespace BingoManager
             CboCreateCompanyList.SelectedIndex = -1;
         }
 
-        // Método para Criar Cartelas
+        // Método para Criar Cartelas// Método para Criar Cartelas
         private void BtnCreateCards_Click(object sender, EventArgs e)
         {
             LblCreateCardsMsg.Text = "";
@@ -290,9 +289,17 @@ namespace BingoManager
             int maxEndLength = 150;
             int maxQuantity = 1000;
 
+            // Verifica se o nome do conjunto é válido
             if (string.IsNullOrEmpty(CardsName) || CardsName.Length > maxNameLength)
             {
                 LblCreateCardsMsg.Text = $"Insira um nome para o conjunto de cartelas com no máximo {maxNameLength} caracteres!";
+                return;
+            }
+
+            // Verifica se o nome do conjunto já existe no banco de dados
+            if (DataService.CardSetExists(CardsName))
+            {
+                LblCreateCardsMsg.Text = "Já existe um conjunto de cartelas com esse nome!";
                 return;
             }
 
@@ -306,22 +313,25 @@ namespace BingoManager
 
                 if (CompanyCount < 40)
                 {
-                    LblCreateCardsMsg.Text = $"A lista deve ter pelo menos 40 Elementos, a lista {CardsList} tem apenas {CompanyCount}!";
+                    LblCreateCardsMsg.Text = $"A Lista deve ter pelo menos 40 Elementos, a Lista {CardsList} tem apenas {CompanyCount}!";
                     return;
                 }
 
+                // Verifica o título
                 if (string.IsNullOrEmpty(CardsTitle) || CardsTitle.Length > maxTitleLength)
                 {
-                    LblCreateCardsMsg.Text = $"Insira um título para as cartelas com no máximo {maxTitleLength} caracteres!";
+                    LblCreateCardsMsg.Text = $"Insira um título para as Cartelas com no máximo {maxTitleLength} caracteres!";
                     return;
                 }
 
+                // Verifica o final
                 if (string.IsNullOrEmpty(CardsEnd) || CardsEnd.Length > maxEndLength)
                 {
                     LblCreateCardsMsg.Text = $"O final deve ter no máximo {maxEndLength} caracteres!";
                     return;
                 }
 
+                // Verifica a quantidade
                 if (int.TryParse(CardsQuant, out Qnt) && Qnt <= maxQuantity)
                 {
                     CardsService.CreateCards(CompList, CardsList, CompanyCount, Qnt, CardsTitle, CardsEnd, CardsName);
@@ -334,7 +344,7 @@ namespace BingoManager
             }
             else
             {
-                LblCreateCardsMsg.Text = "Selecione uma lista!";
+                LblCreateCardsMsg.Text = "Selecione uma Lista!";
             }
 
             // Limpar campos após a criação
@@ -773,7 +783,6 @@ namespace BingoManager
                     CboEditComp.SelectedIndex = -1;
                     LoadComps();
                     LoadAllComp();
-                    PopulateFlwEditVisu();
                 }
                 catch (Exception ex)
                 {
@@ -863,7 +872,6 @@ namespace BingoManager
                 CboEditComp.SelectedIndex = -1;
                 LoadComps();
                 LoadAllComp();
-                PopulateFlwEditVisu();
             }
             else
             {
@@ -924,11 +932,62 @@ namespace BingoManager
             LoadAllComp();
         }
 
-        //Métodos para visualizar uma Elemento
-        private void PopulateFlwEditVisu()
+        //Métodos para visualizar os Dados
+        // Evento que é chamado quando o valor da ComboBox muda
+        private void CboVisu_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Limpa o FlowLayoutPanel antes de adicionar novos controles
             FlwEditVisu.Controls.Clear();
+
+            string selectedOption = CboVisu.SelectedItem?.ToString();
+
+            if (string.IsNullOrEmpty(selectedOption))
+            {
+                return;
+            }
+
+            switch (selectedOption)
+            {
+                case "Elementos":
+                    LblVisu1.Text = "Nome:";
+                    LblVisu2.Text = "Nome para Cartela:";
+                    LblVisu3.Text = "Anotação 1:";
+                    LblVisu4.Text = "Anotação 2:";
+                    LblVisu5.Text = "Listas:";
+                    PopulateElements();
+                    break;
+                case "Listas":
+                    LblVisu1.Text = "Nome:";
+                    LblVisu2.Text = "Total de Elementos:";
+                    LblVisu3.Text = "Descrição:";
+                    LblVisu4.Text = "";
+                    LblVisu5.Text = "";
+                    PopulateLists();
+                    break;
+                case "Cartelas":
+                    LblVisu1.Text = "Nome:";
+                    LblVisu2.Text = "Quantidade:";
+                    LblVisu3.Text = "Título:";
+                    LblVisu4.Text = "Mensagem Final:";
+                    LblVisu5.Text = "";
+                    PopulateCards();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // Método para popular com Elementos
+        private void PopulateElements()
+        {
+            FlwEditVisu.Controls.Clear();
+            FlwEditVisu.AutoScroll = true;
+
+            LblVisuCont1.Text = "";
+            LblVisuCont2.Text = "";
+            LblVisuCont3.Text = "";
+            LblVisuCont4.Text = "";
+            LblVisuCont5.Text = "";
+            PicVisuLogo.Image = null;
 
             // Obtém a tabela de Elementos
             DataTable companiesTable = DataService.GetCompanies();
@@ -937,7 +996,7 @@ namespace BingoManager
             DataView sortedCompanies = new DataView(companiesTable);
             sortedCompanies.Sort = "Name ASC";
 
-            // Itera pelas Elementos e cria Labels clicáveis
+            // Itera pelos elementos e cria Labels clicáveis
             foreach (DataRowView row in sortedCompanies)
             {
                 // Cria um Label para o nome da Elemento
@@ -948,7 +1007,7 @@ namespace BingoManager
                     AutoSize = false,
                     Padding = new Padding(0, 5, 0, 5),
                     Height = 30,
-                    Width = FlwEditVisu.Width, // Certifique-se de preencher a largura do FlowPanel
+                    Width = FlwEditVisu.ClientSize.Width - 30,
                     Tag = row["Id"], // Armazena o ID da Elemento no Tag para referência
                     Cursor = Cursors.Hand, // Muda o cursor para mão
                 };
@@ -959,7 +1018,100 @@ namespace BingoManager
                 // Adiciona o Label ao FlowLayoutPanel
                 FlwEditVisu.Controls.Add(lblName);
             }
+
+            FlwEditVisu.VerticalScroll.Enabled = true;
+            FlwEditVisu.HorizontalScroll.Enabled = false;
         }
+
+        // Método para popular com Listas
+        private void PopulateLists()
+        {
+            FlwEditVisu.Controls.Clear();
+            FlwEditVisu.AutoScroll = true;
+
+            LblVisuCont1.Text = "";
+            LblVisuCont2.Text = "";
+            LblVisuCont3.Text = "";
+            LblVisuCont4.Text = "";
+            LblVisuCont5.Text = "";
+            PicVisuLogo.Image = null;
+
+            // Obtém a tabela de Listas
+            DataTable listsTable = DataService.GetLists();
+
+            // Ordena os dados em ordem alfabética
+            DataView sortedLists = new DataView(listsTable);
+            sortedLists.Sort = "Name ASC";
+
+            // Itera pelas listas e cria Labels clicáveis
+            foreach (DataRowView row in sortedLists)
+            {
+                // Cria um Label para o nome da Lista
+                Label lblName = new Label
+                {
+                    Text = row["Name"].ToString(),
+                    Font = new Font("Arial", 10, FontStyle.Regular),
+                    AutoSize = false,
+                    Padding = new Padding(0, 5, 0, 5),
+                    Height = 30,
+                    Width = FlwEditVisu.ClientSize.Width - 30,
+                    Tag = row["Id"], // Armazena o ID da Lista no Tag para referência
+                    Cursor = Cursors.Hand,
+                };
+
+                // Adiciona um evento de clique ao Label
+                lblName.Click += (sender, e) => OnListLabelClick(lblName);
+
+                // Adiciona o Label ao FlowLayoutPanel
+                FlwEditVisu.Controls.Add(lblName);
+            }
+
+            FlwEditVisu.VerticalScroll.Enabled = true;
+            FlwEditVisu.HorizontalScroll.Enabled = false;
+        }
+
+        // Método para popular com Cartelas
+        private void PopulateCards()
+        {
+            FlwEditVisu.Controls.Clear();
+            FlwEditVisu.AutoScroll = true;
+
+            LblVisuCont1.Text = "";
+            LblVisuCont2.Text = "";
+            LblVisuCont3.Text = "";
+            LblVisuCont4.Text = "";
+            LblVisuCont5.Text = "";
+            PicVisuLogo.Image = null;
+
+            DataTable cardsTable = DataService.GetCards();
+
+            DataView sortedCards = new DataView(cardsTable);
+            sortedCards.Sort = "Name ASC";
+
+            foreach (DataRowView row in sortedCards)
+            {
+                Label lblName = new Label
+                {
+                    Text = row["Name"].ToString(),
+                    Font = new Font("Arial", 10, FontStyle.Regular),
+                    AutoSize = false,
+                    Padding = new Padding(0, 5, 0, 5),
+                    Height = 30,
+                    Width = FlwEditVisu.ClientSize.Width - 30,
+                    Tag = row["SetId"],
+                    Cursor = Cursors.Hand,
+                };
+
+                lblName.Click += (sender, e) => OnCardLabelClick(lblName);
+
+                FlwEditVisu.Controls.Add(lblName);
+            }
+
+            FlwEditVisu.VerticalScroll.Enabled = true;
+            FlwEditVisu.HorizontalScroll.Enabled = false;
+        }
+
+        //Métodos para informações dos Elementos
         private void OnCompanyLabelClick(Label clickedLabel)
         {
             // Desmarca todos os Labels (remove o destaque)
@@ -988,10 +1140,10 @@ namespace BingoManager
             if (company != null)
             {
                 // Atualiza os Labels com as informações da Elemento
-                LblVisuName.Text = company["Name"].ToString();
-                LblVisuCardName.Text = company["CardName"].ToString();
-                LblVisuPhone.Text = company["Phone"].ToString();
-                LblVisuEmail.Text = company["Email"].ToString();
+                LblVisuCont1.Text = company["Name"].ToString();
+                LblVisuCont2.Text = company["CardName"].ToString();
+                LblVisuCont3.Text = company["Phone"].ToString();
+                LblVisuCont4.Text = company["Email"].ToString();
 
                 // Carrega a imagem no PictureBox
                 string logoPath = Path.Combine(Application.StartupPath, "Images", company["Logo"].ToString());
@@ -1001,7 +1153,7 @@ namespace BingoManager
                 }
                 else
                 {
-                    PicVisuLogo.Image = Image.FromFile(@"Images/default_logo.png");
+                    PicVisuLogo.Image = Image.FromFile(@"Images/default_logo.jpg");
                 }
 
                 // Carrega as listas a que a Elemento pertence
@@ -1009,44 +1161,212 @@ namespace BingoManager
 
                 if (lists.Count == 0)
                 {
-                    LblVisuLists.Text = "O Elemento não foi adicionado à nenhuma Lista ainda.";
+                    LblVisuCont5.Text = "O Elemento não foi adicionado à nenhuma Lista ainda.";
                 }
                 else
                 {
-                    LblVisuLists.Text = string.Join(", ", lists);
+                    LblVisuCont5.Text = string.Join(", ", lists);
                 }
             }
         }
-        private void BtnEditVisu_Click(object sender, EventArgs e)
+
+        //Métodos para informações das Cartelas
+        private void OnCardLabelClick(Label clickedLabel)
         {
-            // Verifica se a LblVisuName possui um texto válido
-            if (!string.IsNullOrEmpty(LblVisuName.Text))
+            // Remove o destaque de todos os Labels
+            foreach (Control control in FlwEditVisu.Controls)
             {
-                string companyName = LblVisuName.Text;
-
-                // Obtém a linha da Elemento pelo nome
-                DataRow company = DataService.GetCompanyByName(companyName);
-
-                if (company != null)
+                if (control is Label lbl)
                 {
-                    int companyId = Convert.ToInt32(company["Id"]);
-
-                    CboEditComp.SelectedItem = CboEditComp.Items
-                        .OfType<CompanyModel>()
-                        .FirstOrDefault(c => c.Id == companyId);
-
-                    CboEditComp_SelectedValueChanged(CboEditComp, EventArgs.Empty);
-
-                    EditPage.SelectedTab = TabEditCompany;
+                    lbl.BackColor = Color.Transparent; // Remove o destaque
                 }
-                else
+            }
+
+            // Destaca o Label clicado
+            clickedLabel.BackColor = Color.LightBlue;
+
+            // Obtém o ID da cartela do Tag do Label
+            int cardSetId = Convert.ToInt32(clickedLabel.Tag);
+
+            // Carrega os detalhes da cartela
+            LoadCardDetails(cardSetId);
+        }
+        private void LoadCardDetails(int cardSetId)
+        {
+            DataRow cardDetails = DataService.GetCardSetAndListBySetId(cardSetId);
+
+            if (cardDetails != null)
+            {
+                LblVisuCont1.Text = cardDetails["Name"].ToString();
+                LblVisuCont2.Text = cardDetails["Qnt"].ToString();
+                LblVisuCont3.Text = cardDetails["Title"].ToString();
+                LblVisuCont4.Text = cardDetails["End"].ToString();
+                LblVisuCont5.Text = cardDetails["ListName"].ToString();
+
+                // Carrega o logo da lista associada
+                string listLogoFileName = cardDetails["Logo"].ToString();
+                string listLogoPath = Path.Combine(Application.StartupPath, "Images", listLogoFileName);
+
+                Image logoImage = null;
+                if (File.Exists(listLogoPath))
                 {
-                    MessageBox.Show("Elemento não encontrado.");
+                    logoImage = Image.FromFile(listLogoPath);
                 }
+
+                // Usa o logo da lista ou o logo padrão se o da lista não existir
+                PicVisuLogo.Image = logoImage ?? Image.FromFile(@"Images/default_logo.jpg");
             }
             else
             {
-                MessageBox.Show("Nenhuma Elemento selecionado.");
+                MessageBox.Show("Cartela não encontrada.");
+            }
+        }
+
+        //Métodos para informações das Listas
+        private void OnListLabelClick(Label clickedLabel)
+        {
+            // Remove o destaque de todos os Labels
+            foreach (Control control in FlwEditVisu.Controls)
+            {
+                if (control is Label lbl)
+                {
+                    lbl.BackColor = Color.Transparent; // Remove o destaque
+                }
+            }
+
+            // Destaca o Label clicado
+            clickedLabel.BackColor = Color.LightBlue;
+
+            // Obtém o ID da lista do Tag do Label
+            int listId = Convert.ToInt32(clickedLabel.Tag);
+
+            // Carrega os detalhes da lista
+            LoadListDetails(listId);
+        }
+        private void LoadListDetails(int listId)
+        {
+            DataRow listDetails = DataService.GetListById(listId);
+            List<DataRow> listSize = DataService.GetCompaniesByListId(listId);
+
+            if (listDetails != null)
+            {
+                LblVisuCont1.Text = listDetails["Name"].ToString();
+                LblVisuCont2.Text = listSize.Count.ToString();
+                LblVisuCont3.Text = listDetails["Description"].ToString();
+
+                // Carrega o logo da lista associada
+                string listLogoFileName = listDetails["Logo"].ToString();
+                string listLogoPath = Path.Combine(Application.StartupPath, "Images", listLogoFileName);
+
+                Image logoImage = null;
+                if (File.Exists(listLogoPath))
+                {
+                    logoImage = Image.FromFile(listLogoPath);
+                }
+
+                // Usa o logo da lista ou o logo padrão se o da lista não existir
+                PicVisuLogo.Image = logoImage ?? Image.FromFile(@"Images/default_logo.jpg");
+            }
+            else
+            {
+                MessageBox.Show("Lista não encontrada.");
+            }
+        }
+
+        //Método para Exclusão
+        private void BtnEditVisu_Click(object sender, EventArgs e)
+        {
+            string visuOpt = CboVisu.Text;
+
+            if (string.IsNullOrEmpty(LblVisuCont1.Text))
+            {
+                return;
+            }
+
+            if (visuOpt == "Listas")
+            {
+                string selectedListName = LblVisuCont1.Text;
+
+                DialogResult dialogResult = MessageBox.Show($"Tem certeza de que deseja excluir a lista '{selectedListName}'? Todas as cartelas associadas também serão excluídas.",
+                                                            "Confirmar Exclusão",
+                                                            MessageBoxButtons.YesNo,
+                                                            MessageBoxIcon.Warning);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    try
+                    {
+                        int listId = DataService.GetListId(selectedListName);
+                        DataService.DeleteList(listId);
+
+                        PopulateLists();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Erro ao Excluir a Lista");
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            } else if (visuOpt == "Elementos")
+            {
+                string selectedCompName = LblVisuCont1.Text;
+
+                DialogResult dialogResult = MessageBox.Show($"Tem certeza de que deseja excluir o Elemento '{selectedCompName}'? Todas as Cartelas e Listas associadas também serão excluídas.",
+                                                            "Confirmar Exclusão",
+                                                            MessageBoxButtons.YesNo,
+                                                            MessageBoxIcon.Warning);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    try
+                    {
+                        int compId = DataService.GetCompId(selectedCompName);
+                        DataService.DeleteCompany(compId);
+
+                        PopulateElements();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Erro ao Excluir o Elemento");
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            } else if (visuOpt == "Cartelas")
+            {
+                string selectedSetName = LblVisuCont1.Text;
+
+                DialogResult dialogResult = MessageBox.Show($"Tem certeza de que deseja excluir as Cartelas do conjunto '{selectedSetName}'?",
+                                                            "Confirmar Exclusão",
+                                                            MessageBoxButtons.YesNo,
+                                                            MessageBoxIcon.Warning);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    try
+                    {
+                        int setId = DataService.GetCardsId(selectedSetName);
+                        DataService.DeleteCards(setId);
+
+                        PopulateCards();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Erro ao Excluir as Cartelas");
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            } else
+            {
+                return;
             }
         }
 
@@ -1839,7 +2159,13 @@ namespace BingoManager
         }
         private void BtnVisuComp_Click(object sender, EventArgs e)
         {
-            PopulateFlwEditVisu();
+            LblVisu1.Text = "";
+            LblVisu2.Text = "";
+            LblVisu3.Text = "";
+            LblVisu4.Text = "";
+            LblVisu5.Text = "";
+            CboVisu.Text = "";
+            FlwEditVisu.Controls.Clear();
             EditPage.SelectedTab = TabEditVisualize;
         }
         private void BtnPlayAnalog_Click(object sender, EventArgs e)
@@ -1916,12 +2242,19 @@ namespace BingoManager
             LblEditMsgComp.Text = String.Empty;
             PicEditLogoComp.Image = null;
 
-            LblVisuName.Text = String.Empty;
-            LblVisuCardName.Text = String.Empty;
-            LblVisuPhone.Text = String.Empty;
-            LblVisuEmail.Text = String.Empty;
-            LblVisuLists.Text = String.Empty;
+            LblVisuCont1.Text = String.Empty;
+            LblVisuCont2.Text = String.Empty;
+            LblVisuCont3.Text = String.Empty;
+            LblVisuCont4.Text = String.Empty;
+            LblVisuCont5.Text = String.Empty;
             PicVisuLogo.Image = null;
+
+            LblVisu1.Text = String.Empty;
+            LblVisu2.Text = String.Empty;
+            LblVisu3.Text = String.Empty;
+            LblVisu4.Text = String.Empty;
+            LblVisu5.Text = String.Empty;
+            CboVisu.Text = String.Empty;
 
             foreach (Control control in FlwEditVisu.Controls)
             {
@@ -1936,7 +2269,6 @@ namespace BingoManager
             EditListConfigureLayout();
             LoadAllComp();
             LoadGames();
-            PopulateFlwEditVisu();
 
             EditPage.SelectedTab = TabEditMain;
         }
@@ -1964,12 +2296,13 @@ namespace BingoManager
             BoxCreateCardsEnd.Text = String.Empty;
             LblCreateCardsMsg.Text = String.Empty;
 
+            FlwEditVisu.Controls.Clear();
+
             LoadLists();
             LoadComps();
             EditListConfigureLayout();
             LoadAllComp();
             LoadGames();
-            PopulateFlwEditVisu();
 
             CreatePage.SelectedTab = TabCreateMain;
         }
@@ -1989,7 +2322,6 @@ namespace BingoManager
                 EditListConfigureLayout();
                 LoadAllComp();
                 LoadGames();
-                PopulateFlwEditVisu();
 
                 PlayPage.SelectedTab = TabPlayMain;
             }
@@ -2017,7 +2349,6 @@ namespace BingoManager
                 EditListConfigureLayout();
                 LoadAllComp();
                 LoadGames();
-                PopulateFlwEditVisu();
 
                 PlayPage.SelectedTab = TabPlayMain;
             }
