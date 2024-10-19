@@ -20,6 +20,8 @@ namespace BingoManager
         {
             InitializeComponent();
 
+            DataService.InitializeDatabase();
+
             HideTabControlTabs();
 
             toolTip = new ToolTip

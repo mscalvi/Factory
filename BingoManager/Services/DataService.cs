@@ -36,7 +36,11 @@ namespace BingoManager.Services
                 // Inicializa a string de conexão com o caminho do banco de dados
                 _connectionString = $"Data Source={databasePath};Version=3;";
 
-                InitializeDatabase();
+                // Verifica se o banco de dados já existe
+                if (!File.Exists(databasePath))
+                {
+                    InitializeDatabase(); // Cria o banco de dados apenas se não existir
+                }
             }
             catch (Exception ex)
             {
@@ -45,6 +49,7 @@ namespace BingoManager.Services
                 throw;
             }
         }
+
 
 
         // Método para abrir uma conexão com o banco de dados
