@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager\\services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,32 +38,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "DataService.cs",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Services\\DataService.cs",
               "RelativeDocumentMoniker": "Services\\DataService.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Services\\DataService.cs",
               "RelativeToolTip": "Services\\DataService.cs",
-              "ViewState": "AQIAAPUAAAAAAAAAAAArwI8BAAA3AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgCAABZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-13T15:35:50.338Z"
+              "WhenOpened": "2024-09-13T15:35:50.338Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "MainView.cs",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Views\\MainView.cs",
               "RelativeDocumentMoniker": "Views\\MainView.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Views\\MainView.cs",
               "RelativeToolTip": "Views\\MainView.cs",
-              "ViewState": "AQIAAKMCAAAAAAAAAADgv6wDAABFAAAA",
+              "ViewState": "AQIAAK8HAAAAAAAAAAAAADAIAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-13T15:19:26.589Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "MainView.cs [Projeto]",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Views\\MainView.cs",
               "RelativeDocumentMoniker": "Views\\MainView.cs",

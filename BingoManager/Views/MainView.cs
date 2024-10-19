@@ -20,6 +20,8 @@ namespace BingoManager
         {
             InitializeComponent();
 
+            HideTabControlTabs();
+
             toolTip = new ToolTip
             {
                 AutoPopDelay = 0,
@@ -334,6 +336,7 @@ namespace BingoManager
                 // Verifica a quantidade
                 if (int.TryParse(CardsQuant, out Qnt) && Qnt <= maxQuantity)
                 {
+                    BtnCreateCards.Enabled = false;
                     CardsService.CreateCards(CompList, CardsList, CompanyCount, Qnt, CardsTitle, CardsEnd, CardsName);
                 }
                 else
@@ -354,6 +357,7 @@ namespace BingoManager
             BoxCreateCardsTitle.Text = string.Empty;
             CboCreateCardsList.SelectedIndex = -1;
             LblCreateCardsMsg.Text = "Cartelas criadas com sucesso!";
+            BtnCreateCards.Enabled = true;
         }
 
         //Apenas números na quantidade de cartelas
@@ -440,53 +444,53 @@ namespace BingoManager
                     companyName = companyName.Substring(0, 10);
                 }
 
-                Panel companyPanel = new Panel();
-                companyPanel.Tag = companyId;
-                companyPanel.Width = 100;
-                companyPanel.Height = 70;
-                companyPanel.Margin = new Padding(15, 0, 14, 0);
-
-
-                PictureBox picBox = new PictureBox();
-                if (!string.IsNullOrEmpty(logoName))
+                Panel companyPanel = new Panel
                 {
-                    picBox.Image = Image.FromFile(@"Images/" + logoName);
-                }
-                else
+                    Tag = companyId,
+                    Width = 100,
+                    Height = 70,
+                    Margin = new Padding(15, 0, 14, 0),
+                    BackColor = Color.LightGray // Default background color
+                };
+
+                PictureBox picBox = new PictureBox
                 {
-                    picBox.Image = Image.FromFile(@"Images/default_logo.jpg");
-                }
+                    Image = !string.IsNullOrEmpty(logoName) ? Image.FromFile(@"Images/" + logoName) : Image.FromFile(@"Images/default_logo.jpg"),
+                    SizeMode = PictureBoxSizeMode.Zoom,
+                    Width = 80,
+                    Height = 50,
+                    Location = new Point(10, 5)
+                };
 
-                picBox.SizeMode = PictureBoxSizeMode.Zoom;
-                picBox.Width = 80;
-                picBox.Height = 50;
-                picBox.Location = new Point(10, 5);
+                CheckBox chkBox = new CheckBox
+                {
+                    Width = 15,
+                    Height = 15,
+                    Location = new Point(5, 55)
+                };
 
-                CheckBox chkBox = new CheckBox();
-                chkBox.Width = 15;
-                chkBox.Height = 15;
-                chkBox.Location = new Point(5, 55);
-
-                Label lblName = new Label();
-                lblName.Text = companyName;
-                lblName.Width = 75;
-                lblName.Height = 20;
-                lblName.Location = new Point(25, 50);
-                lblName.TextAlign = ContentAlignment.MiddleLeft;
+                Label lblName = new Label
+                {
+                    Text = companyName,
+                    Width = 75,
+                    Height = 20,
+                    Location = new Point(25, 50),
+                    TextAlign = ContentAlignment.MiddleLeft
+                };
 
                 toolTip.SetToolTip(picBox, companyFull);
                 toolTip.SetToolTip(lblName, companyFull);
 
+                // Evento para mudar a cor de fundo quando o CheckBox for alterado
                 chkBox.CheckedChanged += (sender, e) =>
                 {
-                    if (chkBox.Checked)
-                    {
-                        companyPanel.BackColor = Color.LightBlue;
-                    }
-                    else
-                    {
-                        companyPanel.BackColor = Color.LightGray;
-                    }
+                    companyPanel.BackColor = chkBox.Checked ? Color.LightBlue : Color.LightGray;
+                };
+
+                // Evento para clicar na imagem e marcar/desmarcar o CheckBox correspondente
+                picBox.Click += (sender, e) =>
+                {
+                    chkBox.Checked = !chkBox.Checked;  // Alterna o estado do CheckBox
                 };
 
                 companyPanel.Controls.Add(picBox);
@@ -497,14 +501,14 @@ namespace BingoManager
             }
         }
 
-        //Método para mostrar as Elementos de uma Lista
+        // Método para mostrar as Elementos de uma Lista
         private void EditListShowSel(List<DataRow> CompList)
         {
             FlowEditViewSel.Controls.Clear();
 
             foreach (DataRow row in CompList)
             {
-                string CompanyId = row["Id"].ToString();
+                string companyId = row["Id"].ToString();
                 string companyName = row["Name"].ToString();
                 string logoName = row["Logo"].ToString();
                 string companyFull = companyName;
@@ -515,62 +519,63 @@ namespace BingoManager
                     companyName = companyName.Substring(0, 10);
                 }
 
-                Panel companyPanel = new Panel();
-                companyPanel.Tag = CompanyId;
-                companyPanel.Width = 100;
-                companyPanel.Height = 70;
-                companyPanel.Margin = new Padding(15, 0, 14, 0);
-
-
-                PictureBox picBox = new PictureBox();
-                if (!string.IsNullOrEmpty(logoName))
+                Panel companyPanel = new Panel
                 {
-                    picBox.Image = Image.FromFile(@"Images/" + logoName);
-                }
-                else
+                    Tag = companyId,
+                    Width = 100,
+                    Height = 70,
+                    Margin = new Padding(15, 0, 14, 0),
+                    BackColor = Color.LightGray // Cor de fundo padrão
+                };
+
+                PictureBox picBox = new PictureBox
                 {
-                    picBox.Image = Image.FromFile(@"Images/default_logo.jpg");
-                }
+                    Image = !string.IsNullOrEmpty(logoName) ? Image.FromFile(@"Images/" + logoName) : Image.FromFile(@"Images/default_logo.jpg"),
+                    SizeMode = PictureBoxSizeMode.Zoom,
+                    Width = 80,
+                    Height = 50,
+                    Location = new Point(10, 5)
+                };
 
-                picBox.SizeMode = PictureBoxSizeMode.Zoom;
-                picBox.Width = 80;
-                picBox.Height = 50;
-                picBox.Location = new Point(10, 5);
+                CheckBox chkBox = new CheckBox
+                {
+                    Width = 15,
+                    Height = 15,
+                    Location = new Point(5, 55)
+                };
 
-                CheckBox chkBox = new CheckBox();
-                chkBox.Width = 15;
-                chkBox.Height = 15;
-                chkBox.Location = new Point(5, 55);
-
-                Label lblName = new Label();
-                lblName.Text = companyName;
-                lblName.Width = 75;
-                lblName.Height = 20;
-                lblName.Location = new Point(25, 50);
-                lblName.TextAlign = ContentAlignment.MiddleLeft;
+                Label lblName = new Label
+                {
+                    Text = companyName,
+                    Width = 75,
+                    Height = 20,
+                    Location = new Point(25, 50),
+                    TextAlign = ContentAlignment.MiddleLeft
+                };
 
                 toolTip.SetToolTip(picBox, companyFull);
                 toolTip.SetToolTip(lblName, companyFull);
 
+                // Evento para mudar a cor de fundo quando o CheckBox for alterado
                 chkBox.CheckedChanged += (sender, e) =>
                 {
-                    if (chkBox.Checked)
-                    {
-                        companyPanel.BackColor = Color.LightBlue;
-                    }
-                    else
-                    {
-                        companyPanel.BackColor = Color.LightGray;
-                    }
+                    companyPanel.BackColor = chkBox.Checked ? Color.LightBlue : Color.LightGray;
+                };
+
+                // Evento para selecionar/desselecionar o CheckBox ao clicar na imagem
+                picBox.Click += (sender, e) =>
+                {
+                    chkBox.Checked = !chkBox.Checked;  // Alterna o estado do CheckBox
                 };
 
                 companyPanel.Controls.Add(picBox);
                 companyPanel.Controls.Add(chkBox);
                 companyPanel.Controls.Add(lblName);
 
-                FlowEditViewSel.Controls.Add(companyPanel);  // Altere para o painel correto
+                FlowEditViewSel.Controls.Add(companyPanel);  // Adiciona ao painel correto
             }
         }
+
 
         //Método para filtrar as Elementos mostradas
         private void BoxEditFilterCL_TextChanged(object sender, EventArgs e)
@@ -2080,6 +2085,26 @@ namespace BingoManager
 
 
         //Design
+
+        private void HideTabControlTabs()
+        {
+            MainPage.Appearance = TabAppearance.FlatButtons;
+            MainPage.ItemSize = new Size(0, 1);
+            MainPage.SizeMode = TabSizeMode.Fixed;
+
+            CreatePage.Appearance = TabAppearance.FlatButtons;
+            CreatePage.ItemSize = new Size(0, 1);
+            CreatePage.SizeMode = TabSizeMode.Fixed;
+
+            EditPage.Appearance = TabAppearance.FlatButtons;
+            EditPage.ItemSize = new Size(0, 1);
+            EditPage.SizeMode = TabSizeMode.Fixed;
+
+            PlayPage.Appearance = TabAppearance.FlatButtons;
+            PlayPage.ItemSize = new Size(0, 1);
+            PlayPage.SizeMode = TabSizeMode.Fixed;
+        }
+
         //Home Screen
         private void BtnCreateScreen_MouseHover(object sender, EventArgs e)
         {
