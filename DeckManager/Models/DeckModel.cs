@@ -12,7 +12,14 @@ namespace DeckManager.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Format { get; set; }
+
+        //Questionáveis
         public int Ready { get; set; }
+
+        //Categorias
+        public string Tag1 { get; set; }
+        public string Tag2 { get; set; }
+        public string Tag3 { get; set; }
 
         //Listas
         public List<CardModel> DeckList { get; set; }

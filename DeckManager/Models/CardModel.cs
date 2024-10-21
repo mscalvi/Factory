@@ -11,6 +11,8 @@ namespace DeckManager.Models
         //Registrados
         public int Id { get; set; }
         public string Name { get; set; }
+
+        //Questionável
         public int Have { get; set; }
 
         //Baixados

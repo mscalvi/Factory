@@ -50,6 +50,10 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "dependencies": {
+            "Microsoft.Data.Sqlite.Core": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
@@ -57,6 +61,14 @@
             "RestSharp": {
               "target": "Package",
               "version": "[112.1.0, )"
+            },
+            "SQLite": {
+              "target": "Package",
+              "version": "[3.13.0, )"
+            },
+            "System.Data.SQLite": {
+              "target": "Package",
+              "version": "[1.0.119, )"
             }
           },
           "imports": [

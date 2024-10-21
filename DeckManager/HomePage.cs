@@ -1,27 +1,28 @@
 using DeckManager.Services;
 using Newtonsoft.Json.Linq;
+using DeckManager.Views;
 
 namespace DeckManager
 {
     public partial class HomePage : Form
     {
-        private readonly ScryfallAPI _api;
+        private readonly ScryfallAPI _api; 
+        private Button selectedButton = null;
+
 
         public HomePage()
         {
             InitializeComponent();
             _api = new ScryfallAPI();
+
+            CatFlowAtt(); // Inicializar Tabela de Categorias
         }
 
-        private void BoxFinder_TextChanged(object sender, EventArgs e)
+        //Card Finder
+        private async void BoxFinder_TextChanged(object sender, EventArgs e)
         {
-            string CardName = BoxFinder.Text.Trim();
+            string cardName = BoxFinder.Text.Trim();
 
-        }
-
-        private async void BtnFinder_Click(object sender, EventArgs e)
-        {
-            string cardName = BoxFinder.Text;  // TextBox de busca
             if (!string.IsNullOrEmpty(cardName))
             {
                 var scryfallService = new ScryfallAPI();
@@ -29,6 +30,22 @@ namespace DeckManager
 
                 // Aqui você pode tratar o JSON retornado e exibir os resultados no FlowLayoutPanel (FlwFinder)
                 // Parsear o resultado JSON e popular a interface
+                DisplayCardResults(result);
+            }
+
+            if (string.IsNullOrEmpty(cardName))
+            {
+                FlwFinder.Controls.Clear();
+            }
+        }
+
+        private async void BtnFinder_Click(object sender, EventArgs e)
+        {
+            string cardName = BoxFinder.Text;
+            if (!string.IsNullOrEmpty(cardName))
+            {
+                var scryfallService = new ScryfallAPI();
+                string result = await scryfallService.SearchCardByNameAsync(cardName);
                 DisplayCardResults(result);
             }
         }
@@ -117,5 +134,87 @@ namespace DeckManager
 
             return panel;
         }
+
+
+        //Ui Control
+        private void BtnDeckManager_Click(object sender, EventArgs e)
+        {
+            MainControl.SelectedTab = TabDecks;
+            DecksControl.SelectedTab = TabCategory;
+        }
+
+
+
+        //Deck Manager
+        private void BtnNewCategory_Click(object sender, EventArgs e)
+        {
+            TextInputDialog inputDialog = new TextInputDialog("Digite o nome da Categoria:");
+            if (inputDialog.ShowDialog() == DialogResult.OK)
+            {
+                string catName = inputDialog.UserInput;
+
+                try
+                {
+                    DataService.NewCategory(catName); 
+                    CatFlowAtt();
+                }
+                catch (ArgumentException ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void BtnDelCategory_Click(object sender, EventArgs e)
+        {
+            if (selectedButton != null)
+            {
+                var selectedCategory = (CategoryModel)selectedButton.Tag; 
+
+                DataService.DeleteCategory(selectedCategory.Id);
+
+                FlwCategoryList.Controls.Remove(selectedButton);
+                selectedButton = null; 
+            }
+        }
+
+        private void CatFlowAtt()
+        {
+            FlwCategoryList.Controls.Clear();
+
+            List<CategoryModel> categories = DataService.GetCategories(); 
+
+            selectedButton = null;
+
+            foreach (var category in categories)
+            {
+                Button categoryButton = new Button
+                {
+                    Text = category.Name,
+                    Size = new Size(200, 50), 
+                    Padding = new Padding(5),
+                    BackColor = Color.LightGray, 
+                    FlatStyle = FlatStyle.Flat 
+                };
+
+                categoryButton.Tag = category; 
+
+                categoryButton.Click += (sender, e) =>
+                {
+                    if (selectedButton != null)
+                    {
+                        selectedButton.BackColor = Color.LightGray; 
+                    }
+
+                    selectedButton = categoryButton;
+
+                    categoryButton.BackColor = Color.LightBlue; 
+                };
+
+                FlwCategoryList.Controls.Add(categoryButton);
+            }
+        }
+
+
     }
 }
