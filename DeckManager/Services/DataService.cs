@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 using Microsoft.VisualBasic.Logging;
 using System.Xml.Linq;
+using DeckManager.Models;
+using System.Security.AccessControl;
+using DeckManager.Enums;
 
 namespace DeckManager.Services
 {
@@ -85,16 +88,16 @@ namespace DeckManager.Services
             }
         }
 
-        //Categories
-        public static List<CategoryModel> GetCategories()
+        //Formats
+        public static List<FormatModel> GetFormats()
         {
-            var categories = new List<CategoryModel>();
+            var categories = new List<FormatModel>();
 
             using (var connection = GetConnection())
             {
                 connection.Open();
 
-                string selectQuery = "SELECT CatId, Name FROM CategoryTable;";
+                string selectQuery = "SELECT FormatId, Name FROM FormatsTable;";
 
                 using (var command = new SQLiteCommand(selectQuery, connection))
                 using (var reader = command.ExecuteReader())
@@ -102,7 +105,7 @@ namespace DeckManager.Services
                     // Lê os dados da consulta
                     while (reader.Read())
                     {
-                        var category = new CategoryModel
+                        var category = new FormatModel
                         {
                             Id = reader.GetInt32(0),
                             Name = reader.GetString(1) 
@@ -113,57 +116,240 @@ namespace DeckManager.Services
                 }
             }
 
-            return categories; 
+            return categories;
         }
-
-        public static void NewCategory(string name)
+        public static string GetFormatName(int formatId)
         {
+            string formatName = string.Empty;
+
             using (var connection = GetConnection())
             {
                 connection.Open();
 
-                string selectQuery = "SELECT COUNT(*) FROM CategoryTable WHERE Name = @Name;";
+                string selectQuery = "SELECT Name FROM FormatsTable WHERE FormatId = @formatId;";
+
                 using (var command = new SQLiteCommand(selectQuery, connection))
                 {
-                    command.Parameters.AddWithValue("@Name", name);
-                    long count = (long)command.ExecuteScalar(); 
+                    command.Parameters.AddWithValue("@formatId", formatId);
 
-                    if (count > 0)
+                    using (var reader = command.ExecuteReader())
                     {
-                        throw new ArgumentException("Uma categoria com este nome já existe.");
+                        // Verifica se há um resultado
+                        if (reader.Read())
+                        {
+                            formatName = reader.GetString(0);
+                        }
                     }
                 }
+            }
 
-                // Se não existir, insere a nova categoria
-                string insertQuery = "INSERT INTO CategoryTable (Name) VALUES (@Name);";
-                using (var command = new SQLiteCommand(insertQuery, connection))
+            return formatName;
+        }
+        public static List<OwnerModel> GetOwners()
+        {
+            var owners = new List<OwnerModel>();
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                string selectQuery = "SELECT OwnerId, Name FROM OwnersTable;";
+
+                using (var command = new SQLiteCommand(selectQuery, connection))
+                using (var reader = command.ExecuteReader())
                 {
-                    command.Parameters.AddWithValue("@Name", name);
-                    command.ExecuteNonQuery();
+                    // Lê os dados da consulta
+                    while (reader.Read())
+                    {
+                        var owner = new OwnerModel
+                        {
+                            Id = reader.GetInt32(0),
+                            Name = reader.GetString(1)
+                        };
+
+                        owners.Add(owner);
+                    }
                 }
             }
+
+            return owners;
+        }
+        public static string GetOwnerName(int ownerId)
+        {
+            string ownerName = string.Empty;
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                string selectQuery = "SELECT Name FROM OwnersTable WHERE OwnerId = @ownerId;";
+
+                using (var command = new SQLiteCommand(selectQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@ownerId", ownerId);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        // Verifica se há um resultado
+                        if (reader.Read())
+                        {
+                            ownerName = reader.GetString(0);
+                        }
+                    }
+                }
+            }
+
+            return ownerName;
+        }
+        public static List<ArchetypeModel> GetArchetypes()
+        {
+            var archetypes = new List<ArchetypeModel>();
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                string selectQuery = "SELECT ArchetypeId, Name FROM ArchetypesTable;";
+
+                using (var command = new SQLiteCommand(selectQuery, connection))
+                using (var reader = command.ExecuteReader())
+                {
+                    // Lê os dados da consulta
+                    while (reader.Read())
+                    {
+                        var archetype = new ArchetypeModel
+                        {
+                            Id = reader.GetInt32(0),
+                            Name = reader.GetString(1)
+                        };
+
+                        archetypes.Add(archetype);
+                    }
+                }
+            }
+
+            return archetypes;
+        }
+        public static string GetArchetypeName(int archetypeId)
+        {
+            string archetypeName = string.Empty;
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                string selectQuery = "SELECT Name FROM ArchetypesTable WHERE ArchetypeId = @archetypeId;";
+
+                using (var command = new SQLiteCommand(selectQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@archetypeId", archetypeId);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        // Verifica se há um resultado
+                        if (reader.Read())
+                        {
+                            archetypeName = reader.GetString(0);
+                        }
+                    }
+                }
+            }
+
+            return archetypeName;
+        }
+        public static List<ColorModel> GetColors()
+        {
+            var colors = new List<ColorModel>();
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                string selectQuery = "SELECT ColorId, Name FROM ColorsTable;";
+
+                using (var command = new SQLiteCommand(selectQuery, connection))
+                using (var reader = command.ExecuteReader())
+                {
+                    // Lê os dados da consulta
+                    while (reader.Read())
+                    {
+                        var color = new ColorModel
+                        {
+                            Id = reader.GetInt32(0),
+                            Name = reader.GetString(1)
+                        };
+
+                        colors.Add(color);
+                    }
+                }
+            }
+
+            return colors;
+        }
+        public static string GetColorName(int colorId)
+        {
+            string colorName = string.Empty;
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                string selectQuery = "SELECT Name FROM ColorsTable WHERE ColorId = @colorId;";
+
+                using (var command = new SQLiteCommand(selectQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@colorId", colorId);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        // Verifica se há um resultado
+                        if (reader.Read())
+                        {
+                            colorName = reader.GetString(0);
+                        }
+                    }
+                }
+            }
+
+            return colorName;
         }
 
-        public static void DeleteCategory(int catId)
+
+
+        public static void CreateFilter(string name, FilterType filterType)
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
+
                 using (var transaction = connection.BeginTransaction())
                 {
                     try
                     {
-                        string deleteFromAllocationQuery = "DELETE FROM AlocationTable WHERE CatId = @CatId";
-                        using (var command = new SQLiteCommand(deleteFromAllocationQuery, connection))
+                        string insertQuery = string.Empty;
+
+                        // Determine a tabela e a coluna com base no tipo de filtro
+                        switch (filterType)
                         {
-                            command.Parameters.AddWithValue("@CatId", catId);
-                            command.ExecuteNonQuery();
+                            case FilterType.Format:
+                                insertQuery = "INSERT INTO FormatsTable (Name) VALUES (@Name);";
+                                break;
+                            case FilterType.Owner:
+                                insertQuery = "INSERT INTO OwnersTable (Name) VALUES (@Name);";
+                                break;
+                            case FilterType.Archetype:
+                                insertQuery = "INSERT INTO ArchetypesTable (Name) VALUES (@Name);";
+                                break;
+                            case FilterType.Color:
+                                insertQuery = "INSERT INTO ColorsTable (Name) VALUES (@Name);";
+                                break;
+                            default:
+                                throw new ArgumentException("Tipo de filtro inválido.");
                         }
 
-                        string deleteListQuery = "DELETE FROM CategoryTable WHERE Id = @CatId";
-                        using (var command = new SQLiteCommand(deleteListQuery, connection))
+                        using (var command = new SQLiteCommand(insertQuery, connection))
                         {
-                            command.Parameters.AddWithValue("@CatId", catId);
+                            command.Parameters.AddWithValue("@Name", name);
                             command.ExecuteNonQuery();
                         }
 
@@ -172,10 +358,198 @@ namespace DeckManager.Services
                     catch (Exception ex)
                     {
                         transaction.Rollback();
+                        throw new Exception("Erro ao criar o filtro: " + ex.Message);
                     }
                 }
             }
         }
+
+        public static void DeleteFilter(string name, FilterType filterType)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        string deleteQuery = string.Empty;
+
+                        // Determine a tabela com base no tipo de filtro
+                        switch (filterType)
+                        {
+                            case FilterType.Format:
+                                deleteQuery = "DELETE FROM FormatsTable WHERE Name = @Name;";
+                                break;
+                            case FilterType.Owner:
+                                deleteQuery = "DELETE FROM OwnersTable WHERE Name = @Name;";
+                                break;
+                            case FilterType.Archetype:
+                                deleteQuery = "DELETE FROM ArchetypesTable WHERE Name = @Name;";
+                                break;
+                            case FilterType.Color:
+                                deleteQuery = "DELETE FROM ColorsTable WHERE Name = @Name;";
+                                break;
+                            default:
+                                throw new ArgumentException("Tipo de filtro inválido.");
+                        }
+
+                        using (var command = new SQLiteCommand(deleteQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@Name", name);
+                            command.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw new Exception("Erro ao deletar o filtro: " + ex.Message);
+                    }
+                }
+            }
+        }
+
+
+
+        //Decks
+        public static void NewDeck(string deckName, int formatId)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        string insertDeckQuery = "INSERT INTO DecksTable (Name, FormatId) VALUES (@Name, @FormatId);";
+                        using (var deckCommand = new SQLiteCommand(insertDeckQuery, connection))
+                        {
+                            deckCommand.Parameters.AddWithValue("@Name", deckName);
+                            deckCommand.Parameters.AddWithValue("@FormatId", formatId);
+                            deckCommand.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw new Exception("Erro ao criar o deck: " + ex.Message);
+                    }
+                }
+            }
+        }
+        public static List<DeckModel> GetAllDecks()
+        {
+            var decks = new List<DeckModel>();
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                string selectQuery = "SELECT DeckId, Name, FormatId, OwnerId, ArchetypeId, ColorsId FROM DecksTable;";
+
+                using (var command = new SQLiteCommand(selectQuery, connection))
+                using (var reader = command.ExecuteReader())
+                {
+                    // Lê os dados da consulta
+                    while (reader.Read())
+                    {
+                        var deck = new DeckModel
+                        {
+                            Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+                            Name = reader.IsDBNull(1) ? string.Empty : reader.GetString(1),
+                            Format = reader.IsDBNull(2) ? 0 : reader.GetInt32(2),
+                            Owner = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
+                            Archetype = reader.IsDBNull(4) ? 0 : reader.GetInt32(4),
+                            Colors = reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
+                        };
+
+                        decks.Add(deck);
+                    }
+                }
+            }
+
+            return decks;
+        }
+        public static List<DeckModel> GetSomeDecks(int? formatId = null, int? ownerId = null, int? archetypeId = null, int? colorsId = null)
+        {
+            var decks = new List<DeckModel>();
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                // Começa a construir a query
+                var selectQuery = "SELECT DeckId, Name, FormatId, OwnerId, ArchetypeId, ColorsId FROM DecksTable WHERE 1=1";
+
+                // Adiciona condições de filtragem com base nos parâmetros
+                if (formatId.HasValue)
+                {
+                    selectQuery += " AND FormatId = @FormatId";
+                }
+                if (ownerId.HasValue)
+                {
+                    selectQuery += " AND OwnerId = @OwnerId"; // Supondo que você tenha uma coluna Owner
+                }
+                if (archetypeId.HasValue)
+                {
+                    selectQuery += " AND ArchetypeId = @ArchetypeId"; // Supondo que você tenha uma coluna Archetype
+                }
+                if (colorsId.HasValue)
+                {
+                    selectQuery += " AND ColorsId = @ColorsId"; // Supondo que você tenha uma coluna Colors
+                }
+
+                using (var command = new SQLiteCommand(selectQuery, connection))
+                {
+                    // Adiciona parâmetros apenas se eles forem diferentes de 0
+                    if (formatId.HasValue)
+                    {
+                        command.Parameters.AddWithValue("@FormatId", formatId.Value);
+                    }
+                    if (ownerId.HasValue)
+                    {
+                        command.Parameters.AddWithValue("@OwnerId", ownerId.Value);
+                    }
+                    if (archetypeId.HasValue)
+                    {
+                        command.Parameters.AddWithValue("@ArchetypeId", archetypeId.Value);
+                    }
+                    if (colorsId.HasValue)
+                    {
+                        command.Parameters.AddWithValue("@ColorsId", colorsId.Value);
+                    }
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        // Lê os dados da consulta
+                        while (reader.Read())
+                        {
+                            var deck = new DeckModel
+                            {
+                                Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+                                Name = reader.IsDBNull(1) ? string.Empty : reader.GetString(1),
+                                Format = reader.IsDBNull(2) ? 0 : reader.GetInt32(2),
+                                Owner = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
+                                Archetype = reader.IsDBNull(4) ? 0 : reader.GetInt32(4),
+                                Colors = reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
+                            };
+
+                            decks.Add(deck);
+                        }
+                    }
+                }
+            }
+
+            return decks;
+        }
+
+
 
     }
 }

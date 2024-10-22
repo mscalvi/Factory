@@ -4,7 +4,13 @@
     <Compile Update="HomePage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Views\TextInputDialog.cs">
+    <Compile Update="Views\DelFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\NewFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\NewDeck.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

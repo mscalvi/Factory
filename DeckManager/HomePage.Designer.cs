@@ -42,23 +42,25 @@
             BoxFinder = new TextBox();
             TabDecks = new TabPage();
             DecksControl = new TabControl();
-            TabCategory = new TabPage();
+            TabFormats = new TabPage();
             PnlDeckManager = new Panel();
-            PnlDecksLists = new Panel();
-            CboTag2 = new ComboBox();
-            CboTag3 = new ComboBox();
-            CboTag1 = new ComboBox();
+            PnlDecks = new Panel();
+            PnlDecksList = new Panel();
             FlwDecksList = new FlowLayoutPanel();
-            LblTag3 = new Label();
-            LblTag2 = new Label();
-            LblTag1 = new Label();
             BtnImportDeck = new Button();
             BtnNewDeck = new Button();
-            PnlCategory = new Panel();
-            PnlFlwCat = new Panel();
-            FlwCategoryList = new FlowLayoutPanel();
-            BtnDelCategory = new Button();
-            BtnNewCategory = new Button();
+            PnlFormat = new Panel();
+            PnlPnlFilters = new Panel();
+            PnlFlwOwner = new Panel();
+            FlwOwnersList = new FlowLayoutPanel();
+            PnlFlwFormat = new Panel();
+            FlwFormatsList = new FlowLayoutPanel();
+            PnlFlwArchetypes = new Panel();
+            FlwArchetypesList = new FlowLayoutPanel();
+            PnlFlwColors = new Panel();
+            FlwColorsList = new FlowLayoutPanel();
+            BtnDelFilter = new Button();
+            BtnNewFilter = new Button();
             BtnReturn = new Button();
             TabDeckManager = new TabPage();
             PnlDeckModel = new Panel();
@@ -80,11 +82,16 @@
             PnlFinder.SuspendLayout();
             TabDecks.SuspendLayout();
             DecksControl.SuspendLayout();
-            TabCategory.SuspendLayout();
+            TabFormats.SuspendLayout();
             PnlDeckManager.SuspendLayout();
-            PnlDecksLists.SuspendLayout();
-            PnlCategory.SuspendLayout();
-            PnlFlwCat.SuspendLayout();
+            PnlDecks.SuspendLayout();
+            PnlDecksList.SuspendLayout();
+            PnlFormat.SuspendLayout();
+            PnlPnlFilters.SuspendLayout();
+            PnlFlwOwner.SuspendLayout();
+            PnlFlwFormat.SuspendLayout();
+            PnlFlwArchetypes.SuspendLayout();
+            PnlFlwColors.SuspendLayout();
             TabDeckManager.SuspendLayout();
             PnlDeckModel.SuspendLayout();
             PnlDeckHelper.SuspendLayout();
@@ -241,7 +248,7 @@
             // 
             // DecksControl
             // 
-            DecksControl.Controls.Add(TabCategory);
+            DecksControl.Controls.Add(TabFormats);
             DecksControl.Controls.Add(TabDeckManager);
             DecksControl.Dock = DockStyle.Fill;
             DecksControl.Location = new Point(3, 3);
@@ -250,114 +257,55 @@
             DecksControl.Size = new Size(1890, 1007);
             DecksControl.TabIndex = 5;
             // 
-            // TabCategory
+            // TabFormats
             // 
-            TabCategory.Controls.Add(PnlDeckManager);
-            TabCategory.Location = new Point(4, 24);
-            TabCategory.Name = "TabCategory";
-            TabCategory.Padding = new Padding(3);
-            TabCategory.Size = new Size(1882, 979);
-            TabCategory.TabIndex = 0;
-            TabCategory.Text = "Main";
-            TabCategory.UseVisualStyleBackColor = true;
+            TabFormats.Controls.Add(PnlDeckManager);
+            TabFormats.Location = new Point(4, 24);
+            TabFormats.Name = "TabFormats";
+            TabFormats.Padding = new Padding(3);
+            TabFormats.Size = new Size(1882, 979);
+            TabFormats.TabIndex = 0;
+            TabFormats.Text = "Main";
+            TabFormats.UseVisualStyleBackColor = true;
             // 
             // PnlDeckManager
             // 
-            PnlDeckManager.Controls.Add(PnlDecksLists);
-            PnlDeckManager.Controls.Add(PnlCategory);
+            PnlDeckManager.Controls.Add(PnlDecks);
+            PnlDeckManager.Controls.Add(PnlFormat);
             PnlDeckManager.Dock = DockStyle.Fill;
             PnlDeckManager.Location = new Point(3, 3);
             PnlDeckManager.Name = "PnlDeckManager";
             PnlDeckManager.Size = new Size(1876, 973);
             PnlDeckManager.TabIndex = 0;
             // 
-            // PnlDecksLists
+            // PnlDecks
             // 
-            PnlDecksLists.Controls.Add(CboTag2);
-            PnlDecksLists.Controls.Add(CboTag3);
-            PnlDecksLists.Controls.Add(CboTag1);
-            PnlDecksLists.Controls.Add(FlwDecksList);
-            PnlDecksLists.Controls.Add(LblTag3);
-            PnlDecksLists.Controls.Add(LblTag2);
-            PnlDecksLists.Controls.Add(LblTag1);
-            PnlDecksLists.Controls.Add(BtnImportDeck);
-            PnlDecksLists.Controls.Add(BtnNewDeck);
-            PnlDecksLists.Dock = DockStyle.Fill;
-            PnlDecksLists.Location = new Point(0, 283);
-            PnlDecksLists.Name = "PnlDecksLists";
-            PnlDecksLists.Size = new Size(1876, 690);
-            PnlDecksLists.TabIndex = 6;
+            PnlDecks.Controls.Add(PnlDecksList);
+            PnlDecks.Controls.Add(BtnImportDeck);
+            PnlDecks.Controls.Add(BtnNewDeck);
+            PnlDecks.Dock = DockStyle.Fill;
+            PnlDecks.Location = new Point(0, 283);
+            PnlDecks.Name = "PnlDecks";
+            PnlDecks.Size = new Size(1876, 690);
+            PnlDecks.TabIndex = 6;
             // 
-            // CboTag2
+            // PnlDecksList
             // 
-            CboTag2.Anchor = AnchorStyles.Top;
-            CboTag2.Font = new Font("Segoe UI", 12F);
-            CboTag2.FormattingEnabled = true;
-            CboTag2.Location = new Point(917, 9);
-            CboTag2.Name = "CboTag2";
-            CboTag2.Size = new Size(441, 29);
-            CboTag2.TabIndex = 6;
-            // 
-            // CboTag3
-            // 
-            CboTag3.Anchor = AnchorStyles.Top;
-            CboTag3.Font = new Font("Segoe UI", 12F);
-            CboTag3.FormattingEnabled = true;
-            CboTag3.Location = new Point(1506, 9);
-            CboTag3.Name = "CboTag3";
-            CboTag3.Size = new Size(366, 29);
-            CboTag3.TabIndex = 8;
-            // 
-            // CboTag1
-            // 
-            CboTag1.Anchor = AnchorStyles.Top;
-            CboTag1.Font = new Font("Segoe UI", 12F);
-            CboTag1.FormattingEnabled = true;
-            CboTag1.Location = new Point(319, 9);
-            CboTag1.Name = "CboTag1";
-            CboTag1.Size = new Size(395, 29);
-            CboTag1.TabIndex = 4;
+            PnlDecksList.Anchor = AnchorStyles.Top;
+            PnlDecksList.AutoScroll = true;
+            PnlDecksList.Controls.Add(FlwDecksList);
+            PnlDecksList.Location = new Point(258, 6);
+            PnlDecksList.Name = "PnlDecksList";
+            PnlDecksList.Size = new Size(1611, 681);
+            PnlDecksList.TabIndex = 10;
             // 
             // FlwDecksList
             // 
-            FlwDecksList.Anchor = AnchorStyles.Top;
-            FlwDecksList.Location = new Point(255, 38);
+            FlwDecksList.Dock = DockStyle.Fill;
+            FlwDecksList.Location = new Point(0, 0);
             FlwDecksList.Name = "FlwDecksList";
-            FlwDecksList.Size = new Size(1617, 649);
-            FlwDecksList.TabIndex = 10;
-            // 
-            // LblTag3
-            // 
-            LblTag3.Anchor = AnchorStyles.Top;
-            LblTag3.Font = new Font("Segoe UI", 12F);
-            LblTag3.Location = new Point(1447, 6);
-            LblTag3.Name = "LblTag3";
-            LblTag3.Size = new Size(53, 32);
-            LblTag3.TabIndex = 9;
-            LblTag3.Text = "Cores:";
-            LblTag3.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // LblTag2
-            // 
-            LblTag2.Anchor = AnchorStyles.Top;
-            LblTag2.Font = new Font("Segoe UI", 12F);
-            LblTag2.Location = new Point(818, 6);
-            LblTag2.Name = "LblTag2";
-            LblTag2.Size = new Size(93, 32);
-            LblTag2.TabIndex = 7;
-            LblTag2.Text = "Arquétipo:";
-            LblTag2.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // LblTag1
-            // 
-            LblTag1.Anchor = AnchorStyles.Top;
-            LblTag1.Font = new Font("Segoe UI", 12F);
-            LblTag1.Location = new Point(255, 6);
-            LblTag1.Name = "LblTag1";
-            LblTag1.Size = new Size(58, 32);
-            LblTag1.TabIndex = 5;
-            LblTag1.Text = "Dono:";
-            LblTag1.TextAlign = ContentAlignment.MiddleLeft;
+            FlwDecksList.Size = new Size(1611, 681);
+            FlwDecksList.TabIndex = 0;
             // 
             // BtnImportDeck
             // 
@@ -380,60 +328,122 @@
             BtnNewDeck.TabIndex = 3;
             BtnNewDeck.Text = "Novo Deck";
             BtnNewDeck.UseVisualStyleBackColor = true;
+            BtnNewDeck.Click += BtnNewDeck_Click;
             // 
-            // PnlCategory
+            // PnlFormat
             // 
-            PnlCategory.Controls.Add(PnlFlwCat);
-            PnlCategory.Controls.Add(BtnDelCategory);
-            PnlCategory.Controls.Add(BtnNewCategory);
-            PnlCategory.Controls.Add(BtnReturn);
-            PnlCategory.Dock = DockStyle.Top;
-            PnlCategory.Location = new Point(0, 0);
-            PnlCategory.Name = "PnlCategory";
-            PnlCategory.Size = new Size(1876, 283);
-            PnlCategory.TabIndex = 5;
+            PnlFormat.Controls.Add(PnlPnlFilters);
+            PnlFormat.Controls.Add(BtnDelFilter);
+            PnlFormat.Controls.Add(BtnNewFilter);
+            PnlFormat.Controls.Add(BtnReturn);
+            PnlFormat.Dock = DockStyle.Top;
+            PnlFormat.Location = new Point(0, 0);
+            PnlFormat.Name = "PnlFormat";
+            PnlFormat.Size = new Size(1876, 283);
+            PnlFormat.TabIndex = 5;
             // 
-            // PnlFlwCat
+            // PnlPnlFilters
             // 
-            PnlFlwCat.Anchor = AnchorStyles.Top;
-            PnlFlwCat.Controls.Add(FlwCategoryList);
-            PnlFlwCat.Location = new Point(255, 3);
-            PnlFlwCat.Name = "PnlFlwCat";
-            PnlFlwCat.Size = new Size(1617, 274);
-            PnlFlwCat.TabIndex = 7;
+            PnlPnlFilters.Controls.Add(PnlFlwOwner);
+            PnlPnlFilters.Controls.Add(PnlFlwFormat);
+            PnlPnlFilters.Controls.Add(PnlFlwArchetypes);
+            PnlPnlFilters.Controls.Add(PnlFlwColors);
+            PnlPnlFilters.Location = new Point(258, 3);
+            PnlPnlFilters.Name = "PnlPnlFilters";
+            PnlPnlFilters.Size = new Size(1611, 274);
+            PnlPnlFilters.TabIndex = 9;
             // 
-            // FlwCategoryList
+            // PnlFlwOwner
             // 
-            FlwCategoryList.Anchor = AnchorStyles.Top;
-            FlwCategoryList.AutoSize = true;
-            FlwCategoryList.Location = new Point(3, 3);
-            FlwCategoryList.Name = "FlwCategoryList";
-            FlwCategoryList.Size = new Size(1611, 268);
-            FlwCategoryList.TabIndex = 4;
+            PnlFlwOwner.Anchor = AnchorStyles.Top;
+            PnlFlwOwner.Controls.Add(FlwOwnersList);
+            PnlFlwOwner.Location = new Point(406, 3);
+            PnlFlwOwner.Name = "PnlFlwOwner";
+            PnlFlwOwner.Size = new Size(395, 271);
+            PnlFlwOwner.TabIndex = 9;
             // 
-            // BtnDelCategory
+            // FlwOwnersList
             // 
-            BtnDelCategory.Anchor = AnchorStyles.Top;
-            BtnDelCategory.Font = new Font("Segoe UI", 18F);
-            BtnDelCategory.Location = new Point(3, 181);
-            BtnDelCategory.Name = "BtnDelCategory";
-            BtnDelCategory.Size = new Size(246, 68);
-            BtnDelCategory.TabIndex = 6;
-            BtnDelCategory.Text = "Deletar Categoria";
-            BtnDelCategory.UseVisualStyleBackColor = true;
-            BtnDelCategory.Click += BtnDelCategory_Click;
+            FlwOwnersList.Dock = DockStyle.Fill;
+            FlwOwnersList.Location = new Point(0, 0);
+            FlwOwnersList.Name = "FlwOwnersList";
+            FlwOwnersList.Size = new Size(395, 271);
+            FlwOwnersList.TabIndex = 0;
             // 
-            // BtnNewCategory
+            // PnlFlwFormat
             // 
-            BtnNewCategory.Anchor = AnchorStyles.Top;
-            BtnNewCategory.Font = new Font("Segoe UI", 18F);
-            BtnNewCategory.Location = new Point(3, 107);
-            BtnNewCategory.Name = "BtnNewCategory";
-            BtnNewCategory.Size = new Size(246, 68);
-            BtnNewCategory.TabIndex = 0;
-            BtnNewCategory.Text = "Nova Categoria";
-            BtnNewCategory.UseVisualStyleBackColor = true;
-            BtnNewCategory.Click += BtnNewCategory_Click;
+            PnlFlwFormat.Anchor = AnchorStyles.Top;
+            PnlFlwFormat.Controls.Add(FlwFormatsList);
+            PnlFlwFormat.Location = new Point(3, 0);
+            PnlFlwFormat.Name = "PnlFlwFormat";
+            PnlFlwFormat.Size = new Size(395, 271);
+            PnlFlwFormat.TabIndex = 7;
+            // 
+            // FlwFormatsList
+            // 
+            FlwFormatsList.Dock = DockStyle.Fill;
+            FlwFormatsList.Location = new Point(0, 0);
+            FlwFormatsList.Name = "FlwFormatsList";
+            FlwFormatsList.Size = new Size(395, 271);
+            FlwFormatsList.TabIndex = 0;
+            // 
+            // PnlFlwArchetypes
+            // 
+            PnlFlwArchetypes.Anchor = AnchorStyles.Top;
+            PnlFlwArchetypes.Controls.Add(FlwArchetypesList);
+            PnlFlwArchetypes.Location = new Point(809, 3);
+            PnlFlwArchetypes.Name = "PnlFlwArchetypes";
+            PnlFlwArchetypes.Size = new Size(395, 271);
+            PnlFlwArchetypes.TabIndex = 9;
+            // 
+            // FlwArchetypesList
+            // 
+            FlwArchetypesList.Dock = DockStyle.Fill;
+            FlwArchetypesList.Location = new Point(0, 0);
+            FlwArchetypesList.Name = "FlwArchetypesList";
+            FlwArchetypesList.Size = new Size(395, 271);
+            FlwArchetypesList.TabIndex = 0;
+            // 
+            // PnlFlwColors
+            // 
+            PnlFlwColors.Anchor = AnchorStyles.Top;
+            PnlFlwColors.Controls.Add(FlwColorsList);
+            PnlFlwColors.Location = new Point(1212, 3);
+            PnlFlwColors.Name = "PnlFlwColors";
+            PnlFlwColors.Size = new Size(395, 271);
+            PnlFlwColors.TabIndex = 8;
+            // 
+            // FlwColorsList
+            // 
+            FlwColorsList.Dock = DockStyle.Fill;
+            FlwColorsList.Location = new Point(0, 0);
+            FlwColorsList.Name = "FlwColorsList";
+            FlwColorsList.Size = new Size(395, 271);
+            FlwColorsList.TabIndex = 0;
+            // 
+            // BtnDelFilter
+            // 
+            BtnDelFilter.Anchor = AnchorStyles.Top;
+            BtnDelFilter.Font = new Font("Segoe UI", 18F);
+            BtnDelFilter.Location = new Point(3, 181);
+            BtnDelFilter.Name = "BtnDelFilter";
+            BtnDelFilter.Size = new Size(246, 68);
+            BtnDelFilter.TabIndex = 6;
+            BtnDelFilter.Text = "Deletar Filtro";
+            BtnDelFilter.UseVisualStyleBackColor = true;
+            BtnDelFilter.Click += BtnDelFilter_Click;
+            // 
+            // BtnNewFilter
+            // 
+            BtnNewFilter.Anchor = AnchorStyles.Top;
+            BtnNewFilter.Font = new Font("Segoe UI", 18F);
+            BtnNewFilter.Location = new Point(3, 107);
+            BtnNewFilter.Name = "BtnNewFilter";
+            BtnNewFilter.Size = new Size(246, 68);
+            BtnNewFilter.TabIndex = 0;
+            BtnNewFilter.Text = "Novo Filtro";
+            BtnNewFilter.UseVisualStyleBackColor = true;
+            BtnNewFilter.Click += BtnNewFilter_Click;
             // 
             // BtnReturn
             // 
@@ -445,6 +455,7 @@
             BtnReturn.TabIndex = 5;
             BtnReturn.Text = "Voltar";
             BtnReturn.UseVisualStyleBackColor = true;
+            BtnReturn.Click += BtnReturn_Click;
             // 
             // TabDeckManager
             // 
@@ -588,12 +599,16 @@
             PnlFinder.PerformLayout();
             TabDecks.ResumeLayout(false);
             DecksControl.ResumeLayout(false);
-            TabCategory.ResumeLayout(false);
+            TabFormats.ResumeLayout(false);
             PnlDeckManager.ResumeLayout(false);
-            PnlDecksLists.ResumeLayout(false);
-            PnlCategory.ResumeLayout(false);
-            PnlFlwCat.ResumeLayout(false);
-            PnlFlwCat.PerformLayout();
+            PnlDecks.ResumeLayout(false);
+            PnlDecksList.ResumeLayout(false);
+            PnlFormat.ResumeLayout(false);
+            PnlPnlFilters.ResumeLayout(false);
+            PnlFlwOwner.ResumeLayout(false);
+            PnlFlwFormat.ResumeLayout(false);
+            PnlFlwArchetypes.ResumeLayout(false);
+            PnlFlwColors.ResumeLayout(false);
             TabDeckManager.ResumeLayout(false);
             PnlDeckModel.ResumeLayout(false);
             PnlDeckHelper.ResumeLayout(false);
@@ -621,20 +636,12 @@
         private Panel PnlDeckManager;
         private Button BtnNewDeck;
         private Button BtnImportDeck;
-        private Button BtnNewCategory;
-        private FlowLayoutPanel FlwCategoryList;
+        private Button BtnNewFilter;
         private TabControl DecksControl;
-        private TabPage TabCategory;
+        private TabPage TabFormats;
         private TabPage TabDeckManager;
-        private Panel PnlCategory;
-        private Panel PnlDecksLists;
-        private Label LblTag3;
-        private ComboBox CboTag3;
-        private Label LblTag2;
-        private ComboBox CboTag2;
-        private Label LblTag1;
-        private ComboBox CboTag1;
-        private FlowLayoutPanel FlwDecksList;
+        private Panel PnlFormat;
+        private Panel PnlDecks;
         private Button BtnReturn;
         private ComboBox CboDeckIdeal;
         private Panel PnlDeckIdeal;
@@ -648,7 +655,17 @@
         private TabControl ControlHelper;
         private TabPage HelpList;
         private TabPage Statistics;
-        private Button BtnDelCategory;
-        private Panel PnlFlwCat;
+        private Button BtnDelFilter;
+        private Panel PnlFlwFormat;
+        private Panel PnlDecksList;
+        private FlowLayoutPanel FlwDecksList;
+        private Panel PnlPnlFilters;
+        private Panel PnlFlwArchetypes;
+        private Panel PnlFlwColors;
+        private Panel PnlFlwOwner;
+        private FlowLayoutPanel FlwFormatsList;
+        private FlowLayoutPanel FlwOwnersList;
+        private FlowLayoutPanel FlwArchetypesList;
+        private FlowLayoutPanel FlwColorsList;
     }
 }

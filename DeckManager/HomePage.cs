@@ -1,13 +1,25 @@
 using DeckManager.Services;
 using Newtonsoft.Json.Linq;
 using DeckManager.Views;
+using DeckManager.Models;
+using DeckManager.Services;
+using DeckManager.Enums;
 
 namespace DeckManager
 {
     public partial class HomePage : Form
     {
-        private readonly ScryfallAPI _api; 
-        private Button selectedButton = null;
+        private readonly ScryfallAPI _api;
+
+        private int? selectedFormatId = null;
+        private int? selectedOwnerId = null;
+        private int? selectedArchetypeId = null;
+        private int? selectedColorId = null;
+
+        private Button selectedFormatButton = null;
+        private Button selectedOwnerButton = null;
+        private Button selectedArchetypeButton = null;
+        private Button selectedColorButton = null;
 
 
         public HomePage()
@@ -15,7 +27,8 @@ namespace DeckManager
             InitializeComponent();
             _api = new ScryfallAPI();
 
-            CatFlowAtt(); // Inicializar Tabela de Categorias
+            FiltersAtt(); // Inicializar os Filtros
+            DecksFlowAtt(); // Inicializar Tabela de Decks
         }
 
         //Card Finder
@@ -140,81 +153,259 @@ namespace DeckManager
         private void BtnDeckManager_Click(object sender, EventArgs e)
         {
             MainControl.SelectedTab = TabDecks;
-            DecksControl.SelectedTab = TabCategory;
+            DecksControl.SelectedTab = TabFormats;
+        }
+        private void BtnReturn_Click(object sender, EventArgs e)
+        {
+            MainControl.SelectedTab = TabHome;
+            DecksControl.SelectedTab = TabFormats;
         }
 
 
 
         //Deck Manager
-        private void BtnNewCategory_Click(object sender, EventArgs e)
+        //Filtros
+        private void BtnNewFilter_Click(object sender, EventArgs e)
         {
-            TextInputDialog inputDialog = new TextInputDialog("Digite o nome da Categoria:");
-            if (inputDialog.ShowDialog() == DialogResult.OK)
+            NewFilter newFilterDialog = new NewFilter();
+            if (newFilterDialog.ShowDialog() == DialogResult.OK)
             {
-                string catName = inputDialog.UserInput;
+                string filterName = newFilterDialog.UserInput;
+                FilterType filterType = newFilterDialog.SelectedFilterType;
 
-                try
-                {
-                    DataService.NewCategory(catName); 
-                    CatFlowAtt();
-                }
-                catch (ArgumentException ex)
-                {
-                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                DataService.CreateFilter(filterName, filterType);
+                FiltersAtt();
             }
         }
 
-        private void BtnDelCategory_Click(object sender, EventArgs e)
+        private void BtnDelFilter_Click(object sender, EventArgs e)
         {
-            if (selectedButton != null)
+            DelFilter newFilterDialog = new DelFilter();
+            if (newFilterDialog.ShowDialog() == DialogResult.OK)
             {
-                var selectedCategory = (CategoryModel)selectedButton.Tag; 
+                string filterName = newFilterDialog.UserInput;
+                FilterType filterType = newFilterDialog.SelectedFilterType;
 
-                DataService.DeleteCategory(selectedCategory.Id);
-
-                FlwCategoryList.Controls.Remove(selectedButton);
-                selectedButton = null; 
+                DataService.DeleteFilter(filterName, filterType);
+                FiltersAtt();
             }
         }
 
-        private void CatFlowAtt()
+        private void FiltersAtt()
         {
-            FlwCategoryList.Controls.Clear();
+            FormatsFlowAtt();
+            OwnersFlowAtt();
+            ArchetypesFlowAtt();
+            ColorsFlowAtt();
+        }
 
-            List<CategoryModel> categories = DataService.GetCategories(); 
+        private void FormatsFlowAtt()
+        {
+            FlwFormatsList.Controls.Clear();
 
-            selectedButton = null;
+            List<FormatModel> formats = DataService.GetFormats();
 
-            foreach (var category in categories)
+            foreach (var format in formats)
             {
-                Button categoryButton = new Button
+                CreateFilterButton(format.Name, format.Id, FlwFormatsList, (selectedId, clickedButton) =>
                 {
-                    Text = category.Name,
-                    Size = new Size(200, 50), 
-                    Padding = new Padding(5),
-                    BackColor = Color.LightGray, 
-                    FlatStyle = FlatStyle.Flat 
-                };
+                    selectedFormatButton = clickedButton; // Atualiza o botão selecionado
+                    DecksFlowAtt(selectedId, selectedOwnerId, selectedArchetypeId, selectedColorId);
+                });
+            }
+        }
 
-                categoryButton.Tag = category; 
+        private void OwnersFlowAtt()
+        {
+            FlwOwnersList.Controls.Clear();
 
-                categoryButton.Click += (sender, e) =>
+            List<OwnerModel> owners = DataService.GetOwners();
+
+            foreach (var owner in owners)
+            {
+                CreateFilterButton(owner.Name, owner.Id, FlwOwnersList, (selectedId, clickedButton) =>
                 {
-                    if (selectedButton != null)
+                    selectedOwnerButton = clickedButton; // Atualiza o botão selecionado
+                    DecksFlowAtt(selectedFormatId, selectedId, selectedArchetypeId, selectedColorId);
+                });
+            }
+        }
+
+        private void ArchetypesFlowAtt()
+        {
+            FlwArchetypesList.Controls.Clear();
+
+            List<ArchetypeModel> archetypes = DataService.GetArchetypes();
+
+            foreach (var archetype in archetypes)
+            {
+                CreateFilterButton(archetype.Name, archetype.Id, FlwArchetypesList, (selectedId, clickedButton) =>
+                {
+                    selectedArchetypeButton = clickedButton; // Atualiza o botão selecionado
+                    DecksFlowAtt(selectedFormatId, selectedOwnerId, selectedId, selectedColorId);
+                });
+            }
+        }
+
+        private void ColorsFlowAtt()
+        {
+            FlwColorsList.Controls.Clear();
+
+            List<ColorModel> colors = DataService.GetColors();
+
+            foreach (var color in colors)
+            {
+                CreateFilterButton(color.Name, color.Id, FlwColorsList, (selectedId, clickedButton) =>
+                {
+                    selectedColorButton = clickedButton; // Atualiza o botão selecionado
+                    DecksFlowAtt(selectedFormatId, selectedOwnerId, selectedArchetypeId, selectedId);
+                });
+            }
+        }
+
+        private void CreateFilterButton(string buttonText, int tag, FlowLayoutPanel parentPanel, Action<int, Button> onClickAction)
+        {
+            Button filterButton = new Button
+            {
+                Text = buttonText,
+                AutoSize = true,
+                Padding = new Padding(5),
+                Size = new Size(200, 50),
+                FlatStyle = FlatStyle.Flat,
+                Tag = tag
+            };
+
+            filterButton.Click += (sender, e) =>
+            {
+                Button clickedButton = sender as Button; // Captura o botão que foi clicado
+
+                if (clickedButton != null)
+                {
+                    // Desmarcar o botão anterior, se houver
+                    if (selectedFormatButton != null)
                     {
-                        selectedButton.BackColor = Color.LightGray; 
+                        selectedFormatButton.BackColor = SystemColors.Control;
                     }
 
-                    selectedButton = categoryButton;
+                    if (selectedOwnerButton != null)
+                    {
+                        selectedOwnerButton.BackColor = SystemColors.Control;
+                    }
 
-                    categoryButton.BackColor = Color.LightBlue; 
-                };
+                    if (selectedArchetypeButton != null)
+                    {
+                        selectedArchetypeButton.BackColor = SystemColors.Control;
+                    }
 
-                FlwCategoryList.Controls.Add(categoryButton);
+                    if (selectedColorButton != null)
+                    {
+                        selectedColorButton.BackColor = SystemColors.Control;
+                    }
+
+                    // Atualiza o botão selecionado
+                    // Aqui você verifica o tipo de botão e atualiza a variável correspondente
+                    if (parentPanel == FlwFormatsList)
+                    {
+                        selectedFormatButton = clickedButton; // Atualiza para o botão de formato
+                    }
+                    else if (parentPanel == FlwOwnersList)
+                    {
+                        selectedOwnerButton = clickedButton; // Atualiza para o botão de dono
+                    }
+                    else if (parentPanel == FlwArchetypesList)
+                    {
+                        selectedArchetypeButton = clickedButton; // Atualiza para o botão de arquétipo
+                    }
+                    else if (parentPanel == FlwColorsList)
+                    {
+                        selectedColorButton = clickedButton; // Atualiza para o botão de cor
+                    }
+
+                    clickedButton.BackColor = Color.LightBlue;
+
+                    // Chama a ação passada com o ID do botão e o botão clicado
+                    onClickAction((int)clickedButton.Tag, clickedButton);
+                }
+            };
+
+            parentPanel.Controls.Add(filterButton);
+        }
+
+
+        //Decks
+        private void BtnNewDeck_Click(object sender, EventArgs e)
+        {
+            {
+                NewDeck inputDialog = new NewDeck();
+                if (inputDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string deckName = inputDialog.UserInput;
+                    int deckFormat = inputDialog.SelectedFormatId;
+
+                    try
+                    {
+                        DataService.NewDeck(deckName, deckFormat);
+                        FormatsFlowAtt();
+                        DecksFlowAtt();
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
 
+        private void DecksFlowAtt(int? formatId = null, int? ownerId = null, int? archetypeId = null, int? colorId = null)
+        {
+            FlwDecksList.Controls.Clear();
+
+            List<DeckModel> decks;
+
+            if (formatId == null && ownerId == null && archetypeId == null && colorId == null)
+            {
+                decks = DataService.GetAllDecks();
+            }
+            else
+            {
+                decks = DataService.GetSomeDecks(formatId, ownerId, archetypeId, colorId);
+            }
+
+            TableLayoutPanel table = new TableLayoutPanel
+            {
+                ColumnCount = 7,
+                AutoSize = false,
+                Width = PnlDecksList.Width,
+                Height = PnlDecksList.Height,
+                RowCount = decks.Count + 1
+            };
+
+            Font headerFont = new Font("Arial", 14, FontStyle.Bold);
+            Font dataFont = new Font("Arial", 12);
+
+            table.Controls.Add(new Label { Text = "Nº", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(121, 30) }, 0, 0);
+            table.Controls.Add(new Label { Text = "ID", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(121, 30) }, 1, 0);
+            table.Controls.Add(new Label { Text = "Nome", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(400, 30) }, 2, 0);
+            table.Controls.Add(new Label { Text = "Formato", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30) }, 3, 0);
+            table.Controls.Add(new Label { Text = "Dono", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30) }, 4, 0);
+            table.Controls.Add(new Label { Text = "Arquétipo", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(300, 30) }, 5, 0);
+            table.Controls.Add(new Label { Text = "Cores", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30) }, 6, 0);
+
+            for (int i = 0; i < decks.Count; i++)
+            {
+                var deck = decks[i];
+
+                table.Controls.Add(new Label { Text = (i + 1).ToString(), AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(121, 30) }, 0, i + 1);
+                table.Controls.Add(new Label { Text = deck.Id.ToString(), AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(121, 30) }, 1, i + 1);
+                table.Controls.Add(new Label { Text = deck.Name, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(400, 30) }, 2, i + 1);
+                table.Controls.Add(new Label { Text = deck.FormatName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30) }, 3, i + 1);
+                table.Controls.Add(new Label { Text = deck.OwnerName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30) }, 4, i + 1);
+                table.Controls.Add(new Label { Text = deck.ArchetypeName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(300, 30) }, 5, i + 1);
+                table.Controls.Add(new Label { Text = deck.ColorNames, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30) }, 6, i + 1);
+            }
+
+            FlwDecksList.Controls.Add(table);
+        }
 
     }
 }
