@@ -50,6 +50,7 @@
             BtnImportDeck = new Button();
             BtnNewDeck = new Button();
             PnlFormat = new Panel();
+            BtnClearFilters = new Button();
             PnlPnlFilters = new Panel();
             PnlFlwOwner = new Panel();
             FlwOwnersList = new FlowLayoutPanel();
@@ -332,6 +333,7 @@
             // 
             // PnlFormat
             // 
+            PnlFormat.Controls.Add(BtnClearFilters);
             PnlFormat.Controls.Add(PnlPnlFilters);
             PnlFormat.Controls.Add(BtnDelFilter);
             PnlFormat.Controls.Add(BtnNewFilter);
@@ -342,8 +344,21 @@
             PnlFormat.Size = new Size(1876, 283);
             PnlFormat.TabIndex = 5;
             // 
+            // BtnClearFilters
+            // 
+            BtnClearFilters.Anchor = AnchorStyles.Top;
+            BtnClearFilters.Font = new Font("Segoe UI", 18F);
+            BtnClearFilters.Location = new Point(6, 79);
+            BtnClearFilters.Name = "BtnClearFilters";
+            BtnClearFilters.Size = new Size(246, 54);
+            BtnClearFilters.TabIndex = 10;
+            BtnClearFilters.Text = "Limpar Filtros";
+            BtnClearFilters.UseVisualStyleBackColor = true;
+            BtnClearFilters.Click += BtnClearFilters_Click;
+            // 
             // PnlPnlFilters
             // 
+            PnlPnlFilters.Anchor = AnchorStyles.Top;
             PnlPnlFilters.Controls.Add(PnlFlwOwner);
             PnlPnlFilters.Controls.Add(PnlFlwFormat);
             PnlPnlFilters.Controls.Add(PnlFlwArchetypes);
@@ -425,9 +440,9 @@
             // 
             BtnDelFilter.Anchor = AnchorStyles.Top;
             BtnDelFilter.Font = new Font("Segoe UI", 18F);
-            BtnDelFilter.Location = new Point(3, 181);
+            BtnDelFilter.Location = new Point(6, 219);
             BtnDelFilter.Name = "BtnDelFilter";
-            BtnDelFilter.Size = new Size(246, 68);
+            BtnDelFilter.Size = new Size(246, 54);
             BtnDelFilter.TabIndex = 6;
             BtnDelFilter.Text = "Deletar Filtro";
             BtnDelFilter.UseVisualStyleBackColor = true;
@@ -437,9 +452,9 @@
             // 
             BtnNewFilter.Anchor = AnchorStyles.Top;
             BtnNewFilter.Font = new Font("Segoe UI", 18F);
-            BtnNewFilter.Location = new Point(3, 107);
+            BtnNewFilter.Location = new Point(6, 149);
             BtnNewFilter.Name = "BtnNewFilter";
-            BtnNewFilter.Size = new Size(246, 68);
+            BtnNewFilter.Size = new Size(246, 54);
             BtnNewFilter.TabIndex = 0;
             BtnNewFilter.Text = "Novo Filtro";
             BtnNewFilter.UseVisualStyleBackColor = true;
@@ -449,9 +464,9 @@
             // 
             BtnReturn.Anchor = AnchorStyles.Top;
             BtnReturn.Font = new Font("Segoe UI", 18F);
-            BtnReturn.Location = new Point(3, 33);
+            BtnReturn.Location = new Point(6, 9);
             BtnReturn.Name = "BtnReturn";
-            BtnReturn.Size = new Size(246, 68);
+            BtnReturn.Size = new Size(246, 54);
             BtnReturn.TabIndex = 5;
             BtnReturn.Text = "Voltar";
             BtnReturn.UseVisualStyleBackColor = true;
@@ -667,5 +682,6 @@
         private FlowLayoutPanel FlwOwnersList;
         private FlowLayoutPanel FlwArchetypesList;
         private FlowLayoutPanel FlwColorsList;
+        private Button BtnClearFilters;
     }
 }

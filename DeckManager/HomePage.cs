@@ -21,6 +21,8 @@ namespace DeckManager
         private Button selectedArchetypeButton = null;
         private Button selectedColorButton = null;
 
+        Panel selectedRowPanel = null;
+
 
         public HomePage()
         {
@@ -210,7 +212,8 @@ namespace DeckManager
                 CreateFilterButton(format.Name, format.Id, FlwFormatsList, (selectedId, clickedButton) =>
                 {
                     selectedFormatButton = clickedButton; // Atualiza o botão selecionado
-                    DecksFlowAtt(selectedId, selectedOwnerId, selectedArchetypeId, selectedColorId);
+                    selectedFormatId = selectedId;
+                    DecksFlowAtt(selectedFormatId, selectedOwnerId, selectedArchetypeId, selectedColorId);
                 });
             }
         }
@@ -226,7 +229,8 @@ namespace DeckManager
                 CreateFilterButton(owner.Name, owner.Id, FlwOwnersList, (selectedId, clickedButton) =>
                 {
                     selectedOwnerButton = clickedButton; // Atualiza o botão selecionado
-                    DecksFlowAtt(selectedFormatId, selectedId, selectedArchetypeId, selectedColorId);
+                    selectedOwnerId = selectedId;
+                    DecksFlowAtt(selectedFormatId, selectedOwnerId, selectedArchetypeId, selectedColorId);
                 });
             }
         }
@@ -242,7 +246,8 @@ namespace DeckManager
                 CreateFilterButton(archetype.Name, archetype.Id, FlwArchetypesList, (selectedId, clickedButton) =>
                 {
                     selectedArchetypeButton = clickedButton; // Atualiza o botão selecionado
-                    DecksFlowAtt(selectedFormatId, selectedOwnerId, selectedId, selectedColorId);
+                    selectedArchetypeId = selectedId;
+                    DecksFlowAtt(selectedFormatId, selectedOwnerId, selectedArchetypeId, selectedColorId);
                 });
             }
         }
@@ -258,7 +263,8 @@ namespace DeckManager
                 CreateFilterButton(color.Name, color.Id, FlwColorsList, (selectedId, clickedButton) =>
                 {
                     selectedColorButton = clickedButton; // Atualiza o botão selecionado
-                    DecksFlowAtt(selectedFormatId, selectedOwnerId, selectedArchetypeId, selectedId);
+                    selectedColorId = selectedId;
+                    DecksFlowAtt(selectedFormatId, selectedOwnerId, selectedArchetypeId, selectedColorId);
                 });
             }
         }
@@ -270,8 +276,9 @@ namespace DeckManager
                 Text = buttonText,
                 AutoSize = true,
                 Padding = new Padding(5),
-                Size = new Size(200, 50),
+                Size = new Size(120, 40),
                 FlatStyle = FlatStyle.Flat,
+                BackColor = SystemColors.Control,
                 Tag = tag
             };
 
@@ -281,54 +288,127 @@ namespace DeckManager
 
                 if (clickedButton != null)
                 {
-                    // Desmarcar o botão anterior, se houver
-                    if (selectedFormatButton != null)
-                    {
-                        selectedFormatButton.BackColor = SystemColors.Control;
-                    }
-
-                    if (selectedOwnerButton != null)
-                    {
-                        selectedOwnerButton.BackColor = SystemColors.Control;
-                    }
-
-                    if (selectedArchetypeButton != null)
-                    {
-                        selectedArchetypeButton.BackColor = SystemColors.Control;
-                    }
-
-                    if (selectedColorButton != null)
-                    {
-                        selectedColorButton.BackColor = SystemColors.Control;
-                    }
-
-                    // Atualiza o botão selecionado
-                    // Aqui você verifica o tipo de botão e atualiza a variável correspondente
                     if (parentPanel == FlwFormatsList)
                     {
-                        selectedFormatButton = clickedButton; // Atualiza para o botão de formato
-                    }
-                    else if (parentPanel == FlwOwnersList)
-                    {
-                        selectedOwnerButton = clickedButton; // Atualiza para o botão de dono
-                    }
-                    else if (parentPanel == FlwArchetypesList)
-                    {
-                        selectedArchetypeButton = clickedButton; // Atualiza para o botão de arquétipo
-                    }
-                    else if (parentPanel == FlwColorsList)
-                    {
-                        selectedColorButton = clickedButton; // Atualiza para o botão de cor
+                        if (clickedButton.Tag.Equals(selectedFormatId))
+                        {
+                            clickedButton.BackColor = SystemColors.Control;
+                            selectedFormatId = null;
+                            selectedFormatButton = null;
+                        }
+                        else if (selectedFormatButton != null)
+                        {
+                            selectedFormatButton.BackColor = SystemColors.Control;
+                            selectedFormatButton = clickedButton;
+                            clickedButton.BackColor = Color.LightBlue;
+                            onClickAction((int)clickedButton.Tag, clickedButton);
+                        } else
+                        {
+                            clickedButton.BackColor = Color.LightBlue;
+                            onClickAction((int)clickedButton.Tag, clickedButton);
+                        }
                     }
 
-                    clickedButton.BackColor = Color.LightBlue;
+                    if (parentPanel == FlwOwnersList)
+                    {
+                        if (clickedButton.Tag.Equals(selectedOwnerId))
+                        {
+                            clickedButton.BackColor = SystemColors.Control;
+                            selectedOwnerId = null;
+                            selectedOwnerButton = null;
+                        }
+                        else if (selectedOwnerButton != null)
+                        {
+                            selectedOwnerButton.BackColor = SystemColors.Control;
+                            selectedOwnerButton = clickedButton;
+                            clickedButton.BackColor = Color.LightBlue;
+                            onClickAction((int)clickedButton.Tag, clickedButton);
+                        }
+                        else
+                        {
+                            clickedButton.BackColor = Color.LightBlue;
+                            onClickAction((int)clickedButton.Tag, clickedButton);
+                        }
+                    }
 
-                    // Chama a ação passada com o ID do botão e o botão clicado
-                    onClickAction((int)clickedButton.Tag, clickedButton);
+                    if (parentPanel == FlwArchetypesList) 
+                    {
+                        if(clickedButton.Tag.Equals(selectedArchetypeId))
+                        {
+                            clickedButton.BackColor = SystemColors.Control;
+                            selectedArchetypeId = null;
+                            selectedArchetypeButton = null;
+                        }
+                        else if (selectedArchetypeButton != null)
+                        {
+                            selectedArchetypeButton.BackColor = SystemColors.Control;
+                            selectedArchetypeButton = clickedButton;
+                            clickedButton.BackColor = Color.LightBlue;
+                            onClickAction((int)clickedButton.Tag, clickedButton);
+                        }
+                        else
+                        {
+                            clickedButton.BackColor = Color.LightBlue;
+                            onClickAction((int)clickedButton.Tag, clickedButton);
+                        }
+                    }
+
+                    if (parentPanel == FlwColorsList)
+                    {
+                        if (clickedButton.Tag.Equals(selectedColorId))
+                        {
+                            clickedButton.BackColor = SystemColors.Control;
+                            selectedColorId = null;
+                            selectedColorButton = null;
+                        }
+                        else if (selectedColorButton != null)
+                        {
+                            selectedColorButton.BackColor = SystemColors.Control;
+                            selectedColorButton = clickedButton;
+                            clickedButton.BackColor = Color.LightBlue;
+                            onClickAction((int)clickedButton.Tag, clickedButton);
+                        }
+                        else
+                        {
+                            clickedButton.BackColor = Color.LightBlue;
+                            onClickAction((int)clickedButton.Tag, clickedButton);
+                        }
+                    }
+
+                    DecksFlowAtt(selectedFormatId, selectedOwnerId, selectedArchetypeId, selectedColorId);
                 }
             };
 
             parentPanel.Controls.Add(filterButton);
+        }
+        private void BtnClearFilters_Click(object sender, EventArgs e)
+        {
+            ResetButtonColors(FlwFormatsList);
+            ResetButtonColors(FlwOwnersList);
+            ResetButtonColors(FlwArchetypesList);
+            ResetButtonColors(FlwColorsList);
+
+            selectedFormatButton = null;
+            selectedOwnerButton = null;
+            selectedArchetypeButton = null;
+            selectedColorButton = null;
+
+            selectedFormatId = null;
+            selectedOwnerId = null;
+            selectedArchetypeId = null;
+            selectedColorId = null;
+
+            DecksFlowAtt();
+        }
+        private void ResetButtonColors(FlowLayoutPanel flowPanel)
+        {
+            foreach (Control control in flowPanel.Controls)
+            {
+                if (control is Button button)
+                {
+                    button.BackColor = SystemColors.Control; // Reseta a cor para a padrão
+                }
+            }
         }
 
 
@@ -380,31 +460,45 @@ namespace DeckManager
                 RowCount = decks.Count + 1
             };
 
+            // Defina o tamanho das colunas de forma consistente
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 121)); // Nº
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 121)); // ID
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 400)); // Nome
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 223)); // Formato
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 223)); // Dono
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300)); // Arquétipo
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 223)); // Cores
+
             Font headerFont = new Font("Arial", 14, FontStyle.Bold);
             Font dataFont = new Font("Arial", 12);
 
-            table.Controls.Add(new Label { Text = "Nº", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(121, 30) }, 0, 0);
-            table.Controls.Add(new Label { Text = "ID", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(121, 30) }, 1, 0);
-            table.Controls.Add(new Label { Text = "Nome", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(400, 30) }, 2, 0);
-            table.Controls.Add(new Label { Text = "Formato", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30) }, 3, 0);
-            table.Controls.Add(new Label { Text = "Dono", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30) }, 4, 0);
-            table.Controls.Add(new Label { Text = "Arquétipo", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(300, 30) }, 5, 0);
-            table.Controls.Add(new Label { Text = "Cores", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30) }, 6, 0);
+            // Adiciona o cabeçalho com o mesmo tamanho das colunas
+            table.Controls.Add(new Label { Text = "Nº", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(121, 30), BorderStyle = BorderStyle.FixedSingle }, 0, 0);
+            table.Controls.Add(new Label { Text = "ID", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(121, 30), BorderStyle = BorderStyle.FixedSingle }, 1, 0);
+            table.Controls.Add(new Label { Text = "Nome", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(400, 30), BorderStyle = BorderStyle.FixedSingle }, 2, 0);
+            table.Controls.Add(new Label { Text = "Formato", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30), BorderStyle = BorderStyle.FixedSingle }, 3, 0);
+            table.Controls.Add(new Label { Text = "Dono", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30), BorderStyle = BorderStyle.FixedSingle }, 4, 0);
+            table.Controls.Add(new Label { Text = "Arquétipo", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(300, 30), BorderStyle = BorderStyle.FixedSingle }, 5, 0);
+            table.Controls.Add(new Label { Text = "Cores", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30), BorderStyle = BorderStyle.FixedSingle }, 6, 0);
 
+            // Agora adiciona as linhas da mesma forma, para cada deck
             for (int i = 0; i < decks.Count; i++)
             {
                 var deck = decks[i];
 
-                table.Controls.Add(new Label { Text = (i + 1).ToString(), AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(121, 30) }, 0, i + 1);
-                table.Controls.Add(new Label { Text = deck.Id.ToString(), AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(121, 30) }, 1, i + 1);
-                table.Controls.Add(new Label { Text = deck.Name, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(400, 30) }, 2, i + 1);
-                table.Controls.Add(new Label { Text = deck.FormatName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30) }, 3, i + 1);
-                table.Controls.Add(new Label { Text = deck.OwnerName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30) }, 4, i + 1);
-                table.Controls.Add(new Label { Text = deck.ArchetypeName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(300, 30) }, 5, i + 1);
-                table.Controls.Add(new Label { Text = deck.ColorNames, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30) }, 6, i + 1);
+                // Adiciona os valores nas linhas, mantendo o tamanho consistente
+                table.Controls.Add(new Label { Text = (i + 1).ToString(), AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(121, 30), BorderStyle = BorderStyle.FixedSingle }, 0, i + 1);
+                table.Controls.Add(new Label { Text = deck.Id.ToString(), AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(121, 30), BorderStyle = BorderStyle.FixedSingle }, 1, i + 1);
+                table.Controls.Add(new Label { Text = deck.Name, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(400, 30), BorderStyle = BorderStyle.FixedSingle }, 2, i + 1);
+                table.Controls.Add(new Label { Text = deck.FormatName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30), BorderStyle = BorderStyle.FixedSingle }, 3, i + 1);
+                table.Controls.Add(new Label { Text = deck.OwnerName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30), BorderStyle = BorderStyle.FixedSingle }, 4, i + 1);
+                table.Controls.Add(new Label { Text = deck.ArchetypeName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(300, 30), BorderStyle = BorderStyle.FixedSingle }, 5, i + 1);
+                table.Controls.Add(new Label { Text = deck.ColorNames, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30), BorderStyle = BorderStyle.FixedSingle }, 6, i + 1);
             }
 
+            // Adiciona o TableLayoutPanel ao controle FlwDecksList
             FlwDecksList.Controls.Add(table);
+
         }
 
     }
