@@ -88,7 +88,7 @@ namespace DeckManager.Services
             }
         }
 
-        //Formats
+        //Filters
         public static List<FormatModel> GetFormats()
         {
             var categories = new List<FormatModel>();
@@ -313,9 +313,6 @@ namespace DeckManager.Services
 
             return colorName;
         }
-
-
-
         public static void CreateFilter(string name, FilterType filterType)
         {
             using (var connection = GetConnection())
@@ -363,7 +360,6 @@ namespace DeckManager.Services
                 }
             }
         }
-
         public static void DeleteFilter(string name, FilterType filterType)
         {
             using (var connection = GetConnection())
@@ -417,6 +413,16 @@ namespace DeckManager.Services
         //Decks
         public static void NewDeck(string deckName, int formatId)
         {
+            if (string.IsNullOrWhiteSpace(deckName))
+            {
+                throw new ArgumentException("O nome do deck não pode estar vazio.");
+            }
+
+            if (formatId <= 0) // Verifica se o formato é válido (por exemplo, maior que zero)
+            {
+                throw new ArgumentException("Um formato válido deve ser selecionado.");
+            }
+
             using (var connection = GetConnection())
             {
                 connection.Open();
@@ -425,6 +431,21 @@ namespace DeckManager.Services
                 {
                     try
                     {
+                        // Verifica se já existe um deck com o mesmo nome
+                        string checkDeckNameQuery = "SELECT COUNT(*) FROM DecksTable WHERE Name = @Name";
+                        using (var checkCommand = new SQLiteCommand(checkDeckNameQuery, connection))
+                        {
+                            checkCommand.Parameters.AddWithValue("@Name", deckName);
+                            long count = (long)checkCommand.ExecuteScalar(); // Verifica a quantidade de decks com o nome
+
+                            if (count > 0) // Se já existe um deck com o mesmo nome
+                            {
+                                // Cancela a operação e avisa o usuário
+                                throw new ArgumentException("Já existe um deck com esse nome.");
+                            }
+                        }
+
+                        // Se o nome for único, insere o novo deck
                         string insertDeckQuery = "INSERT INTO DecksTable (Name, FormatId) VALUES (@Name, @FormatId);";
                         using (var deckCommand = new SQLiteCommand(insertDeckQuery, connection))
                         {
@@ -435,7 +456,12 @@ namespace DeckManager.Services
 
                         transaction.Commit();
                     }
-                    catch (Exception ex)
+                    catch (ArgumentException ex) // Exceção para nome duplicado ou formato inválido
+                    {
+                        MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        transaction.Rollback(); // Cancela a transação
+                    }
+                    catch (Exception ex) // Outras exceções
                     {
                         transaction.Rollback();
                         throw new Exception("Erro ao criar o deck: " + ex.Message);
@@ -451,7 +477,7 @@ namespace DeckManager.Services
             {
                 connection.Open();
 
-                string selectQuery = "SELECT DeckId, Name, FormatId, OwnerId, ArchetypeId, ColorsId FROM DecksTable;";
+                string selectQuery = "SELECT * FROM DecksTable;";
 
                 using (var command = new SQLiteCommand(selectQuery, connection))
                 using (var reader = command.ExecuteReader())

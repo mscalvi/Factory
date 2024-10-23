@@ -65,10 +65,14 @@
             BtnReturn = new Button();
             TabDeckManager = new TabPage();
             PnlDeckModel = new Panel();
+            BtnSaveDeck = new Button();
+            BtnSaveVersion = new Button();
+            LblDeckName = new Label();
             PnlCardView = new Panel();
             PnlDeckHelper = new Panel();
             ControlHelper = new TabControl();
             HelpList = new TabPage();
+            BtnSaveSide = new Button();
             Statistics = new TabPage();
             CboDeckIdeal = new ComboBox();
             CboDeckReal = new ComboBox();
@@ -76,6 +80,7 @@
             FlwDeckReal = new FlowLayoutPanel();
             PnlDeckIdeal = new Panel();
             FlwDeckIdeal = new FlowLayoutPanel();
+            CboHelpList = new ComboBox();
             MainControl.SuspendLayout();
             TabHome.SuspendLayout();
             PnlHome.SuspendLayout();
@@ -97,6 +102,7 @@
             PnlDeckModel.SuspendLayout();
             PnlDeckHelper.SuspendLayout();
             ControlHelper.SuspendLayout();
+            HelpList.SuspendLayout();
             PnlDeckReal.SuspendLayout();
             PnlDeckIdeal.SuspendLayout();
             SuspendLayout();
@@ -266,7 +272,7 @@
             TabFormats.Padding = new Padding(3);
             TabFormats.Size = new Size(1882, 979);
             TabFormats.TabIndex = 0;
-            TabFormats.Text = "Main";
+            TabFormats.Text = "Menu";
             TabFormats.UseVisualStyleBackColor = true;
             // 
             // PnlDeckManager
@@ -480,11 +486,14 @@
             TabDeckManager.Padding = new Padding(3);
             TabDeckManager.Size = new Size(1882, 979);
             TabDeckManager.TabIndex = 1;
-            TabDeckManager.Text = "Decks";
+            TabDeckManager.Text = "Model";
             TabDeckManager.UseVisualStyleBackColor = true;
             // 
             // PnlDeckModel
             // 
+            PnlDeckModel.Controls.Add(BtnSaveDeck);
+            PnlDeckModel.Controls.Add(BtnSaveVersion);
+            PnlDeckModel.Controls.Add(LblDeckName);
             PnlDeckModel.Controls.Add(PnlCardView);
             PnlDeckModel.Controls.Add(PnlDeckHelper);
             PnlDeckModel.Controls.Add(CboDeckIdeal);
@@ -496,6 +505,37 @@
             PnlDeckModel.Name = "PnlDeckModel";
             PnlDeckModel.Size = new Size(1876, 973);
             PnlDeckModel.TabIndex = 4;
+            // 
+            // BtnSaveDeck
+            // 
+            BtnSaveDeck.Anchor = AnchorStyles.Top;
+            BtnSaveDeck.Location = new Point(3, 6);
+            BtnSaveDeck.Name = "BtnSaveDeck";
+            BtnSaveDeck.Size = new Size(61, 43);
+            BtnSaveDeck.TabIndex = 9;
+            BtnSaveDeck.Text = "button1";
+            BtnSaveDeck.UseVisualStyleBackColor = true;
+            // 
+            // BtnSaveVersion
+            // 
+            BtnSaveVersion.Anchor = AnchorStyles.Top;
+            BtnSaveVersion.Location = new Point(3, 940);
+            BtnSaveVersion.Name = "BtnSaveVersion";
+            BtnSaveVersion.Size = new Size(978, 30);
+            BtnSaveVersion.TabIndex = 7;
+            BtnSaveVersion.Text = "button1";
+            BtnSaveVersion.UseVisualStyleBackColor = true;
+            // 
+            // LblDeckName
+            // 
+            LblDeckName.Anchor = AnchorStyles.Top;
+            LblDeckName.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            LblDeckName.Location = new Point(70, 6);
+            LblDeckName.Name = "LblDeckName";
+            LblDeckName.Size = new Size(911, 43);
+            LblDeckName.TabIndex = 6;
+            LblDeckName.Text = "Deck";
+            LblDeckName.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // PnlCardView
             // 
@@ -526,6 +566,8 @@
             // 
             // HelpList
             // 
+            HelpList.Controls.Add(CboHelpList);
+            HelpList.Controls.Add(BtnSaveSide);
             HelpList.Location = new Point(4, 24);
             HelpList.Name = "HelpList";
             HelpList.Padding = new Padding(3);
@@ -533,6 +575,16 @@
             HelpList.TabIndex = 0;
             HelpList.Text = "Help List";
             HelpList.UseVisualStyleBackColor = true;
+            // 
+            // BtnSaveSide
+            // 
+            BtnSaveSide.Anchor = AnchorStyles.Top;
+            BtnSaveSide.Location = new Point(734, 6);
+            BtnSaveSide.Name = "BtnSaveSide";
+            BtnSaveSide.Size = new Size(138, 23);
+            BtnSaveSide.TabIndex = 8;
+            BtnSaveSide.Text = "button3";
+            BtnSaveSide.UseVisualStyleBackColor = true;
             // 
             // Statistics
             // 
@@ -548,7 +600,7 @@
             // 
             CboDeckIdeal.Anchor = AnchorStyles.Top;
             CboDeckIdeal.FormattingEnabled = true;
-            CboDeckIdeal.Location = new Point(495, 6);
+            CboDeckIdeal.Location = new Point(495, 52);
             CboDeckIdeal.Name = "CboDeckIdeal";
             CboDeckIdeal.Size = new Size(486, 23);
             CboDeckIdeal.TabIndex = 3;
@@ -557,7 +609,7 @@
             // 
             CboDeckReal.Anchor = AnchorStyles.Top;
             CboDeckReal.FormattingEnabled = true;
-            CboDeckReal.Location = new Point(3, 6);
+            CboDeckReal.Location = new Point(5, 52);
             CboDeckReal.Name = "CboDeckReal";
             CboDeckReal.Size = new Size(486, 23);
             CboDeckReal.TabIndex = 1;
@@ -566,9 +618,9 @@
             // 
             PnlDeckReal.Anchor = AnchorStyles.Top;
             PnlDeckReal.Controls.Add(FlwDeckReal);
-            PnlDeckReal.Location = new Point(3, 35);
+            PnlDeckReal.Location = new Point(5, 81);
             PnlDeckReal.Name = "PnlDeckReal";
-            PnlDeckReal.Size = new Size(486, 938);
+            PnlDeckReal.Size = new Size(486, 853);
             PnlDeckReal.TabIndex = 0;
             // 
             // FlwDeckReal
@@ -576,16 +628,16 @@
             FlwDeckReal.Dock = DockStyle.Fill;
             FlwDeckReal.Location = new Point(0, 0);
             FlwDeckReal.Name = "FlwDeckReal";
-            FlwDeckReal.Size = new Size(486, 938);
+            FlwDeckReal.Size = new Size(486, 853);
             FlwDeckReal.TabIndex = 0;
             // 
             // PnlDeckIdeal
             // 
             PnlDeckIdeal.Anchor = AnchorStyles.Top;
             PnlDeckIdeal.Controls.Add(FlwDeckIdeal);
-            PnlDeckIdeal.Location = new Point(495, 35);
+            PnlDeckIdeal.Location = new Point(497, 81);
             PnlDeckIdeal.Name = "PnlDeckIdeal";
-            PnlDeckIdeal.Size = new Size(486, 938);
+            PnlDeckIdeal.Size = new Size(486, 853);
             PnlDeckIdeal.TabIndex = 2;
             // 
             // FlwDeckIdeal
@@ -593,8 +645,16 @@
             FlwDeckIdeal.Dock = DockStyle.Fill;
             FlwDeckIdeal.Location = new Point(0, 0);
             FlwDeckIdeal.Name = "FlwDeckIdeal";
-            FlwDeckIdeal.Size = new Size(486, 938);
+            FlwDeckIdeal.Size = new Size(486, 853);
             FlwDeckIdeal.TabIndex = 0;
+            // 
+            // CboHelpList
+            // 
+            CboHelpList.FormattingEnabled = true;
+            CboHelpList.Location = new Point(6, 6);
+            CboHelpList.Name = "CboHelpList";
+            CboHelpList.Size = new Size(722, 23);
+            CboHelpList.TabIndex = 9;
             // 
             // HomePage
             // 
@@ -628,6 +688,7 @@
             PnlDeckModel.ResumeLayout(false);
             PnlDeckHelper.ResumeLayout(false);
             ControlHelper.ResumeLayout(false);
+            HelpList.ResumeLayout(false);
             PnlDeckReal.ResumeLayout(false);
             PnlDeckIdeal.ResumeLayout(false);
             ResumeLayout(false);
@@ -683,5 +744,11 @@
         private FlowLayoutPanel FlwArchetypesList;
         private FlowLayoutPanel FlwColorsList;
         private Button BtnClearFilters;
+        private Label LblDeckName;
+        private Button BtnSaveIdeal;
+        private Button BtnSaveVersion;
+        private Button BtnSaveSide;
+        private Button BtnSaveDeck;
+        private ComboBox CboHelpList;
     }
 }

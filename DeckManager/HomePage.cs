@@ -179,7 +179,6 @@ namespace DeckManager
                 FiltersAtt();
             }
         }
-
         private void BtnDelFilter_Click(object sender, EventArgs e)
         {
             DelFilter newFilterDialog = new DelFilter();
@@ -192,7 +191,6 @@ namespace DeckManager
                 FiltersAtt();
             }
         }
-
         private void FiltersAtt()
         {
             FormatsFlowAtt();
@@ -200,7 +198,6 @@ namespace DeckManager
             ArchetypesFlowAtt();
             ColorsFlowAtt();
         }
-
         private void FormatsFlowAtt()
         {
             FlwFormatsList.Controls.Clear();
@@ -217,7 +214,6 @@ namespace DeckManager
                 });
             }
         }
-
         private void OwnersFlowAtt()
         {
             FlwOwnersList.Controls.Clear();
@@ -234,7 +230,6 @@ namespace DeckManager
                 });
             }
         }
-
         private void ArchetypesFlowAtt()
         {
             FlwArchetypesList.Controls.Clear();
@@ -251,7 +246,6 @@ namespace DeckManager
                 });
             }
         }
-
         private void ColorsFlowAtt()
         {
             FlwColorsList.Controls.Clear();
@@ -268,7 +262,6 @@ namespace DeckManager
                 });
             }
         }
-
         private void CreateFilterButton(string buttonText, int tag, FlowLayoutPanel parentPanel, Action<int, Button> onClickAction)
         {
             Button filterButton = new Button
@@ -406,36 +399,38 @@ namespace DeckManager
             {
                 if (control is Button button)
                 {
-                    button.BackColor = SystemColors.Control; // Reseta a cor para a padrão
+                    button.BackColor = SystemColors.Control;
                 }
             }
         }
-
 
         //Decks
         private void BtnNewDeck_Click(object sender, EventArgs e)
         {
+            NewDeck inputDialog = new NewDeck();
+            if (inputDialog.ShowDialog() == DialogResult.OK)
             {
-                NewDeck inputDialog = new NewDeck();
-                if (inputDialog.ShowDialog() == DialogResult.OK)
-                {
-                    string deckName = inputDialog.UserInput;
-                    int deckFormat = inputDialog.SelectedFormatId;
+                string deckName = inputDialog.UserInput;
+                int deckFormat = inputDialog.SelectedFormatId;
 
-                    try
-                    {
-                        DataService.NewDeck(deckName, deckFormat);
-                        FormatsFlowAtt();
-                        DecksFlowAtt();
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                try
+                {
+                    // Criação do novo deck
+                    DataService.NewDeck(deckName, deckFormat);
+
+                    // Atualiza a lista de decks
+                    DecksFlowAtt();
+
+                    // Cria a nova aba como um clone da TabDeckManager
+                    TabPage newDeckTab = CloneTabDeckManager(deckName);
+                    DecksControl.TabPages.Add(newDeckTab);
+                }
+                catch (ArgumentException ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
-
         private void DecksFlowAtt(int? formatId = null, int? ownerId = null, int? archetypeId = null, int? colorId = null)
         {
             FlwDecksList.Controls.Clear();
@@ -457,48 +452,259 @@ namespace DeckManager
                 AutoSize = false,
                 Width = PnlDecksList.Width,
                 Height = PnlDecksList.Height,
-                RowCount = decks.Count + 1
+                RowCount = decks.Count + 1,
+                CellBorderStyle = TableLayoutPanelCellBorderStyle.None, 
+                Padding = new Padding(0) 
             };
 
-            // Defina o tamanho das colunas de forma consistente
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 121)); // Nº
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 121)); // ID
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 400)); // Nome
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 223)); // Formato
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 223)); // Dono
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300)); // Arquétipo
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 223)); // Cores
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100)); 
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120)); 
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 400));
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220));
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220)); 
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300)); 
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220)); 
 
             Font headerFont = new Font("Arial", 14, FontStyle.Bold);
             Font dataFont = new Font("Arial", 12);
 
-            // Adiciona o cabeçalho com o mesmo tamanho das colunas
-            table.Controls.Add(new Label { Text = "Nº", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(121, 30), BorderStyle = BorderStyle.FixedSingle }, 0, 0);
-            table.Controls.Add(new Label { Text = "ID", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(121, 30), BorderStyle = BorderStyle.FixedSingle }, 1, 0);
-            table.Controls.Add(new Label { Text = "Nome", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(400, 30), BorderStyle = BorderStyle.FixedSingle }, 2, 0);
-            table.Controls.Add(new Label { Text = "Formato", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30), BorderStyle = BorderStyle.FixedSingle }, 3, 0);
-            table.Controls.Add(new Label { Text = "Dono", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30), BorderStyle = BorderStyle.FixedSingle }, 4, 0);
-            table.Controls.Add(new Label { Text = "Arquétipo", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(300, 30), BorderStyle = BorderStyle.FixedSingle }, 5, 0);
-            table.Controls.Add(new Label { Text = "Cores", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30), BorderStyle = BorderStyle.FixedSingle }, 6, 0);
+            table.Controls.Add(new Label { Text = "", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(100, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 0, 0);
+            table.Controls.Add(new Label { Text = "ID", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(120, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 1, 0);
+            table.Controls.Add(new Label { Text = "Nome", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(400, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 2, 0);
+            table.Controls.Add(new Label { Text = "Formato", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(220, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 3, 0);
+            table.Controls.Add(new Label { Text = "Dono", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(220, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 4, 0);
+            table.Controls.Add(new Label { Text = "Arquétipo", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(300, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 5, 0);
+            table.Controls.Add(new Label { Text = "Cores", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(220, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 6, 0);
 
-            // Agora adiciona as linhas da mesma forma, para cada deck
             for (int i = 0; i < decks.Count; i++)
             {
                 var deck = decks[i];
 
-                // Adiciona os valores nas linhas, mantendo o tamanho consistente
-                table.Controls.Add(new Label { Text = (i + 1).ToString(), AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(121, 30), BorderStyle = BorderStyle.FixedSingle }, 0, i + 1);
-                table.Controls.Add(new Label { Text = deck.Id.ToString(), AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(121, 30), BorderStyle = BorderStyle.FixedSingle }, 1, i + 1);
-                table.Controls.Add(new Label { Text = deck.Name, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(400, 30), BorderStyle = BorderStyle.FixedSingle }, 2, i + 1);
-                table.Controls.Add(new Label { Text = deck.FormatName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30), BorderStyle = BorderStyle.FixedSingle }, 3, i + 1);
-                table.Controls.Add(new Label { Text = deck.OwnerName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30), BorderStyle = BorderStyle.FixedSingle }, 4, i + 1);
-                table.Controls.Add(new Label { Text = deck.ArchetypeName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(300, 30), BorderStyle = BorderStyle.FixedSingle }, 5, i + 1);
-                table.Controls.Add(new Label { Text = deck.ColorNames, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(223, 30), BorderStyle = BorderStyle.FixedSingle }, 6, i + 1);
+                Button actionButton = new Button
+                {
+                    Text = "Abrir",
+                    AutoSize = false,
+                    Font = dataFont,
+                    Size = new Size(121, 30),
+                    BackColor = Color.LightGray,
+                    Margin = new Padding(0)
+                };
+
+                actionButton.Click += (sender, e) =>
+                {
+                    OpenDeckTab(deck);
+                };
+
+                table.Controls.Add(actionButton, 0, i + 1); 
+                table.Controls.Add(new Label { Text = deck.Id.ToString(), AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(120, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 1, i + 1);
+                table.Controls.Add(new Label { Text = deck.Name, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(400, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 2, i + 1);
+                table.Controls.Add(new Label { Text = deck.FormatName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(220, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 3, i + 1);
+                table.Controls.Add(new Label { Text = deck.OwnerName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(220, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 4, i + 1);
+                table.Controls.Add(new Label { Text = deck.ArchetypeName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(300, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 5, i + 1);
+                table.Controls.Add(new Label { Text = deck.ColorNames, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(220, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 6, i + 1);
             }
 
-            // Adiciona o TableLayoutPanel ao controle FlwDecksList
             FlwDecksList.Controls.Add(table);
+        }
+        private TabPage CloneTabDeckManager(string deckName)
+        {
+            // Cria uma nova aba com o nome do deck
+            TabPage newDeckTab = new TabPage(deckName)
+            {
+                Location = new Point(4, 24),
+                Padding = new Padding(3),
+                Size = new Size(1882, 979),
+                UseVisualStyleBackColor = true
+            };
 
+            // Cria um painel que irá conter os controles
+            Panel pnlDeckModel = new Panel
+            {
+                Dock = DockStyle.Fill,
+                Size = new Size(1876, 973),
+                Name = "PnlDeckModel"
+            };
+
+            // Botão para salvar o deck
+            Button btnSaveDeck = new Button
+            {
+                Name = "BtnSaveDeck",
+                Size = new Size(61, 43),
+                Location = new Point(3, 6),
+                Text = "Salvar Deck",
+                UseVisualStyleBackColor = true
+            };
+
+            // Botão para salvar a versão
+            Button btnSaveVersion = new Button
+            {
+                Name = "BtnSaveVersion",
+                Size = new Size(978, 30),
+                Location = new Point(3, 940),
+                Text = "Salvar Versão",
+                UseVisualStyleBackColor = true
+            };
+
+            // Rótulo para o nome do deck
+            Label lblDeckName = new Label
+            {
+                Font = new Font("Segoe UI", 18F, FontStyle.Bold),
+                Location = new Point(70, 6),
+                Size = new Size(911, 43),
+                Text = deckName,
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+
+            // Painel para visualizar cartas
+            Panel pnlCardView = new Panel
+            {
+                Location = new Point(987, 496),
+                Size = new Size(886, 474),
+                Name = "PnlCardView"
+            };
+
+            // Painel que contém o controle de ajuda
+            Panel pnlDeckHelper = new Panel
+            {
+                Anchor = AnchorStyles.Top,
+                Location = new Point(987, 6),
+                Size = new Size(886, 484),
+                Name = "PnlDeckHelper"
+            };
+
+            // Controlador de abas
+            TabControl controlHelper = new TabControl
+            {
+                Dock = DockStyle.Fill,
+                Name = "ControlHelper"
+            };
+
+            // Aba para a lista de ajuda
+            TabPage helpList = new TabPage
+            {
+                Name = "HelpList",
+                Text = "Help List",
+                Padding = new Padding(3),
+                Size = new Size(878, 456)
+            };
+
+            // ComboBox para a lista de ajuda
+            ComboBox cboHelpList = new ComboBox
+            {
+                FormattingEnabled = true,
+                Location = new Point(6, 6),
+                Name = "CboHelpList",
+                Size = new Size(722, 23)
+            };
+            helpList.Controls.Add(cboHelpList);
+
+            // Botão para salvar o lado
+            Button btnSaveSide = new Button
+            {
+                Anchor = AnchorStyles.Top,
+                Location = new Point(734, 6),
+                Name = "BtnSaveSide",
+                Size = new Size(138, 23),
+                Text = "Salvar Lado",
+                UseVisualStyleBackColor = true
+            };
+            helpList.Controls.Add(btnSaveSide);
+
+            // Aba para estatísticas
+            TabPage statistics = new TabPage
+            {
+                Name = "Statistics",
+                Text = "Estatísticas",
+                Padding = new Padding(3),
+                Size = new Size(878, 456)
+            };
+
+            // Adiciona abas ao controlador de abas
+            controlHelper.TabPages.Add(helpList);
+            controlHelper.TabPages.Add(statistics);
+            pnlDeckHelper.Controls.Add(controlHelper);
+
+            // ComboBox para deck ideal
+            ComboBox cboDeckIdeal = new ComboBox
+            {
+                Anchor = AnchorStyles.Top,
+                Location = new Point(495, 52),
+                Size = new Size(486, 23),
+                Name = "CboDeckIdeal"
+            };
+
+            // ComboBox para deck real
+            ComboBox cboDeckReal = new ComboBox
+            {
+                Anchor = AnchorStyles.Top,
+                Location = new Point(5, 52),
+                Size = new Size(486, 23),
+                Name = "CboDeckReal"
+            };
+
+            // Painel para o deck real
+            Panel pnlDeckReal = new Panel
+            {
+                Anchor = AnchorStyles.Top,
+                Location = new Point(5, 81),
+                Size = new Size(486, 853),
+                Name = "PnlDeckReal"
+            };
+
+            // FlowLayoutPanel para o deck real
+            FlowLayoutPanel flwDeckReal = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                Name = "FlwDeckReal"
+            };
+            pnlDeckReal.Controls.Add(flwDeckReal);
+
+            // Painel para o deck ideal
+            Panel pnlDeckIdeal = new Panel
+            {
+                Anchor = AnchorStyles.Top,
+                Location = new Point(497, 81),
+                Size = new Size(486, 853),
+                Name = "PnlDeckIdeal"
+            };
+
+            // FlowLayoutPanel para o deck ideal
+            FlowLayoutPanel flwDeckIdeal = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                Name = "FlwDeckIdeal"
+            };
+            pnlDeckIdeal.Controls.Add(flwDeckIdeal);
+
+            // Adiciona todos os controles ao painel
+            pnlDeckModel.Controls.Add(btnSaveDeck);
+            pnlDeckModel.Controls.Add(btnSaveVersion);
+            pnlDeckModel.Controls.Add(lblDeckName);
+            pnlDeckModel.Controls.Add(pnlCardView);
+            pnlDeckModel.Controls.Add(pnlDeckHelper);
+            pnlDeckModel.Controls.Add(cboDeckIdeal);
+            pnlDeckModel.Controls.Add(cboDeckReal);
+            pnlDeckModel.Controls.Add(pnlDeckReal);
+            pnlDeckModel.Controls.Add(pnlDeckIdeal);
+
+            // Adiciona o painel à nova aba
+            newDeckTab.Controls.Add(pnlDeckModel);
+
+            return newDeckTab;
+        }
+        private void OpenDeckTab(DeckModel deck)
+        {
+            // Verifica se a aba já existe
+            TabPage existingTab = DecksControl.TabPages.Cast<TabPage>().FirstOrDefault(t => t.Text == deck.Name);
+
+            if (existingTab == null)
+            {
+                TabPage newDeckTab = CloneTabDeckManager(deck.Name); 
+                DecksControl.TabPages.Add(newDeckTab);
+            }
+
+            // Seleciona a aba
+            DecksControl.SelectedTab = existingTab ?? DecksControl.TabPages.Cast<TabPage>().First(t => t.Text == deck.Name);
         }
 
     }
