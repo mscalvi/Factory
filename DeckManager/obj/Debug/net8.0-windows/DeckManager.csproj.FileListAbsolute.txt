@@ -42,3 +42,6 @@ C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\bin\Debug\net8.0-windows\run
 C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\obj\Debug\net8.0-windows\DeckManager.Views.NewDeck.resources
 C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\obj\Debug\net8.0-windows\DeckManager.Views.NewFilter.resources
 C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\obj\Debug\net8.0-windows\DeckManager.Views.DelFilter.resources
+C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\obj\Debug\net8.0-windows\DeckManager.Views.SelArchetype.resources
+C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\obj\Debug\net8.0-windows\DeckManager.Views.SelColor.resources
+C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\obj\Debug\net8.0-windows\DeckManager.Views.SelOwner.resources

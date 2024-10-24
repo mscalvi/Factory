@@ -574,6 +574,85 @@ namespace DeckManager.Services
 
             return decks;
         }
+        public static void UpdateDeckFilters(string deckName, int? ownerId, int? archetypeId, int? colorId)
+        {
+            if (string.IsNullOrWhiteSpace(deckName))
+            {
+                throw new ArgumentException("O nome do deck não pode estar vazio.");
+            }
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        // Verifica se o deck existe
+                        string checkDeckQuery = "SELECT COUNT(*) FROM DecksTable WHERE Name = @Name;";
+                        using (var checkCommand = new SQLiteCommand(checkDeckQuery, connection))
+                        {
+                            checkCommand.Parameters.AddWithValue("@Name", deckName);
+                            long count = (long)checkCommand.ExecuteScalar(); // Verifica a quantidade de decks com o nome
+
+                            if (count == 0) // Se o deck não existe
+                            {
+                                throw new ArgumentException("Nenhum deck encontrado com esse nome.");
+                            }
+                        }
+
+                        // Atualiza o dono, se fornecido
+                        if (ownerId.HasValue)
+                        {
+                            string updateOwnerQuery = "UPDATE DecksTable SET OwnerId = @OwnerId WHERE Name = @Name;";
+                            using (var updateCommand = new SQLiteCommand(updateOwnerQuery, connection))
+                            {
+                                updateCommand.Parameters.AddWithValue("@OwnerId", ownerId);
+                                updateCommand.Parameters.AddWithValue("@Name", deckName);
+                                updateCommand.ExecuteNonQuery();
+                            }
+                        }
+
+                        // Atualiza o arquétipo, se fornecido
+                        if (archetypeId.HasValue)
+                        {
+                            string updateArchetypeQuery = "UPDATE DecksTable SET ArchetypeId = @ArchetypeId WHERE Name = @Name;";
+                            using (var updateCommand = new SQLiteCommand(updateArchetypeQuery, connection))
+                            {
+                                updateCommand.Parameters.AddWithValue("@ArchetypeId", archetypeId);
+                                updateCommand.Parameters.AddWithValue("@Name", deckName);
+                                updateCommand.ExecuteNonQuery();
+                            }
+                        }
+
+                        // Atualiza a cor, se fornecida
+                        if (colorId.HasValue)
+                        {
+                            string updateColorQuery = "UPDATE DecksTable SET ColorId = @ColorId WHERE Name = @Name;";
+                            using (var updateCommand = new SQLiteCommand(updateColorQuery, connection))
+                            {
+                                updateCommand.Parameters.AddWithValue("@ColorId", colorId);
+                                updateCommand.Parameters.AddWithValue("@Name", deckName);
+                                updateCommand.ExecuteNonQuery();
+                            }
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch (ArgumentException ex) // Exceção para quando o deck não for encontrado
+                    {
+                        MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        transaction.Rollback();
+                    }
+                    catch (Exception ex) // Outras exceções
+                    {
+                        transaction.Rollback();
+                        throw new Exception("Erro ao atualizar o deck: " + ex.Message);
+                    }
+                }
+            }
+        }
 
 
 

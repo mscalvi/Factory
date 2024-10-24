@@ -72,15 +72,21 @@
             PnlDeckHelper = new Panel();
             ControlHelper = new TabControl();
             HelpList = new TabPage();
+            CboHelpList = new ComboBox();
             BtnSaveSide = new Button();
             Statistics = new TabPage();
+            LblColor = new Label();
+            LblArchetype = new Label();
+            LblOwner = new Label();
             CboDeckIdeal = new ComboBox();
             CboDeckReal = new ComboBox();
             PnlDeckReal = new Panel();
             FlwDeckReal = new FlowLayoutPanel();
             PnlDeckIdeal = new Panel();
             FlwDeckIdeal = new FlowLayoutPanel();
-            CboHelpList = new ComboBox();
+            BtnOwnerChange = new Button();
+            BtnArchetypeChange = new Button();
+            BtnColorChange = new Button();
             MainControl.SuspendLayout();
             TabHome.SuspendLayout();
             PnlHome.SuspendLayout();
@@ -103,6 +109,7 @@
             PnlDeckHelper.SuspendLayout();
             ControlHelper.SuspendLayout();
             HelpList.SuspendLayout();
+            Statistics.SuspendLayout();
             PnlDeckReal.SuspendLayout();
             PnlDeckIdeal.SuspendLayout();
             SuspendLayout();
@@ -576,6 +583,14 @@
             HelpList.Text = "Help List";
             HelpList.UseVisualStyleBackColor = true;
             // 
+            // CboHelpList
+            // 
+            CboHelpList.FormattingEnabled = true;
+            CboHelpList.Location = new Point(6, 6);
+            CboHelpList.Name = "CboHelpList";
+            CboHelpList.Size = new Size(722, 23);
+            CboHelpList.TabIndex = 9;
+            // 
             // BtnSaveSide
             // 
             BtnSaveSide.Anchor = AnchorStyles.Top;
@@ -588,6 +603,12 @@
             // 
             // Statistics
             // 
+            Statistics.Controls.Add(BtnColorChange);
+            Statistics.Controls.Add(BtnArchetypeChange);
+            Statistics.Controls.Add(BtnOwnerChange);
+            Statistics.Controls.Add(LblColor);
+            Statistics.Controls.Add(LblArchetype);
+            Statistics.Controls.Add(LblOwner);
             Statistics.Location = new Point(4, 24);
             Statistics.Name = "Statistics";
             Statistics.Padding = new Padding(3);
@@ -595,6 +616,36 @@
             Statistics.TabIndex = 1;
             Statistics.Text = "Estatísticas";
             Statistics.UseVisualStyleBackColor = true;
+            // 
+            // LblColor
+            // 
+            LblColor.Anchor = AnchorStyles.Top;
+            LblColor.Location = new Point(47, 76);
+            LblColor.Name = "LblColor";
+            LblColor.Size = new Size(100, 27);
+            LblColor.TabIndex = 2;
+            LblColor.Text = "label3";
+            LblColor.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // LblArchetype
+            // 
+            LblArchetype.Anchor = AnchorStyles.Top;
+            LblArchetype.Location = new Point(47, 43);
+            LblArchetype.Name = "LblArchetype";
+            LblArchetype.Size = new Size(100, 27);
+            LblArchetype.TabIndex = 1;
+            LblArchetype.Text = "label2";
+            LblArchetype.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // LblOwner
+            // 
+            LblOwner.Anchor = AnchorStyles.Top;
+            LblOwner.Location = new Point(47, 10);
+            LblOwner.Name = "LblOwner";
+            LblOwner.Size = new Size(100, 27);
+            LblOwner.TabIndex = 0;
+            LblOwner.Text = "label1";
+            LblOwner.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // CboDeckIdeal
             // 
@@ -648,13 +699,35 @@
             FlwDeckIdeal.Size = new Size(486, 853);
             FlwDeckIdeal.TabIndex = 0;
             // 
-            // CboHelpList
+            // BtnOwnerChange
             // 
-            CboHelpList.FormattingEnabled = true;
-            CboHelpList.Location = new Point(6, 6);
-            CboHelpList.Name = "CboHelpList";
-            CboHelpList.Size = new Size(722, 23);
-            CboHelpList.TabIndex = 9;
+            BtnOwnerChange.Anchor = AnchorStyles.Top;
+            BtnOwnerChange.Location = new Point(6, 10);
+            BtnOwnerChange.Name = "BtnOwnerChange";
+            BtnOwnerChange.Size = new Size(35, 27);
+            BtnOwnerChange.TabIndex = 3;
+            BtnOwnerChange.Text = "button1";
+            BtnOwnerChange.UseVisualStyleBackColor = true;
+            // 
+            // BtnArchetypeChange
+            // 
+            BtnArchetypeChange.Anchor = AnchorStyles.Top;
+            BtnArchetypeChange.Location = new Point(6, 43);
+            BtnArchetypeChange.Name = "BtnArchetypeChange";
+            BtnArchetypeChange.Size = new Size(35, 27);
+            BtnArchetypeChange.TabIndex = 4;
+            BtnArchetypeChange.Text = "button2";
+            BtnArchetypeChange.UseVisualStyleBackColor = true;
+            // 
+            // BtnColorChange
+            // 
+            BtnColorChange.Anchor = AnchorStyles.Top;
+            BtnColorChange.Location = new Point(6, 76);
+            BtnColorChange.Name = "BtnColorChange";
+            BtnColorChange.Size = new Size(35, 27);
+            BtnColorChange.TabIndex = 5;
+            BtnColorChange.Text = "button3";
+            BtnColorChange.UseVisualStyleBackColor = true;
             // 
             // HomePage
             // 
@@ -689,6 +762,7 @@
             PnlDeckHelper.ResumeLayout(false);
             ControlHelper.ResumeLayout(false);
             HelpList.ResumeLayout(false);
+            Statistics.ResumeLayout(false);
             PnlDeckReal.ResumeLayout(false);
             PnlDeckIdeal.ResumeLayout(false);
             ResumeLayout(false);
@@ -750,5 +824,11 @@
         private Button BtnSaveSide;
         private Button BtnSaveDeck;
         private ComboBox CboHelpList;
+        private Label LblColor;
+        private Label LblArchetype;
+        private Label LblOwner;
+        private Button BtnColorChange;
+        private Button BtnArchetypeChange;
+        private Button BtnOwnerChange;
     }
 }

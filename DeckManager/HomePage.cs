@@ -508,7 +508,7 @@ namespace DeckManager
         }
         private TabPage CloneTabDeckManager(string deckName)
         {
-            // Cria uma nova aba com o nome do deck
+            // Create a new tab with the deck name
             TabPage newDeckTab = new TabPage(deckName)
             {
                 Location = new Point(4, 24),
@@ -517,7 +517,7 @@ namespace DeckManager
                 UseVisualStyleBackColor = true
             };
 
-            // Cria um painel que irá conter os controles
+            // Create a panel to hold the controls
             Panel pnlDeckModel = new Panel
             {
                 Dock = DockStyle.Fill,
@@ -525,7 +525,7 @@ namespace DeckManager
                 Name = "PnlDeckModel"
             };
 
-            // Botão para salvar o deck
+            // Button to save the deck
             Button btnSaveDeck = new Button
             {
                 Name = "BtnSaveDeck",
@@ -535,7 +535,7 @@ namespace DeckManager
                 UseVisualStyleBackColor = true
             };
 
-            // Botão para salvar a versão
+            // Button to save the version
             Button btnSaveVersion = new Button
             {
                 Name = "BtnSaveVersion",
@@ -545,7 +545,7 @@ namespace DeckManager
                 UseVisualStyleBackColor = true
             };
 
-            // Rótulo para o nome do deck
+            // Label for the deck name
             Label lblDeckName = new Label
             {
                 Font = new Font("Segoe UI", 18F, FontStyle.Bold),
@@ -555,7 +555,7 @@ namespace DeckManager
                 TextAlign = ContentAlignment.MiddleCenter
             };
 
-            // Painel para visualizar cartas
+            // Panel to view cards
             Panel pnlCardView = new Panel
             {
                 Location = new Point(987, 496),
@@ -563,7 +563,7 @@ namespace DeckManager
                 Name = "PnlCardView"
             };
 
-            // Painel que contém o controle de ajuda
+            // Panel that contains the helper control
             Panel pnlDeckHelper = new Panel
             {
                 Anchor = AnchorStyles.Top,
@@ -572,14 +572,14 @@ namespace DeckManager
                 Name = "PnlDeckHelper"
             };
 
-            // Controlador de abas
+            // Tab control for helper
             TabControl controlHelper = new TabControl
             {
                 Dock = DockStyle.Fill,
                 Name = "ControlHelper"
             };
 
-            // Aba para a lista de ajuda
+            // Tab for help list
             TabPage helpList = new TabPage
             {
                 Name = "HelpList",
@@ -588,7 +588,7 @@ namespace DeckManager
                 Size = new Size(878, 456)
             };
 
-            // ComboBox para a lista de ajuda
+            // ComboBox for help list
             ComboBox cboHelpList = new ComboBox
             {
                 FormattingEnabled = true,
@@ -598,7 +598,7 @@ namespace DeckManager
             };
             helpList.Controls.Add(cboHelpList);
 
-            // Botão para salvar o lado
+            // Button to save the side
             Button btnSaveSide = new Button
             {
                 Anchor = AnchorStyles.Top,
@@ -610,7 +610,7 @@ namespace DeckManager
             };
             helpList.Controls.Add(btnSaveSide);
 
-            // Aba para estatísticas
+            // Tab for statistics
             TabPage statistics = new TabPage
             {
                 Name = "Statistics",
@@ -619,12 +619,112 @@ namespace DeckManager
                 Size = new Size(878, 456)
             };
 
-            // Adiciona abas ao controlador de abas
+            // Labels for statistics
+            Label lblOwner = new Label
+            {
+                Location = new Point(47, 10),
+                Name = "LblOwner",
+                Size = new Size(100, 27),
+                Text = "label1",
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+
+            Label lblArchetype = new Label
+            {
+                Location = new Point(47, 43),
+                Name = "LblArchetype",
+                Size = new Size(100, 27),
+                Text = "label2",
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+
+            Label lblColor = new Label
+            {
+                Location = new Point(47, 76),
+                Name = "LblColor",
+                Size = new Size(100, 27),
+                Text = "label3",
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+
+            // Botão para mudar o dono
+            Button btnOwnerChange = new Button
+            {
+                Anchor = AnchorStyles.Top,
+                Location = new Point(6, 10),
+                Name = "BtnOwnerChange",
+                Size = new Size(35, 27),
+                Text = "Mudar",
+                UseVisualStyleBackColor = true
+            };
+
+            // Evento para abrir a PopUp de seleção de dono
+            btnOwnerChange.Click += (s, e) =>
+            {
+                SelOwner newFilterDialog = new SelOwner();
+                if (newFilterDialog.ShowDialog() == DialogResult.OK)
+                {
+                    int selectedOwnerId = newFilterDialog.SelectedOwnerId;
+                    lblOwner.Text = DataService.GetOwnerName(selectedOwnerId);
+                }
+            };
+
+            Button btnArchetypeChange = new Button
+            {
+                Anchor = AnchorStyles.Top,
+                Location = new Point(6, 43),
+                Name = "BtnArchetypeChange",
+                Size = new Size(35, 27),
+                Text = "button2",
+                UseVisualStyleBackColor = true
+            };
+
+            // Evento para abrir a PopUp de seleção de dono
+            btnArchetypeChange.Click += (s, e) =>
+            {
+                SelArchetype newFilterDialog = new SelArchetype();
+                if (newFilterDialog.ShowDialog() == DialogResult.OK)
+                {
+                    int selectedArchetypeId = newFilterDialog.SelectedArchetypeId;
+                    lblArchetype.Text = DataService.GetArchetypeName(selectedArchetypeId);
+                }
+            };
+
+            Button btnColorChange = new Button
+            {
+                Anchor = AnchorStyles.Top,
+                Location = new Point(6, 76),
+                Name = "BtnColorChange",
+                Size = new Size(35, 27),
+                Text = "button3",
+                UseVisualStyleBackColor = true
+            };
+
+            // Evento para abrir a PopUp de seleção de dono
+            btnColorChange.Click += (s, e) =>
+            {
+                SelColor newFilterDialog = new SelColor();
+                if (newFilterDialog.ShowDialog() == DialogResult.OK)
+                {
+                    int selectedColorId = newFilterDialog.SelectedColorId;
+                    lblColor.Text = DataService.GetColorName(selectedColorId);
+                }
+            };
+
+            // Add controls to statistics tab
+            statistics.Controls.Add(lblOwner);
+            statistics.Controls.Add(lblArchetype);
+            statistics.Controls.Add(lblColor);
+            statistics.Controls.Add(btnOwnerChange);
+            statistics.Controls.Add(btnArchetypeChange);
+            statistics.Controls.Add(btnColorChange);
+
+            // Add tabs to the tab control
             controlHelper.TabPages.Add(helpList);
             controlHelper.TabPages.Add(statistics);
             pnlDeckHelper.Controls.Add(controlHelper);
 
-            // ComboBox para deck ideal
+            // ComboBox for ideal deck
             ComboBox cboDeckIdeal = new ComboBox
             {
                 Anchor = AnchorStyles.Top,
@@ -633,7 +733,7 @@ namespace DeckManager
                 Name = "CboDeckIdeal"
             };
 
-            // ComboBox para deck real
+            // ComboBox for real deck
             ComboBox cboDeckReal = new ComboBox
             {
                 Anchor = AnchorStyles.Top,
@@ -642,7 +742,7 @@ namespace DeckManager
                 Name = "CboDeckReal"
             };
 
-            // Painel para o deck real
+            // Panel for real deck
             Panel pnlDeckReal = new Panel
             {
                 Anchor = AnchorStyles.Top,
@@ -651,7 +751,7 @@ namespace DeckManager
                 Name = "PnlDeckReal"
             };
 
-            // FlowLayoutPanel para o deck real
+            // FlowLayoutPanel for real deck
             FlowLayoutPanel flwDeckReal = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
@@ -659,7 +759,7 @@ namespace DeckManager
             };
             pnlDeckReal.Controls.Add(flwDeckReal);
 
-            // Painel para o deck ideal
+            // Panel for ideal deck
             Panel pnlDeckIdeal = new Panel
             {
                 Anchor = AnchorStyles.Top,
@@ -668,7 +768,7 @@ namespace DeckManager
                 Name = "PnlDeckIdeal"
             };
 
-            // FlowLayoutPanel para o deck ideal
+            // FlowLayoutPanel for ideal deck
             FlowLayoutPanel flwDeckIdeal = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
@@ -676,7 +776,7 @@ namespace DeckManager
             };
             pnlDeckIdeal.Controls.Add(flwDeckIdeal);
 
-            // Adiciona todos os controles ao painel
+            // Add all controls to the main panel
             pnlDeckModel.Controls.Add(btnSaveDeck);
             pnlDeckModel.Controls.Add(btnSaveVersion);
             pnlDeckModel.Controls.Add(lblDeckName);
@@ -687,7 +787,7 @@ namespace DeckManager
             pnlDeckModel.Controls.Add(pnlDeckReal);
             pnlDeckModel.Controls.Add(pnlDeckIdeal);
 
-            // Adiciona o painel à nova aba
+            // Add the panel to the new tab
             newDeckTab.Controls.Add(pnlDeckModel);
 
             return newDeckTab;
