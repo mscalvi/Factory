@@ -845,7 +845,7 @@
             label5.Name = "label5";
             label5.Size = new Size(753, 23);
             label5.TabIndex = 3;
-            label5.Text = "Anotação :";
+            label5.Text = "Anotação 2:";
             // 
             // LblCreateCompanyMessage
             // 
@@ -1257,9 +1257,9 @@
             // 
             BtnEditRemoveCL.Anchor = AnchorStyles.Top;
             BtnEditRemoveCL.Font = new Font("Segoe UI", 12F);
-            BtnEditRemoveCL.Location = new Point(1200, 183);
+            BtnEditRemoveCL.Location = new Point(1199, 183);
             BtnEditRemoveCL.Name = "BtnEditRemoveCL";
-            BtnEditRemoveCL.Size = new Size(90, 90);
+            BtnEditRemoveCL.Size = new Size(120, 90);
             BtnEditRemoveCL.TabIndex = 5;
             BtnEditRemoveCL.Text = "Remover Elementos";
             BtnEditRemoveCL.UseVisualStyleBackColor = true;
@@ -1269,9 +1269,9 @@
             // 
             BtnEditAddCL.Anchor = AnchorStyles.Top;
             BtnEditAddCL.Font = new Font("Segoe UI", 12F);
-            BtnEditAddCL.Location = new Point(1076, 183);
+            BtnEditAddCL.Location = new Point(1049, 183);
             BtnEditAddCL.Name = "BtnEditAddCL";
-            BtnEditAddCL.Size = new Size(90, 90);
+            BtnEditAddCL.Size = new Size(120, 90);
             BtnEditAddCL.TabIndex = 4;
             BtnEditAddCL.Text = "Adicionar Elementos";
             BtnEditAddCL.UseVisualStyleBackColor = true;
@@ -1426,7 +1426,7 @@
             // BoxEditEmailComp
             // 
             BoxEditEmailComp.Anchor = AnchorStyles.Top;
-            BoxEditEmailComp.Location = new Point(17, 474);
+            BoxEditEmailComp.Location = new Point(17, 481);
             BoxEditEmailComp.Multiline = true;
             BoxEditEmailComp.Name = "BoxEditEmailComp";
             BoxEditEmailComp.Size = new Size(799, 60);
@@ -1444,7 +1444,7 @@
             // BoxEditCardNameComp
             // 
             BoxEditCardNameComp.Anchor = AnchorStyles.Top;
-            BoxEditCardNameComp.Location = new Point(17, 340);
+            BoxEditCardNameComp.Location = new Point(17, 323);
             BoxEditCardNameComp.Name = "BoxEditCardNameComp";
             BoxEditCardNameComp.Size = new Size(799, 23);
             BoxEditCardNameComp.TabIndex = 3;
@@ -1452,7 +1452,7 @@
             // BoxEditNameComp
             // 
             BoxEditNameComp.Anchor = AnchorStyles.Top;
-            BoxEditNameComp.Location = new Point(17, 270);
+            BoxEditNameComp.Location = new Point(17, 258);
             BoxEditNameComp.Name = "BoxEditNameComp";
             BoxEditNameComp.Size = new Size(799, 23);
             BoxEditNameComp.TabIndex = 2;
@@ -1502,7 +1502,7 @@
             // 
             label12.Anchor = AnchorStyles.Top;
             label12.Font = new Font("Segoe UI", 12F);
-            label12.Location = new Point(17, 314);
+            label12.Location = new Point(17, 297);
             label12.Name = "label12";
             label12.Size = new Size(799, 23);
             label12.TabIndex = 4;
@@ -1512,7 +1512,7 @@
             // 
             LblEditCompName.Anchor = AnchorStyles.Top;
             LblEditCompName.Font = new Font("Segoe UI", 12F);
-            LblEditCompName.Location = new Point(17, 244);
+            LblEditCompName.Location = new Point(17, 232);
             LblEditCompName.Name = "LblEditCompName";
             LblEditCompName.Size = new Size(799, 23);
             LblEditCompName.TabIndex = 3;
@@ -1612,7 +1612,7 @@
             // LblVisuCont5
             // 
             LblVisuCont5.Anchor = AnchorStyles.Top;
-            LblVisuCont5.Font = new Font("Segoe UI", 12F);
+            LblVisuCont5.Font = new Font("Segoe UI", 11F);
             LblVisuCont5.Location = new Point(395, 432);
             LblVisuCont5.Name = "LblVisuCont5";
             LblVisuCont5.Size = new Size(302, 229);
@@ -1622,50 +1622,50 @@
             // LblVisuCont4
             // 
             LblVisuCont4.Anchor = AnchorStyles.Top;
-            LblVisuCont4.Font = new Font("Segoe UI", 12F);
-            LblVisuCont4.Location = new Point(553, 314);
+            LblVisuCont4.Font = new Font("Segoe UI", 11F);
+            LblVisuCont4.Location = new Point(569, 314);
             LblVisuCont4.Name = "LblVisuCont4";
-            LblVisuCont4.Size = new Size(769, 67);
+            LblVisuCont4.Size = new Size(753, 67);
             LblVisuCont4.TabIndex = 29;
             LblVisuCont4.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // LblVisuCont3
             // 
             LblVisuCont3.Anchor = AnchorStyles.Top;
-            LblVisuCont3.Font = new Font("Segoe UI", 12F);
-            LblVisuCont3.Location = new Point(553, 236);
+            LblVisuCont3.Font = new Font("Segoe UI", 11F);
+            LblVisuCont3.Location = new Point(569, 236);
             LblVisuCont3.Name = "LblVisuCont3";
-            LblVisuCont3.Size = new Size(769, 67);
+            LblVisuCont3.Size = new Size(753, 67);
             LblVisuCont3.TabIndex = 28;
             LblVisuCont3.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // LblVisuCont2
             // 
             LblVisuCont2.Anchor = AnchorStyles.Top;
-            LblVisuCont2.Font = new Font("Segoe UI", 12F);
-            LblVisuCont2.Location = new Point(553, 189);
+            LblVisuCont2.Font = new Font("Segoe UI", 11F);
+            LblVisuCont2.Location = new Point(569, 189);
             LblVisuCont2.Name = "LblVisuCont2";
-            LblVisuCont2.Size = new Size(769, 23);
+            LblVisuCont2.Size = new Size(753, 23);
             LblVisuCont2.TabIndex = 27;
             LblVisuCont2.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // LblVisuCont1
             // 
             LblVisuCont1.Anchor = AnchorStyles.Top;
-            LblVisuCont1.Font = new Font("Segoe UI", 12F);
-            LblVisuCont1.Location = new Point(553, 142);
+            LblVisuCont1.Font = new Font("Segoe UI", 11F);
+            LblVisuCont1.Location = new Point(569, 142);
             LblVisuCont1.Name = "LblVisuCont1";
-            LblVisuCont1.Size = new Size(769, 23);
+            LblVisuCont1.Size = new Size(753, 23);
             LblVisuCont1.TabIndex = 26;
             LblVisuCont1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // LblVisu4
             // 
             LblVisu4.Anchor = AnchorStyles.Top;
-            LblVisu4.Font = new Font("Segoe UI", 12F);
+            LblVisu4.Font = new Font("Segoe UI", 11F);
             LblVisu4.Location = new Point(395, 314);
             LblVisu4.Name = "LblVisu4";
-            LblVisu4.Size = new Size(152, 23);
+            LblVisu4.Size = new Size(168, 23);
             LblVisu4.TabIndex = 25;
             LblVisu4.Text = "Anotação 2:";
             LblVisu4.TextAlign = ContentAlignment.MiddleLeft;
@@ -1673,7 +1673,7 @@
             // LblVisu5
             // 
             LblVisu5.Anchor = AnchorStyles.Top;
-            LblVisu5.Font = new Font("Segoe UI", 12F);
+            LblVisu5.Font = new Font("Segoe UI", 11F);
             LblVisu5.Location = new Point(395, 396);
             LblVisu5.Name = "LblVisu5";
             LblVisu5.Size = new Size(152, 23);
@@ -1684,10 +1684,10 @@
             // LblVisu3
             // 
             LblVisu3.Anchor = AnchorStyles.Top;
-            LblVisu3.Font = new Font("Segoe UI", 12F);
+            LblVisu3.Font = new Font("Segoe UI", 11F);
             LblVisu3.Location = new Point(395, 236);
             LblVisu3.Name = "LblVisu3";
-            LblVisu3.Size = new Size(152, 23);
+            LblVisu3.Size = new Size(168, 23);
             LblVisu3.TabIndex = 23;
             LblVisu3.Text = "Anotação 1:";
             LblVisu3.TextAlign = ContentAlignment.MiddleLeft;
@@ -1695,10 +1695,10 @@
             // LblVisu2
             // 
             LblVisu2.Anchor = AnchorStyles.Top;
-            LblVisu2.Font = new Font("Segoe UI", 12F);
+            LblVisu2.Font = new Font("Segoe UI", 11F);
             LblVisu2.Location = new Point(395, 189);
             LblVisu2.Name = "LblVisu2";
-            LblVisu2.Size = new Size(152, 23);
+            LblVisu2.Size = new Size(168, 23);
             LblVisu2.TabIndex = 22;
             LblVisu2.Text = "Nome para Cartela:";
             LblVisu2.TextAlign = ContentAlignment.MiddleLeft;
@@ -1706,10 +1706,10 @@
             // LblVisu1
             // 
             LblVisu1.Anchor = AnchorStyles.Top;
-            LblVisu1.Font = new Font("Segoe UI", 12F);
+            LblVisu1.Font = new Font("Segoe UI", 11F);
             LblVisu1.Location = new Point(395, 142);
             LblVisu1.Name = "LblVisu1";
-            LblVisu1.Size = new Size(152, 23);
+            LblVisu1.Size = new Size(168, 23);
             LblVisu1.TabIndex = 21;
             LblVisu1.Text = "Nome:";
             LblVisu1.TextAlign = ContentAlignment.MiddleLeft;

@@ -15,6 +15,9 @@ namespace BingoManager
         private ToolTip toolTip;
         private List<DataRow> allCompaniesList = new List<DataRow>();
         private LogoView logoDisplayForm;
+        private readonly string appDataPath;
+        private readonly string imageFolderPath;
+
 
         public MainView()
         {
@@ -31,6 +34,9 @@ namespace BingoManager
                 ReshowDelay = 500,
                 ShowAlways = true
             };
+
+            appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            imageFolderPath = Path.Combine(appDataPath, "BingoManager", "Images");
 
             // Subscrição ao evento para detectar mudanças nos monitores
             SystemEvents.DisplaySettingsChanged += new EventHandler(SystemEvents_DisplaySettingsChanged);
@@ -56,7 +62,7 @@ namespace BingoManager
             int maxDescriptionLength = 250;
 
             // Verifica se o nome e a descrição não estão vazios e se estão dentro dos limites
-            if (!string.IsNullOrEmpty(list.Name) && !string.IsNullOrEmpty(list.Description))
+            if (!string.IsNullOrEmpty(list.Name))
             {
                 if (list.Name.Length > maxNameLength)
                 {
@@ -68,6 +74,11 @@ namespace BingoManager
                 {
                     LblCreateListMessage.Text = $"A descrição da Lista deve ter no máximo {maxDescriptionLength} caracteres.";
                     return;
+                }
+
+                if (string.IsNullOrEmpty(list.Description))
+                {
+                    list.Description = "*";
                 }
 
                 try
@@ -120,10 +131,6 @@ namespace BingoManager
                 {
                     LblCreateListMessage.Text = "Nome da Lista é obrigatório.";
                 }
-                else if (string.IsNullOrEmpty(BoxCreateListDescription.Text))
-                {
-                    LblCreateListMessage.Text = "Descrição da Lista é obrigatória.";
-                }
                 else
                 {
                     LblCreateListMessage.Text = "Erro ao adicionar a Lista.";
@@ -163,20 +170,27 @@ namespace BingoManager
 
         private void SaveImageToPC(Image image, string fileName)
         {
-            string directoryPath = Path.Combine(Application.StartupPath, "Images");
-            if (!Directory.Exists(directoryPath))
+            // Define o caminho para a pasta AppData específica do aplicativo
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string appFolder = Path.Combine(appDataPath, "BingoManager", "Images");
+
+            // Cria a pasta, caso ela ainda não exista
+            if (!Directory.Exists(appFolder))
             {
-                Directory.CreateDirectory(directoryPath);
+                Directory.CreateDirectory(appFolder);
             }
 
-            string filePath = Path.Combine(directoryPath, fileName);
+            // Define o caminho completo para o arquivo de imagem
+            string filePath = Path.Combine(appFolder, fileName);
 
+            // Salva a imagem
             using (MemoryStream ms = new MemoryStream())
             {
                 image.Save(ms, image.RawFormat);
                 File.WriteAllBytes(filePath, ms.ToArray());
             }
         }
+
 
         // Método para Criar uma Elemento
         private void BtnCreateCompany_Click(object sender, EventArgs e)
@@ -457,7 +471,9 @@ namespace BingoManager
 
                 PictureBox picBox = new PictureBox
                 {
-                    Image = !string.IsNullOrEmpty(logoName) ? Image.FromFile(@"Images/" + logoName) : Image.FromFile(@"Images/default_logo.jpg"),
+                    Image = !string.IsNullOrEmpty(logoName)
+                        ? Image.FromFile(Path.Combine(imageFolderPath, logoName))
+                        : Image.FromFile(Path.Combine(imageFolderPath, "default_logo.jpg")),
                     SizeMode = PictureBoxSizeMode.Zoom,
                     Width = 80,
                     Height = 50,
@@ -532,7 +548,9 @@ namespace BingoManager
 
                 PictureBox picBox = new PictureBox
                 {
-                    Image = !string.IsNullOrEmpty(logoName) ? Image.FromFile(@"Images/" + logoName) : Image.FromFile(@"Images/default_logo.jpg"),
+                    Image = !string.IsNullOrEmpty(logoName)
+                        ? Image.FromFile(Path.Combine(imageFolderPath, logoName))
+                        : Image.FromFile(Path.Combine(imageFolderPath, "default_logo.jpg")),
                     SizeMode = PictureBoxSizeMode.Zoom,
                     Width = 80,
                     Height = 50,
@@ -816,7 +834,9 @@ namespace BingoManager
                     BoxEditEmailComp.Text = selectedCompany.Email;
                     BoxEditPhoneComp.Text = selectedCompany.Phone;
 
-                    PicEditLogoComp.Image = DataService.LoadImageFromFile(selectedCompany.Logo) ?? Image.FromFile(@"Images\default_logo.jpg");
+                    // Define a imagem do logo na AppData ou a padrão
+                    PicEditLogoComp.Image = DataService.LoadImageFromFile(selectedCompany.Logo)
+                        ?? DataService.LoadImageFromFile("default_logo.jpg");
                 }
             }
         }
@@ -1152,15 +1172,22 @@ namespace BingoManager
                 LblVisuCont3.Text = company["Phone"].ToString();
                 LblVisuCont4.Text = company["Email"].ToString();
 
-                // Carrega a imagem no PictureBox
-                string logoPath = Path.Combine(Application.StartupPath, "Images", company["Logo"].ToString());
+                // Define o caminho da pasta de imagens na AppData
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string imageFolderPath = Path.Combine(appDataPath, "BingoManager", "Images");
+                string logoPath = Path.Combine(imageFolderPath, company["Logo"].ToString());
+
+                // Carrega a imagem do logo ou a imagem padrão se não existir
                 if (File.Exists(logoPath))
                 {
                     PicVisuLogo.Image = Image.FromFile(logoPath);
                 }
                 else
                 {
-                    PicVisuLogo.Image = Image.FromFile(@"Images/default_logo.jpg");
+                    string defaultLogoPath = Path.Combine(imageFolderPath, "default_logo.jpg");
+                    PicVisuLogo.Image = File.Exists(defaultLogoPath)
+                        ? Image.FromFile(defaultLogoPath)
+                        : null; // Define como nulo se nenhuma imagem padrão estiver disponível
                 }
 
                 // Carrega as listas a que a Elemento pertence
@@ -1176,6 +1203,7 @@ namespace BingoManager
                 }
             }
         }
+
 
         //Métodos para informações das Cartelas
         private void OnCardLabelClick(Label clickedLabel)
@@ -1204,30 +1232,37 @@ namespace BingoManager
 
             if (cardDetails != null)
             {
+                // Atualiza os Labels com as informações da Cartela
                 LblVisuCont1.Text = cardDetails["Name"].ToString();
                 LblVisuCont2.Text = cardDetails["Qnt"].ToString();
                 LblVisuCont3.Text = cardDetails["Title"].ToString();
                 LblVisuCont4.Text = cardDetails["End"].ToString();
                 LblVisuCont5.Text = cardDetails["ListName"].ToString();
 
-                // Carrega o logo da lista associada
-                string listLogoFileName = cardDetails["Logo"].ToString();
-                string listLogoPath = Path.Combine(Application.StartupPath, "Images", listLogoFileName);
+                // Define o caminho da pasta de imagens na AppData
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string imageFolderPath = Path.Combine(appDataPath, "BingoManager", "Images");
 
+                // Define o caminho do logo da lista
+                string listLogoFileName = cardDetails["Logo"].ToString();
+                string listLogoPath = Path.Combine(imageFolderPath, listLogoFileName);
+
+                // Carrega o logo da lista ou a imagem padrão se o logo não existir
                 Image logoImage = null;
                 if (File.Exists(listLogoPath))
                 {
                     logoImage = Image.FromFile(listLogoPath);
                 }
 
-                // Usa o logo da lista ou o logo padrão se o da lista não existir
-                PicVisuLogo.Image = logoImage ?? Image.FromFile(@"Images/default_logo.jpg");
+                string defaultLogoPath = Path.Combine(imageFolderPath, "default_logo.jpg");
+                PicVisuLogo.Image = logoImage ?? (File.Exists(defaultLogoPath) ? Image.FromFile(defaultLogoPath) : null);
             }
             else
             {
                 MessageBox.Show("Cartela não encontrada.");
             }
         }
+
 
         //Métodos para informações das Listas
         private void OnListLabelClick(Label clickedLabel)
@@ -1257,28 +1292,35 @@ namespace BingoManager
 
             if (listDetails != null)
             {
+                // Define as informações da lista nos labels
                 LblVisuCont1.Text = listDetails["Name"].ToString();
                 LblVisuCont2.Text = listSize.Count.ToString();
                 LblVisuCont3.Text = listDetails["Description"].ToString();
 
-                // Carrega o logo da lista associada
-                string listLogoFileName = listDetails["Logo"].ToString();
-                string listLogoPath = Path.Combine(Application.StartupPath, "Images", listLogoFileName);
+                // Configura o caminho da pasta de imagens na AppData
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string imageFolderPath = Path.Combine(appDataPath, "BingoManager", "Images");
 
+                // Define o caminho do logo da lista
+                string listLogoFileName = listDetails["Logo"].ToString();
+                string listLogoPath = Path.Combine(imageFolderPath, listLogoFileName);
+
+                // Tenta carregar o logo da lista; caso contrário, usa o logo padrão
                 Image logoImage = null;
                 if (File.Exists(listLogoPath))
                 {
                     logoImage = Image.FromFile(listLogoPath);
                 }
 
-                // Usa o logo da lista ou o logo padrão se o da lista não existir
-                PicVisuLogo.Image = logoImage ?? Image.FromFile(@"Images/default_logo.jpg");
+                string defaultLogoPath = Path.Combine(imageFolderPath, "default_logo.jpg");
+                PicVisuLogo.Image = logoImage ?? (File.Exists(defaultLogoPath) ? Image.FromFile(defaultLogoPath) : null);
             }
             else
             {
                 MessageBox.Show("Lista não encontrada.");
             }
         }
+
 
         //Método para Exclusão
         private void BtnEditVisu_Click(object sender, EventArgs e)
@@ -1826,33 +1868,26 @@ namespace BingoManager
 
         private void CompanyButton_Click(object sender, EventArgs e)
         {
-            int bingoPhase = 0;
-
-            if (RdPlayAn1.Checked)
-            {
-                bingoPhase = 1;
-            }
-            else if (RdPlayAn2.Checked)
-            {
-                bingoPhase = 2;
-            }
-
+            int bingoPhase = RdPlayAn1.Checked ? 1 : (RdPlayAn2.Checked ? 2 : 0);
             var selectedGame = CboPlayAnSelection.SelectedItem as dynamic;
-
             int setId = selectedGame.Value;
 
             Button clickedButton = sender as Button;
 
             if (clickedButton != null && clickedButton.Tag is CompanyModel selectedCompany)
             {
-                // Tenta carregar o logo da empresa
-                string logoPath = Path.Combine(Application.StartupPath, "Images", selectedCompany.Logo);
+                // Configura o caminho na AppData
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string imageFolderPath = Path.Combine(appDataPath, "BingoManager", "Images");
+
+                // Caminho do logo da empresa
+                string companyLogoPath = Path.Combine(imageFolderPath, selectedCompany.Logo);
                 Image logoImage = null;
 
-                if (File.Exists(logoPath))
+                if (File.Exists(companyLogoPath))
                 {
                     // Logo da empresa encontrado
-                    logoImage = Image.FromFile(logoPath);
+                    logoImage = Image.FromFile(companyLogoPath);
                 }
                 else
                 {
@@ -1861,7 +1896,7 @@ namespace BingoManager
                     if (listData != null)
                     {
                         // Caminho do logo da lista
-                        string listLogoPath = Path.Combine(Application.StartupPath, "Images", listData["Logo"].ToString());
+                        string listLogoPath = Path.Combine(imageFolderPath, listData["Logo"].ToString());
                         if (File.Exists(listLogoPath))
                         {
                             // Logo da lista encontrado
@@ -1870,13 +1905,15 @@ namespace BingoManager
                         else
                         {
                             // Logo da lista não encontrado, usar logo padrão
-                            logoImage = Image.FromFile(@"Images/default_logo.jpg");
+                            string defaultLogoPath = Path.Combine(imageFolderPath, "default_logo.jpg");
+                            logoImage = File.Exists(defaultLogoPath) ? Image.FromFile(defaultLogoPath) : null;
                         }
                     }
                     else
                     {
                         // Nenhuma lista associada ou logo, usar logo padrão
-                        logoImage = Image.FromFile(@"Images/default_logo.jpg");
+                        string defaultLogoPath = Path.Combine(imageFolderPath, "default_logo.jpg");
+                        logoImage = File.Exists(defaultLogoPath) ? Image.FromFile(defaultLogoPath) : null;
                     }
                 }
 
@@ -1900,16 +1937,13 @@ namespace BingoManager
 
                 // Verifica as cartelas que possuem a empresa sorteada
                 List<int> cardNumbers = PlayService.CheckCards(selectedCompany.Id, setId);
-
                 string cardNumbersText = string.Join(", ", cardNumbers);
-
                 LblPlayAnMsg.Text = string.IsNullOrEmpty(cardNumbersText) ? "Nenhuma cartela sorteada." : cardNumbersText;
 
                 // Se houver cartelas sorteadas, verifica se há vencedoras
                 if (!string.IsNullOrEmpty(cardNumbersText))
                 {
                     winningCards = PlayService.CheckBingo(cardNumbers, setId, bingoPhase, selectedCompany.Id);
-
                     if (winningCards.Count > 0)
                     {
                         string winningCardsText = string.Join(", ", winningCards);
@@ -1919,6 +1953,7 @@ namespace BingoManager
                 }
             }
         }
+
 
         //Método para reinicar o jogo
         private void ResetGame()

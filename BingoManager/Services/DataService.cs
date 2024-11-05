@@ -524,23 +524,22 @@ namespace BingoManager.Services
         }
 
         // Método para ler o endereço das imagens, aceitando caminho absoluto ou relativo
-        public static Image LoadImageFromFile(string filePath)
+        public static Image LoadImageFromFile(string fileName)
         {
-            if (string.IsNullOrEmpty(filePath))
+            if (string.IsNullOrEmpty(fileName))
                 return null;
 
-            if (!Path.IsPathRooted(filePath))
-            {
-                string directoryPath = Path.Combine(Application.StartupPath, "Images");
-                filePath = Path.Combine(directoryPath, filePath);
-            }
+            // Define o caminho da pasta de imagens na AppData
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string imageFolderPath = Path.Combine(appDataPath, "BingoManager", "Images");
 
-            if (File.Exists(filePath))
-            {
-                return Image.FromFile(filePath);
-            }
-            return null;
+            // Garante que o caminho da imagem esteja dentro da pasta AppData
+            string filePath = Path.IsPathRooted(fileName) ? fileName : Path.Combine(imageFolderPath, fileName);
+
+            // Verifica se o arquivo existe e carrega a imagem
+            return File.Exists(filePath) ? Image.FromFile(filePath) : null;
         }
+
 
         //Método para inserir Elementos em uma lista
         public static void AddCompaniesToAllocation(int listId, List<string> companyIds)

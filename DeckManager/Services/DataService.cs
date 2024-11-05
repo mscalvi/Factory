@@ -88,6 +88,8 @@ namespace DeckManager.Services
             }
         }
 
+
+
         //Filters
         public static List<FormatModel> GetFormats()
         {
@@ -502,7 +504,7 @@ namespace DeckManager.Services
 
             return decks;
         }
-        public static List<DeckModel> GetSomeDecks(int? formatId = null, int? ownerId = null, int? archetypeId = null, int? colorsId = null)
+        public static List<DeckModel> GetSomeDecks(int? formatId = null, int? ownerId = null, int? archetypeId = null, int? colorId = null)
         {
             var decks = new List<DeckModel>();
 
@@ -511,7 +513,7 @@ namespace DeckManager.Services
                 connection.Open();
 
                 // Começa a construir a query
-                var selectQuery = "SELECT DeckId, Name, FormatId, OwnerId, ArchetypeId, ColorsId FROM DecksTable WHERE 1=1";
+                var selectQuery = "SELECT DeckId, Name, FormatId, OwnerId, ArchetypeId, ColorId FROM DecksTable WHERE 1=1";
 
                 // Adiciona condições de filtragem com base nos parâmetros
                 if (formatId.HasValue)
@@ -526,9 +528,9 @@ namespace DeckManager.Services
                 {
                     selectQuery += " AND ArchetypeId = @ArchetypeId"; // Supondo que você tenha uma coluna Archetype
                 }
-                if (colorsId.HasValue)
+                if (colorId.HasValue)
                 {
-                    selectQuery += " AND ColorsId = @ColorsId"; // Supondo que você tenha uma coluna Colors
+                    selectQuery += " AND ColorId = @ColorId"; // Supondo que você tenha uma coluna Colors
                 }
 
                 using (var command = new SQLiteCommand(selectQuery, connection))
@@ -546,9 +548,9 @@ namespace DeckManager.Services
                     {
                         command.Parameters.AddWithValue("@ArchetypeId", archetypeId.Value);
                     }
-                    if (colorsId.HasValue)
+                    if (colorId.HasValue)
                     {
-                        command.Parameters.AddWithValue("@ColorsId", colorsId.Value);
+                        command.Parameters.AddWithValue("@ColorId", colorId.Value);
                     }
 
                     using (var reader = command.ExecuteReader())
@@ -573,6 +575,53 @@ namespace DeckManager.Services
             }
 
             return decks;
+        }
+
+
+
+        //Deck View
+        public static DeckModel GetDeckByName(string deckName)
+        {
+            DeckModel deck = null;
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                string query = @"SELECT * FROM DecksTable WHERE Name = @Name";
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Name", deckName);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            deck = new DeckModel
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("DeckId")),
+                                Name = reader.GetString(reader.GetOrdinal("Name"))
+                            };
+
+                            // Preenche outros campos, caso estejam presentes e não nulos
+                            if (!reader.IsDBNull(reader.GetOrdinal("FormatId")))
+                                deck.Format = reader.GetInt32(reader.GetOrdinal("FormatId"));
+
+                            if (!reader.IsDBNull(reader.GetOrdinal("OwnerId")))
+                                deck.Owner = reader.GetInt32(reader.GetOrdinal("OwnerId"));
+
+                            if (!reader.IsDBNull(reader.GetOrdinal("ArchetypeId")))
+                                deck.Archetype = reader.GetInt32(reader.GetOrdinal("ArchetypeId"));
+
+                            if (!reader.IsDBNull(reader.GetOrdinal("ColorId")))
+                                deck.Colors = reader.GetInt32(reader.GetOrdinal("ColorId"));
+                        }
+                    }
+                }
+            }
+
+            return deck;
         }
         public static void UpdateDeckFilters(string deckName, int? ownerId, int? archetypeId, int? colorId)
         {
@@ -652,9 +701,34 @@ namespace DeckManager.Services
                     }
                 }
             }
+        } //Deletar
+        public static void SaveDeckVersion(DeckModel deck)
+        {
+            string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                string insertVersionQuery = @"
+            INSERT INTO DeckVersionsTable 
+            (DeckId, Name, FormatId, OwnerId, ArchetypeId, ColorId, SaveTime) 
+            VALUES (@DeckId, @Name, @FormatId, @OwnerId, @ArchetypeId, @ColorId, @SaveTime);";
+
+                using (var command = new SQLiteCommand(insertVersionQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@DeckId", deck.Id);
+                    command.Parameters.AddWithValue("@Name", deck.Name);
+                    command.Parameters.AddWithValue("@FormatId", deck.Format);
+                    command.Parameters.AddWithValue("@OwnerId", deck.Owner);
+                    command.Parameters.AddWithValue("@ArchetypeId", deck.Archetype);
+                    command.Parameters.AddWithValue("@ColorId", deck.Colors);
+                    command.Parameters.AddWithValue("@SaveTime", timestamp);
+
+                    command.ExecuteNonQuery();
+                }
+            }
         }
-
-
 
     }
 }

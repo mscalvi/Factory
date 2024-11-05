@@ -25,7 +25,7 @@ namespace DeckManager.Models
         public string FormatName => DataService.GetFormatName(Format); // Método que retorna o nome do formato
         public string OwnerName => DataService.GetOwnerName(Owner); // Método que retorna o nome do dono
         public string ArchetypeName => DataService.GetArchetypeName(Archetype); // Método que retorna o nome do arquétipo
-        public string ColorNames => DataService.GetColorName(Colors); // Método que retorna os nomes das cores
+        public string ColorName => DataService.GetColorName(Colors); // Método que retorna os nomes das cores
 
         //Listas
         public List<CardModel> DeckListReal { get; set; } = new List<CardModel>();

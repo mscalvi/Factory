@@ -204,7 +204,9 @@ namespace DeckManager
 
             List<FormatModel> formats = DataService.GetFormats();
 
-            foreach (var format in formats)
+            var sortedFormats = formats.OrderBy(f => f.Name).ToList();
+
+            foreach (var format in sortedFormats)
             {
                 CreateFilterButton(format.Name, format.Id, FlwFormatsList, (selectedId, clickedButton) =>
                 {
@@ -220,7 +222,9 @@ namespace DeckManager
 
             List<OwnerModel> owners = DataService.GetOwners();
 
-            foreach (var owner in owners)
+            var sortedOwners = owners.OrderBy(f => f.Name).ToList();
+
+            foreach (var owner in sortedOwners)
             {
                 CreateFilterButton(owner.Name, owner.Id, FlwOwnersList, (selectedId, clickedButton) =>
                 {
@@ -236,7 +240,9 @@ namespace DeckManager
 
             List<ArchetypeModel> archetypes = DataService.GetArchetypes();
 
-            foreach (var archetype in archetypes)
+            var sortedArchetypes = archetypes.OrderBy(f => f.Name).ToList();
+
+            foreach (var archetype in sortedArchetypes)
             {
                 CreateFilterButton(archetype.Name, archetype.Id, FlwArchetypesList, (selectedId, clickedButton) =>
                 {
@@ -252,7 +258,9 @@ namespace DeckManager
 
             List<ColorModel> colors = DataService.GetColors();
 
-            foreach (var color in colors)
+            var sortedColors = colors.OrderBy(f => f.Name).ToList();
+
+            foreach (var color in sortedColors)
             {
                 CreateFilterButton(color.Name, color.Id, FlwColorsList, (selectedId, clickedButton) =>
                 {
@@ -422,7 +430,7 @@ namespace DeckManager
                     DecksFlowAtt();
 
                     // Cria a nova aba como um clone da TabDeckManager
-                    TabPage newDeckTab = CloneTabDeckManager(deckName);
+                    TabPage newDeckTab = CloneTabDeckManager(deckName, deckFormat);
                     DecksControl.TabPages.Add(newDeckTab);
                 }
                 catch (ArgumentException ex)
@@ -492,7 +500,7 @@ namespace DeckManager
 
                 actionButton.Click += (sender, e) =>
                 {
-                    OpenDeckTab(deck);
+                    OpenDeckTab(deck, deck.Format);
                 };
 
                 table.Controls.Add(actionButton, 0, i + 1); 
@@ -501,15 +509,17 @@ namespace DeckManager
                 table.Controls.Add(new Label { Text = deck.FormatName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(220, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 3, i + 1);
                 table.Controls.Add(new Label { Text = deck.OwnerName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(220, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 4, i + 1);
                 table.Controls.Add(new Label { Text = deck.ArchetypeName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(300, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 5, i + 1);
-                table.Controls.Add(new Label { Text = deck.ColorNames, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(220, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 6, i + 1);
+                table.Controls.Add(new Label { Text = deck.ColorName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(220, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 6, i + 1);
             }
 
             FlwDecksList.Controls.Add(table);
         }
-        private TabPage CloneTabDeckManager(string deckName)
+        private TabPage CloneTabDeckManager(string deckName, int formatId)
         {
+            DeckModel selectedDeck = DataService.GetDeckByName(deckName);
+
             // Create a new tab with the deck name
-            TabPage newDeckTab = new TabPage(deckName)
+            TabPage newDeckTab = new TabPage(selectedDeck.Name)
             {
                 Location = new Point(4, 24),
                 Padding = new Padding(3),
@@ -531,18 +541,21 @@ namespace DeckManager
                 Name = "BtnSaveDeck",
                 Size = new Size(61, 43),
                 Location = new Point(3, 6),
-                Text = "Salvar Deck",
+                Text = "Salvar",
                 UseVisualStyleBackColor = true
             };
 
-            // Button to save the version
-            Button btnSaveVersion = new Button
+            btnSaveDeck.Click += (s, e) =>
             {
-                Name = "BtnSaveVersion",
-                Size = new Size(978, 30),
-                Location = new Point(3, 940),
-                Text = "Salvar Versão",
-                UseVisualStyleBackColor = true
+                DecksFlowAtt();
+
+                TabPage currentTab = (TabPage)((Button)s).Parent.Parent;
+
+                TabControl tabControl = currentTab.Parent as TabControl;
+                if (tabControl != null)
+                {
+                    tabControl.TabPages.Remove(currentTab);
+                }
             };
 
             // Label for the deck name
@@ -551,7 +564,7 @@ namespace DeckManager
                 Font = new Font("Segoe UI", 18F, FontStyle.Bold),
                 Location = new Point(70, 6),
                 Size = new Size(911, 43),
-                Text = deckName,
+                Text = selectedDeck.Name,
                 TextAlign = ContentAlignment.MiddleCenter
             };
 
@@ -594,21 +607,20 @@ namespace DeckManager
                 FormattingEnabled = true,
                 Location = new Point(6, 6),
                 Name = "CboHelpList",
-                Size = new Size(722, 23)
+                Size = new Size(413, 23)
             };
             helpList.Controls.Add(cboHelpList);
 
-            // Button to save the side
-            Button btnSaveSide = new Button
+            // Labels for help list
+            Label lblOpenList = new Label
             {
-                Anchor = AnchorStyles.Top,
-                Location = new Point(734, 6),
-                Name = "BtnSaveSide",
-                Size = new Size(138, 23),
-                Text = "Salvar Lado",
-                UseVisualStyleBackColor = true
+                Location = new Point(425, 6),
+                Name = "LblOpenList",
+                Size = new Size(447, 23),
+                Text = "Selected Help List",
+                TextAlign = ContentAlignment.MiddleCenter
             };
-            helpList.Controls.Add(btnSaveSide);
+            helpList.Controls.Add(lblOpenList);
 
             // Tab for statistics
             TabPage statistics = new TabPage
@@ -625,7 +637,7 @@ namespace DeckManager
                 Location = new Point(47, 10),
                 Name = "LblOwner",
                 Size = new Size(100, 27),
-                Text = "label1",
+                Text = selectedDeck.OwnerName,
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
@@ -634,7 +646,7 @@ namespace DeckManager
                 Location = new Point(47, 43),
                 Name = "LblArchetype",
                 Size = new Size(100, 27),
-                Text = "label2",
+                Text = selectedDeck.ArchetypeName,
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
@@ -643,7 +655,7 @@ namespace DeckManager
                 Location = new Point(47, 76),
                 Name = "LblColor",
                 Size = new Size(100, 27),
-                Text = "label3",
+                Text = selectedDeck.ColorName,
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
@@ -654,7 +666,7 @@ namespace DeckManager
                 Location = new Point(6, 10),
                 Name = "BtnOwnerChange",
                 Size = new Size(35, 27),
-                Text = "Mudar",
+                Text = ">",
                 UseVisualStyleBackColor = true
             };
 
@@ -664,8 +676,9 @@ namespace DeckManager
                 SelOwner newFilterDialog = new SelOwner();
                 if (newFilterDialog.ShowDialog() == DialogResult.OK)
                 {
-                    int selectedOwnerId = newFilterDialog.SelectedOwnerId;
-                    lblOwner.Text = DataService.GetOwnerName(selectedOwnerId);
+                    int newOwnerId = newFilterDialog.SelectedOwnerId;
+                    DataService.UpdateDeckFilters(deckName, newOwnerId, null, null);
+                    lblOwner.Text = DataService.GetOwnerName(newOwnerId);
                 }
             };
 
@@ -675,7 +688,7 @@ namespace DeckManager
                 Location = new Point(6, 43),
                 Name = "BtnArchetypeChange",
                 Size = new Size(35, 27),
-                Text = "button2",
+                Text = ">",
                 UseVisualStyleBackColor = true
             };
 
@@ -685,8 +698,9 @@ namespace DeckManager
                 SelArchetype newFilterDialog = new SelArchetype();
                 if (newFilterDialog.ShowDialog() == DialogResult.OK)
                 {
-                    int selectedArchetypeId = newFilterDialog.SelectedArchetypeId;
-                    lblArchetype.Text = DataService.GetArchetypeName(selectedArchetypeId);
+                    int newArchetypeId = newFilterDialog.SelectedArchetypeId;
+                    DataService.UpdateDeckFilters(deckName, null, newArchetypeId, null);
+                    lblArchetype.Text = DataService.GetArchetypeName(newArchetypeId);
                 }
             };
 
@@ -696,7 +710,7 @@ namespace DeckManager
                 Location = new Point(6, 76),
                 Name = "BtnColorChange",
                 Size = new Size(35, 27),
-                Text = "button3",
+                Text = ">",
                 UseVisualStyleBackColor = true
             };
 
@@ -706,8 +720,9 @@ namespace DeckManager
                 SelColor newFilterDialog = new SelColor();
                 if (newFilterDialog.ShowDialog() == DialogResult.OK)
                 {
-                    int selectedColorId = newFilterDialog.SelectedColorId;
-                    lblColor.Text = DataService.GetColorName(selectedColorId);
+                    int newColorId = newFilterDialog.SelectedColorId;
+                    DataService.UpdateDeckFilters(deckName, null, null, newColorId);
+                    lblColor.Text = DataService.GetColorName(newColorId);
                 }
             };
 
@@ -724,21 +739,12 @@ namespace DeckManager
             controlHelper.TabPages.Add(statistics);
             pnlDeckHelper.Controls.Add(controlHelper);
 
-            // ComboBox for ideal deck
-            ComboBox cboDeckIdeal = new ComboBox
-            {
-                Anchor = AnchorStyles.Top,
-                Location = new Point(495, 52),
-                Size = new Size(486, 23),
-                Name = "CboDeckIdeal"
-            };
-
-            // ComboBox for real deck
-            ComboBox cboDeckReal = new ComboBox
+            // ComboBox for versions of the deck
+            ComboBox cboDeckVersion = new ComboBox
             {
                 Anchor = AnchorStyles.Top,
                 Location = new Point(5, 52),
-                Size = new Size(486, 23),
+                Size = new Size(978, 23),
                 Name = "CboDeckReal"
             };
 
@@ -747,7 +753,7 @@ namespace DeckManager
             {
                 Anchor = AnchorStyles.Top,
                 Location = new Point(5, 81),
-                Size = new Size(486, 853),
+                Size = new Size(486, 889),
                 Name = "PnlDeckReal"
             };
 
@@ -755,6 +761,7 @@ namespace DeckManager
             FlowLayoutPanel flwDeckReal = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
+                AutoScroll = true,
                 Name = "FlwDeckReal"
             };
             pnlDeckReal.Controls.Add(flwDeckReal);
@@ -764,7 +771,7 @@ namespace DeckManager
             {
                 Anchor = AnchorStyles.Top,
                 Location = new Point(497, 81),
-                Size = new Size(486, 853),
+                Size = new Size(486, 889),
                 Name = "PnlDeckIdeal"
             };
 
@@ -772,34 +779,46 @@ namespace DeckManager
             FlowLayoutPanel flwDeckIdeal = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
+                AutoScroll = true,
                 Name = "FlwDeckIdeal"
             };
             pnlDeckIdeal.Controls.Add(flwDeckIdeal);
 
             // Add all controls to the main panel
             pnlDeckModel.Controls.Add(btnSaveDeck);
-            pnlDeckModel.Controls.Add(btnSaveVersion);
             pnlDeckModel.Controls.Add(lblDeckName);
             pnlDeckModel.Controls.Add(pnlCardView);
             pnlDeckModel.Controls.Add(pnlDeckHelper);
-            pnlDeckModel.Controls.Add(cboDeckIdeal);
-            pnlDeckModel.Controls.Add(cboDeckReal);
+            pnlDeckModel.Controls.Add(cboDeckVersion);
             pnlDeckModel.Controls.Add(pnlDeckReal);
             pnlDeckModel.Controls.Add(pnlDeckIdeal);
 
             // Add the panel to the new tab
             newDeckTab.Controls.Add(pnlDeckModel);
 
+            if (!string.IsNullOrEmpty(selectedDeck.OwnerName))
+            {
+                lblOwner.Text = selectedDeck.OwnerName;
+            }
+            if (!string.IsNullOrEmpty(selectedDeck.ArchetypeName))
+            {
+                lblArchetype.Text = selectedDeck.ArchetypeName;
+            }
+            if (!string.IsNullOrEmpty(selectedDeck.ColorName))
+            {
+                lblColor.Text = selectedDeck.ColorName;
+            }
+
             return newDeckTab;
         }
-        private void OpenDeckTab(DeckModel deck)
+        private void OpenDeckTab(DeckModel deck, int formatId)
         {
             // Verifica se a aba já existe
             TabPage existingTab = DecksControl.TabPages.Cast<TabPage>().FirstOrDefault(t => t.Text == deck.Name);
 
             if (existingTab == null)
             {
-                TabPage newDeckTab = CloneTabDeckManager(deck.Name); 
+                TabPage newDeckTab = CloneTabDeckManager(deck.Name, deck.Format); 
                 DecksControl.TabPages.Add(newDeckTab);
             }
 

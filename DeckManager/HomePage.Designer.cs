@@ -66,27 +66,25 @@
             TabDeckManager = new TabPage();
             PnlDeckModel = new Panel();
             BtnSaveDeck = new Button();
-            BtnSaveVersion = new Button();
             LblDeckName = new Label();
             PnlCardView = new Panel();
             PnlDeckHelper = new Panel();
             ControlHelper = new TabControl();
             HelpList = new TabPage();
+            LblOpenList = new Label();
             CboHelpList = new ComboBox();
-            BtnSaveSide = new Button();
             Statistics = new TabPage();
+            BtnColorChange = new Button();
+            BtnArchetypeChange = new Button();
+            BtnOwnerChange = new Button();
             LblColor = new Label();
             LblArchetype = new Label();
             LblOwner = new Label();
-            CboDeckIdeal = new ComboBox();
-            CboDeckReal = new ComboBox();
+            CboDeckVersion = new ComboBox();
             PnlDeckReal = new Panel();
             FlwDeckReal = new FlowLayoutPanel();
             PnlDeckIdeal = new Panel();
             FlwDeckIdeal = new FlowLayoutPanel();
-            BtnOwnerChange = new Button();
-            BtnArchetypeChange = new Button();
-            BtnColorChange = new Button();
             MainControl.SuspendLayout();
             TabHome.SuspendLayout();
             PnlHome.SuspendLayout();
@@ -402,7 +400,7 @@
             // 
             PnlFlwFormat.Anchor = AnchorStyles.Top;
             PnlFlwFormat.Controls.Add(FlwFormatsList);
-            PnlFlwFormat.Location = new Point(3, 0);
+            PnlFlwFormat.Location = new Point(3, 3);
             PnlFlwFormat.Name = "PnlFlwFormat";
             PnlFlwFormat.Size = new Size(395, 271);
             PnlFlwFormat.TabIndex = 7;
@@ -499,12 +497,10 @@
             // PnlDeckModel
             // 
             PnlDeckModel.Controls.Add(BtnSaveDeck);
-            PnlDeckModel.Controls.Add(BtnSaveVersion);
             PnlDeckModel.Controls.Add(LblDeckName);
             PnlDeckModel.Controls.Add(PnlCardView);
             PnlDeckModel.Controls.Add(PnlDeckHelper);
-            PnlDeckModel.Controls.Add(CboDeckIdeal);
-            PnlDeckModel.Controls.Add(CboDeckReal);
+            PnlDeckModel.Controls.Add(CboDeckVersion);
             PnlDeckModel.Controls.Add(PnlDeckReal);
             PnlDeckModel.Controls.Add(PnlDeckIdeal);
             PnlDeckModel.Dock = DockStyle.Fill;
@@ -520,18 +516,8 @@
             BtnSaveDeck.Name = "BtnSaveDeck";
             BtnSaveDeck.Size = new Size(61, 43);
             BtnSaveDeck.TabIndex = 9;
-            BtnSaveDeck.Text = "button1";
+            BtnSaveDeck.Text = "Save";
             BtnSaveDeck.UseVisualStyleBackColor = true;
-            // 
-            // BtnSaveVersion
-            // 
-            BtnSaveVersion.Anchor = AnchorStyles.Top;
-            BtnSaveVersion.Location = new Point(3, 940);
-            BtnSaveVersion.Name = "BtnSaveVersion";
-            BtnSaveVersion.Size = new Size(978, 30);
-            BtnSaveVersion.TabIndex = 7;
-            BtnSaveVersion.Text = "button1";
-            BtnSaveVersion.UseVisualStyleBackColor = true;
             // 
             // LblDeckName
             // 
@@ -573,8 +559,8 @@
             // 
             // HelpList
             // 
+            HelpList.Controls.Add(LblOpenList);
             HelpList.Controls.Add(CboHelpList);
-            HelpList.Controls.Add(BtnSaveSide);
             HelpList.Location = new Point(4, 24);
             HelpList.Name = "HelpList";
             HelpList.Padding = new Padding(3);
@@ -583,23 +569,23 @@
             HelpList.Text = "Help List";
             HelpList.UseVisualStyleBackColor = true;
             // 
+            // LblOpenList
+            // 
+            LblOpenList.Anchor = AnchorStyles.Top;
+            LblOpenList.Location = new Point(425, 6);
+            LblOpenList.Name = "LblOpenList";
+            LblOpenList.Size = new Size(447, 23);
+            LblOpenList.TabIndex = 10;
+            LblOpenList.Text = "Open List";
+            LblOpenList.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // CboHelpList
             // 
             CboHelpList.FormattingEnabled = true;
             CboHelpList.Location = new Point(6, 6);
             CboHelpList.Name = "CboHelpList";
-            CboHelpList.Size = new Size(722, 23);
+            CboHelpList.Size = new Size(413, 23);
             CboHelpList.TabIndex = 9;
-            // 
-            // BtnSaveSide
-            // 
-            BtnSaveSide.Anchor = AnchorStyles.Top;
-            BtnSaveSide.Location = new Point(734, 6);
-            BtnSaveSide.Name = "BtnSaveSide";
-            BtnSaveSide.Size = new Size(138, 23);
-            BtnSaveSide.TabIndex = 8;
-            BtnSaveSide.Text = "button3";
-            BtnSaveSide.UseVisualStyleBackColor = true;
             // 
             // Statistics
             // 
@@ -617,97 +603,15 @@
             Statistics.Text = "Estatísticas";
             Statistics.UseVisualStyleBackColor = true;
             // 
-            // LblColor
+            // BtnColorChange
             // 
-            LblColor.Anchor = AnchorStyles.Top;
-            LblColor.Location = new Point(47, 76);
-            LblColor.Name = "LblColor";
-            LblColor.Size = new Size(100, 27);
-            LblColor.TabIndex = 2;
-            LblColor.Text = "label3";
-            LblColor.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // LblArchetype
-            // 
-            LblArchetype.Anchor = AnchorStyles.Top;
-            LblArchetype.Location = new Point(47, 43);
-            LblArchetype.Name = "LblArchetype";
-            LblArchetype.Size = new Size(100, 27);
-            LblArchetype.TabIndex = 1;
-            LblArchetype.Text = "label2";
-            LblArchetype.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // LblOwner
-            // 
-            LblOwner.Anchor = AnchorStyles.Top;
-            LblOwner.Location = new Point(47, 10);
-            LblOwner.Name = "LblOwner";
-            LblOwner.Size = new Size(100, 27);
-            LblOwner.TabIndex = 0;
-            LblOwner.Text = "label1";
-            LblOwner.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // CboDeckIdeal
-            // 
-            CboDeckIdeal.Anchor = AnchorStyles.Top;
-            CboDeckIdeal.FormattingEnabled = true;
-            CboDeckIdeal.Location = new Point(495, 52);
-            CboDeckIdeal.Name = "CboDeckIdeal";
-            CboDeckIdeal.Size = new Size(486, 23);
-            CboDeckIdeal.TabIndex = 3;
-            // 
-            // CboDeckReal
-            // 
-            CboDeckReal.Anchor = AnchorStyles.Top;
-            CboDeckReal.FormattingEnabled = true;
-            CboDeckReal.Location = new Point(5, 52);
-            CboDeckReal.Name = "CboDeckReal";
-            CboDeckReal.Size = new Size(486, 23);
-            CboDeckReal.TabIndex = 1;
-            // 
-            // PnlDeckReal
-            // 
-            PnlDeckReal.Anchor = AnchorStyles.Top;
-            PnlDeckReal.Controls.Add(FlwDeckReal);
-            PnlDeckReal.Location = new Point(5, 81);
-            PnlDeckReal.Name = "PnlDeckReal";
-            PnlDeckReal.Size = new Size(486, 853);
-            PnlDeckReal.TabIndex = 0;
-            // 
-            // FlwDeckReal
-            // 
-            FlwDeckReal.Dock = DockStyle.Fill;
-            FlwDeckReal.Location = new Point(0, 0);
-            FlwDeckReal.Name = "FlwDeckReal";
-            FlwDeckReal.Size = new Size(486, 853);
-            FlwDeckReal.TabIndex = 0;
-            // 
-            // PnlDeckIdeal
-            // 
-            PnlDeckIdeal.Anchor = AnchorStyles.Top;
-            PnlDeckIdeal.Controls.Add(FlwDeckIdeal);
-            PnlDeckIdeal.Location = new Point(497, 81);
-            PnlDeckIdeal.Name = "PnlDeckIdeal";
-            PnlDeckIdeal.Size = new Size(486, 853);
-            PnlDeckIdeal.TabIndex = 2;
-            // 
-            // FlwDeckIdeal
-            // 
-            FlwDeckIdeal.Dock = DockStyle.Fill;
-            FlwDeckIdeal.Location = new Point(0, 0);
-            FlwDeckIdeal.Name = "FlwDeckIdeal";
-            FlwDeckIdeal.Size = new Size(486, 853);
-            FlwDeckIdeal.TabIndex = 0;
-            // 
-            // BtnOwnerChange
-            // 
-            BtnOwnerChange.Anchor = AnchorStyles.Top;
-            BtnOwnerChange.Location = new Point(6, 10);
-            BtnOwnerChange.Name = "BtnOwnerChange";
-            BtnOwnerChange.Size = new Size(35, 27);
-            BtnOwnerChange.TabIndex = 3;
-            BtnOwnerChange.Text = "button1";
-            BtnOwnerChange.UseVisualStyleBackColor = true;
+            BtnColorChange.Anchor = AnchorStyles.Top;
+            BtnColorChange.Location = new Point(6, 76);
+            BtnColorChange.Name = "BtnColorChange";
+            BtnColorChange.Size = new Size(35, 27);
+            BtnColorChange.TabIndex = 5;
+            BtnColorChange.Text = ">";
+            BtnColorChange.UseVisualStyleBackColor = true;
             // 
             // BtnArchetypeChange
             // 
@@ -716,18 +620,96 @@
             BtnArchetypeChange.Name = "BtnArchetypeChange";
             BtnArchetypeChange.Size = new Size(35, 27);
             BtnArchetypeChange.TabIndex = 4;
-            BtnArchetypeChange.Text = "button2";
+            BtnArchetypeChange.Text = ">";
             BtnArchetypeChange.UseVisualStyleBackColor = true;
             // 
-            // BtnColorChange
+            // BtnOwnerChange
             // 
-            BtnColorChange.Anchor = AnchorStyles.Top;
-            BtnColorChange.Location = new Point(6, 76);
-            BtnColorChange.Name = "BtnColorChange";
-            BtnColorChange.Size = new Size(35, 27);
-            BtnColorChange.TabIndex = 5;
-            BtnColorChange.Text = "button3";
-            BtnColorChange.UseVisualStyleBackColor = true;
+            BtnOwnerChange.Anchor = AnchorStyles.Top;
+            BtnOwnerChange.Location = new Point(6, 10);
+            BtnOwnerChange.Name = "BtnOwnerChange";
+            BtnOwnerChange.Size = new Size(35, 27);
+            BtnOwnerChange.TabIndex = 3;
+            BtnOwnerChange.Text = ">";
+            BtnOwnerChange.UseVisualStyleBackColor = true;
+            // 
+            // LblColor
+            // 
+            LblColor.Anchor = AnchorStyles.Top;
+            LblColor.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
+            LblColor.Location = new Point(47, 76);
+            LblColor.Name = "LblColor";
+            LblColor.Size = new Size(100, 27);
+            LblColor.TabIndex = 2;
+            LblColor.Text = "Colors";
+            LblColor.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // LblArchetype
+            // 
+            LblArchetype.Anchor = AnchorStyles.Top;
+            LblArchetype.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
+            LblArchetype.Location = new Point(47, 43);
+            LblArchetype.Name = "LblArchetype";
+            LblArchetype.Size = new Size(100, 27);
+            LblArchetype.TabIndex = 1;
+            LblArchetype.Text = "Archetype";
+            LblArchetype.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // LblOwner
+            // 
+            LblOwner.Anchor = AnchorStyles.Top;
+            LblOwner.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            LblOwner.Location = new Point(47, 10);
+            LblOwner.Name = "LblOwner";
+            LblOwner.Size = new Size(100, 27);
+            LblOwner.TabIndex = 0;
+            LblOwner.Text = "Owner";
+            LblOwner.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // CboDeckVersion
+            // 
+            CboDeckVersion.Anchor = AnchorStyles.Top;
+            CboDeckVersion.FormattingEnabled = true;
+            CboDeckVersion.Location = new Point(5, 52);
+            CboDeckVersion.Name = "CboDeckVersion";
+            CboDeckVersion.Size = new Size(978, 23);
+            CboDeckVersion.TabIndex = 1;
+            // 
+            // PnlDeckReal
+            // 
+            PnlDeckReal.Anchor = AnchorStyles.Top;
+            PnlDeckReal.Controls.Add(FlwDeckReal);
+            PnlDeckReal.Location = new Point(5, 81);
+            PnlDeckReal.Name = "PnlDeckReal";
+            PnlDeckReal.Size = new Size(486, 889);
+            PnlDeckReal.TabIndex = 0;
+            // 
+            // FlwDeckReal
+            // 
+            FlwDeckReal.AutoScroll = true;
+            FlwDeckReal.Dock = DockStyle.Fill;
+            FlwDeckReal.Location = new Point(0, 0);
+            FlwDeckReal.Name = "FlwDeckReal";
+            FlwDeckReal.Size = new Size(486, 889);
+            FlwDeckReal.TabIndex = 0;
+            // 
+            // PnlDeckIdeal
+            // 
+            PnlDeckIdeal.Anchor = AnchorStyles.Top;
+            PnlDeckIdeal.Controls.Add(FlwDeckIdeal);
+            PnlDeckIdeal.Location = new Point(497, 81);
+            PnlDeckIdeal.Name = "PnlDeckIdeal";
+            PnlDeckIdeal.Size = new Size(486, 889);
+            PnlDeckIdeal.TabIndex = 2;
+            // 
+            // FlwDeckIdeal
+            // 
+            FlwDeckIdeal.AutoScroll = true;
+            FlwDeckIdeal.Dock = DockStyle.Fill;
+            FlwDeckIdeal.Location = new Point(0, 0);
+            FlwDeckIdeal.Name = "FlwDeckIdeal";
+            FlwDeckIdeal.Size = new Size(486, 889);
+            FlwDeckIdeal.TabIndex = 0;
             // 
             // HomePage
             // 
@@ -795,7 +777,7 @@
         private Button BtnReturn;
         private ComboBox CboDeckIdeal;
         private Panel PnlDeckIdeal;
-        private ComboBox CboDeckReal;
+        private ComboBox CboDeckVersion;
         private Panel PnlDeckReal;
         private Panel PnlDeckModel;
         private FlowLayoutPanel FlwDeckReal;
@@ -820,8 +802,6 @@
         private Button BtnClearFilters;
         private Label LblDeckName;
         private Button BtnSaveIdeal;
-        private Button BtnSaveVersion;
-        private Button BtnSaveSide;
         private Button BtnSaveDeck;
         private ComboBox CboHelpList;
         private Label LblColor;
@@ -830,5 +810,6 @@
         private Button BtnColorChange;
         private Button BtnArchetypeChange;
         private Button BtnOwnerChange;
+        private Label LblOpenList;
     }
 }
