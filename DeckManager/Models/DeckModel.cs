@@ -28,6 +28,7 @@ namespace DeckManager.Models
         public string ColorName => DataService.GetColorName(Colors); // Método que retorna os nomes das cores
 
         //Listas
+        public List<string> FunctionsList { get; set; } = new List<string>();
         public List<CardModel> DeckListReal { get; set; } = new List<CardModel>();
         public List<CardModel> DeckListIdeal { get; set; } = new List<CardModel>();
         public List<CardModel> SideList { get; set; } = new List<CardModel>();

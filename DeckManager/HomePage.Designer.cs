@@ -383,6 +383,7 @@
             // PnlFlwOwner
             // 
             PnlFlwOwner.Anchor = AnchorStyles.Top;
+            PnlFlwOwner.AutoScroll = true;
             PnlFlwOwner.Controls.Add(FlwOwnersList);
             PnlFlwOwner.Location = new Point(406, 3);
             PnlFlwOwner.Name = "PnlFlwOwner";
@@ -400,6 +401,7 @@
             // PnlFlwFormat
             // 
             PnlFlwFormat.Anchor = AnchorStyles.Top;
+            PnlFlwFormat.AutoScroll = true;
             PnlFlwFormat.Controls.Add(FlwFormatsList);
             PnlFlwFormat.Location = new Point(3, 3);
             PnlFlwFormat.Name = "PnlFlwFormat";
@@ -417,6 +419,7 @@
             // PnlFlwArchetypes
             // 
             PnlFlwArchetypes.Anchor = AnchorStyles.Top;
+            PnlFlwArchetypes.AutoScroll = true;
             PnlFlwArchetypes.Controls.Add(FlwArchetypesList);
             PnlFlwArchetypes.Location = new Point(809, 3);
             PnlFlwArchetypes.Name = "PnlFlwArchetypes";
@@ -434,6 +437,7 @@
             // PnlFlwColors
             // 
             PnlFlwColors.Anchor = AnchorStyles.Top;
+            PnlFlwColors.AutoScroll = true;
             PnlFlwColors.Controls.Add(FlwColorsList);
             PnlFlwColors.Location = new Point(1212, 3);
             PnlFlwColors.Name = "PnlFlwColors";

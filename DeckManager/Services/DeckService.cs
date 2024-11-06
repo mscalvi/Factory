@@ -13,6 +13,9 @@ public class DeckService
         AddHeaders(deckTable);
         AddNumbersLines(deckTable);
         AddFunctionsLines(deckTable);
+        AddRealDeckLines(deckTable);
+        AddIdealDeckLines(deckTable);
+        CheckDeck(deckTable);
     }
 
     private static void AddHeaders(TableLayoutPanel deckTable)
@@ -29,7 +32,7 @@ public class DeckService
         return new Label
         {
             Text = text,
-            Font = new Font("Arial", 10, FontStyle.Bold),
+            Font = new Font("Arial", 12, FontStyle.Bold),
             TextAlign = ContentAlignment.MiddleCenter,
             Dock = DockStyle.Fill
         };
@@ -55,37 +58,71 @@ public class DeckService
         }
     }
 
+    private static void AddRealDeckLines(TableLayoutPanel deckTable)
+    {
+        for (int row = 1; row < deckTable.RowCount; row++)
+        {
+            // Coluna "Função" (editável)
+            Label lblRealCard = CreateLabel("Card " + row);
+            lblRealCard.DoubleClick += (sender, e) => SwitchToTextBox(deckTable, lblRealCard);
+            deckTable.Controls.Add(lblRealCard, 2, row);
+        }
+    }
+
+    private static void AddIdealDeckLines(TableLayoutPanel deckTable)
+    {
+        for (int row = 1; row < deckTable.RowCount; row++)
+        {
+            // Coluna "Função" (editável)
+            Label lblIdealCard = CreateLabel("Plan " + row);
+            lblIdealCard.DoubleClick += (sender, e) => SwitchToTextBox(deckTable, lblIdealCard);
+            deckTable.Controls.Add(lblIdealCard, 3, row);
+        }
+    }
+
     // Cria Labels padrão para células
     private static Label CreateLabel(string text)
     {
         return new Label
         {
             Text = text,
-            Font = new Font("Arial", 10, FontStyle.Regular),
+            Font = new Font("Arial", 11, FontStyle.Regular),
             TextAlign = ContentAlignment.MiddleCenter,
             Dock = DockStyle.Fill
         };
     }
 
     // Alterna o Label para TextBox quando clicado
-    private static void SwitchToTextBox(TableLayoutPanel table, Label lblFunction)
+    private static void SwitchToTextBox(TableLayoutPanel table, Label lblEdit)
     {
-        int col = table.GetColumn(lblFunction);
-        int row = table.GetRow(lblFunction);
+        bool isSwitched = false;
 
-        table.Controls.Remove(lblFunction);
+        int col = table.GetColumn(lblEdit);
+        int row = table.GetRow(lblEdit);
+
+        table.Controls.Remove(lblEdit);
 
         // Cria uma TextBox na mesma posição
         TextBox txtEdit = new TextBox
         {
-            Text = lblFunction.Text,
+            Text = lblEdit.Text,
             Dock = DockStyle.Fill
         };
 
         txtEdit.KeyDown += (sender, e) =>
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter && !isSwitched)
             {
+                isSwitched = true;
+                SwitchToLabel(table, txtEdit);
+            }
+        };
+
+        txtEdit.Leave += (sender, e) =>
+        {
+            if (!isSwitched)
+            {
+                isSwitched = true;
                 SwitchToLabel(table, txtEdit);
             }
         };
@@ -100,12 +137,42 @@ public class DeckService
         int col = table.GetColumn(txtEdit);
         int row = table.GetRow(txtEdit);
 
+        // Remove a TextBox da célula
         table.Controls.Remove(txtEdit);
 
         // Cria o Label atualizado com o novo valor da TextBox
-        Label lblFunction = CreateLabel(txtEdit.Text);
-        lblFunction.DoubleClick += (sender, e) => SwitchToTextBox(table, lblFunction);
+        Label lblEdit = CreateLabel(txtEdit.Text);
+        lblEdit.DoubleClick += (sender, e) => SwitchToTextBox(table, lblEdit);
 
-        table.Controls.Add(lblFunction, col, row);
+        // Adiciona o novo Label de volta à célula
+        table.Controls.Add(lblEdit, col, row);
+
+        CheckDeck(table);
     }
+
+    //Confere quais cartas do deck ideal já estão no real
+    private static void CheckDeck(TableLayoutPanel table)
+    {
+        // Inicia a checagem em cada linha da tabela
+        for (int row = 1; row < table.RowCount; row++)
+        {
+            // Verificando as colunas 2 e 3 (na linha atual) para valores iguais
+            var labelColumn2 = table.GetControlFromPosition(2, row) as Label;
+            var labelColumn3 = table.GetControlFromPosition(3, row) as Label;
+
+            if (labelColumn2 != null && labelColumn3 != null)
+            {
+                string valueColumn2 = labelColumn2.Text;
+                string valueColumn3 = labelColumn3.Text;
+
+                // Se os valores das colunas 2 e 3 forem iguais
+                if (valueColumn2 == valueColumn3)
+                {
+                    var cellControl = table.GetControlFromPosition(0, row);
+                    cellControl.BackColor = Color.Green;
+                }
+            }
+        }
+    }
+
 }
