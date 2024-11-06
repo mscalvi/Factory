@@ -71,6 +71,8 @@
             PnlDeckHelper = new Panel();
             ControlHelper = new TabControl();
             HelpList = new TabPage();
+            PnlHelpList = new Panel();
+            TblHelpList = new TableLayoutPanel();
             LblOpenList = new Label();
             CboHelpList = new ComboBox();
             Statistics = new TabPage();
@@ -82,9 +84,7 @@
             LblOwner = new Label();
             CboDeckVersion = new ComboBox();
             PnlDeckReal = new Panel();
-            FlwDeckReal = new FlowLayoutPanel();
-            PnlDeckIdeal = new Panel();
-            FlwDeckIdeal = new FlowLayoutPanel();
+            TblDeckReal = new TableLayoutPanel();
             MainControl.SuspendLayout();
             TabHome.SuspendLayout();
             PnlHome.SuspendLayout();
@@ -107,9 +107,9 @@
             PnlDeckHelper.SuspendLayout();
             ControlHelper.SuspendLayout();
             HelpList.SuspendLayout();
+            PnlHelpList.SuspendLayout();
             Statistics.SuspendLayout();
             PnlDeckReal.SuspendLayout();
-            PnlDeckIdeal.SuspendLayout();
             SuspendLayout();
             // 
             // MainControl
@@ -502,7 +502,6 @@
             PnlDeckModel.Controls.Add(PnlDeckHelper);
             PnlDeckModel.Controls.Add(CboDeckVersion);
             PnlDeckModel.Controls.Add(PnlDeckReal);
-            PnlDeckModel.Controls.Add(PnlDeckIdeal);
             PnlDeckModel.Dock = DockStyle.Fill;
             PnlDeckModel.Location = new Point(3, 3);
             PnlDeckModel.Name = "PnlDeckModel";
@@ -512,7 +511,7 @@
             // BtnSaveDeck
             // 
             BtnSaveDeck.Anchor = AnchorStyles.Top;
-            BtnSaveDeck.Location = new Point(3, 6);
+            BtnSaveDeck.Location = new Point(5, 6);
             BtnSaveDeck.Name = "BtnSaveDeck";
             BtnSaveDeck.Size = new Size(61, 43);
             BtnSaveDeck.TabIndex = 9;
@@ -523,9 +522,9 @@
             // 
             LblDeckName.Anchor = AnchorStyles.Top;
             LblDeckName.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LblDeckName.Location = new Point(70, 6);
+            LblDeckName.Location = new Point(5, 6);
             LblDeckName.Name = "LblDeckName";
-            LblDeckName.Size = new Size(911, 43);
+            LblDeckName.Size = new Size(976, 43);
             LblDeckName.TabIndex = 6;
             LblDeckName.Text = "Deck";
             LblDeckName.TextAlign = ContentAlignment.MiddleCenter;
@@ -559,6 +558,7 @@
             // 
             // HelpList
             // 
+            HelpList.Controls.Add(PnlHelpList);
             HelpList.Controls.Add(LblOpenList);
             HelpList.Controls.Add(CboHelpList);
             HelpList.Location = new Point(4, 24);
@@ -568,6 +568,30 @@
             HelpList.TabIndex = 0;
             HelpList.Text = "Help List";
             HelpList.UseVisualStyleBackColor = true;
+            // 
+            // PnlHelpList
+            // 
+            PnlHelpList.Controls.Add(TblHelpList);
+            PnlHelpList.Location = new Point(6, 51);
+            PnlHelpList.Name = "PnlHelpList";
+            PnlHelpList.Size = new Size(866, 399);
+            PnlHelpList.TabIndex = 12;
+            // 
+            // TblHelpList
+            // 
+            TblHelpList.AutoScroll = true;
+            TblHelpList.ColumnCount = 3;
+            TblHelpList.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            TblHelpList.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            TblHelpList.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            TblHelpList.Dock = DockStyle.Fill;
+            TblHelpList.Location = new Point(0, 0);
+            TblHelpList.Name = "TblHelpList";
+            TblHelpList.RowCount = 2;
+            TblHelpList.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TblHelpList.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TblHelpList.Size = new Size(866, 399);
+            TblHelpList.TabIndex = 11;
             // 
             // LblOpenList
             // 
@@ -678,38 +702,26 @@
             // PnlDeckReal
             // 
             PnlDeckReal.Anchor = AnchorStyles.Top;
-            PnlDeckReal.Controls.Add(FlwDeckReal);
+            PnlDeckReal.Controls.Add(TblDeckReal);
             PnlDeckReal.Location = new Point(5, 81);
             PnlDeckReal.Name = "PnlDeckReal";
-            PnlDeckReal.Size = new Size(486, 889);
+            PnlDeckReal.Size = new Size(976, 889);
             PnlDeckReal.TabIndex = 0;
             // 
-            // FlwDeckReal
+            // TblDeckReal
             // 
-            FlwDeckReal.AutoScroll = true;
-            FlwDeckReal.Dock = DockStyle.Fill;
-            FlwDeckReal.Location = new Point(0, 0);
-            FlwDeckReal.Name = "FlwDeckReal";
-            FlwDeckReal.Size = new Size(486, 889);
-            FlwDeckReal.TabIndex = 0;
-            // 
-            // PnlDeckIdeal
-            // 
-            PnlDeckIdeal.Anchor = AnchorStyles.Top;
-            PnlDeckIdeal.Controls.Add(FlwDeckIdeal);
-            PnlDeckIdeal.Location = new Point(497, 81);
-            PnlDeckIdeal.Name = "PnlDeckIdeal";
-            PnlDeckIdeal.Size = new Size(486, 889);
-            PnlDeckIdeal.TabIndex = 2;
-            // 
-            // FlwDeckIdeal
-            // 
-            FlwDeckIdeal.AutoScroll = true;
-            FlwDeckIdeal.Dock = DockStyle.Fill;
-            FlwDeckIdeal.Location = new Point(0, 0);
-            FlwDeckIdeal.Name = "FlwDeckIdeal";
-            FlwDeckIdeal.Size = new Size(486, 889);
-            FlwDeckIdeal.TabIndex = 0;
+            TblDeckReal.AutoScroll = true;
+            TblDeckReal.ColumnCount = 2;
+            TblDeckReal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            TblDeckReal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            TblDeckReal.Dock = DockStyle.Fill;
+            TblDeckReal.Location = new Point(0, 0);
+            TblDeckReal.Name = "TblDeckReal";
+            TblDeckReal.RowCount = 2;
+            TblDeckReal.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TblDeckReal.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TblDeckReal.Size = new Size(976, 889);
+            TblDeckReal.TabIndex = 0;
             // 
             // HomePage
             // 
@@ -744,9 +756,9 @@
             PnlDeckHelper.ResumeLayout(false);
             ControlHelper.ResumeLayout(false);
             HelpList.ResumeLayout(false);
+            PnlHelpList.ResumeLayout(false);
             Statistics.ResumeLayout(false);
             PnlDeckReal.ResumeLayout(false);
-            PnlDeckIdeal.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -776,12 +788,9 @@
         private Panel PnlDecks;
         private Button BtnReturn;
         private ComboBox CboDeckIdeal;
-        private Panel PnlDeckIdeal;
         private ComboBox CboDeckVersion;
         private Panel PnlDeckReal;
         private Panel PnlDeckModel;
-        private FlowLayoutPanel FlwDeckReal;
-        private FlowLayoutPanel FlwDeckIdeal;
         private Panel PnlDeckHelper;
         private Panel PnlCardView;
         private TabControl ControlHelper;
@@ -811,5 +820,8 @@
         private Button BtnArchetypeChange;
         private Button BtnOwnerChange;
         private Label LblOpenList;
+        private TableLayoutPanel TblDeckReal;
+        private TableLayoutPanel TblHelpList;
+        private Panel PnlHelpList;
     }
 }

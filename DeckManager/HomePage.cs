@@ -541,7 +541,7 @@ namespace DeckManager
             {
                 Name = "BtnSaveDeck",
                 Size = new Size(61, 43),
-                Location = new Point(3, 6),
+                Location = new Point(5, 6),
                 Text = "Salvar",
                 UseVisualStyleBackColor = true
             };
@@ -571,8 +571,8 @@ namespace DeckManager
             Label lblDeckName = new Label
             {
                 Font = new Font("Segoe UI", 18F, FontStyle.Bold),
-                Location = new Point(70, 6),
-                Size = new Size(911, 43),
+                Location = new Point(5, 6),
+                Size = new Size(976, 43),
                 Text = selectedDeck.Name,
                 TextAlign = ContentAlignment.MiddleCenter
             };
@@ -619,6 +619,41 @@ namespace DeckManager
                 Size = new Size(413, 23)
             };
             helpList.Controls.Add(cboHelpList);
+
+            // Panel for help list
+            Panel pnlHelpList = new Panel
+            {
+                Location = new Point(6, 51),
+                Name = "PnlHelpList",
+                Size = new Size(866, 399),
+                TabIndex = 12
+            };
+
+            // TableLayoutPanel for help list
+            TableLayoutPanel tblHelpList = new TableLayoutPanel
+            {
+                AutoScroll = true,
+                ColumnCount = 3,
+                Dock = DockStyle.Fill,
+                Location = new Point(0, 0),
+                Name = "TblHelpList",
+                RowCount = 2,
+                Size = new Size(866, 399),
+                TabIndex = 11
+            };
+
+            // Configuração das colunas para 3 partes iguais
+            tblHelpList.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333F));
+            tblHelpList.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333F));
+            tblHelpList.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333F));
+
+            // Configuração das linhas para 2 partes iguais
+            tblHelpList.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tblHelpList.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+
+            // Adiciona o TableLayoutPanel ao painel
+            pnlHelpList.Controls.Add(tblHelpList);
+            helpList.Controls.Add(pnlHelpList);
 
             // Labels for help list
             Label lblOpenList = new Label
@@ -763,32 +798,21 @@ namespace DeckManager
                 Name = "PnlDeckReal"
             };
 
-            // FlowLayoutPanel for real deck
-            FlowLayoutPanel flwDeckReal = new FlowLayoutPanel
+            // TableLayoutPanel for real deck
+            TableLayoutPanel tblDeckReal = new TableLayoutPanel
             {
                 Dock = DockStyle.Fill,
                 AutoScroll = true,
-                Name = "FlwDeckReal"
-            };
-            pnlDeckReal.Controls.Add(flwDeckReal);
-
-            // Panel for ideal deck
-            Panel pnlDeckIdeal = new Panel
-            {
-                Anchor = AnchorStyles.Top,
-                Location = new Point(497, 81),
-                Size = new Size(486, 889),
-                Name = "PnlDeckIdeal"
+                Name = "TblDeckReal",
+                ColumnCount = 2
             };
 
-            // FlowLayoutPanel for ideal deck
-            FlowLayoutPanel flwDeckIdeal = new FlowLayoutPanel
-            {
-                Dock = DockStyle.Fill,
-                AutoScroll = true,
-                Name = "FlwDeckIdeal"
-            };
-            pnlDeckIdeal.Controls.Add(flwDeckIdeal);
+            // Configura o estilo das colunas para que cada uma ocupe 50% do espaço
+            tblDeckReal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tblDeckReal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+
+            // Adiciona o TableLayoutPanel ao painel pai
+            pnlDeckReal.Controls.Add(tblDeckReal);
 
             // Add all controls to the main panel
             pnlDeckModel.Controls.Add(btnSaveDeck);
@@ -797,7 +821,6 @@ namespace DeckManager
             pnlDeckModel.Controls.Add(pnlDeckHelper);
             pnlDeckModel.Controls.Add(cboDeckVersion);
             pnlDeckModel.Controls.Add(pnlDeckReal);
-            pnlDeckModel.Controls.Add(pnlDeckIdeal);
 
             // Add the panel to the new tab
             newDeckTab.Controls.Add(pnlDeckModel);

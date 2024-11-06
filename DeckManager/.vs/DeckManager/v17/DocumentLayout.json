@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|solutionrelative:homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\deckmanager\\homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|solutionrelative:homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|solutionrelative:homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\deckmanager\\homepage.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|solutionrelative:homepage.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{27084A02-58CD-4441-A32F-45178646CA24}|DeckManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\deckmanager\\services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -26,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,7 +50,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
+              "Title": "HomePage.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\HomePage.Designer.cs",
+              "RelativeDocumentMoniker": "HomePage.Designer.cs",
+              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\HomePage.Designer.cs",
+              "RelativeToolTip": "HomePage.Designer.cs",
+              "ViewState": "AQIAACwCAAAAAAAAAAAowE4CAABLAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T12:29:47.908Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "DeckModel.cs",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\Models\\DeckModel.cs",
               "RelativeDocumentMoniker": "Models\\DeckModel.cs",
@@ -54,38 +71,37 @@
               "RelativeToolTip": "Models\\DeckModel.cs",
               "ViewState": "AQIAAAYAAAAAAAAAAAAAAB8AAABTAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T19:24:03.138Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-24T19:24:03.138Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "DataService.cs",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\Services\\DataService.cs",
               "RelativeDocumentMoniker": "Services\\DataService.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\Services\\DataService.cs",
               "RelativeToolTip": "Services\\DataService.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAMUCAAAAAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAACIAAABXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-21T17:42:42.715Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "HomePage.cs",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\HomePage.cs",
               "RelativeDocumentMoniker": "HomePage.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\HomePage.cs",
               "RelativeToolTip": "HomePage.cs",
-              "ViewState": "AQIAAJoAAAAAAAAAAAAgwE0DAAAAAAAA",
+              "ViewState": "AQIAAAoCAAAAAAAAAAAAACECAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-09T14:19:14.293Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "HomePage.cs [Projeto]",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\DeckManager\\HomePage.cs",
               "RelativeDocumentMoniker": "HomePage.cs",
