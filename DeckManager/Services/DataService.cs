@@ -413,7 +413,8 @@ namespace DeckManager.Services
 
 
         //Decks
-        public static void NewDeck(string deckName, int formatId)
+        //Decks
+        public static DeckModel NewDeck(string deckName, int formatId)
         {
             if (string.IsNullOrWhiteSpace(deckName))
             {
@@ -456,12 +457,29 @@ namespace DeckManager.Services
                             deckCommand.ExecuteNonQuery();
                         }
 
-                        transaction.Commit();
+                        // Obtém o ID do último deck inserido
+                        string getDeckIdQuery = "SELECT last_insert_rowid()";
+                        using (var getIdCommand = new SQLiteCommand(getDeckIdQuery, connection))
+                        {
+                            long newDeckId = (long)getIdCommand.ExecuteScalar();
+
+                            // Cria e retorna o DeckModel
+                            DeckModel newDeck = new DeckModel
+                            {
+                                Id = (int)newDeckId,
+                                Name = deckName,
+                                Format = formatId
+                            };
+
+                            transaction.Commit();
+                            return newDeck;
+                        }
                     }
                     catch (ArgumentException ex) // Exceção para nome duplicado ou formato inválido
                     {
                         MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         transaction.Rollback(); // Cancela a transação
+                        return null; // Retorna null em caso de falha
                     }
                     catch (Exception ex) // Outras exceções
                     {

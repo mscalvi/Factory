@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DeckManager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+39edaa962aab62c369afc606017f9da8c46eca3e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5b59307bcd051fe2413b248a37031bd154e8a2b7")]
 [assembly: System.Reflection.AssemblyProductAttribute("DeckManager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DeckManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -268,6 +268,7 @@
             DecksControl.SelectedIndex = 0;
             DecksControl.Size = new Size(1890, 1007);
             DecksControl.TabIndex = 5;
+            DecksControl.Enter += DecksControl_Enter;
             // 
             // TabFormats
             // 
