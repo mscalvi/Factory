@@ -532,6 +532,7 @@
             // 
             // PnlCardView
             // 
+            PnlCardView.BackColor = Color.Transparent;
             PnlCardView.Location = new Point(987, 496);
             PnlCardView.Name = "PnlCardView";
             PnlCardView.Size = new Size(886, 474);
@@ -703,6 +704,7 @@
             // PnlDeckReal
             // 
             PnlDeckReal.Anchor = AnchorStyles.Top;
+            PnlDeckReal.BackColor = Color.DimGray;
             PnlDeckReal.Controls.Add(TblDeckReal);
             PnlDeckReal.Location = new Point(5, 81);
             PnlDeckReal.Name = "PnlDeckReal";

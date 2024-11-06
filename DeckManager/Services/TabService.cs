@@ -274,16 +274,38 @@ public class TabService
 
     private Panel CreateDeckRealPanel(DeckModel selectedDeck)
     {
-        Panel pnlDeckReal = new Panel { Anchor = AnchorStyles.Top, Location = new Point(5, 81), Size = new Size(976, 889), Name = "PnlDeckReal" };
-
-        TableLayoutPanel tblDeckReal = new TableLayoutPanel
+        Panel pnlDeckReal = new Panel
         {
-            Dock = DockStyle.Fill,
-            AutoScroll = true,
-            Name = "TblDeckReal",
-            RowCount = 101,
-            ColumnCount = 4
+            Anchor = AnchorStyles.Top,
+            Location = new Point(5, 81),
+            Size = new Size(976, 870),
+            Name = "PnlDeckReal",
+            Padding = new Padding(0, 0, 0, 10)
         };
+
+        TableLayoutPanel tblDeckReal;
+
+        if (selectedDeck.FormatName == "Commander")
+        {
+            tblDeckReal = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                AutoScroll = true,
+                Name = "TblDeckReal",
+                RowCount = 101,
+                ColumnCount = 4
+            };
+        } else
+        {
+            tblDeckReal = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                AutoScroll = true,
+                Name = "TblDeckReal",
+                RowCount = 61,
+                ColumnCount = 4
+            };
+        }
 
         tblDeckReal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
         tblDeckReal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
