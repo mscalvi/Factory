@@ -517,6 +517,7 @@ namespace DeckManager
         private TabPage CloneTabDeckManager(string deckName, int formatId)
         {
             DeckModel selectedDeck = DataService.GetDeckByName(deckName);
+            DeckModel originalDeck = DataService.GetDeckByName(deckName);
 
             // Create a new tab with the deck name
             TabPage newDeckTab = new TabPage(selectedDeck.Name)
@@ -547,10 +548,18 @@ namespace DeckManager
 
             btnSaveDeck.Click += (s, e) =>
             {
+                bool hasChanges = CheckDeckChanges(originalDeck, selectedDeck);
+
+                if (hasChanges)
+                {
+                    DataService.SaveDeckVersion(originalDeck);
+                    DataService.UpdateDeck(selectedDeck);
+                    MessageBox.Show("Deck modificado!");
+                }
+
                 DecksFlowAtt();
 
                 TabPage currentTab = (TabPage)((Button)s).Parent.Parent;
-
                 TabControl tabControl = currentTab.Parent as TabControl;
                 if (tabControl != null)
                 {
@@ -676,9 +685,8 @@ namespace DeckManager
                 SelOwner newFilterDialog = new SelOwner();
                 if (newFilterDialog.ShowDialog() == DialogResult.OK)
                 {
-                    int newOwnerId = newFilterDialog.SelectedOwnerId;
-                    DataService.UpdateDeckFilters(deckName, newOwnerId, null, null);
-                    lblOwner.Text = DataService.GetOwnerName(newOwnerId);
+                    selectedDeck.Owner = newFilterDialog.SelectedOwnerId;
+                    lblOwner.Text = selectedDeck.OwnerName;
                 }
             };
 
@@ -698,9 +706,8 @@ namespace DeckManager
                 SelArchetype newFilterDialog = new SelArchetype();
                 if (newFilterDialog.ShowDialog() == DialogResult.OK)
                 {
-                    int newArchetypeId = newFilterDialog.SelectedArchetypeId;
-                    DataService.UpdateDeckFilters(deckName, null, newArchetypeId, null);
-                    lblArchetype.Text = DataService.GetArchetypeName(newArchetypeId);
+                    selectedDeck.Archetype = newFilterDialog.SelectedArchetypeId;
+                    lblArchetype.Text = selectedDeck.ArchetypeName;
                 }
             };
 
@@ -720,9 +727,8 @@ namespace DeckManager
                 SelColor newFilterDialog = new SelColor();
                 if (newFilterDialog.ShowDialog() == DialogResult.OK)
                 {
-                    int newColorId = newFilterDialog.SelectedColorId;
-                    DataService.UpdateDeckFilters(deckName, null, null, newColorId);
-                    lblColor.Text = DataService.GetColorName(newColorId);
+                    selectedDeck.Colors = newFilterDialog.SelectedColorId;
+                    lblColor.Text = selectedDeck.ColorName;
                 }
             };
 
@@ -825,6 +831,15 @@ namespace DeckManager
             // Seleciona a aba
             DecksControl.SelectedTab = existingTab ?? DecksControl.TabPages.Cast<TabPage>().First(t => t.Text == deck.Name);
         }
+        private static bool CheckDeckChanges(DeckModel original, DeckModel current)
+        {
+            return original.Name != current.Name ||
+                   original.Format != current.Format ||
+                   original.Owner != current.Owner ||
+                   original.Archetype != current.Archetype ||
+                   original.Colors != current.Colors;
+        }
+
 
     }
 }

@@ -623,97 +623,32 @@ namespace DeckManager.Services
 
             return deck;
         }
-        public static void UpdateDeckFilters(string deckName, int? ownerId, int? archetypeId, int? colorId)
-        {
-            if (string.IsNullOrWhiteSpace(deckName))
-            {
-                throw new ArgumentException("O nome do deck não pode estar vazio.");
-            }
-
-            using (var connection = GetConnection())
-            {
-                connection.Open();
-
-                using (var transaction = connection.BeginTransaction())
-                {
-                    try
-                    {
-                        // Verifica se o deck existe
-                        string checkDeckQuery = "SELECT COUNT(*) FROM DecksTable WHERE Name = @Name;";
-                        using (var checkCommand = new SQLiteCommand(checkDeckQuery, connection))
-                        {
-                            checkCommand.Parameters.AddWithValue("@Name", deckName);
-                            long count = (long)checkCommand.ExecuteScalar(); // Verifica a quantidade de decks com o nome
-
-                            if (count == 0) // Se o deck não existe
-                            {
-                                throw new ArgumentException("Nenhum deck encontrado com esse nome.");
-                            }
-                        }
-
-                        // Atualiza o dono, se fornecido
-                        if (ownerId.HasValue)
-                        {
-                            string updateOwnerQuery = "UPDATE DecksTable SET OwnerId = @OwnerId WHERE Name = @Name;";
-                            using (var updateCommand = new SQLiteCommand(updateOwnerQuery, connection))
-                            {
-                                updateCommand.Parameters.AddWithValue("@OwnerId", ownerId);
-                                updateCommand.Parameters.AddWithValue("@Name", deckName);
-                                updateCommand.ExecuteNonQuery();
-                            }
-                        }
-
-                        // Atualiza o arquétipo, se fornecido
-                        if (archetypeId.HasValue)
-                        {
-                            string updateArchetypeQuery = "UPDATE DecksTable SET ArchetypeId = @ArchetypeId WHERE Name = @Name;";
-                            using (var updateCommand = new SQLiteCommand(updateArchetypeQuery, connection))
-                            {
-                                updateCommand.Parameters.AddWithValue("@ArchetypeId", archetypeId);
-                                updateCommand.Parameters.AddWithValue("@Name", deckName);
-                                updateCommand.ExecuteNonQuery();
-                            }
-                        }
-
-                        // Atualiza a cor, se fornecida
-                        if (colorId.HasValue)
-                        {
-                            string updateColorQuery = "UPDATE DecksTable SET ColorId = @ColorId WHERE Name = @Name;";
-                            using (var updateCommand = new SQLiteCommand(updateColorQuery, connection))
-                            {
-                                updateCommand.Parameters.AddWithValue("@ColorId", colorId);
-                                updateCommand.Parameters.AddWithValue("@Name", deckName);
-                                updateCommand.ExecuteNonQuery();
-                            }
-                        }
-
-                        transaction.Commit();
-                    }
-                    catch (ArgumentException ex) // Exceção para quando o deck não for encontrado
-                    {
-                        MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        transaction.Rollback();
-                    }
-                    catch (Exception ex) // Outras exceções
-                    {
-                        transaction.Rollback();
-                        throw new Exception("Erro ao atualizar o deck: " + ex.Message);
-                    }
-                }
-            }
-        } //Deletar
         public static void SaveDeckVersion(DeckModel deck)
         {
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            int newVersionNumber = 1; // Inicia como 1, caso não haja versões anteriores
 
             using (var connection = GetConnection())
             {
                 connection.Open();
 
+                // Consulta para obter o número da última versão do deck
+                string getLastVersionQuery = @"
+            SELECT COALESCE(MAX(DeckVersionNumber), 0) 
+            FROM DeckVersionTable 
+            WHERE DeckId = @DeckId";
+
+                using (var getLastVersionCommand = new SQLiteCommand(getLastVersionQuery, connection))
+                {
+                    getLastVersionCommand.Parameters.AddWithValue("@DeckId", deck.Id);
+                    newVersionNumber = Convert.ToInt32(getLastVersionCommand.ExecuteScalar()) + 1;
+                }
+
+                // Query para inserir a nova versão do deck
                 string insertVersionQuery = @"
-            INSERT INTO DeckVersionsTable 
-            (DeckId, Name, FormatId, OwnerId, ArchetypeId, ColorId, SaveTime) 
-            VALUES (@DeckId, @Name, @FormatId, @OwnerId, @ArchetypeId, @ColorId, @SaveTime);";
+            INSERT INTO DeckVersionTable 
+            (DeckId, Name, FormatId, OwnerId, ArchetypeId, ColorId, SaveTime, DeckVersionNumber) 
+            VALUES (@DeckId, @Name, @FormatId, @OwnerId, @ArchetypeId, @ColorId, @SaveTime, @DeckVersionNumber);";
 
                 using (var command = new SQLiteCommand(insertVersionQuery, connection))
                 {
@@ -724,6 +659,46 @@ namespace DeckManager.Services
                     command.Parameters.AddWithValue("@ArchetypeId", deck.Archetype);
                     command.Parameters.AddWithValue("@ColorId", deck.Colors);
                     command.Parameters.AddWithValue("@SaveTime", timestamp);
+                    command.Parameters.AddWithValue("@DeckVersionNumber", newVersionNumber);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        public static void UpdateDeck(DeckModel deck)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                string updateDeckQuery = @"
+            UPDATE DecksTable 
+            SET 
+                Name = @Name, 
+                FormatId = @FormatId, 
+                OwnerId = @OwnerId, 
+                ArchetypeId = @ArchetypeId, 
+                ColorId = @ColorId 
+            WHERE DeckId = @DeckId;";
+
+                using (var command = new SQLiteCommand(updateDeckQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@DeckId", deck.Id);
+
+                    command.Parameters.AddWithValue("@Name",
+                        string.IsNullOrWhiteSpace(deck.Name) ? DBNull.Value : deck.Name);
+
+                    command.Parameters.AddWithValue("@FormatId",
+                        deck.Format == 0 ? DBNull.Value : deck.Format);
+
+                    command.Parameters.AddWithValue("@OwnerId",
+                        deck.Owner == 0 ? DBNull.Value : deck.Owner);
+
+                    command.Parameters.AddWithValue("@ArchetypeId",
+                        deck.Archetype == 0 ? DBNull.Value : deck.Archetype);
+
+                    command.Parameters.AddWithValue("@ColorId",
+                        deck.Colors == 0 ? DBNull.Value : deck.Colors);
 
                     command.ExecuteNonQuery();
                 }
