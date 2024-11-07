@@ -12,9 +12,9 @@ public class DeckService
         // Configura os cabeçalhos
         AddHeaders(deckTable);
         AddNumbersLines(deckTable);
-        AddFunctionsLines(deckTable);
-        AddRealDeckLines(deckTable);
-        AddIdealDeckLines(deckTable);
+        AddFunctionsLines(deckTable, deckData);
+        AddRealDeckLines(deckTable, deckData);
+        AddIdealDeckLines(deckTable, deckData);
         CheckDeck(deckTable);
     }
 
@@ -47,35 +47,41 @@ public class DeckService
 
     }
 
-    private static void AddFunctionsLines(TableLayoutPanel deckTable)
+    private static void AddFunctionsLines(TableLayoutPanel deckTable, DeckModel deckData)
     {
         for (int row = 1; row < deckTable.RowCount; row++)
         {
-            // Coluna "Função" (editável)
-            Label lblFunction = CreateLabel("Func " + row);
+            string functionText = row <= deckData.FunctionsList.Count ? deckData.FunctionsList[row - 1] : " ";
+
+            Label lblFunction = CreateLabel(functionText);
             lblFunction.DoubleClick += (sender, e) => SwitchToTextBox(deckTable, lblFunction);
+
             deckTable.Controls.Add(lblFunction, 1, row);
         }
     }
 
-    private static void AddRealDeckLines(TableLayoutPanel deckTable)
+    private static void AddRealDeckLines(TableLayoutPanel deckTable, DeckModel deckData)
     {
         for (int row = 1; row < deckTable.RowCount; row++)
         {
-            // Coluna "Função" (editável)
-            Label lblRealCard = CreateLabel("Card " + row);
+            string cardName = row <= deckData.DeckListReal.Count ? deckData.DeckListReal[row - 1].Name : " ";
+
+            Label lblRealCard = CreateLabel(cardName);
             lblRealCard.DoubleClick += (sender, e) => SwitchToTextBox(deckTable, lblRealCard);
+
             deckTable.Controls.Add(lblRealCard, 2, row);
         }
     }
 
-    private static void AddIdealDeckLines(TableLayoutPanel deckTable)
+    private static void AddIdealDeckLines(TableLayoutPanel deckTable, DeckModel deckData)
     {
         for (int row = 1; row < deckTable.RowCount; row++)
         {
-            // Coluna "Função" (editável)
-            Label lblIdealCard = CreateLabel("Plan " + row);
+            string idealCardName = row <= deckData.DeckListIdeal.Count ? deckData.DeckListIdeal[row - 1].Name : " ";
+
+            Label lblIdealCard = CreateLabel(idealCardName);
             lblIdealCard.DoubleClick += (sender, e) => SwitchToTextBox(deckTable, lblIdealCard);
+
             deckTable.Controls.Add(lblIdealCard, 3, row);
         }
     }
@@ -166,10 +172,22 @@ public class DeckService
                 string valueColumn3 = labelColumn3.Text;
 
                 // Se os valores das colunas 2 e 3 forem iguais
-                if (valueColumn2 == valueColumn3)
+                if (string.IsNullOrWhiteSpace(valueColumn2) || string.IsNullOrWhiteSpace(valueColumn3))
                 {
                     var cellControl = table.GetControlFromPosition(0, row);
-                    cellControl.BackColor = Color.Green;
+                    cellControl.BackColor = Color.Yellow;
+                } else
+                {
+                    if (valueColumn2 == valueColumn3)
+                    {
+                        var cellControl = table.GetControlFromPosition(0, row);
+                        cellControl.BackColor = Color.Green;
+                    }
+                    else
+                    {
+                        var cellControl = table.GetControlFromPosition(0, row);
+                        cellControl.BackColor = Color.Red;
+                    }
                 }
             }
         }

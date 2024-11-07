@@ -2,11 +2,14 @@
 using DeckManager.Models;
 using DeckManager.Services;
 using DeckManager.Views;
+using System.Windows.Forms;
 
 public class TabService
 {
     private DeckModel selectedDeck;
     private DeckModel originalDeck;
+
+    TableLayoutPanel tblDeckReal;
 
     public TabService(DeckModel deck)
     {
@@ -61,12 +64,43 @@ public class TabService
 
         btnSaveDeck.Click += (s, e) =>
         {
+            // Limpa as listas antes de preenchê-las novamente
+            selectedDeck.FunctionsList.Clear();
+            selectedDeck.DeckListReal.Clear();
+            selectedDeck.DeckListIdeal.Clear();
+
+            // Itera por cada linha a partir da segunda, para ignorar os cabeçalhos
+            for (int row = 1; row < tblDeckReal.RowCount; row++)
+            {
+                // Função (coluna 1)
+                var functionControl = tblDeckReal.GetControlFromPosition(1, row);
+                if (functionControl is Label lblFunction)
+                {
+                    selectedDeck.FunctionsList.Add(lblFunction.Text);
+                }
+
+                // Carta Real (coluna 2)
+                var realCardControl = tblDeckReal.GetControlFromPosition(2, row);
+                if (realCardControl is Label lblRealCard)
+                {
+                    selectedDeck.DeckListReal.Add(new CardModel { Name = lblRealCard.Text });
+                }
+
+                // Carta Ideal (coluna 3)
+                var idealCardControl = tblDeckReal.GetControlFromPosition(3, row);
+                if (idealCardControl is Label lblIdealCard)
+                {
+                    selectedDeck.DeckListIdeal.Add(new CardModel { Name = lblIdealCard.Text });
+                }
+            }
+
             bool hasChanges = CheckDeckChanges(originalDeck, selectedDeck);
 
             if (hasChanges)
             {
-                DataService.SaveDeckVersion(originalDeck);
+                selectedDeck.LastVersion = DataService.SaveDeckVersion(originalDeck);
                 DataService.UpdateDeck(selectedDeck);
+                DataService.SaveRelations(selectedDeck);
                 MessageBox.Show("Deck modificado!");
             }
 
@@ -76,6 +110,7 @@ public class TabService
 
         return btnSaveDeck;
     }
+
 
     private Label CreateDeckNameLabel()
     {
@@ -283,8 +318,6 @@ public class TabService
             Padding = new Padding(0, 0, 0, 10)
         };
 
-        TableLayoutPanel tblDeckReal;
-
         if (selectedDeck.FormatName == "Commander")
         {
             tblDeckReal = new TableLayoutPanel
@@ -340,10 +373,40 @@ public class TabService
 
     private static bool CheckDeckChanges(DeckModel original, DeckModel current)
     {
-        return original.Name != current.Name ||
-               original.Format != current.Format ||
-               original.Owner != current.Owner ||
-               original.Archetype != current.Archetype ||
-               original.Colors != current.Colors;
+        // Verifica mudanças simples nas propriedades de texto e numéricas
+        if (original.Name != current.Name ||
+            original.Format != current.Format ||
+            original.Owner != current.Owner ||
+            original.Archetype != current.Archetype ||
+            original.Colors != current.Colors)
+        {
+            return true;
+        }
+
+        // Verifica se houve mudanças na lista de Funções
+        if (!Enumerable.SequenceEqual(original.FunctionsList, current.FunctionsList))
+        {
+            return true;
+        }
+
+        // Verifica se houve mudanças na lista de cartas reais
+        if (original.DeckListReal.Count != current.DeckListReal.Count ||
+            !original.DeckListReal.Select(card => card.Name)
+                .SequenceEqual(current.DeckListReal.Select(card => card.Name)))
+        {
+            return true;
+        }
+
+        // Verifica se houve mudanças na lista de cartas ideais
+        if (original.DeckListIdeal.Count != current.DeckListIdeal.Count ||
+            !original.DeckListIdeal.Select(card => card.Name)
+                .SequenceEqual(current.DeckListIdeal.Select(card => card.Name)))
+        {
+            return true;
+        }
+
+        // Se nenhuma das condições de mudança foi atendida, as listas são consideradas iguais
+        return false;
     }
+
 }

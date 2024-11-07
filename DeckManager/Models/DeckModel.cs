@@ -12,6 +12,7 @@ namespace DeckManager.Models
         //Registradas
         public int Id { get; set; }
         public string Name { get; set; }
+        public int LastVersion { get; set; }
 
         //Questionáveis
         public int Ready { get; set; }

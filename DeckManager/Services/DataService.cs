@@ -641,7 +641,7 @@ namespace DeckManager.Services
 
             return deck;
         }
-        public static void SaveDeckVersion(DeckModel deck)
+        public static int SaveDeckVersion(DeckModel deck)
         {
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             int newVersionNumber = 1; // Inicia como 1, caso não haja versões anteriores
@@ -652,9 +652,9 @@ namespace DeckManager.Services
 
                 // Consulta para obter o número da última versão do deck
                 string getLastVersionQuery = @"
-            SELECT COALESCE(MAX(DeckVersionNumber), 0) 
-            FROM DeckVersionTable 
-            WHERE DeckId = @DeckId";
+        SELECT COALESCE(MAX(DeckVersionNumber), 0) 
+        FROM DeckVersionTable 
+        WHERE DeckId = @DeckId";
 
                 using (var getLastVersionCommand = new SQLiteCommand(getLastVersionQuery, connection))
                 {
@@ -664,9 +664,9 @@ namespace DeckManager.Services
 
                 // Query para inserir a nova versão do deck
                 string insertVersionQuery = @"
-            INSERT INTO DeckVersionTable 
-            (DeckId, Name, FormatId, OwnerId, ArchetypeId, ColorId, SaveTime, DeckVersionNumber) 
-            VALUES (@DeckId, @Name, @FormatId, @OwnerId, @ArchetypeId, @ColorId, @SaveTime, @DeckVersionNumber);";
+        INSERT INTO DeckVersionTable 
+        (DeckId, Name, FormatId, OwnerId, ArchetypeId, ColorId, SaveTime, DeckVersionNumber) 
+        VALUES (@DeckId, @Name, @FormatId, @OwnerId, @ArchetypeId, @ColorId, @SaveTime, @DeckVersionNumber);";
 
                 using (var command = new SQLiteCommand(insertVersionQuery, connection))
                 {
@@ -682,6 +682,9 @@ namespace DeckManager.Services
                     command.ExecuteNonQuery();
                 }
             }
+
+            // Retorna o número da versão salva
+            return newVersionNumber;
         }
         public static void UpdateDeck(DeckModel deck)
         {
@@ -696,7 +699,8 @@ namespace DeckManager.Services
                 FormatId = @FormatId, 
                 OwnerId = @OwnerId, 
                 ArchetypeId = @ArchetypeId, 
-                ColorId = @ColorId 
+                ColorId = @ColorId,
+                LastVersion = @LastVersion
             WHERE DeckId = @DeckId;";
 
                 using (var command = new SQLiteCommand(updateDeckQuery, connection))
@@ -718,10 +722,104 @@ namespace DeckManager.Services
                     command.Parameters.AddWithValue("@ColorId",
                         deck.Colors == 0 ? DBNull.Value : deck.Colors);
 
+                    command.Parameters.AddWithValue("@LastVersion", deck.LastVersion);
+
                     command.ExecuteNonQuery();
                 }
             }
         }
+        public static void SaveRelations(DeckModel deck)
+        {
+            string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                // Salvando a lista de funções
+                if (deck.FunctionsList != null && deck.FunctionsList.Count > 0)
+                {
+                    int i = 0;
+                    foreach (var function in deck.FunctionsList)
+                    {
+                        i++;
+
+                        // Query para inserir a relação de funções para o deck
+                        string insertFunctionQuery = @"
+                            INSERT INTO RelationsTable 
+                            (DeckId, VersionId, ListType, Position, ItemName, SaveTime) 
+                            VALUES (@DeckId, @VersionId, @ListType, @Position, @ItemName, @SaveTime);";
+
+                        using (var command = new SQLiteCommand(insertFunctionQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@DeckId", deck.Id);
+                            command.Parameters.AddWithValue("@VersionId", deck.LastVersion);
+                            command.Parameters.AddWithValue("@ListType", "Functions");
+                            command.Parameters.AddWithValue("@Position", i);
+                            command.Parameters.AddWithValue("@ItemName", function);
+                            command.Parameters.AddWithValue("@SaveTime", timestamp);
+
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                }
+
+                // Salvando a Deck List Real
+                if (deck.DeckListReal != null && deck.DeckListReal.Count > 0)
+                {
+                    int i = 0;
+                    foreach (var card in deck.DeckListReal)
+                    {
+                        i++;
+
+                        // Query para inserir a relação de funções para o deck
+                        string insertFunctionQuery = @"
+                            INSERT INTO RelationsTable 
+                            (DeckId, VersionId, ListType, Position, ItemName, SaveTime) 
+                            VALUES (@DeckId, @VersionId, @ListType, @Position, @ItemName, @SaveTime);";
+
+                        using (var command = new SQLiteCommand(insertFunctionQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@DeckId", deck.Id);
+                            command.Parameters.AddWithValue("@VersionId", deck.LastVersion);
+                            command.Parameters.AddWithValue("@ListType", "Real");
+                            command.Parameters.AddWithValue("@Position", i);
+                            command.Parameters.AddWithValue("@ItemName", card.Name);
+                            command.Parameters.AddWithValue("@SaveTime", timestamp);
+
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                }
+
+                // Salvando a Deck List Ideal
+                if (deck.DeckListIdeal != null && deck.DeckListIdeal.Count > 0)
+                {
+                    int i = 0;
+                    foreach (var card in deck.DeckListIdeal)
+                    {
+                        i++;
+
+                        // Query para inserir a relação de funções para o deck
+                        string insertFunctionQuery = @"
+                            INSERT INTO RelationsTable 
+                            (DeckId, VersionId, ListType, Position, ItemName, SaveTime) 
+                            VALUES (@DeckId, @VersionId, @ListType, @Position, @ItemName, @SaveTime);";
+
+                        using (var command = new SQLiteCommand(insertFunctionQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@DeckId", deck.Id);
+                            command.Parameters.AddWithValue("@VersionId", deck.LastVersion);
+                            command.Parameters.AddWithValue("@ListType", "Ideal");
+                            command.Parameters.AddWithValue("@Position", i);
+                            command.Parameters.AddWithValue("@ItemName", card.Name);
+                            command.Parameters.AddWithValue("@SaveTime", timestamp);
+
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+        }
     }
 }
