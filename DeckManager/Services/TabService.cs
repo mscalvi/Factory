@@ -15,17 +15,23 @@ public class TabService
 
     public TabService(DeckModel deck)
     {
-        this.selectedDeck = deck;
-        this.originalDeck = DataService.GetDeckByName(deck.Name); // Clona o deck original
-        this.originalDeck = DataService.GetDeckWithDetails(deck.Id, deck.LastVersion);
+        this.selectedDeck = new DeckModel
+        {
+            Id = deck.Id,
+            Name = deck.Name,
+            Format = deck.Format,
+            Owner = deck.Owner,
+            Archetype = deck.Archetype,
+            Colors = deck.Colors,
+            FunctionsList = new List<string>(deck.FunctionsList),
+            RealDeckList = new List<CardModel>(deck.RealDeckList),
+            IdealDeckList = new List<CardModel>(deck.IdealDeckList),
+            LastVersion = deck.LastVersion
+        };
     }
 
     public TabPage BuildDeckTab(DeckModel originalDeck)
     {
-        this.originalDeck = DataService.GetDeckByName(originalDeck.Name); // Clona o deck original
-        this.originalDeck = DataService.GetDeckWithDetails(originalDeck.Id, originalDeck.LastVersion);
-        this.selectedDeck = originalDeck;
-
         // Cria a nova aba para o deck
         TabPage newDeckTab = new TabPage(originalDeck.Name)
         {
@@ -36,8 +42,8 @@ public class TabService
         };
 
         Panel pnlDeckModel = CreateMainPanel();
-        pnlDeckModel.Controls.Add(CreateSaveButton());
-        pnlDeckModel.Controls.Add(CreateDeckNameLabel());
+        pnlDeckModel.Controls.Add(CreateSaveButton(originalDeck));
+        pnlDeckModel.Controls.Add(CreateDeckNameLabel(originalDeck));
         pnlDeckModel.Controls.Add(CreateCardViewPanel());
         pnlDeckModel.Controls.Add(CreateDeckHelperPanel(originalDeck));
         pnlDeckModel.Controls.Add(CreateDeckVersionComboBox(originalDeck));
@@ -58,7 +64,7 @@ public class TabService
         };
     }
 
-    private Button CreateSaveButton()
+    private Button CreateSaveButton(DeckModel originalDeck)
     {
         Button btnSaveDeck = new Button
         {
@@ -147,7 +153,7 @@ public class TabService
         return btnSaveDeck;
     }
 
-    private Label CreateDeckNameLabel()
+    private Label CreateDeckNameLabel(DeckModel originalDeck)
     {
         return new Label
         {
@@ -376,9 +382,9 @@ public class TabService
         }
 
         tblDeckReal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-        tblDeckReal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
-        tblDeckReal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 43F));
-        tblDeckReal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 43F));
+        tblDeckReal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14F));
+        tblDeckReal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 41F));
+        tblDeckReal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 41F));
 
         for (int i = 0; i < tblDeckReal.RowCount; i++)
         {
@@ -418,41 +424,11 @@ public class TabService
         }
         return false;
     }
-
+    
     private static bool CheckDeckChanges(DeckModel original, DeckModel selected)
     {
-        // Obtém as listas atualizadas do banco de dados para a comparação
-        var originalFunctionsList = original.FunctionsList;
-        var currentFunctionsList = selected.FunctionsList;
-
-        var originalDeckListReal = original.RealDeckList;
-        var currentDeckListReal = selected.RealDeckList;
-
-        var originalDeckListIdeal = original.IdealDeckList;
-        var currentDeckListIdeal = selected.IdealDeckList;
-
-        // Compara as listas (Functions)
-        if (!originalFunctionsList.SequenceEqual(currentFunctionsList))
-        {
-            return true;
-        }
-
-        // Compara as listas (Deck Real)
-        if (!originalDeckListReal.SequenceEqual(currentDeckListReal))
-        {
-            return true;
-        }
-
-        // Compara as listas (Deck Ideal)
-        if (!originalDeckListIdeal.SequenceEqual(currentDeckListIdeal))
-        {
-            return true;
-        }
-
-        // Se nenhuma mudança for detectada, retorna falso
-        return false;
+        return !original.FunctionsList.SequenceEqual(selected.FunctionsList) ||
+               !original.RealDeckList.SequenceEqual(selected.RealDeckList) ||
+               !original.IdealDeckList.SequenceEqual(selected.IdealDeckList);
     }
-
-
-
 }

@@ -8,7 +8,7 @@ public class DeckService
     private Label selectedLabel2 = null;
 
     // Método para popular a tabela do deck com dados
-    public void PopulateDeckTable(TableLayoutPanel deckTable, DeckModel deckData)
+    public void PopulateDeckTable(TableLayoutPanel deckTable, DeckModel originalDeck)
     {
         // Limpa os dados existentes para uma nova carga
         deckTable.Controls.Clear();
@@ -16,9 +16,9 @@ public class DeckService
         // Configura os cabeçalhos
         AddHeaders(deckTable);
         AddNumbersLines(deckTable);
-        AddFunctionsLines(deckTable, deckData);
-        AddRealDeckLines(deckTable, deckData);
-        AddIdealDeckLines(deckTable, deckData);
+        AddFunctionsLines(deckTable, originalDeck);
+        AddRealDeckLines(deckTable, originalDeck);
+        AddIdealDeckLines(deckTable, originalDeck);
         CheckDeck(deckTable);
     }
 
@@ -51,12 +51,19 @@ public class DeckService
 
     }
 
-    private void AddFunctionsLines(TableLayoutPanel deckTable, DeckModel deckData)
+    private void AddFunctionsLines(TableLayoutPanel deckTable, DeckModel originalDeck)
     {
         for (int row = 1; row < deckTable.RowCount; row++)
         {
-            // Se houver uma função correspondente na lista, usa seu valor; caso contrário, deixa a célula vazia
-            string functionText = row <= deckData.FunctionsList.Count ? deckData.FunctionsList[row] : " ";
+            string functionText = null;
+
+            if (originalDeck.FunctionsList[row - 1] == null)
+            {
+                functionText = " ";
+            } else
+            {
+                functionText = originalDeck.FunctionsList[row - 1];
+            }
 
             // Cria e configura o Label para exibir a função
             Label lblFunction = CreateLabel(functionText);
@@ -68,12 +75,11 @@ public class DeckService
         }
     }
 
-
-    private void AddRealDeckLines(TableLayoutPanel deckTable, DeckModel deckData)
+    private void AddRealDeckLines(TableLayoutPanel deckTable, DeckModel originalDeck)
     {
         for (int row = 1; row < deckTable.RowCount; row++)
         {
-            string cardName = row <= deckData.RealDeckList.Count ? deckData.RealDeckList[row - 1].Name : " ";
+            string cardName = row <= originalDeck.RealDeckList.Count ? originalDeck.RealDeckList[row - 1].Name : " ";
 
             Label lblRealCard = CreateLabel(cardName);
             lblRealCard.MouseDown += (sender, e) => Label_MouseDown(sender, e, deckTable);
@@ -83,11 +89,11 @@ public class DeckService
         }
     }
 
-    private void AddIdealDeckLines(TableLayoutPanel deckTable, DeckModel deckData)
+    private void AddIdealDeckLines(TableLayoutPanel deckTable, DeckModel originalDeck)
     {
         for (int row = 1; row < deckTable.RowCount; row++)
         {
-            string idealCardName = row <= deckData.IdealDeckList.Count ? deckData.IdealDeckList[row - 1].Name : " ";
+            string idealCardName = row <= originalDeck.IdealDeckList.Count ? originalDeck.IdealDeckList[row - 1].Name : " ";
 
             Label lblIdealCard = CreateLabel(idealCardName);
             lblIdealCard.MouseDown += (sender, e) => Label_MouseDown(sender, e, deckTable);

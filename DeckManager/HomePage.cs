@@ -458,7 +458,7 @@ namespace DeckManager
 
             TableLayoutPanel table = new TableLayoutPanel
             {
-                ColumnCount = 7,
+                ColumnCount = 8, // Atualiza para 8 colunas
                 AutoSize = false,
                 Width = PnlDecksList.Width,
                 Height = PnlDecksList.Height,
@@ -468,23 +468,26 @@ namespace DeckManager
             };
 
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100));
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120));
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 400));
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220));
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220));
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300));
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220));
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100));
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 380));
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 200));
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 200));
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 200));
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 200));
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 200));
 
             Font headerFont = new Font("Arial", 14, FontStyle.Bold);
-            Font dataFont = new Font("Arial", 12);
+            Font dataFont = new Font("Arial", 11);
 
+            // Adiciona os headers das colunas
             table.Controls.Add(new Label { Text = "", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(100, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 0, 0);
-            table.Controls.Add(new Label { Text = "ID", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(120, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 1, 0);
-            table.Controls.Add(new Label { Text = "Nome", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(400, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 2, 0);
-            table.Controls.Add(new Label { Text = "Formato", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(220, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 3, 0);
-            table.Controls.Add(new Label { Text = "Dono", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(220, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 4, 0);
-            table.Controls.Add(new Label { Text = "Arquétipo", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(300, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 5, 0);
-            table.Controls.Add(new Label { Text = "Cores", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(220, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 6, 0);
+            table.Controls.Add(new Label { Text = "ID", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(100, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 1, 0);
+            table.Controls.Add(new Label { Text = "Nome", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(380, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 2, 0);
+            table.Controls.Add(new Label { Text = "Formato", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(200, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 3, 0);
+            table.Controls.Add(new Label { Text = "Dono", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(200, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 4, 0);
+            table.Controls.Add(new Label { Text = "Arquétipo", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(200, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 5, 0);
+            table.Controls.Add(new Label { Text = "Cores", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(200, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 6, 0);
+            table.Controls.Add(new Label { Text = "Versão", AutoSize = false, Font = headerFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(200, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 7, 0); // Header da coluna de VersionName
 
             for (int i = 0; i < decks.Count; i++)
             {
@@ -506,20 +509,24 @@ namespace DeckManager
                 };
 
                 table.Controls.Add(actionButton, 0, i + 1);
-                table.Controls.Add(new Label { Text = deck.Id.ToString(), AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(120, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 1, i + 1);
-                table.Controls.Add(new Label { Text = deck.Name, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(400, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 2, i + 1);
-                table.Controls.Add(new Label { Text = deck.FormatName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(220, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 3, i + 1);
-                table.Controls.Add(new Label { Text = deck.OwnerName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(220, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 4, i + 1);
-                table.Controls.Add(new Label { Text = deck.ArchetypeName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(300, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 5, i + 1);
-                table.Controls.Add(new Label { Text = deck.ColorName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(220, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 6, i + 1);
+                table.Controls.Add(new Label { Text = deck.Id.ToString(), AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(100, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 1, i + 1);
+                table.Controls.Add(new Label { Text = deck.Name, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(380, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 2, i + 1);
+                table.Controls.Add(new Label { Text = deck.FormatName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(200, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 3, i + 1);
+                table.Controls.Add(new Label { Text = deck.OwnerName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(200, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 4, i + 1);
+                table.Controls.Add(new Label { Text = deck.ArchetypeName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(200, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 5, i + 1);
+                table.Controls.Add(new Label { Text = deck.ColorName, AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(200, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 6, i + 1);
+                table.Controls.Add(new Label { Text = deck.VersionName ?? "N/A", AutoSize = false, Font = dataFont, TextAlign = ContentAlignment.MiddleCenter, Size = new Size(200, 30), BorderStyle = BorderStyle.FixedSingle, Margin = new Padding(0) }, 7, i + 1); // Nova célula para VersionName
             }
 
             FlwDecksList.Controls.Add(table);
         }
+
         private void OpenDeckTab(DeckModel selectedDeck, int formatId)
         {
             // Verifica se a aba já existe
             TabPage existingTab = DecksControl.TabPages.Cast<TabPage>().FirstOrDefault(t => t.Text == selectedDeck.Name);
+
+            selectedDeck = DataService.GetDeckWithDetails(selectedDeck.Id);
 
             if (existingTab == null)
             {

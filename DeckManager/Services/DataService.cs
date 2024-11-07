@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using DeckManager.Models;
 using System.Security.AccessControl;
 using DeckManager.Enums;
+using System.Drawing;
 
 namespace DeckManager.Services
 {
@@ -448,8 +449,8 @@ namespace DeckManager.Services
                             }
                         }
 
-                        // Se o nome for único, insere o novo deck
-                        string insertDeckQuery = "INSERT INTO DecksTable (Name, FormatId) VALUES (@Name, @FormatId);";
+                        // Se o nome for único, insere o novo deck com LastVersion = 0
+                        string insertDeckQuery = "INSERT INTO DecksTable (Name, FormatId, LastVersion) VALUES (@Name, @FormatId, 0);";
                         using (var deckCommand = new SQLiteCommand(insertDeckQuery, connection))
                         {
                             deckCommand.Parameters.AddWithValue("@Name", deckName);
@@ -463,12 +464,13 @@ namespace DeckManager.Services
                         {
                             long newDeckId = (long)getIdCommand.ExecuteScalar();
 
-                            // Cria e retorna o DeckModel
+                            // Cria e retorna o DeckModel com LastVersion = 0
                             DeckModel newDeck = new DeckModel
                             {
                                 Id = (int)newDeckId,
                                 Name = deckName,
-                                Format = formatId
+                                Format = formatId,
+                                LastVersion = 0
                             };
 
                             transaction.Commit();
@@ -497,12 +499,15 @@ namespace DeckManager.Services
             {
                 connection.Open();
 
-                string selectQuery = "SELECT * FROM DecksTable;";
+                // Primeira consulta para obter os decks
+                string selectQuery = @"
+            SELECT DeckId, Name, FormatId, OwnerId, ArchetypeId, ColorId, LastVersion 
+            FROM DecksTable;";
 
                 using (var command = new SQLiteCommand(selectQuery, connection))
                 using (var reader = command.ExecuteReader())
                 {
-                    // Lê os dados da consulta
+                    // Lê os dados dos decks
                     while (reader.Read())
                     {
                         var deck = new DeckModel
@@ -513,8 +518,26 @@ namespace DeckManager.Services
                             Owner = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
                             Archetype = reader.IsDBNull(4) ? 0 : reader.GetInt32(4),
                             Colors = reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
+                            LastVersion = reader.IsDBNull(6) ? 0 : reader.GetInt32(6)
                         };
 
+                        // Busca o VersionName usando LastVersion do deck
+                        string versionNameQuery = @"
+                    SELECT VersionName 
+                    FROM DeckVersionTable 
+                    WHERE DeckId = @DeckId AND VersionId = @VersionId;";
+
+                        using (var versionCommand = new SQLiteCommand(versionNameQuery, connection))
+                        {
+                            versionCommand.Parameters.AddWithValue("@DeckId", deck.Id);
+                            versionCommand.Parameters.AddWithValue("@VersionId", deck.LastVersion);
+
+                            // Executa a consulta e atribui o VersionName ao deck
+                            var versionName = versionCommand.ExecuteScalar();
+                            deck.VersionName = versionName != null ? versionName.ToString() : "N/A"; // Define como "N/A" caso não exista
+                        }
+
+                        // Adiciona o deck à lista
                         decks.Add(deck);
                     }
                 }
@@ -531,7 +554,7 @@ namespace DeckManager.Services
                 connection.Open();
 
                 // Começa a construir a query
-                var selectQuery = "SELECT DeckId, Name, FormatId, OwnerId, ArchetypeId, ColorId FROM DecksTable WHERE 1=1";
+                var selectQuery = "SELECT DeckId, Name, FormatId, OwnerId, ArchetypeId, ColorId, LastVersion FROM DecksTable WHERE 1=1";
 
                 // Adiciona condições de filtragem com base nos parâmetros
                 if (formatId.HasValue)
@@ -540,20 +563,20 @@ namespace DeckManager.Services
                 }
                 if (ownerId.HasValue)
                 {
-                    selectQuery += " AND OwnerId = @OwnerId"; // Supondo que você tenha uma coluna Owner
+                    selectQuery += " AND OwnerId = @OwnerId";
                 }
                 if (archetypeId.HasValue)
                 {
-                    selectQuery += " AND ArchetypeId = @ArchetypeId"; // Supondo que você tenha uma coluna Archetype
+                    selectQuery += " AND ArchetypeId = @ArchetypeId";
                 }
                 if (colorId.HasValue)
                 {
-                    selectQuery += " AND ColorId = @ColorId"; // Supondo que você tenha uma coluna Colors
+                    selectQuery += " AND ColorId = @ColorId";
                 }
 
                 using (var command = new SQLiteCommand(selectQuery, connection))
                 {
-                    // Adiciona parâmetros apenas se eles forem diferentes de 0
+                    // Adiciona parâmetros apenas se eles forem fornecidos
                     if (formatId.HasValue)
                     {
                         command.Parameters.AddWithValue("@FormatId", formatId.Value);
@@ -584,6 +607,7 @@ namespace DeckManager.Services
                                 Owner = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
                                 Archetype = reader.IsDBNull(4) ? 0 : reader.GetInt32(4),
                                 Colors = reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
+                                LastVersion = reader.IsDBNull(6) ? 0 : reader.GetInt32(6)  // Correção no índice
                             };
 
                             decks.Add(deck);
@@ -830,7 +854,7 @@ namespace DeckManager.Services
 
             return deck;
         }
-        public static DeckModel GetDeckWithDetails(int deckId, int versionId)
+        public static DeckModel GetDeckWithDetails(int deckId)
         {
             DeckModel deck = null;
 
@@ -866,13 +890,29 @@ namespace DeckManager.Services
                 if (deck == null)
                     return null; // Retorna nulo se o deck não foi encontrado
 
+                // Recupera o VersionName da DeckVersionTable usando o DeckId e LastVersion
+                string versionQuery = @"SELECT VersionName FROM DeckVersionTable WHERE DeckId = @DeckId AND VersionId = @VersionId";
+                using (var versionCommand = new SQLiteCommand(versionQuery, connection))
+                {
+                    versionCommand.Parameters.AddWithValue("@DeckId", deck.Id);
+                    versionCommand.Parameters.AddWithValue("@VersionId", deck.LastVersion);
+
+                    using (var reader = versionCommand.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            deck.VersionName = reader.GetString(reader.GetOrdinal("VersionName"));
+                        }
+                    }
+                }
+
                 // Carrega a lista de funções
                 deck.FunctionsList = new List<string>();
                 string functionsQuery = @"
-            SELECT ItemName 
-            FROM RelationsTable 
-            WHERE DeckId = @DeckId AND VersionId = @VersionId AND ListType = 'Functions' 
-            ORDER BY Position";
+        SELECT ItemName 
+        FROM RelationsTable 
+        WHERE DeckId = @DeckId AND VersionId = @VersionId AND ListType = 'Functions' 
+        ORDER BY Position";
 
                 using (var functionCommand = new SQLiteCommand(functionsQuery, connection))
                 {
@@ -891,10 +931,10 @@ namespace DeckManager.Services
                 // Carrega a lista de cartas reais
                 deck.RealDeckList = new List<CardModel>();
                 string realDeckQuery = @"
-            SELECT ItemName 
-            FROM RelationsTable 
-            WHERE DeckId = @DeckId AND VersionId = @VersionId AND ListType = 'Real' 
-            ORDER BY Position";
+        SELECT ItemName 
+        FROM RelationsTable 
+        WHERE DeckId = @DeckId AND VersionId = @VersionId AND ListType = 'Real' 
+        ORDER BY Position";
 
                 using (var realCommand = new SQLiteCommand(realDeckQuery, connection))
                 {
@@ -913,10 +953,10 @@ namespace DeckManager.Services
                 // Carrega a lista de cartas ideais
                 deck.IdealDeckList = new List<CardModel>();
                 string idealDeckQuery = @"
-            SELECT ItemName 
-            FROM RelationsTable 
-            WHERE DeckId = @DeckId AND VersionId = @VersionId AND ListType = 'Ideal' 
-            ORDER BY Position";
+        SELECT ItemName 
+        FROM RelationsTable 
+        WHERE DeckId = @DeckId AND VersionId = @VersionId AND ListType = 'Ideal' 
+        ORDER BY Position";
 
                 using (var idealCommand = new SQLiteCommand(idealDeckQuery, connection))
                 {
@@ -935,7 +975,6 @@ namespace DeckManager.Services
 
             return deck;
         }
-
 
     }
 }
