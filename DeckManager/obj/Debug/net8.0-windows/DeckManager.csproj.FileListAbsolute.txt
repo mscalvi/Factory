@@ -45,3 +45,4 @@ C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\obj\Debug\net8.0-windows\Dec
 C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\obj\Debug\net8.0-windows\DeckManager.Views.SelArchetype.resources
 C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\obj\Debug\net8.0-windows\DeckManager.Views.SelColor.resources
 C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\obj\Debug\net8.0-windows\DeckManager.Views.SelOwner.resources
+C:\Users\Marcelo Scalvi\Desktop\Factory\DeckManager\obj\Debug\net8.0-windows\DeckManager.Views.NewVersion.resources

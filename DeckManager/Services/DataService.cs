@@ -598,49 +598,6 @@ namespace DeckManager.Services
 
 
         //Deck View
-        public static DeckModel GetDeckByName(string deckName)
-        {
-            DeckModel deck = null;
-
-            using (var connection = GetConnection())
-            {
-                connection.Open();
-
-                string query = @"SELECT * FROM DecksTable WHERE Name = @Name";
-
-                using (var command = new SQLiteCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Name", deckName);
-
-                    using (var reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            deck = new DeckModel
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("DeckId")),
-                                Name = reader.GetString(reader.GetOrdinal("Name"))
-                            };
-
-                            // Preenche outros campos, caso estejam presentes e não nulos
-                            if (!reader.IsDBNull(reader.GetOrdinal("FormatId")))
-                                deck.Format = reader.GetInt32(reader.GetOrdinal("FormatId"));
-
-                            if (!reader.IsDBNull(reader.GetOrdinal("OwnerId")))
-                                deck.Owner = reader.GetInt32(reader.GetOrdinal("OwnerId"));
-
-                            if (!reader.IsDBNull(reader.GetOrdinal("ArchetypeId")))
-                                deck.Archetype = reader.GetInt32(reader.GetOrdinal("ArchetypeId"));
-
-                            if (!reader.IsDBNull(reader.GetOrdinal("ColorId")))
-                                deck.Colors = reader.GetInt32(reader.GetOrdinal("ColorId"));
-                        }
-                    }
-                }
-            }
-
-            return deck;
-        }
         public static int SaveDeckVersion(DeckModel deck)
         {
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -665,13 +622,19 @@ namespace DeckManager.Services
                 // Query para inserir a nova versão do deck
                 string insertVersionQuery = @"
         INSERT INTO DeckVersionTable 
-        (DeckId, Name, FormatId, OwnerId, ArchetypeId, ColorId, SaveTime, DeckVersionNumber) 
-        VALUES (@DeckId, @Name, @FormatId, @OwnerId, @ArchetypeId, @ColorId, @SaveTime, @DeckVersionNumber);";
+        (DeckId, VersionName, FormatId, OwnerId, ArchetypeId, ColorId, SaveTime, DeckVersionNumber) 
+        VALUES (@DeckId, @VersionName, @FormatId, @OwnerId, @ArchetypeId, @ColorId, @SaveTime, @DeckVersionNumber);";
 
                 using (var command = new SQLiteCommand(insertVersionQuery, connection))
                 {
                     command.Parameters.AddWithValue("@DeckId", deck.Id);
-                    command.Parameters.AddWithValue("@Name", deck.Name);
+                    if (string.IsNullOrEmpty(deck.VersionName))
+                    {
+                        command.Parameters.AddWithValue("@VersionName", "Versão Inicial");
+                    } else
+                    {
+                        command.Parameters.AddWithValue("@VersionName", deck.VersionName);
+                    }
                     command.Parameters.AddWithValue("@FormatId", deck.Format);
                     command.Parameters.AddWithValue("@OwnerId", deck.Owner);
                     command.Parameters.AddWithValue("@ArchetypeId", deck.Archetype);
@@ -765,10 +728,10 @@ namespace DeckManager.Services
                 }
 
                 // Salvando a Deck List Real
-                if (deck.DeckListReal != null && deck.DeckListReal.Count > 0)
+                if (deck.RealDeckList != null && deck.RealDeckList.Count > 0)
                 {
                     int i = 0;
-                    foreach (var card in deck.DeckListReal)
+                    foreach (var card in deck.RealDeckList)
                     {
                         i++;
 
@@ -793,10 +756,10 @@ namespace DeckManager.Services
                 }
 
                 // Salvando a Deck List Ideal
-                if (deck.DeckListIdeal != null && deck.DeckListIdeal.Count > 0)
+                if (deck.IdealDeckList != null && deck.IdealDeckList.Count > 0)
                 {
                     int i = 0;
-                    foreach (var card in deck.DeckListIdeal)
+                    foreach (var card in deck.IdealDeckList)
                     {
                         i++;
 
@@ -821,5 +784,158 @@ namespace DeckManager.Services
                 }
             }
         }
+        public static DeckModel GetDeckByName(string deckName)
+        {
+            DeckModel deck = null;
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                string query = @"SELECT * FROM DecksTable WHERE Name = @Name";
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Name", deckName);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            deck = new DeckModel
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("DeckId")),
+                                Name = reader.GetString(reader.GetOrdinal("Name"))
+                            };
+
+                            // Preenche outros campos, caso estejam presentes e não nulos
+                            if (!reader.IsDBNull(reader.GetOrdinal("FormatId")))
+                                deck.Format = reader.GetInt32(reader.GetOrdinal("FormatId"));
+
+                            if (!reader.IsDBNull(reader.GetOrdinal("OwnerId")))
+                                deck.Owner = reader.GetInt32(reader.GetOrdinal("OwnerId"));
+
+                            if (!reader.IsDBNull(reader.GetOrdinal("ArchetypeId")))
+                                deck.Archetype = reader.GetInt32(reader.GetOrdinal("ArchetypeId"));
+
+                            if (!reader.IsDBNull(reader.GetOrdinal("ColorId")))
+                                deck.Colors = reader.GetInt32(reader.GetOrdinal("ColorId"));
+
+                            if (!reader.IsDBNull(reader.GetOrdinal("LastVersion")))
+                                deck.LastVersion = reader.GetInt32(reader.GetOrdinal("LastVersion"));
+                        }
+                    }
+                }
+            }
+
+            return deck;
+        }
+        public static DeckModel GetDeckWithDetails(int deckId, int versionId)
+        {
+            DeckModel deck = null;
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                // Primeiro, recupera as informações do deck a partir do DecksTable
+                string deckQuery = @"SELECT * FROM DecksTable WHERE DeckId = @DeckId";
+                using (var deckCommand = new SQLiteCommand(deckQuery, connection))
+                {
+                    deckCommand.Parameters.AddWithValue("@DeckId", deckId);
+
+                    using (var reader = deckCommand.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            deck = new DeckModel
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("DeckId")),
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                // Define os outros campos se existirem
+                                Format = !reader.IsDBNull(reader.GetOrdinal("FormatId")) ? reader.GetInt32(reader.GetOrdinal("FormatId")) : 0,
+                                Owner = !reader.IsDBNull(reader.GetOrdinal("OwnerId")) ? reader.GetInt32(reader.GetOrdinal("OwnerId")) : 0,
+                                Archetype = !reader.IsDBNull(reader.GetOrdinal("ArchetypeId")) ? reader.GetInt32(reader.GetOrdinal("ArchetypeId")) : 0,
+                                Colors = !reader.IsDBNull(reader.GetOrdinal("ColorId")) ? reader.GetInt32(reader.GetOrdinal("ColorId")) : 0,
+                                LastVersion = !reader.IsDBNull(reader.GetOrdinal("LastVersion")) ? reader.GetInt32(reader.GetOrdinal("LastVersion")) : 0
+                            };
+                        }
+                    }
+                }
+
+                if (deck == null)
+                    return null; // Retorna nulo se o deck não foi encontrado
+
+                // Carrega a lista de funções
+                deck.FunctionsList = new List<string>();
+                string functionsQuery = @"
+            SELECT ItemName 
+            FROM RelationsTable 
+            WHERE DeckId = @DeckId AND VersionId = @VersionId AND ListType = 'Functions' 
+            ORDER BY Position";
+
+                using (var functionCommand = new SQLiteCommand(functionsQuery, connection))
+                {
+                    functionCommand.Parameters.AddWithValue("@DeckId", deck.Id);
+                    functionCommand.Parameters.AddWithValue("@VersionId", deck.LastVersion);
+
+                    using (var reader = functionCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            deck.FunctionsList.Add(reader.GetString(0));
+                        }
+                    }
+                }
+
+                // Carrega a lista de cartas reais
+                deck.RealDeckList = new List<CardModel>();
+                string realDeckQuery = @"
+            SELECT ItemName 
+            FROM RelationsTable 
+            WHERE DeckId = @DeckId AND VersionId = @VersionId AND ListType = 'Real' 
+            ORDER BY Position";
+
+                using (var realCommand = new SQLiteCommand(realDeckQuery, connection))
+                {
+                    realCommand.Parameters.AddWithValue("@DeckId", deck.Id);
+                    realCommand.Parameters.AddWithValue("@VersionId", deck.LastVersion);
+
+                    using (var reader = realCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            deck.RealDeckList.Add(new CardModel { Name = reader.GetString(0) });
+                        }
+                    }
+                }
+
+                // Carrega a lista de cartas ideais
+                deck.IdealDeckList = new List<CardModel>();
+                string idealDeckQuery = @"
+            SELECT ItemName 
+            FROM RelationsTable 
+            WHERE DeckId = @DeckId AND VersionId = @VersionId AND ListType = 'Ideal' 
+            ORDER BY Position";
+
+                using (var idealCommand = new SQLiteCommand(idealDeckQuery, connection))
+                {
+                    idealCommand.Parameters.AddWithValue("@DeckId", deck.Id);
+                    idealCommand.Parameters.AddWithValue("@VersionId", deck.LastVersion);
+
+                    using (var reader = idealCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            deck.IdealDeckList.Add(new CardModel { Name = reader.GetString(0) });
+                        }
+                    }
+                }
+            }
+
+            return deck;
+        }
+
+
     }
 }

@@ -3,8 +3,12 @@ using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 public class DeckService
 {
+    private string copiedText = string.Empty;
+    private Label selectedLabel1 = null;
+    private Label selectedLabel2 = null;
+
     // Método para popular a tabela do deck com dados
-    public static void PopulateDeckTable(TableLayoutPanel deckTable, DeckModel deckData)
+    public void PopulateDeckTable(TableLayoutPanel deckTable, DeckModel deckData)
     {
         // Limpa os dados existentes para uma nova carga
         deckTable.Controls.Clear();
@@ -47,39 +51,46 @@ public class DeckService
 
     }
 
-    private static void AddFunctionsLines(TableLayoutPanel deckTable, DeckModel deckData)
+    private void AddFunctionsLines(TableLayoutPanel deckTable, DeckModel deckData)
     {
         for (int row = 1; row < deckTable.RowCount; row++)
         {
-            string functionText = row <= deckData.FunctionsList.Count ? deckData.FunctionsList[row - 1] : " ";
+            // Se houver uma função correspondente na lista, usa seu valor; caso contrário, deixa a célula vazia
+            string functionText = row <= deckData.FunctionsList.Count ? deckData.FunctionsList[row] : " ";
 
+            // Cria e configura o Label para exibir a função
             Label lblFunction = CreateLabel(functionText);
+            lblFunction.MouseDown += (sender, e) => Label_MouseDown(sender, e, deckTable);
             lblFunction.DoubleClick += (sender, e) => SwitchToTextBox(deckTable, lblFunction);
 
+            // Adiciona o Label à coluna de funções da tabela, na posição específica
             deckTable.Controls.Add(lblFunction, 1, row);
         }
     }
 
-    private static void AddRealDeckLines(TableLayoutPanel deckTable, DeckModel deckData)
+
+    private void AddRealDeckLines(TableLayoutPanel deckTable, DeckModel deckData)
     {
         for (int row = 1; row < deckTable.RowCount; row++)
         {
-            string cardName = row <= deckData.DeckListReal.Count ? deckData.DeckListReal[row - 1].Name : " ";
+            string cardName = row <= deckData.RealDeckList.Count ? deckData.RealDeckList[row - 1].Name : " ";
 
             Label lblRealCard = CreateLabel(cardName);
+            lblRealCard.MouseDown += (sender, e) => Label_MouseDown(sender, e, deckTable);
             lblRealCard.DoubleClick += (sender, e) => SwitchToTextBox(deckTable, lblRealCard);
 
             deckTable.Controls.Add(lblRealCard, 2, row);
         }
     }
 
-    private static void AddIdealDeckLines(TableLayoutPanel deckTable, DeckModel deckData)
+    private void AddIdealDeckLines(TableLayoutPanel deckTable, DeckModel deckData)
     {
         for (int row = 1; row < deckTable.RowCount; row++)
         {
-            string idealCardName = row <= deckData.DeckListIdeal.Count ? deckData.DeckListIdeal[row - 1].Name : " ";
+            string idealCardName = row <= deckData.IdealDeckList.Count ? deckData.IdealDeckList[row - 1].Name : " ";
 
             Label lblIdealCard = CreateLabel(idealCardName);
+            lblIdealCard.MouseDown += (sender, e) => Label_MouseDown(sender, e, deckTable);
             lblIdealCard.DoubleClick += (sender, e) => SwitchToTextBox(deckTable, lblIdealCard);
 
             deckTable.Controls.Add(lblIdealCard, 3, row);
@@ -99,14 +110,14 @@ public class DeckService
     }
 
     // Alterna o Label para TextBox quando clicado
-    private static void SwitchToTextBox(TableLayoutPanel table, Label lblEdit)
+    private void SwitchToTextBox(TableLayoutPanel deckTable, Label lblEdit)
     {
         bool isSwitched = false;
 
-        int col = table.GetColumn(lblEdit);
-        int row = table.GetRow(lblEdit);
+        int col = deckTable.GetColumn(lblEdit);
+        int row = deckTable.GetRow(lblEdit);
 
-        table.Controls.Remove(lblEdit);
+        deckTable.Controls.Remove(lblEdit);
 
         // Cria uma TextBox na mesma posição
         TextBox txtEdit = new TextBox
@@ -120,7 +131,7 @@ public class DeckService
             if (e.KeyCode == Keys.Enter && !isSwitched)
             {
                 isSwitched = true;
-                SwitchToLabel(table, txtEdit);
+                SwitchToLabel(deckTable, txtEdit);
             }
         };
 
@@ -129,31 +140,32 @@ public class DeckService
             if (!isSwitched)
             {
                 isSwitched = true;
-                SwitchToLabel(table, txtEdit);
+                SwitchToLabel(deckTable, txtEdit);
             }
         };
 
-        table.Controls.Add(txtEdit, col, row);
+        deckTable.Controls.Add(txtEdit, col, row);
         txtEdit.Focus();
     }
 
     // Alterna a TextBox de volta para Label após edição
-    private static void SwitchToLabel(TableLayoutPanel table, TextBox txtEdit)
+    private void SwitchToLabel(TableLayoutPanel deckTable, TextBox txtEdit)
     {
-        int col = table.GetColumn(txtEdit);
-        int row = table.GetRow(txtEdit);
+        int col = deckTable.GetColumn(txtEdit);
+        int row = deckTable.GetRow(txtEdit);
 
         // Remove a TextBox da célula
-        table.Controls.Remove(txtEdit);
+        deckTable.Controls.Remove(txtEdit);
 
         // Cria o Label atualizado com o novo valor da TextBox
         Label lblEdit = CreateLabel(txtEdit.Text);
-        lblEdit.DoubleClick += (sender, e) => SwitchToTextBox(table, lblEdit);
+        lblEdit.DoubleClick += (sender, e) => SwitchToTextBox(deckTable, lblEdit);
+        lblEdit.MouseDown += (sender, e) => Label_MouseDown(sender, e, deckTable);
 
         // Adiciona o novo Label de volta à célula
-        table.Controls.Add(lblEdit, col, row);
+        deckTable.Controls.Add(lblEdit, col, row);
 
-        CheckDeck(table);
+        CheckDeck(deckTable);
     }
 
     //Confere quais cartas do deck ideal já estão no real
@@ -193,4 +205,62 @@ public class DeckService
         }
     }
 
+    // Evento MouseDown: registra o início do arraste
+    private void Label_MouseDown(object sender, MouseEventArgs e, TableLayoutPanel deckTable)
+    {
+        if (e.Button == MouseButtons.Right)  
+        {
+            Label targetLabel = sender as Label;
+
+            if (targetLabel != null)
+            {
+                if (!string.IsNullOrWhiteSpace(targetLabel.Text) && !string.IsNullOrWhiteSpace(copiedText))
+                {
+                    targetLabel.Text = " ";
+                    copiedText = null;
+                    MessageBox.Show("Texto copiado limpo");
+                    return;
+                }
+
+                if (!string.IsNullOrWhiteSpace(targetLabel.Text) && string.IsNullOrEmpty(copiedText)) 
+                {
+                    copiedText = targetLabel.Text;
+                    MessageBox.Show("Texto copiado: " + copiedText);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(targetLabel.Text) && !string.IsNullOrWhiteSpace(copiedText))
+                {
+                    targetLabel.Text = copiedText;
+                    return;
+                }
+            }
+        }
+
+        if (e.Button == MouseButtons.Left)
+        {
+            Label targetLabel = sender as Label;
+
+            if (targetLabel != null)
+            {
+                if (selectedLabel1 != null)
+                {
+                    if (selectedLabel2 == null)
+                    {
+                        targetLabel.BackColor = Color.LightBlue;
+                        selectedLabel2 = targetLabel;
+                    } else
+                    {
+                        selectedLabel1.BackColor = Color.Transparent;
+                        selectedLabel1 = null;
+                        selectedLabel2.BackColor = Color.Transparent;
+                        selectedLabel2 = null;
+                    }
+                } else
+                {
+                    targetLabel.BackColor = Color.LightBlue;
+                    selectedLabel1 = targetLabel;
+                }
+            }
+        }
+    }
 }

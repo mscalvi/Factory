@@ -13,6 +13,7 @@ namespace DeckManager.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int LastVersion { get; set; }
+        public string VersionName { get; set; }
 
         //Questionáveis
         public int Ready { get; set; }
@@ -30,8 +31,8 @@ namespace DeckManager.Models
 
         //Listas
         public List<string> FunctionsList { get; set; } = new List<string>();
-        public List<CardModel> DeckListReal { get; set; } = new List<CardModel>();
-        public List<CardModel> DeckListIdeal { get; set; } = new List<CardModel>();
+        public List<CardModel> RealDeckList { get; set; } = new List<CardModel>();
+        public List<CardModel> IdealDeckList { get; set; } = new List<CardModel>();
         public List<CardModel> SideList { get; set; } = new List<CardModel>();
         public List<CardModel> MaybeList { get; set; } = new List<CardModel>();
         public List<CardModel> WishList { get; set; } = new List<CardModel>();

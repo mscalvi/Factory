@@ -11,16 +11,23 @@ public class TabService
 
     TableLayoutPanel tblDeckReal;
 
+    DeckService deckService = new DeckService();
+
     public TabService(DeckModel deck)
     {
         this.selectedDeck = deck;
         this.originalDeck = DataService.GetDeckByName(deck.Name); // Clona o deck original
+        this.originalDeck = DataService.GetDeckWithDetails(deck.Id, deck.LastVersion);
     }
 
-    public TabPage BuildDeckTab(DeckModel selectedDeck)
+    public TabPage BuildDeckTab(DeckModel originalDeck)
     {
+        this.originalDeck = DataService.GetDeckByName(originalDeck.Name); // Clona o deck original
+        this.originalDeck = DataService.GetDeckWithDetails(originalDeck.Id, originalDeck.LastVersion);
+        this.selectedDeck = originalDeck;
+
         // Cria a nova aba para o deck
-        TabPage newDeckTab = new TabPage(selectedDeck.Name)
+        TabPage newDeckTab = new TabPage(originalDeck.Name)
         {
             Location = new Point(4, 24),
             Padding = new Padding(3),
@@ -32,9 +39,9 @@ public class TabService
         pnlDeckModel.Controls.Add(CreateSaveButton());
         pnlDeckModel.Controls.Add(CreateDeckNameLabel());
         pnlDeckModel.Controls.Add(CreateCardViewPanel());
-        pnlDeckModel.Controls.Add(CreateDeckHelperPanel(selectedDeck));
-        pnlDeckModel.Controls.Add(CreateDeckVersionComboBox(selectedDeck));
-        pnlDeckModel.Controls.Add(CreateDeckRealPanel(selectedDeck));
+        pnlDeckModel.Controls.Add(CreateDeckHelperPanel(originalDeck));
+        pnlDeckModel.Controls.Add(CreateDeckVersionComboBox(originalDeck));
+        pnlDeckModel.Controls.Add(CreateDeckRealPanel(originalDeck));
 
         newDeckTab.Controls.Add(pnlDeckModel);
 
@@ -66,8 +73,8 @@ public class TabService
         {
             // Limpa as listas antes de preenchê-las novamente
             selectedDeck.FunctionsList.Clear();
-            selectedDeck.DeckListReal.Clear();
-            selectedDeck.DeckListIdeal.Clear();
+            selectedDeck.RealDeckList.Clear();
+            selectedDeck.IdealDeckList.Clear();
 
             // Itera por cada linha a partir da segunda, para ignorar os cabeçalhos
             for (int row = 1; row < tblDeckReal.RowCount; row++)
@@ -83,25 +90,54 @@ public class TabService
                 var realCardControl = tblDeckReal.GetControlFromPosition(2, row);
                 if (realCardControl is Label lblRealCard)
                 {
-                    selectedDeck.DeckListReal.Add(new CardModel { Name = lblRealCard.Text });
+                    selectedDeck.RealDeckList.Add(new CardModel { Name = lblRealCard.Text });
                 }
 
                 // Carta Ideal (coluna 3)
                 var idealCardControl = tblDeckReal.GetControlFromPosition(3, row);
                 if (idealCardControl is Label lblIdealCard)
                 {
-                    selectedDeck.DeckListIdeal.Add(new CardModel { Name = lblIdealCard.Text });
+                    selectedDeck.IdealDeckList.Add(new CardModel { Name = lblIdealCard.Text });
                 }
             }
 
-            bool hasChanges = CheckDeckChanges(originalDeck, selectedDeck);
+            // Verifica se houve mudanças
+            bool hasBasicChanges = CheckBasicChanges(originalDeck, selectedDeck);
 
-            if (hasChanges)
+            bool hasDeckChanges = CheckDeckChanges(originalDeck, selectedDeck);
+
+            // Se houver mudanças, pede ao usuário o nome da nova versão
+            if (hasBasicChanges || hasDeckChanges)
             {
-                selectedDeck.LastVersion = DataService.SaveDeckVersion(originalDeck);
-                DataService.UpdateDeck(selectedDeck);
-                DataService.SaveRelations(selectedDeck);
-                MessageBox.Show("Deck modificado!");
+                if (hasDeckChanges)
+                {
+                    // Exibe o formulário para o nome da nova versão
+                    NewVersion newVersionForm = new NewVersion(originalDeck);
+                    DialogResult result = newVersionForm.ShowDialog();
+
+                    // Verifica se o usuário forneceu um nome para a nova versão
+                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(newVersionForm.VersionName))
+                    {
+                        // Atualiza o nome da versão no deck
+                        originalDeck.VersionName = newVersionForm.VersionName;
+
+                        selectedDeck.LastVersion = DataService.SaveDeckVersion(originalDeck); // Salva a versão histórica
+
+                        // Atualiza as informações no banco
+                        DataService.UpdateDeck(selectedDeck);
+                        DataService.SaveRelations(selectedDeck);
+                        MessageBox.Show("Deck modificado, versão anterior salva!");
+                    }
+                } else
+                {
+                    DataService.UpdateDeck(selectedDeck);
+                    MessageBox.Show("Deck atualizado!");
+                }
+            }
+            else
+            {
+                // Caso não haja mudanças, informa o usuário
+                MessageBox.Show("Nenhuma alteração detectada. O deck não foi modificado.");
             }
 
             // Fecha a aba
@@ -111,7 +147,6 @@ public class TabService
         return btnSaveDeck;
     }
 
-
     private Label CreateDeckNameLabel()
     {
         return new Label
@@ -119,7 +154,7 @@ public class TabService
             Font = new Font("Segoe UI", 18F, FontStyle.Bold),
             Location = new Point(5, 6),
             Size = new Size(976, 43),
-            Text = selectedDeck.Name,
+            Text = originalDeck.Name,
             TextAlign = ContentAlignment.MiddleCenter
         };
     }
@@ -134,7 +169,7 @@ public class TabService
         };
     }
 
-    private Panel CreateDeckHelperPanel(DeckModel selectedDeck)
+    private Panel CreateDeckHelperPanel(DeckModel originalDeck)
     {
         Panel pnlDeckHelper = new Panel
         {
@@ -145,14 +180,14 @@ public class TabService
         };
 
         TabControl controlHelper = new TabControl { Dock = DockStyle.Fill, Name = "ControlHelper" };
-        controlHelper.TabPages.Add(CreateHelpListTab(selectedDeck));
-        controlHelper.TabPages.Add(CreateStatisticsTab(selectedDeck));
+        controlHelper.TabPages.Add(CreateHelpListTab(originalDeck));
+        controlHelper.TabPages.Add(CreateStatisticsTab(originalDeck));
 
         pnlDeckHelper.Controls.Add(controlHelper);
         return pnlDeckHelper;
     }
 
-    private TabPage CreateHelpListTab(DeckModel selectedDeck)
+    private TabPage CreateHelpListTab(DeckModel originalDeck)
     {
         TabPage helpList = new TabPage { Name = "HelpList", Text = "Help List", Padding = new Padding(3), Size = new Size(878, 456) };
 
@@ -188,7 +223,7 @@ public class TabService
         return helpList;
     }
 
-    private TabPage CreateStatisticsTab(DeckModel selectedDeck)
+    private TabPage CreateStatisticsTab(DeckModel originalDeck)
     {
         TabPage statistics = new TabPage
         {
@@ -296,7 +331,7 @@ public class TabService
         return statistics;
     }
 
-    private ComboBox CreateDeckVersionComboBox(DeckModel selectedDeck)
+    private ComboBox CreateDeckVersionComboBox(DeckModel originalDeck)
     {
         return new ComboBox
         {
@@ -307,7 +342,7 @@ public class TabService
         };
     }
 
-    private Panel CreateDeckRealPanel(DeckModel selectedDeck)
+    private Panel CreateDeckRealPanel(DeckModel originalDeck)
     {
         Panel pnlDeckReal = new Panel
         {
@@ -358,8 +393,7 @@ public class TabService
             }
         };
 
-        DeckModel deckData = DataService.GetDeckByName(selectedDeck.Name);
-        DeckService.PopulateDeckTable(tblDeckReal, deckData);
+        deckService.PopulateDeckTable(tblDeckReal, originalDeck);
         pnlDeckReal.Controls.Add(tblDeckReal);
         return pnlDeckReal;
     }
@@ -371,42 +405,54 @@ public class TabService
         tabControl?.TabPages.Remove(currentTab);
     }
 
-    private static bool CheckDeckChanges(DeckModel original, DeckModel current)
+    private static bool CheckBasicChanges(DeckModel original, DeckModel selected)
     {
         // Verifica mudanças simples nas propriedades de texto e numéricas
-        if (original.Name != current.Name ||
-            original.Format != current.Format ||
-            original.Owner != current.Owner ||
-            original.Archetype != current.Archetype ||
-            original.Colors != current.Colors)
+        if (original.Name != selected.Name ||
+            original.Format != selected.Format ||
+            original.Owner != selected.Owner ||
+            original.Archetype != selected.Archetype ||
+            original.Colors != selected.Colors)
         {
             return true;
         }
-
-        // Verifica se houve mudanças na lista de Funções
-        if (!Enumerable.SequenceEqual(original.FunctionsList, current.FunctionsList))
-        {
-            return true;
-        }
-
-        // Verifica se houve mudanças na lista de cartas reais
-        if (original.DeckListReal.Count != current.DeckListReal.Count ||
-            !original.DeckListReal.Select(card => card.Name)
-                .SequenceEqual(current.DeckListReal.Select(card => card.Name)))
-        {
-            return true;
-        }
-
-        // Verifica se houve mudanças na lista de cartas ideais
-        if (original.DeckListIdeal.Count != current.DeckListIdeal.Count ||
-            !original.DeckListIdeal.Select(card => card.Name)
-                .SequenceEqual(current.DeckListIdeal.Select(card => card.Name)))
-        {
-            return true;
-        }
-
-        // Se nenhuma das condições de mudança foi atendida, as listas são consideradas iguais
         return false;
     }
+
+    private static bool CheckDeckChanges(DeckModel original, DeckModel selected)
+    {
+        // Obtém as listas atualizadas do banco de dados para a comparação
+        var originalFunctionsList = original.FunctionsList;
+        var currentFunctionsList = selected.FunctionsList;
+
+        var originalDeckListReal = original.RealDeckList;
+        var currentDeckListReal = selected.RealDeckList;
+
+        var originalDeckListIdeal = original.IdealDeckList;
+        var currentDeckListIdeal = selected.IdealDeckList;
+
+        // Compara as listas (Functions)
+        if (!originalFunctionsList.SequenceEqual(currentFunctionsList))
+        {
+            return true;
+        }
+
+        // Compara as listas (Deck Real)
+        if (!originalDeckListReal.SequenceEqual(currentDeckListReal))
+        {
+            return true;
+        }
+
+        // Compara as listas (Deck Ideal)
+        if (!originalDeckListIdeal.SequenceEqual(currentDeckListIdeal))
+        {
+            return true;
+        }
+
+        // Se nenhuma mudança for detectada, retorna falso
+        return false;
+    }
+
+
 
 }
