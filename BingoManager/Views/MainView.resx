@@ -147,4 +147,7 @@
 
 2- O Modo Completo fornece tudo o que o Modo Manual possui, mas ao invés de um botão por Elemento existe apenas um botão, o Sortear!, que irá sortear um Elemento para você, fazendo com que não seja necessários equipamentos físicos para jogar. Pode confiar, é sorteio mesmo!</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

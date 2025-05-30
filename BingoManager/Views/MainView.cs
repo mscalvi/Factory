@@ -17,11 +17,19 @@ namespace BingoManager
         private LogoView logoDisplayForm;
         private readonly string appDataPath;
         private readonly string imageFolderPath;
-
+        private System.Windows.Forms.ToolTip _toolTip;
 
         public MainView()
         {
             InitializeComponent();
+
+            _toolTip = new System.Windows.Forms.ToolTip
+            {
+                AutoPopDelay = 5000,  // quanto tempo o balão fica visível
+                InitialDelay = 500,   // antes do primeiro aparecimento
+                ReshowDelay = 100,   // antes de reaparecer
+                ShowAlways = true   // mesmo sem foco
+            };
 
             DataService.InitializeDatabase();
 
@@ -58,7 +66,7 @@ namespace BingoManager
             list.Description = BoxCreateListDescription.Text.Trim();
 
             // Definindo limites de caracteres
-            int maxNameLength = 40;
+            int maxNameLength = 50;
             int maxDescriptionLength = 250;
 
             // Verifica se o nome e a descrição não estão vazios e se estão dentro dos limites
@@ -203,8 +211,8 @@ namespace BingoManager
             company.Email = BoxCreateCompanyEmail.Text.Trim();
 
             // Definindo limites de caracteres
-            int maxNameLength = 40;
-            int maxCardNameLength = 30;
+            int maxNameLength = 60;
+            int maxCardNameLength = 45;
             int maxContactLength = 250;
 
             // Validação dos campos
@@ -228,13 +236,13 @@ namespace BingoManager
 
             if (company.Phone.Length > maxContactLength)
             {
-                LblCreateCompanyMessage.Text = $"O telefone deve ter no máximo {maxContactLength} caracteres.";
+                LblCreateCompanyMessage.Text = $"A anotação 1 deve ter no máximo {maxContactLength} caracteres.";
                 return;
             }
 
             if (company.Email.Length > maxContactLength)
             {
-                LblCreateCompanyMessage.Text = $"O email deve ter no máximo {maxContactLength} caracteres.";
+                LblCreateCompanyMessage.Text = $"A anotação 2 deve ter no máximo {maxContactLength} caracteres.";
                 return;
             }
 
@@ -1584,7 +1592,8 @@ namespace BingoManager
 
                     if (gameData != null)
                     {
-                        DisplayGamePanels(gameData);
+                        DisplayGamePanels(gameData); 
+                        BtnPlayAnSelection.Enabled = false;
                         CboPlayAnSelection.Enabled = false;
                         BtnRestartAn.Enabled = true;
                     }
@@ -1613,6 +1622,7 @@ namespace BingoManager
                     if (gameData != null)
                     {
                         DisplayGamePanelsDi(gameData);
+                        BtnPlayDiSelection.Enabled = false;
                         CboPlayDiSelection.Enabled = false;
                         BtnRestartDigital.Enabled = true;
                     }
@@ -1656,6 +1666,11 @@ namespace BingoManager
                     Height = buttonSize,
                     TextAlign = ContentAlignment.MiddleCenter
                 };
+
+                // Define o tooltip para o nome da empresa:
+                var companyModel = (CompanyModel)companyButton.Tag;
+                toolTip1.SetToolTip(companyButton, companyModel.Name);
+
                 Number++;
                 companyButton.Click += CompanyButton_Click;
                 FlwPlayAnB.Controls.Add(companyButton);
@@ -1672,6 +1687,10 @@ namespace BingoManager
                     Height = buttonSize,
                     TextAlign = ContentAlignment.MiddleCenter
                 };
+
+                // Define o tooltip para o nome da empresa:
+                var companyModel = (CompanyModel)companyButton.Tag;
+                toolTip1.SetToolTip(companyButton, companyModel.Name);
                 Number++;
                 companyButton.Click += CompanyButton_Click;
                 FlwPlayAnI.Controls.Add(companyButton);
@@ -1688,6 +1707,10 @@ namespace BingoManager
                     Height = buttonSize,
                     TextAlign = ContentAlignment.MiddleCenter
                 };
+
+                // Define o tooltip para o nome da empresa:
+                var companyModel = (CompanyModel)companyButton.Tag;
+                toolTip1.SetToolTip(companyButton, companyModel.Name);
                 Number++;
                 companyButton.Click += CompanyButton_Click;
                 FlwPlayAnN.Controls.Add(companyButton);
@@ -1704,6 +1727,10 @@ namespace BingoManager
                     Height = buttonSize,
                     TextAlign = ContentAlignment.MiddleCenter
                 };
+
+                // Define o tooltip para o nome da empresa:
+                var companyModel = (CompanyModel)companyButton.Tag;
+                toolTip1.SetToolTip(companyButton, companyModel.Name);
                 Number++;
                 companyButton.Click += CompanyButton_Click;
                 FlwPlayAnG.Controls.Add(companyButton);
@@ -1720,6 +1747,10 @@ namespace BingoManager
                     Height = buttonSize,
                     TextAlign = ContentAlignment.MiddleCenter
                 };
+
+                // Define o tooltip para o nome da empresa:
+                var companyModel = (CompanyModel)companyButton.Tag;
+                toolTip1.SetToolTip(companyButton, companyModel.Name);
                 Number++;
                 companyButton.Click += CompanyButton_Click;
                 FlwPlayAnO.Controls.Add(companyButton);
@@ -1760,6 +1791,10 @@ namespace BingoManager
                     BackColor = Color.White, // Cor de fundo branca
                     ForeColor = Color.Black  // Cor do texto
                 };
+
+                // Define o tooltip para o nome da empresa:
+                var companyModel = (CompanyModel)companyLabel.Tag;
+                toolTip1.SetToolTip(companyLabel, companyModel.Name);
                 Number++;
                 FlwPlayDiB.Controls.Add(companyLabel);
             }
@@ -1778,6 +1813,10 @@ namespace BingoManager
                     BackColor = Color.White,
                     ForeColor = Color.Black
                 };
+
+                // Define o tooltip para o nome da empresa:
+                var companyModel = (CompanyModel)companyLabel.Tag;
+                toolTip1.SetToolTip(companyLabel, companyModel.Name);
                 Number++;
                 FlwPlayDiI.Controls.Add(companyLabel);
             }
@@ -1796,6 +1835,10 @@ namespace BingoManager
                     BackColor = Color.White,
                     ForeColor = Color.Black
                 };
+
+                // Define o tooltip para o nome da empresa:
+                var companyModel = (CompanyModel)companyLabel.Tag;
+                toolTip1.SetToolTip(companyLabel, companyModel.Name);
                 Number++;
                 FlwPlayDiN.Controls.Add(companyLabel);
             }
@@ -1814,6 +1857,10 @@ namespace BingoManager
                     BackColor = Color.White,
                     ForeColor = Color.Black
                 };
+
+                // Define o tooltip para o nome da empresa:
+                var companyModel = (CompanyModel)companyLabel.Tag;
+                toolTip1.SetToolTip(companyLabel, companyModel.Name);
                 Number++;
                 FlwPlayDiG.Controls.Add(companyLabel);
             }
@@ -1832,6 +1879,10 @@ namespace BingoManager
                     BackColor = Color.White,
                     ForeColor = Color.Black
                 };
+
+                // Define o tooltip para o nome da empresa:
+                var companyModel = (CompanyModel)companyLabel.Tag;
+                toolTip1.SetToolTip(companyLabel, companyModel.Name);
                 Number++;
                 FlwPlayDiO.Controls.Add(companyLabel);
             }
@@ -1845,24 +1896,36 @@ namespace BingoManager
             int Width = 0;
             int Height = 0;
 
-            foreach (var panel in new[] { PnlPlayAnNumbersB, PnlPlayAnNumbersI, PnlPlayAnNumbersN, PnlPlayAnNumbersG, PnlPlayAnNumbersO, PnlPlayDiNumbersB, PnlPlayDiNumbersI, PnlPlayDiNumbersN, PnlPlayDiNumbersG, PnlPlayDiNumbersO })
-            {
-                Height += panel.Height;
-                panel.AutoSize = true;
-                panel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-                panel.Padding = new Padding(0);
-                panel.Margin = new Padding(0);
-                panel.Dock = DockStyle.None;
-            }
+            //foreach (var panel in new[] { PnlPlayAnNumbersB, PnlPlayAnNumbersI, PnlPlayAnNumbersN, PnlPlayAnNumbersG, PnlPlayAnNumbersO, PnlPlayDiNumbersB, PnlPlayDiNumbersI, PnlPlayDiNumbersN, PnlPlayDiNumbersG, PnlPlayDiNumbersO })
+            //{
+            //    Height += panel.Height;
+            //    panel.AutoSize = true;
+            //    panel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            //    panel.Padding = new Padding(0);
+            //    panel.Margin = new Padding(0);
+            //    panel.Dock = DockStyle.None;
+            //}
 
-            foreach (var flowPanel in new[] { FlwPlayAnB, FlwPlayAnI, FlwPlayAnN, FlwPlayAnG, FlwPlayAnO, FlwPlayDiB, FlwPlayDiI, FlwPlayDiN, FlwPlayDiG, FlwPlayDiO })
+            //foreach (var flowPanel in new[] { FlwPlayAnB, FlwPlayAnI, FlwPlayAnN, FlwPlayAnG, FlwPlayAnO, FlwPlayDiB, FlwPlayDiI, FlwPlayDiN, FlwPlayDiG, FlwPlayDiO })
+            //{
+            //    flowPanel.FlowDirection = FlowDirection.LeftToRight;
+            //    flowPanel.WrapContents = true;
+            //    flowPanel.AutoSize = false;        
+            //    flowPanel.AutoScroll = true;                
+            //    flowPanel.Dock = DockStyle.Fill;
+            //    flowPanel.Padding = new Padding(10);
+            //    flowPanel.Margin = new Padding(0);
+            //}
+
+            foreach (var flow in new[] { FlwPlayAnB, FlwPlayAnI, FlwPlayAnN, FlwPlayAnG, FlwPlayAnO, FlwPlayDiB,FlwPlayDiI,FlwPlayDiN,FlwPlayDiG,FlwPlayDiO })
             {
-                flowPanel.FlowDirection = FlowDirection.LeftToRight;
-                flowPanel.WrapContents = true;
-                flowPanel.AutoSize = true;
-                flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-                flowPanel.Padding = new Padding(10);
-                flowPanel.Margin = new Padding(0);
+                flow.FlowDirection = FlowDirection.LeftToRight;
+                flow.WrapContents = true;
+                flow.AutoSize = false;
+                flow.AutoScroll = true;
+                flow.Dock = DockStyle.Fill;
+                flow.Padding = new Padding(5);
+                flow.Margin = new Padding(0);
             }
         }
 
@@ -1876,6 +1939,8 @@ namespace BingoManager
 
             if (clickedButton != null && clickedButton.Tag is CompanyModel selectedCompany)
             {
+                string numero = clickedButton.Text;
+
                 // Configura o caminho na AppData
                 string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 string imageFolderPath = Path.Combine(appDataPath, "BingoManager", "Images");
@@ -1931,26 +1996,43 @@ namespace BingoManager
 
                 // Atualiza o logo na tela principal
                 PicPlayAnLogo.Image = logoImage;
-                LblPlayAnName.Text = selectedCompany.Name;
+                LblPlayAnName.Text = numero + " - " + selectedCompany.Name;
 
-                List<int> winningCards = new List<int>();
+                //List<int> winningCards = new List<int>();
 
-                // Verifica as cartelas que possuem a empresa sorteada
+                //// Verifica as cartelas que possuem a empresa sorteada
+                //List<int> cardNumbers = PlayService.CheckCards(selectedCompany.Id, setId);
+                //string cardNumbersText = string.Join(", ", cardNumbers);
+                //LblPlayAnMsg.Text = string.IsNullOrEmpty(cardNumbersText) ? "Nenhuma cartela sorteada." : cardNumbersText;
+
+                //// Se houver cartelas sorteadas, verifica se há vencedoras
+                //if (!string.IsNullOrEmpty(cardNumbersText))
+                //{
+                //    winningCards = PlayService.CheckBingo(cardNumbers, setId, bingoPhase, selectedCompany.Id);
+                //    if (winningCards.Count > 0)
+                //    {
+                //        string winningCardsText = string.Join(", ", winningCards);
+                //        LblPlayAnMsg.Text += string.IsNullOrEmpty(LblPlayAnMsg.Text) ? "" : "\n\n";
+                //        LblPlayAnMsg.Text += $"Cartelas vencedoras: {winningCardsText}";
+                //    }
+                //}
+
+                // buscar cartelas - não faz nada com elas agora
                 List<int> cardNumbers = PlayService.CheckCards(selectedCompany.Id, setId);
-                string cardNumbersText = string.Join(", ", cardNumbers);
-                LblPlayAnMsg.Text = string.IsNullOrEmpty(cardNumbersText) ? "Nenhuma cartela sorteada." : cardNumbersText;
 
-                // Se houver cartelas sorteadas, verifica se há vencedoras
-                if (!string.IsNullOrEmpty(cardNumbersText))
+                // verificar bingo
+                List<int> winningCards = PlayService.CheckBingo(cardNumbers, setId, bingoPhase, selectedCompany.Id);
+                if (winningCards.Count > 0)
                 {
-                    winningCards = PlayService.CheckBingo(cardNumbers, setId, bingoPhase, selectedCompany.Id);
-                    if (winningCards.Count > 0)
-                    {
-                        string winningCardsText = string.Join(", ", winningCards);
-                        LblPlayAnMsg.Text += string.IsNullOrEmpty(LblPlayAnMsg.Text) ? "" : "\n\n";
-                        LblPlayAnMsg.Text += $"Cartelas vencedoras: {winningCardsText}";
-                    }
+                    string winningCardsText = string.Join(", ", winningCards);
+                    LblPlayAnMsg.Text = $"BINGO! Cartelas vencedoras: {winningCardsText}";
                 }
+                else
+                {
+                    // opcional: pode deixar em branco ou avisar que ainda não houve bingo
+                    LblPlayAnMsg.Text = "Sem bingo!";
+                }
+
             }
         }
 
@@ -1958,6 +2040,9 @@ namespace BingoManager
         //Método para reinicar o jogo
         private void ResetGame()
         {
+            BtnPlayAnSelection.Enabled = true;
+            BtnPlayDiSelection.Enabled = true;
+
             PicPlayAnLogo.Image = null;
             LblPlayAnName.Text = string.Empty;
             LblPlayAnMsg.Text = string.Empty;
@@ -2048,40 +2133,24 @@ namespace BingoManager
                 // Adiciona a empresa à lista de sorteadas no PlayService
                 PlayService.AddCompany(selectedCompany.Id);
 
-                // Busca o logo da empresa, lista ou padrão
-                string logoPath = Path.Combine(Application.StartupPath, "Images", selectedCompany.Logo);
-                Image logoImage = null;
+                // dentro de BtnPlayDiRandom_Click, após PlayService.AddCompany(...)
+                Image logoImage = DataService.LoadImageFromFile(selectedCompany.Logo);
 
-                // Atualiza o logo e nome da empresa sorteada na interface do modo digital
-                if (File.Exists(logoPath))
+                // Se não encontrar na empresa, tenta a lista
+                if (logoImage == null)
                 {
-                    // Logo da empresa encontrado
-                    logoImage = Image.FromFile(logoPath);
-                }
-                else
-                {
-                    // Se não houver logo da empresa, tenta buscar o logo da lista associada
-                    var listData = DataService.GetListByCompanyIdFromCards(selectedCompany.Id, setId);  // Inclui setId aqui
+                    var listData = DataService.GetListByCompanyIdFromCards(selectedCompany.Id, setId);
                     if (listData != null)
-                    {
-                        string listLogoPath = Path.Combine(Application.StartupPath, "Images", listData["Logo"].ToString());
-                        if (File.Exists(listLogoPath))
-                        {
-                            // Logo da lista encontrado
-                            logoImage = Image.FromFile(listLogoPath);
-                        }
-                        else
-                        {
-                            // Logo da lista não encontrado, usar logo padrão
-                            logoImage = Image.FromFile(@"Images/default_logo.jpg");
-                        }
-                    }
-                    else
-                    {
-                        // Nenhuma lista associada ou logo, usar logo padrão
-                        logoImage = Image.FromFile(@"Images/default_logo.jpg");
-                    }
+                        logoImage = DataService.LoadImageFromFile(listData["Logo"].ToString());
                 }
+
+                // Se ainda não encontrou, usa a default
+                if (logoImage == null)
+                    logoImage = DataService.LoadImageFromFile("default_logo.jpg");
+
+                // Atualiza o logo e nome
+                PicPlayDiLogo.Image = logoImage;
+                LblPlayDiName.Text = selectedCompany.Name;
 
                 // Atualiza o logo e nome da empresa sorteada na interface do modo digital
                 PicPlayDiLogo.Image = logoImage;

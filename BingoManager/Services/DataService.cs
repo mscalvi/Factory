@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using System;
 using System.Data;
@@ -16,35 +17,62 @@ namespace BingoManager.Services
         private static readonly string _connectionString;
 
         // Construtor que define a string de conexão com o banco de dados
+
+        //static DataService()
+        //{
+        //    try
+        //    {
+        //        // Obtém o caminho da pasta AppData do usuário e cria uma subpasta para seu app
+        //        string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        //        string databaseFolder = Path.Combine(appDataPath, "BingoManager", "Database");
+
+        //        // Se a pasta não existir, ela será criada
+        //        if (!Directory.Exists(databaseFolder))
+        //        {
+        //            Directory.CreateDirectory(databaseFolder);
+        //        }
+
+        //        // Define o caminho completo para o banco de dados
+        //        string databasePath = Path.Combine(databaseFolder, "CustomBingoDB.db");
+
+        //        // Inicializa a string de conexão com o caminho do banco de dados
+        //        _connectionString = $"Data Source={databasePath};Version=3;";
+
+        //        // Verifica se o banco de dados já existe
+        //        if (!File.Exists(databasePath))
+        //        {
+        //            InitializeDatabase(); // Cria o banco de dados apenas se não existir
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Trate qualquer erro que possa ocorrer durante a criação da pasta ou definição do caminho
+        //        Console.WriteLine($"Erro ao inicializar o banco de dados: {ex.Message}");
+        //        throw;
+        //    }
+        //}
+
         static DataService()
         {
             try
             {
-                // Obtém o caminho da pasta AppData do usuário e cria uma subpasta para seu app
-                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                // 1. Pasta em AppData\Local\BingoManager\Database
+                string appDataPath = Environment.GetFolderPath(
+                                            Environment.SpecialFolder.LocalApplicationData);
                 string databaseFolder = Path.Combine(appDataPath, "BingoManager", "Database");
 
-                // Se a pasta não existir, ela será criada
-                if (!Directory.Exists(databaseFolder))
-                {
-                    Directory.CreateDirectory(databaseFolder);
-                }
+                // 2. Garante criação da pasta (não lança se já existir)
+                Directory.CreateDirectory(databaseFolder);
 
-                // Define o caminho completo para o banco de dados
+                // 3. Monta o databasePath e a connection-string
                 string databasePath = Path.Combine(databaseFolder, "CustomBingoDB.db");
-
-                // Inicializa a string de conexão com o caminho do banco de dados
                 _connectionString = $"Data Source={databasePath};Version=3;";
 
-                // Verifica se o banco de dados já existe
-                if (!File.Exists(databasePath))
-                {
-                    InitializeDatabase(); // Cria o banco de dados apenas se não existir
-                }
+                // 4. Cria as tabelas (se o arquivo não existir, ele será criado aqui)
+                InitializeDatabase();
             }
             catch (Exception ex)
             {
-                // Trate qualquer erro que possa ocorrer durante a criação da pasta ou definição do caminho
                 Console.WriteLine($"Erro ao inicializar o banco de dados: {ex.Message}");
                 throw;
             }

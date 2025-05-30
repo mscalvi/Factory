@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BingoManager", "BingoManager.csproj", "{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "BingoSetup", "BingoSetup\BingoSetup.vdproj", "{D1CC1E3C-97A9-4C83-B7C1-1CA5401D1089}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "BingoSetup", "BingoSetup\BingoSetup.vdproj", "{2F46C937-83E3-451C-8218-EA81A7C8DF3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D1CC1E3C-97A9-4C83-B7C1-1CA5401D1089}.Debug|Any CPU.ActiveCfg = Debug
-		{D1CC1E3C-97A9-4C83-B7C1-1CA5401D1089}.Release|Any CPU.ActiveCfg = Release
+		{2F46C937-83E3-451C-8218-EA81A7C8DF3F}.Debug|Any CPU.ActiveCfg = Debug
+		{2F46C937-83E3-451C-8218-EA81A7C8DF3F}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

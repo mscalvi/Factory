@@ -76,7 +76,7 @@ namespace BingoManager.Services
             iTextSharp.text.Font headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 15, iTextSharp.text.Font.BOLD);
             iTextSharp.text.Font footerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
             iTextSharp.text.Font numberFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
-            iTextSharp.text.Font compFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10, iTextSharp.text.Font.ITALIC);
+            iTextSharp.text.Font compFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
 
             // Adiciona o título
             PdfPCell titleCell = new PdfPCell(new Phrase(titleCard, titleFont));
@@ -118,7 +118,7 @@ namespace BingoManager.Services
                     if (columns[j].Count > i)
                     {
                         var company = columns[j][i];
-                        PdfPCell companyCell = new PdfPCell(new Phrase($"{company["Name"]} (ID: {company["Id"]})", compFont));
+                        PdfPCell companyCell = new PdfPCell(new Phrase($"{company["Name"]}", compFont));
                         companyCell.HorizontalAlignment = Element.ALIGN_CENTER;
                         companyCell.VerticalAlignment = Element.ALIGN_MIDDLE;
                         companyCell.BorderWidth = 1f;
@@ -127,7 +127,7 @@ namespace BingoManager.Services
                     }
                     else
                     {
-                        PdfPCell emptyCell = new PdfPCell(new Phrase("???")); // Célula vazia (???) se não houver empresa
+                        PdfPCell emptyCell = new PdfPCell(new Phrase("ERRO")); // Célula vazia (???) se não houver empresa
                         emptyCell.FixedHeight = 40;
                         card.AddCell(emptyCell);
                     }

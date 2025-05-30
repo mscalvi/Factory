@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
             MainPage = new TabControl();
             TabMainPage = new TabPage();
@@ -221,6 +222,7 @@
             BtnPlayAnSelection = new Button();
             BtnReturnPlayAnalog = new Button();
             label23 = new Label();
+            toolTip1 = new ToolTip(components);
             MainPage.SuspendLayout();
             TabMainPage.SuspendLayout();
             TabCreatePage.SuspendLayout();
@@ -2052,6 +2054,7 @@
             // 
             // FlwPlayDiB
             // 
+            FlwPlayDiB.AutoScroll = true;
             FlwPlayDiB.BackColor = Color.Transparent;
             FlwPlayDiB.Dock = DockStyle.Fill;
             FlwPlayDiB.Location = new Point(0, 0);
@@ -2704,5 +2707,6 @@
         private Button BtnPlayAnalog;
         private Label label38;
         private ComboBox CboVisu;
+        private ToolTip toolTip1;
     }
 }
