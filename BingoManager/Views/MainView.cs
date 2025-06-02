@@ -6,6 +6,7 @@ using System.Data;
 using System.Xml.Linq;
 using Microsoft.Win32;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BingoManager
 {
@@ -31,10 +32,6 @@ namespace BingoManager
                 ShowAlways = true   // mesmo sem foco
             };
 
-            DataService.InitializeDatabase();
-
-            HideTabControlTabs();
-
             toolTip = new ToolTip
             {
                 AutoPopDelay = 0,
@@ -49,11 +46,7 @@ namespace BingoManager
             // Subscrição ao evento para detectar mudanças nos monitores
             SystemEvents.DisplaySettingsChanged += new EventHandler(SystemEvents_DisplaySettingsChanged);
 
-            LoadLists();
-            LoadComps();
-            EditListConfigureLayout();
-            LoadAllComp();
-            LoadGames();
+            LoadGame();
         }
 
         //Método para mostrar Segunda Tela
@@ -116,87 +109,36 @@ namespace BingoManager
         //Método para carregar todos os jogos para Jogar
         private void LoadGame()
         {
-            DataTable gamesTable = DataService.GetGameInfo();
+            btnRandom.Enabled = false;
+            btnReset.Enabled = false;
+            btnBingo.Enabled = false;
 
-            CboPlayAnSelection.Items.Clear();
+            int setId = 0; // único CardSet no banco tem ID = 0
+            GameModel game = DataService.GetGameInfo(setId);
 
-            foreach (DataRow row in gamesTable.Rows)
+            if (game == null)
             {
-                string cardName = row["Name"].ToString();
-                int cardId = Convert.ToInt32(row["SetId"]);
-
-                CboPlayAnSelection.Items.Add(new { Text = cardName, Value = cardId });
+                MessageBox.Show(
+                    "Nenhum jogo encontrado para o CardSet ID = 0.\n" +
+                    "Verifique se o arquivo de banco de dados contém exatamente um CardSet com SetId=0.",
+                    "Erro ao carregar jogo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
             }
 
-            CboPlayAnSelection.DisplayMember = "Text";
-            CboPlayAnSelection.ValueMember = "Value";
-        }
+            string gameName = game.GameName;
+            lblGameName.Text = gameName;
 
-        // Método para começar o jogo
-        private void btnStart_click(object sender, EventArgs e)
-        {
-            PlayService.ResetGame();
+            string cardsTotal = game.GameTotal.ToString();
+            lblCardsQnt.Text = cardsTotal + "cartelas";
 
-            if (PlayPage.SelectedTab == TabPlayAnalog)
-            {
-                if (CboPlayAnSelection.SelectedItem != null)
-                {
-                    var selectedGame = CboPlayAnSelection.SelectedItem as dynamic;
-
-                    int selectedGameId = selectedGame.Value;
-
-                    var gameData = DataService.GetGameCompanies(selectedGameId);
-
-                    if (gameData != null)
-                    {
-                        DisplayGamePanels(gameData);
-                        BtnPlayAnSelection.Enabled = false;
-                        CboPlayAnSelection.Enabled = false;
-                        BtnRestartAn.Enabled = true;
-                    }
-                    else
-                    {
-                        lblResults.Text = "Erro ao carregar os dados do jogo selecionado.";
-                    }
-                }
-                else
-                {
-                    lblResults.Text = "Por favor, selecione um jogo.";
-                }
-            }
-            else if (PlayPage.SelectedTab == TabPlayDigital)
-            {
-                if (CboPlayDiSelection.SelectedItem != null)
-                {
-                    BtnPlayDiRandom.Enabled = true;
-
-                    var selectedGame = CboPlayDiSelection.SelectedItem as dynamic;
-
-                    int selectedGameId = selectedGame.Value;
-
-                    var gameData = DataService.GetGameCompanies(selectedGameId);
-
-                    if (gameData != null)
-                    {
-                        DisplayGamePanelsDi(gameData);
-                        BtnPlayDiSelection.Enabled = false;
-                        CboPlayDiSelection.Enabled = false;
-                        BtnRestartDigital.Enabled = true;
-                    }
-                    else
-                    {
-                        LblPlayDiMsg.Text = "Erro ao carregar os dados do jogo selecionado.";
-                    }
-                }
-                else
-                {
-                    LblPlayDiMsg.Text = "Por favor, selecione um jogo.";
-                }
-            }
+            DisplayGamePanels(game);
         }
 
         // Método para mostrar as Elementos durante o jogo
-        private void DisplayGamePanels(GameData gameData)
+        private void DisplayGamePanels(GameModel game)
         {
             int buttonSize = 35;
             int panelWidth = flwPlayB.Width;
@@ -213,107 +155,132 @@ namespace BingoManager
             SetupFlowPanels();
 
             // Adicionar botões ao grupo B
-            foreach (var company in gameData.GroupB)
+            foreach (var element in game.BElements)
             {
-                Button companyButton = new Button
+                Button elementButton = new Button
                 {
                     Text = Number.ToString(),
-                    Tag = company,
+                    Tag = new
+                    {
+                        Element = element,
+                        Column = "B"
+                    },
                     Width = buttonSize,
                     Height = buttonSize,
-                    TextAlign = ContentAlignment.MiddleCenter
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Enabled = false
                 };
 
                 // Define o tooltip para o nome da empresa:
-                var companyModel = (ElementModel)companyButton.Tag;
-                toolTip1.SetToolTip(companyButton, companyModel.Name);
+                var elementModel = (ElementModel)elementButton.Tag;
+                toolTip1.SetToolTip(elementButton, elementModel.CardName);
 
                 Number++;
-                companyButton.Click += CompanyButton_Click;
-                flwPlayB.Controls.Add(companyButton);
+                elementButton.Click += elementButton_Click;
+                flwPlayB.Controls.Add(elementButton);
             }
 
             // Adicionar botões ao grupo I
-            foreach (var company in gameData.GroupI)
+            foreach (var element in game.IElements)
             {
-                Button companyButton = new Button
+                Button elementButton = new Button
                 {
                     Text = Number.ToString(),
-                    Tag = company,
+                    Tag = new
+                    {
+                        Element = element,   
+                        Column = "I"        
+                    },
                     Width = buttonSize,
                     Height = buttonSize,
-                    TextAlign = ContentAlignment.MiddleCenter
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Enabled = false
                 };
 
                 // Define o tooltip para o nome da empresa:
-                var companyModel = (ElementModel)companyButton.Tag;
-                toolTip1.SetToolTip(companyButton, companyModel.Name);
+                var elementModel = (ElementModel)elementButton.Tag;
+                toolTip1.SetToolTip(elementButton, elementModel.CardName);
                 Number++;
-                companyButton.Click += CompanyButton_Click;
-                flwPlayI.Controls.Add(companyButton);
+                elementButton.Click += elementButton_Click;
+                flwPlayI.Controls.Add(elementButton);
             }
 
             // Adicionar botões ao grupo N
-            foreach (var company in gameData.GroupN)
+            foreach (var element in game.NElements)
             {
-                Button companyButton = new Button
+                Button elementButton = new Button
                 {
                     Text = Number.ToString(),
-                    Tag = company,
+                    Tag = new
+                    {
+                        Element = element,
+                        Column = "N"
+                    },
                     Width = buttonSize,
                     Height = buttonSize,
-                    TextAlign = ContentAlignment.MiddleCenter
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Enabled = false
                 };
 
                 // Define o tooltip para o nome da empresa:
-                var companyModel = (ElementModel)companyButton.Tag;
-                toolTip1.SetToolTip(companyButton, companyModel.Name);
+                var elementModel = (ElementModel)elementButton.Tag;
+                toolTip1.SetToolTip(elementButton, elementModel.CardName);
                 Number++;
-                companyButton.Click += CompanyButton_Click;
-                flwPlayN.Controls.Add(companyButton);
+                elementButton.Click += elementButton_Click;
+                flwPlayN.Controls.Add(elementButton);
             }
 
             // Adicionar botões ao grupo G
-            foreach (var company in gameData.GroupG)
+            foreach (var element in game.GElements)
             {
-                Button companyButton = new Button
+                Button elementButton = new Button
                 {
                     Text = Number.ToString(),
-                    Tag = company,
+                    Tag = new
+                    {
+                        Element = element,
+                        Column = "G"
+                    },
                     Width = buttonSize,
                     Height = buttonSize,
-                    TextAlign = ContentAlignment.MiddleCenter
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Enabled = false
                 };
 
                 // Define o tooltip para o nome da empresa:
-                var companyModel = (ElementModel)companyButton.Tag;
-                toolTip1.SetToolTip(companyButton, companyModel.Name);
+                var elementModel = (ElementModel)elementButton.Tag;
+                toolTip1.SetToolTip(elementButton, elementModel.CardName);
                 Number++;
-                companyButton.Click += CompanyButton_Click;
-                flwPlayG.Controls.Add(companyButton);
+                elementButton.Click += elementButton_Click;
+                flwPlayG.Controls.Add(elementButton);
             }
 
             // Adicionar botões ao grupo O
-            foreach (var company in gameData.GroupO)
+            foreach (var element in game.OElements)
             {
-                Button companyButton = new Button
+                Button elementButton = new Button
                 {
                     Text = Number.ToString(),
-                    Tag = company,
+                    Tag = new
+                    {
+                        Element = element,
+                        Column = "O"
+                    },
                     Width = buttonSize,
                     Height = buttonSize,
-                    TextAlign = ContentAlignment.MiddleCenter
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Enabled = false
                 };
 
                 // Define o tooltip para o nome da empresa:
-                var companyModel = (ElementModel)companyButton.Tag;
-                toolTip1.SetToolTip(companyButton, companyModel.Name);
+                var elementModel = (ElementModel)elementButton.Tag;
+                toolTip1.SetToolTip(elementButton, elementModel.CardName);
                 Number++;
-                companyButton.Click += CompanyButton_Click;
-                flwPlayO.Controls.Add(companyButton);
+                elementButton.Click += elementButton_Click;
+                flwPlayO.Controls.Add(elementButton);
             }
 
-            lblResults.Text = "Jogo iniciado!";
+            lblResults.Text = "Jogo pronto! Aperte o botão COMEÇAR para iniciar a partida! Lembre-se de mudar o modo de jogo conforme desejar.";
         }
 
         // Configurando os FlowLayoutPanels
@@ -331,80 +298,92 @@ namespace BingoManager
             }
         }
 
-        private void CompanyButton_Click(object sender, EventArgs e)
+        // Método para começar o jogo
+        private void btnStart_Click(object sender, EventArgs e)
         {
-            int bingoPhase = RdPlayAn1.Checked ? 1 : (RdPlayAn2.Checked ? 2 : 0);
-            var selectedGame = CboPlayAnSelection.SelectedItem as dynamic;
-            int setId = selectedGame.Value;
+            btnReset.Enabled = true;
+            btnStart.Enabled = false;
+            btnBingo.Enabled = true;
+
+            if (rdDigital.Checked)
+            {
+                btnRandom.Enabled = true;
+            }
+            else if (rdManual.Checked)
+            {
+                // Habilita todos os botões em cada FlowLayoutPanel
+                foreach (Control ctl in flwPlayB.Controls)
+                    if (ctl is Button btnB) btnB.Enabled = true;
+
+                foreach (Control ctl in flwPlayI.Controls)
+                    if (ctl is Button btnI) btnI.Enabled = true;
+
+                foreach (Control ctl in flwPlayN.Controls)
+                    if (ctl is Button btnN) btnN.Enabled = true;
+
+                foreach (Control ctl in flwPlayG.Controls)
+                    if (ctl is Button btnG) btnG.Enabled = true;
+
+                foreach (Control ctl in flwPlayO.Controls)
+                    if (ctl is Button btnO) btnO.Enabled = true;
+            }
+        }
+
+        private void elementButton_Click(object sender, EventArgs e)
+        {
+            int bingoPhase = rdLine.Checked ? 1 : (rdFull.Checked ? 2 : 0);
+            string colun = null;
 
             Button clickedButton = sender as Button;
 
-            if (clickedButton != null && clickedButton.Tag is ElementModel selectedCompany)
+            // Reconhecer Coluna
+            var parentPanel = clickedButton.Parent as FlowLayoutPanel;
+            if (parentPanel != null)
+            {
+                if (parentPanel == flwPlayB)
+                    colun = "B";
+                else if (parentPanel == flwPlayI)
+                    colun = "I";
+                else if (parentPanel == flwPlayN)
+                    colun = "N";
+                else if (parentPanel == flwPlayG)
+                    colun = "G";
+                else if (parentPanel == flwPlayO)
+                    colun = "O";
+            }
+
+            if (clickedButton != null && clickedButton.Tag is ElementModel selectedElement)
             {
                 string numero = clickedButton.Text;
-
-                // Configura o caminho na AppData
-                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                string imageFolderPath = Path.Combine(appDataPath, "BingoManager", "Images");
-
-                // Caminho do logo da empresa
-                string companyLogoPath = Path.Combine(imageFolderPath, selectedCompany.Logo);
                 Image logoImage = null;
 
-                if (File.Exists(companyLogoPath))
+                // Se houver nome de arquivo no selectedElement.Logo, tenta carregar; senão, não carrega nada
+                if (!string.IsNullOrEmpty(selectedElement.Logo))
                 {
-                    // Logo da empresa encontrado
-                    logoImage = Image.FromFile(companyLogoPath);
-                }
-                else
-                {
-                    // Se não houver logo da empresa, busca o logo da lista associada pelo CardsList
-                    var listData = DataService.GetListByCompanyIdFromCards(selectedCompany.Id, setId);
-                    if (listData != null)
-                    {
-                        // Caminho do logo da lista
-                        string listLogoPath = Path.Combine(imageFolderPath, listData["Logo"].ToString());
-                        if (File.Exists(listLogoPath))
-                        {
-                            // Logo da lista encontrado
-                            logoImage = Image.FromFile(listLogoPath);
-                        }
-                        else
-                        {
-                            // Logo da lista não encontrado, usar logo padrão
-                            string defaultLogoPath = Path.Combine(imageFolderPath, "default_logo.jpg");
-                            logoImage = File.Exists(defaultLogoPath) ? Image.FromFile(defaultLogoPath) : null;
-                        }
-                    }
-                    else
-                    {
-                        // Nenhuma lista associada ou logo, usar logo padrão
-                        string defaultLogoPath = Path.Combine(imageFolderPath, "default_logo.jpg");
-                        logoImage = File.Exists(defaultLogoPath) ? Image.FromFile(defaultLogoPath) : null;
-                    }
+                    logoImage = DataService.LoadImageFromFile(selectedElement.Id);
                 }
 
                 // Marca o botão como sorteado, alterando a cor para vermelho
                 clickedButton.BackColor = Color.Red;
 
                 // Adiciona a empresa sorteada ao serviço de jogo
-                PlayService.AddCompany(selectedCompany.Id);
-
-                // Atualiza o logo e nome na interface do jogo
-                if (logoDisplayForm != null && logoDisplayForm.Visible)
-                {
-                    logoDisplayForm.UpdateLogoAndName(logoImage, selectedCompany.Name);
-                }
+                PlayService.AddElement(selectedElement.Id);
 
                 // Atualiza o logo na tela principal
                 picPlayLogo.Image = logoImage;
-                LblPlayAnName.Text = numero + " - " + selectedCompany.Name;
+                lblLastResult.Text = numero + " - " + colun + " - " + selectedElement.CardName;
 
-                // buscar cartelas
-                List<int> cardNumbers = PlayService.CheckCards(selectedCompany.Id, setId);
+                // Atualiza o logo e nome na tela secundária
+                if (logoDisplayForm != null && logoDisplayForm.Visible)
+                {
+                    logoDisplayForm.UpdateLogoAndName(logoImage, colun + " - " + selectedElement.CardName);
+                }
 
-                // verificar bingo
-                List<int> winningCards = PlayService.CheckBingo(cardNumbers, setId, bingoPhase, selectedCompany.Id);
+                // Buscar cartelas
+                List<int> chosenCards = PlayService.CheckCards(selectedElement.Id);
+
+                // Verificar bingo
+                List<int> winningCards = PlayService.CheckBingo(chosenCards, bingoPhase, selectedElement.Id);
                 if (winningCards.Count > 0)
                 {
                     string winningCardsText = string.Join(", ", winningCards);
@@ -420,82 +399,47 @@ namespace BingoManager
 
 
         //Método para reinicar o jogo
-        private void ResetGame()
-        {
-            BtnPlayAnSelection.Enabled = true;
-            BtnPlayDiSelection.Enabled = true;
-
-            picPlayLogo.Image = null;
-            LblPlayAnName.Text = string.Empty;
-            lblResults.Text = string.Empty;
-            PicPlayDiLogo.Image = null;
-            LblPlayDiName.Text = string.Empty;
-            LblPlayDiMsg.Text = string.Empty;
-
-            BtnPlayDiRandom.Enabled = false;
-
-            flwPlayB.Controls.Clear();
-            flwPlayI.Controls.Clear();
-            flwPlayN.Controls.Clear();
-            flwPlayG.Controls.Clear();
-            flwPlayO.Controls.Clear();
-
-            FlwPlayDiB.Controls.Clear();
-            FlwPlayDiI.Controls.Clear();
-            FlwPlayDiN.Controls.Clear();
-            FlwPlayDiG.Controls.Clear();
-            FlwPlayDiO.Controls.Clear();
-
-            PlayService.ResetGame();
-
-            LoadGames();
-
-            CboPlayAnSelection.Text = string.Empty;
-            CboPlayAnSelection.SelectedIndex = -1;
-            CboPlayAnSelection.Enabled = true;
-
-            CboPlayDiSelection.Text = string.Empty;
-            CboPlayDiSelection.SelectedIndex = -1;
-            CboPlayDiSelection.Enabled = true;
-        }
-        private void BtnRestart_Click(object sender, EventArgs e)
+        private void btnRestart_Click(object sender, EventArgs e)
         {
             // Confirmação do usuário
             var result = MessageBox.Show("Você tem certeza que deseja reiniciar o jogo?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
-                ResetGame();
+                picPlayLogo.Image = null;
+                lblResults.Text = string.Empty;
+
+                flwPlayB.Controls.Clear();
+                flwPlayI.Controls.Clear();
+                flwPlayN.Controls.Clear();
+                flwPlayG.Controls.Clear();
+                flwPlayO.Controls.Clear();
+
+                PlayService.ResetGame();
+
+                LoadGame();
             }
         }
 
         // Método para sortear uma Elemento no modo Digital e verificar as cartelas sorteadas e vencedoras
-        private void BtnPlayDiRandom_Click(object sender, EventArgs e)
+        private void btnRandom_Click(object sender, EventArgs e)
         {
-            // Obter o jogo selecionado
-            var selectedGame = CboPlayDiSelection.SelectedItem as dynamic;
+            int bingoPhase = rdLine.Checked ? 1 : (rdFull.Checked ? 2 : 0);
 
-            if (selectedGame == null)
-            {
-                MessageBox.Show("Por favor, selecione um jogo antes de sortear uma empresa.");
-                return;
-            }
-
-            // Carregar o setId do jogo selecionado
-            int setId = selectedGame.Value;
+            string colun = null;
 
             // Coleta todas as empresas disponíveis para sorteio
-            var availableCompanies = new List<Label>();
+            var avaliableElements = new List<Label>();
 
             // Adiciona os labels de todas as colunas ao availableCompanies, que ainda não foram sorteados (brancos)
-            availableCompanies.AddRange(FlwPlayDiB.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
-            availableCompanies.AddRange(FlwPlayDiI.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
-            availableCompanies.AddRange(FlwPlayDiN.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
-            availableCompanies.AddRange(FlwPlayDiG.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
-            availableCompanies.AddRange(FlwPlayDiO.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
+            avaliableElements.AddRange(flwPlayB.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
+            avaliableElements.AddRange(flwPlayI.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
+            avaliableElements.AddRange(flwPlayN.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
+            avaliableElements.AddRange(flwPlayG.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
+            avaliableElements.AddRange(flwPlayO.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
 
             // Verifica se ainda há empresas disponíveis para sortear
-            if (availableCompanies.Count == 0)
+            if (avaliableElements.Count == 0)
             {
                 MessageBox.Show("Todos os Elementos já foram sorteados.");
                 return;
@@ -503,65 +447,64 @@ namespace BingoManager
 
             // Seleciona aleatoriamente uma empresa disponível
             Random random = new Random();
-            int randomIndex = random.Next(availableCompanies.Count);
-            Label selectedLabel = availableCompanies[randomIndex];
+            int randomIndex = random.Next(avaliableElements.Count);
+            Label selectedLabel = avaliableElements[randomIndex];
+
+            var parentPanel = selectedLabel.Parent as FlowLayoutPanel;
+            if (parentPanel != null)
+            {
+                if (parentPanel == flwPlayB)
+                    colun = "B";
+                else if (parentPanel == flwPlayI)
+                    colun = "I";
+                else if (parentPanel == flwPlayN)
+                    colun = "N";
+                else if (parentPanel == flwPlayG)
+                    colun = "G";
+                else if (parentPanel == flwPlayO)
+                    colun = "O";
+            }
 
             // Muda a cor do label sorteado para vermelho (marca como sorteado)
             selectedLabel.BackColor = Color.Red;
 
             // Atualiza a lógica do jogo para adicionar a empresa sorteada e remover da lista de sorteio
-            if (selectedLabel.Tag is ElementModel selectedCompany)
+            if (selectedLabel.Tag is ElementModel selectedElement)
             {
                 // Adiciona a empresa à lista de sorteadas no PlayService
-                PlayService.AddCompany(selectedCompany.Id);
+                PlayService.AddElement(selectedElement.Id);
 
-                // dentro de BtnPlayDiRandom_Click, após PlayService.AddCompany(...)
-                Image logoImage = DataService.LoadImageFromFile(selectedCompany.Logo);
+                Image logoImage = null;
 
-                // Se não encontrar na empresa, tenta a lista
-                if (logoImage == null)
+                // Se houver nome de arquivo no selectedElement.Logo, tenta carregar; senão, não carrega nada
+                if (!string.IsNullOrEmpty(selectedElement.Logo))
                 {
-                    var listData = DataService.GetListByCompanyIdFromCards(selectedCompany.Id, setId);
-                    if (listData != null)
-                        logoImage = DataService.LoadImageFromFile(listData["Logo"].ToString());
+                    logoImage = DataService.LoadImageFromFile(selectedElement.Id);
                 }
 
-                // Se ainda não encontrou, usa a default
-                if (logoImage == null)
-                    logoImage = DataService.LoadImageFromFile("default_logo.jpg");
-
-                // Atualiza o logo e nome
-                PicPlayDiLogo.Image = logoImage;
-                LblPlayDiName.Text = selectedCompany.Name;
-
-                // Atualiza o logo e nome da empresa sorteada na interface do modo digital
-                PicPlayDiLogo.Image = logoImage;
-                LblPlayDiName.Text = selectedCompany.Name;
+                // Atualiza o logo na tela principal
+                picPlayLogo.Image = logoImage;
+                lblLastResult.Text = colun + " - " + selectedElement.CardName;
 
                 // Atualiza o logo na segunda tela, se estiver visível
                 if (logoDisplayForm != null && logoDisplayForm.Visible)
                 {
-                    logoDisplayForm.UpdateLogoAndName(logoImage, selectedCompany.Name);
+                    logoDisplayForm.UpdateLogoAndName(logoImage, colun + " - " + selectedElement.CardName);
                 }
 
-                // Verifica as cartelas que possuem a empresa sorteada
-                int bingoPhase = RdPlayDi1.Checked ? 1 : 2;
+                // Buscar cartelas
+                List<int> cardNumbers = PlayService.CheckCards(selectedElement.Id);
 
-                List<int> cardNumbers = PlayService.CheckCards(selectedCompany.Id, setId);
-                string cardNumbersText = string.Join(", ", cardNumbers);
-                LblPlayDiMsg.Text = string.IsNullOrEmpty(cardNumbersText) ? "\nNenhuma cartela sorteada." : $"\nCartelas sorteadas: {cardNumbersText}";
-
-                // Se houver cartelas sorteadas, verifica se há vencedoras
-                if (!string.IsNullOrEmpty(cardNumbersText))
+                // Verificar bingo
+                List<int> winningCards = PlayService.CheckBingo(cardNumbers, bingoPhase, selectedElement.Id);
+                if (winningCards.Count > 0)
                 {
-                    List<int> winningCards = PlayService.CheckBingo(cardNumbers, setId, bingoPhase, selectedCompany.Id);
-
-                    if (winningCards.Count > 0)
-                    {
-                        string winningCardsText = string.Join(", ", winningCards);
-                        LblPlayDiMsg.Text += string.IsNullOrEmpty(LblPlayDiMsg.Text) ? "" : "\n\n";
-                        LblPlayDiMsg.Text += $"Cartelas vencedoras: {winningCardsText}";
-                    }
+                    string winningCardsText = string.Join(", ", winningCards);
+                    lblResults.Text = $"BINGO! Cartelas vencedoras: {winningCardsText}";
+                }
+                else
+                {
+                    lblResults.Text = "Sem bingo!";
                 }
 
                 // Não remover a label do painel, apenas a empresa da lista de sorteio.

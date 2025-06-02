@@ -54,8 +54,8 @@
             flwPlayO = new FlowLayoutPanel();
             pnlGameInfo = new Panel();
             groupBox1 = new GroupBox();
-            radioButton1 = new RadioButton();
-            radioButton2 = new RadioButton();
+            rdManual = new RadioButton();
+            rdDigital = new RadioButton();
             lblCardsQnt = new Label();
             lblGameName = new Label();
             grpPlayPhase = new GroupBox();
@@ -118,6 +118,7 @@
             btnRandom.TabIndex = 2;
             btnRandom.Text = "Sortear";
             btnRandom.UseVisualStyleBackColor = true;
+            btnRandom.Click += btnRandom_Click;
             // 
             // btnReset
             // 
@@ -127,6 +128,7 @@
             btnReset.TabIndex = 1;
             btnReset.Text = "Reiniciar";
             btnReset.UseVisualStyleBackColor = true;
+            btnReset.Click += btnRestart_Click;
             // 
             // btnStart
             // 
@@ -136,7 +138,7 @@
             btnStart.TabIndex = 0;
             btnStart.Text = "Começar";
             btnStart.UseVisualStyleBackColor = true;
-            btnStart.Click += btnStart_click;
+            btnStart.Click += btnStart_Click;
             // 
             // pnlPlay
             // 
@@ -314,8 +316,8 @@
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top;
-            groupBox1.Controls.Add(radioButton1);
-            groupBox1.Controls.Add(radioButton2);
+            groupBox1.Controls.Add(rdManual);
+            groupBox1.Controls.Add(rdDigital);
             groupBox1.Font = new Font("Segoe UI", 12F);
             groupBox1.Location = new Point(9, 66);
             groupBox1.Name = "groupBox1";
@@ -324,31 +326,31 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Tipo de Jogo";
             // 
-            // radioButton1
+            // rdManual
             // 
-            radioButton1.Anchor = AnchorStyles.Top;
-            radioButton1.AutoSize = true;
-            radioButton1.Checked = true;
-            radioButton1.Font = new Font("Segoe UI", 12F);
-            radioButton1.Location = new Point(6, 24);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(134, 25);
-            radioButton1.TabIndex = 1;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Sorteio Manual";
-            radioButton1.UseVisualStyleBackColor = true;
+            rdManual.Anchor = AnchorStyles.Top;
+            rdManual.AutoSize = true;
+            rdManual.Checked = true;
+            rdManual.Font = new Font("Segoe UI", 12F);
+            rdManual.Location = new Point(6, 24);
+            rdManual.Name = "rdManual";
+            rdManual.Size = new Size(134, 25);
+            rdManual.TabIndex = 1;
+            rdManual.TabStop = true;
+            rdManual.Text = "Sorteio Manual";
+            rdManual.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // rdDigital
             // 
-            radioButton2.Anchor = AnchorStyles.Top;
-            radioButton2.AutoSize = true;
-            radioButton2.Font = new Font("Segoe UI", 12F);
-            radioButton2.Location = new Point(146, 24);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(127, 25);
-            radioButton2.TabIndex = 0;
-            radioButton2.Text = "Sorteio Digital";
-            radioButton2.UseVisualStyleBackColor = true;
+            rdDigital.Anchor = AnchorStyles.Top;
+            rdDigital.AutoSize = true;
+            rdDigital.Font = new Font("Segoe UI", 12F);
+            rdDigital.Location = new Point(146, 24);
+            rdDigital.Name = "rdDigital";
+            rdDigital.Size = new Size(127, 25);
+            rdDigital.TabIndex = 0;
+            rdDigital.Text = "Sorteio Digital";
+            rdDigital.UseVisualStyleBackColor = true;
             // 
             // lblCardsQnt
             // 
@@ -485,8 +487,8 @@
         private Button btnReset;
         private Button btnStart;
         private GroupBox groupBox1;
-        private RadioButton radioButton1;
-        private RadioButton radioButton2;
+        private RadioButton rdManual;
+        private RadioButton rdDigital;
         private Button btnBingo;
     }
 }

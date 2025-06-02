@@ -16,127 +16,16 @@ namespace BingoManager.Services
         // Construtor estático: garante a pasta no AppData e a connection-string
         static DataService()
         {
-            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            string databaseFolder = Path.Combine(appDataPath, "BingoManager", "Database");
-            Directory.CreateDirectory(databaseFolder);
-
-            string databasePath = Path.Combine(databaseFolder, "CustomBingoDB.db");
+            string exeFolder = AppDomain.CurrentDomain.BaseDirectory;
+            string databasePath = Path.Combine(exeFolder, "Content", "CustomBingoDB.db");
             _connectionString = $"Data Source={databasePath};Version=3;";
-
-            // Cria as tabelas caso não existam (opcional, já deveria estar pronto)
-            InitializeDatabase();
         }
 
         private static SQLiteConnection GetConnection() =>
             new SQLiteConnection(_connectionString);
 
-        public static void InitializeDatabase()
-        {
-            using var connection = GetConnection();
-            connection.Open();
-            using (var cmd = new SQLiteCommand("PRAGMA foreign_keys = ON;", connection))
-                cmd.ExecuteNonQuery();
-
-            var createCommands = new List<string>
-            {
-                @"
-                CREATE TABLE IF NOT EXISTS CompanyTable (
-                    Id INTEGER PRIMARY KEY NOT NULL UNIQUE,
-                    Name TEXT NOT NULL,
-                    CardName TEXT NOT NULL,
-                    Email TEXT,
-                    Phone TEXT,
-                    Logo TEXT NOT NULL,
-                    AddTime TEXT NOT NULL
-                );",
-                @"
-                CREATE TABLE IF NOT EXISTS ListsTable (
-                    Id INTEGER PRIMARY KEY,
-                    Name TEXT,
-                    Description TEXT,
-                    Logo TEXT
-                );",
-                @"
-                CREATE TABLE IF NOT EXISTS AlocacaoTable (
-                    CompanyID INTEGER REFERENCES CompanyTable(Id),
-                    ListId INTEGER REFERENCES ListsTable(Id),
-                    PRIMARY KEY (CompanyID, ListId)
-                );",
-                @"
-                CREATE TABLE IF NOT EXISTS CardsSets (
-                    SetId INTEGER PRIMARY KEY NOT NULL UNIQUE,
-                    ListId INTEGER REFERENCES ListsTable(Id),
-                    Title TEXT NOT NULL,
-                    End TEXT,
-                    Qnt INTEGER NOT NULL,
-                    Name TEXT UNIQUE,
-                    GroupB TEXT,
-                    GroupI TEXT,
-                    GroupN TEXT,
-                    GroupG TEXT,
-                    GroupO TEXT
-                );",
-                @"
-                CREATE TABLE IF NOT EXISTS CardsList (
-                    Id INTEGER PRIMARY KEY,
-                    SetId INTEGER NOT NULL REFERENCES CardsSets(SetId),
-                    ListId INTEGER NOT NULL REFERENCES ListsTable(Id),
-                    CardNumber INTEGER NOT NULL,
-                    CompB1 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompB2 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompB3 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompB4 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompB5 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompI1 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompI2 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompI3 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompI4 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompI5 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompN1 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompN2 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompN3 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompN4 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompN5 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompG1 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompG2 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompG3 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompG4 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompG5 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompO1 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompO2 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompO3 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompO4 INTEGER NOT NULL REFERENCES CompanyTable(Id),
-                    CompO5 INTEGER NOT NULL REFERENCES CompanyTable(Id)
-                );"
-            };
-
-            foreach (var sql in createCommands)
-            {
-                using var cmd = new SQLiteCommand(sql, connection);
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-
-        // 1. Lista os conjuntos de cartelas (“jogos”) disponíveis
-        public static DataTable GetCards()
-        {
-            using var connection = GetConnection();
-            connection.Open();
-
-            string query = @"
-                SELECT SetId, Title, End, Qnt, Name
-                FROM CardsSets";
-            using var command = new SQLiteCommand(query, connection);
-            using var adapter = new SQLiteDataAdapter(command);
-
-            var table = new DataTable();
-            adapter.Fill(table);
-            return table;
-        }
-
-        // 2. Carrega o Set (jogo) e metadados da lista associada
-        public static DataRow GetGameInfo(int setId)
+        // Carrega o Set (jogo) e metadados da lista associada
+        public static GameModel GetGameInfo(int setId)
         {
             using var connection = GetConnection();
             connection.Open();
@@ -171,36 +60,43 @@ namespace BingoManager.Services
             string grpG = row["GroupG"].ToString();
             string grpO = row["GroupO"].ToString();
 
-            // 2) Carrega cada coluna de IDs em List<CompanyModel>
-            var listB = GetElementsInfo(grpB);
-            var listI = GetElementsInfo(grpI);
-            var listN = GetElementsInfo(grpN);
-            var listG = GetElementsInfo(grpG);
-            var listO = GetElementsInfo(grpO);
+            List<ElementModel> ElemB = new List<ElementModel>();
+            List<ElementModel> ElemI = new List<ElementModel>();
+            List<ElementModel> ElemN = new List<ElementModel>();
+            List<ElementModel> ElemG = new List<ElementModel>();
+            List<ElementModel> ElemO = new List<ElementModel>();
 
-            // 3) Monta o GameModel e retorna
+            List<CardModel> gameCards = new List<CardModel>();
+            gameCards = GetGameCards(setId);
+
+            ElemB = GetElementsInfo(grpB);
+            ElemI = GetElementsInfo(grpI);
+            ElemN = GetElementsInfo(grpN);
+            ElemG = GetElementsInfo(grpG);
+            ElemO = GetElementsInfo(grpO);
+
             return new GameModel
             {
                 GameName = title,
                 GameTotal = quantity,
-                BElements = listB.Select(c => c.CardName).ToList(),
-                IElements = listI.Select(c => c.CardName).ToList(),
-                NElements = listN.Select(c => c.CardName).ToList(),
-                GElements = listG.Select(c => c.CardName).ToList(),
-                OElements = listO.Select(c => c.CardName).ToList()
+                BElements = ElemB,
+                IElements = ElemI,
+                NElements = ElemN,
+                GElements = ElemG,
+                OElements = ElemO,
+                GameCards = gameCards
             };
         }
 
-
-        // 3. A partir de uma string “1,5,8,12,...”, retorna lista de CompanyModel (ID, Name, CardName, Logo)
-        public static List<ElementModel> GetElementsInfo(string companyIds)
+        // A partir de uma string “1,5,8,12,...”, retorna lista de ElementModel (ID, Name, CardName, Logo)
+        public static List<ElementModel> GetElementsInfo(string elementIds)
         {
-            var companies = new List<ElementModel>();
-            if (string.IsNullOrWhiteSpace(companyIds))
-                return companies;
+            var Elements = new List<ElementModel>();
+            if (string.IsNullOrWhiteSpace(elementIds))
+                return Elements;
 
-            var ids = companyIds.Split(',').Select(x => x.Trim()).ToList();
-            string query = $"SELECT Id, Name, CardName, Logo FROM CompanyTable WHERE Id IN ({string.Join(",", ids)})";
+            var ids = elementIds.Split(',').Select(x => x.Trim()).ToList();
+            string query = $"SELECT Id, Name, CardName, Logo FROM elementTable WHERE Id IN ({string.Join(",", ids)})";
 
             using var connection = GetConnection();
             connection.Open();
@@ -221,86 +117,106 @@ namespace BingoManager.Services
             }
 
             // Reconstrói na mesma ordem de 'ids'
-            companies = ids.Select(id => dictionary[int.Parse(id)]).ToList();
-            return companies;
+            Elements = ids.Select(id => dictionary[int.Parse(id)]).ToList();
+            return Elements;
         }
 
-        // 4. Carrega o logo/imagem de cada empresa (pasta AppData\Local\BingoManager\Images)
-        public static Image LoadImageFromFile(string fileName)
+        // Carrega o logo/imagem de cada elemento
+        public static Image LoadImageFromFile(int elementId)
         {
-            if (string.IsNullOrEmpty(fileName)) return null;
+            // 1. Buscar o nome do arquivo de logo no banco
+            string logoFileName = null;
+            using (var connection = GetConnection())
+            {
+                if (connection == null) return null;
+                connection.Open();
 
-            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            string imageFolderPath = Path.Combine(appDataPath, "BingoManager", "Images");
-            string filePath = Path.IsPathRooted(fileName)
-                                     ? fileName
-                                     : Path.Combine(imageFolderPath, fileName);
+                string sql = "SELECT Logo FROM ElementTable WHERE Id = @Id";
+                using var cmd = new SQLiteCommand(sql, connection);
+                cmd.Parameters.AddWithValue("@Id", elementId);
+                using var reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    logoFileName = reader["Logo"].ToString();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            if (string.IsNullOrEmpty(logoFileName))
+                return null;
+
+            string exeFolder = AppDomain.CurrentDomain.BaseDirectory;
+            string imageFolderPath = Path.Combine(exeFolder, "Images");
+            string filePath = Path.Combine(imageFolderPath, logoFileName);
+
             return File.Exists(filePath) ? Image.FromFile(filePath) : null;
         }
 
-        // 5. Para cada cartela, traz todos os 25 IDs de elementos (B, I, N, G, O)
-        public static CardModel GetCardDetails(int cardNum, int setId)
+        // Para cada cartela, traz todos os 25 IDs de elementos (B, I, N, G, O)
+        public static CardModel GetCardDetails(int cardNum)
         {
             using var connection = GetConnection();
             connection.Open();
 
             string selectQuery = @"
                 SELECT Id, CardNumber,
-                       CompB1, CompB2, CompB3, CompB4, CompB5,
-                       CompI1, CompI2, CompI3, CompI4, CompI5,
-                       CompN1, CompN2, CompN3, CompN4, CompN5,
-                       CompG1, CompG2, CompG3, CompG4, CompG5,
-                       CompO1, CompO2, CompO3, CompO4, CompO5
+                       EleB1, EleB2, EleB3, EleB4, EleB5,
+                       EleI1, EleI2, EleI3, EleI4, EleI5,
+                       EleN1, EleN2, EleN3, EleN4, EleN5,
+                       EleG1, EleG2, EleG3, EleG4, EleG5,
+                       EleO1, EleO2, EleO3, EleO4, EleO5
                 FROM CardsList
-                WHERE CardNumber = @CardNum
-                  AND SetId     = @SetId";
+                WHERE CardNumber = @CardNum";
 
             using var command = new SQLiteCommand(selectQuery, connection);
             command.Parameters.AddWithValue("@CardNum", cardNum);
-            command.Parameters.AddWithValue("@SetId", setId);
 
             using var reader = command.ExecuteReader();
             if (!reader.Read()) return null;
 
-            var bCompanies = new List<int>();
-            var iCompanies = new List<int>();
-            var nCompanies = new List<int>();
-            var gCompanies = new List<int>();
-            var oCompanies = new List<int>();
+            var bElements = new List<int>();
+            var iElements = new List<int>();
+            var nElements = new List<int>();
+            var gElements = new List<int>();
+            var oElements = new List<int>();
 
-            for (int i = 2; i <= 6; i++) bCompanies.Add(reader.GetInt32(i));
-            for (int i = 7; i <= 11; i++) iCompanies.Add(reader.GetInt32(i));
-            for (int i = 12; i <= 16; i++) nCompanies.Add(reader.GetInt32(i));
-            for (int i = 17; i <= 21; i++) gCompanies.Add(reader.GetInt32(i));
-            for (int i = 22; i <= 26; i++) oCompanies.Add(reader.GetInt32(i));
+            for (int i = 2; i <= 6; i++) bElements.Add(reader.GetInt32(i));
+            for (int i = 7; i <= 11; i++) iElements.Add(reader.GetInt32(i));
+            for (int i = 12; i <= 16; i++) nElements.Add(reader.GetInt32(i));
+            for (int i = 17; i <= 21; i++) gElements.Add(reader.GetInt32(i));
+            for (int i = 22; i <= 26; i++) oElements.Add(reader.GetInt32(i));
 
             var all = new List<int>();
-            all.AddRange(bCompanies);
-            all.AddRange(iCompanies);
-            all.AddRange(nCompanies);
-            all.AddRange(gCompanies);
-            all.AddRange(oCompanies);
+            all.AddRange(bElements);
+            all.AddRange(iElements);
+            all.AddRange(nElements);
+            all.AddRange(gElements);
+            all.AddRange(oElements);
 
             return new CardModel
             {
                 CardId = reader.GetInt32(0),
                 CardNumber = reader.GetInt32(1),
-                AllCompanies = all,
-                BCompanies = bCompanies,
-                ICompanies = iCompanies,
-                NCompanies = nCompanies,
-                GCompanies = gCompanies,
-                OCompanies = oCompanies,
-                Companies1 = new List<int> { bCompanies[0], iCompanies[0], nCompanies[0], gCompanies[0], oCompanies[0] },
-                Companies2 = new List<int> { bCompanies[1], iCompanies[1], nCompanies[1], gCompanies[1], oCompanies[1] },
-                Companies3 = new List<int> { bCompanies[2], iCompanies[2], nCompanies[2], gCompanies[2], oCompanies[2] },
-                Companies4 = new List<int> { bCompanies[3], iCompanies[3], nCompanies[3], gCompanies[3], oCompanies[3] },
-                Companies5 = new List<int> { bCompanies[4], iCompanies[4], nCompanies[4], gCompanies[4], oCompanies[4] }
+                AllElements = all,
+                BElements = bElements,
+                IElements = iElements,
+                NElements = nElements,
+                GElements = gElements,
+                OElements = oElements,
+                Elements1 = new List<int> { bElements[0], iElements[0], nElements[0], gElements[0], oElements[0] },
+                Elements2 = new List<int> { bElements[1], iElements[1], nElements[1], gElements[1], oElements[1] },
+                Elements3 = new List<int> { bElements[2], iElements[2], nElements[2], gElements[2], oElements[2] },
+                Elements4 = new List<int> { bElements[3], iElements[3], nElements[3], gElements[3], oElements[3] },
+                Elements5 = new List<int> { bElements[4], iElements[4], nElements[4], gElements[4], oElements[4] }
             };
         }
 
-        // 6. Retorna quais cartelas (e números de cartela) contêm determinada empresa
-        public static List<(int CardId, int CardNum)> GetCardsByCompanyId(int companyId, int setId)
+        // Retorna quais cartelas (e números de cartela) contêm determinado elemento
+        public static List<(int CardId, int CardNum)> GetCardsByElementId(int elementId)
         {
             var cards = new List<(int CardId, int CardNum)>();
             using var connection = GetConnection();
@@ -310,16 +226,15 @@ namespace BingoManager.Services
                 SELECT Id, CardNumber
                 FROM CardsList
                 WHERE 
-                    (CompB1 = @CompanyId OR CompB2 = @CompanyId OR CompB3 = @CompanyId OR CompB4 = @CompanyId OR CompB5 = @CompanyId OR
-                     CompI1 = @CompanyId OR CompI2 = @CompanyId OR CompI3 = @CompanyId OR CompI4 = @CompanyId OR CompI5 = @CompanyId OR
-                     CompN1 = @CompanyId OR CompN2 = @CompanyId OR CompN3 = @CompanyId OR CompN4 = @CompanyId OR CompN5 = @CompanyId OR
-                     CompG1 = @CompanyId OR CompG2 = @CompanyId OR CompG3 = @CompanyId OR CompG4 = @CompanyId OR CompG5 = @CompanyId OR
-                     CompO1 = @CompanyId OR CompO2 = @CompanyId OR CompO3 = @CompanyId OR CompO4 = @CompanyId OR CompO5 = @CompanyId)
+                    (EleB1 = @elementId OR EleB2 = @elementId OR EleB3 = @elementId OR EleB4 = @elementId OR EleB5 = @elementId OR
+                     EleI1 = @elementId OR EleI2 = @elementId OR EleI3 = @elementId OR EleI4 = @elementId OR EleI5 = @elementId OR
+                     EleN1 = @elementId OR EleN2 = @elementId OR EleN3 = @elementId OR EleN4 = @elementId OR EleN5 = @elementId OR
+                     EleG1 = @elementId OR EleG2 = @elementId OR EleG3 = @elementId OR EleG4 = @elementId OR EleG5 = @elementId OR
+                     EleO1 = @elementId OR EleO2 = @elementId OR EleO3 = @elementId OR EleO4 = @elementId OR EleO5 = @elementId)
                     AND SetId = @SetId";
 
             using var command = new SQLiteCommand(selectQuery, connection);
-            command.Parameters.AddWithValue("@CompanyId", companyId);
-            command.Parameters.AddWithValue("@SetId", setId);
+            command.Parameters.AddWithValue("@elementId", elementId);
 
             using var reader = command.ExecuteReader();
             while (reader.Read())
@@ -329,5 +244,22 @@ namespace BingoManager.Services
 
             return cards;
         }
+
+        // Retorna uma lista com todas as cartelas do jogo
+        public static List<CardModel> GetGameCards(int setId)
+        {
+            GameModel game = GetGameInfo(setId);
+            if (game == null) return new List<CardModel>();
+
+            var cards = new List<CardModel>();
+            for (int cardNum = 1; cardNum <= game.GameTotal; cardNum++)
+            {
+                CardModel card = GetCardDetails(cardNum);
+                if (card != null)
+                    cards.Add(card);
+            }
+            return cards;
+        }
+
     }
 }

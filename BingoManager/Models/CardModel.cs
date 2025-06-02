@@ -10,17 +10,17 @@ namespace BingoManager.Models
     {
         public int CardId { get; set; }
         public int CardNumber { get; set; }
-        public List<int> AllCompanies { get; set; }
-        public List<int> BCompanies { get; set; }
-        public List<int> ICompanies { get; set; }
-        public List<int> NCompanies { get; set; }
-        public List<int> GCompanies { get; set; }
-        public List<int> OCompanies { get; set; }
-        public List<int> Companies1 { get; set; }
-        public List<int> Companies2 { get; set; }
-        public List<int> Companies3 { get; set; }
-        public List<int> Companies4 { get; set; }
-        public List<int> Companies5 { get; set; }
+        public List<int> AllElements { get; set; }
+        public List<int> BElements { get; set; }
+        public List<int> IElements { get; set; }
+        public List<int> NElements { get; set; }
+        public List<int> GElements { get; set; }
+        public List<int> OElements { get; set; }
+        public List<int> Elements1 { get; set; }
+        public List<int> Elements2 { get; set; }
+        public List<int> Elements3 { get; set; }
+        public List<int> Elements4 { get; set; }
+        public List<int> Elements5 { get; set; }
 
     }
 }

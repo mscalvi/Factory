@@ -9,20 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\default_logo.jpg" />
-    <None Remove="Resources\default_logo.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Images\default_logo.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\default_logo.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="itext7.pdfhtml" Version="5.0.5" />
     <PackageReference Include="iTextSharp" Version="5.5.13.4" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="8.0.8" />

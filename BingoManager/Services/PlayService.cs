@@ -9,25 +9,25 @@ namespace BingoManager.Services
 {
     public static class PlayService
     {
-        private static List<int> drawnComp = new List<int>();
+        private static List<int> drawnElements = new List<int>();
         private static List<int> drawnCards = new List<int>();
 
         // Método para adicionar uma empresa à lista das sorteadas
-        public static void AddCompany(int companyId)
+        public static void AddElement(int elementId)
         {
-            if (!drawnComp.Contains(companyId))
+            if (!drawnElements.Contains(elementId))
             {
-                drawnComp.Add(companyId);
+                drawnElements.Add(elementId);
             } else
             {
-                drawnComp.Remove(companyId);
+                drawnElements.Remove(elementId);
             }
         }
 
         //Método para conferir cartelas que possuem a última empresa sorteada
-        public static List<int> CheckCards(int companyId, int setId)
+        public static List<int> CheckCards(int elementId)
         {
-            var cardData = DataService.GetCardsByCompanyId(companyId, setId);
+            var cardData = DataService.GetCardsByElementId(elementId);
 
             List<int> cardNumbers = new List<int>();
             foreach (var (CardId, CardNum) in cardData)
@@ -39,33 +39,36 @@ namespace BingoManager.Services
         }
 
         //Método para conferir bingo
-        public static List<int> CheckBingo(List<int> cardNum, int setId, int bingoPhase, int compId)
+        public static List<int> CheckBingo(List<int> chosenCards, int bingoPhase, int compId)
         {
             List<int> winningCards = new List<int>();
-            List<int> drawnNumbers = PlayService.drawnComp;
+            List<int> drawnNumbers = drawnElements;
 
-            foreach (var card in cardNum)
+            foreach (var card in chosenCards)
             {
-                var cardDetails = DataService.GetCardDetails(card, setId);
+                var cardDetails = DataService.GetCardDetails(card);
 
-                bool isFullBingo = cardDetails.AllCompanies.All(num => drawnNumbers.Contains(num));
 
-                if (bingoPhase == 2 && isFullBingo)
+                if (bingoPhase == 2)
                 {
-                    winningCards.Add(card);
-                    continue;
+                    bool isFullBingo = cardDetails.AllElements.All(num => drawnNumbers.Contains(num));
+                    if (isFullBingo)
+                    {
+                        winningCards.Add(card);
+                        continue;
+                    }
                 }
 
                 if (bingoPhase == 1)
                 {
-                    // Verificar em qual linha (Companies1-5) está a empresa sorteada
+                    // Verificar em qual linha (Elements1-5) está o elemento sorteado
                     List<List<int>> rows = new List<List<int>>
                     {
-                        cardDetails.Companies1,
-                        cardDetails.Companies2,
-                        cardDetails.Companies3,
-                        cardDetails.Companies4,
-                        cardDetails.Companies5
+                        cardDetails.Elements1,
+                        cardDetails.Elements2,
+                        cardDetails.Elements3,
+                        cardDetails.Elements4,
+                        cardDetails.Elements5
                     };
 
                     int rowIndex = rows.FindIndex(row => row.Contains(compId));
@@ -73,11 +76,11 @@ namespace BingoManager.Services
                     // Verificar em qual coluna (B-I-N-G-O) está a empresa sorteada
                     List<List<int>> columns = new List<List<int>>
                     {
-                        cardDetails.BCompanies,
-                        cardDetails.ICompanies,
-                        cardDetails.NCompanies,
-                        cardDetails.GCompanies,
-                        cardDetails.OCompanies
+                        cardDetails.BElements,
+                        cardDetails.IElements,
+                        cardDetails.NElements,
+                        cardDetails.GElements,
+                        cardDetails.OElements
                     };
 
                     int colIndex = columns.FindIndex(col => col.Contains(compId));
@@ -107,7 +110,7 @@ namespace BingoManager.Services
 
         public static void ResetGame()
         {
-            drawnComp.Clear(); 
+            drawnElements.Clear(); 
             drawnCards.Clear();
         }
 

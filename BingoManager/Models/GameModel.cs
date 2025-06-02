@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BingoManager.Models
 {
-    internal class GameModel
+    public class GameModel
     {
         //Nome do Jogo
         public string GameName { get; set; }
@@ -22,6 +22,6 @@ namespace BingoManager.Models
         public List<ElementModel> OElements { get; set; }
 
         //Lista de Cartelas
-        public List<List<int>> GameCards { get; set; }
+        public List<CardModel> GameCards { get; set; }
     }
 }
