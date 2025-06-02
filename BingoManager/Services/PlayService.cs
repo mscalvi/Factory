@@ -38,7 +38,7 @@ namespace BingoManager.Services
             return cardNumbers; // Retorna a lista de números das cartelas
         }
 
-        //Método para conferir se uma Cartela Bingou!
+        //Método para conferir bingo
         public static List<int> CheckBingo(List<int> cardNum, int setId, int bingoPhase, int compId)
         {
             List<int> winningCards = new List<int>();
@@ -48,53 +48,63 @@ namespace BingoManager.Services
             {
                 var cardDetails = DataService.GetCardDetails(card, setId);
 
-                bool isQuina = false;
-                bool isFullBingo = true;
+                bool isFullBingo = cardDetails.AllCompanies.All(num => drawnNumbers.Contains(num));
 
-                for (int i = 0; i < 5; i++)
+                if (bingoPhase == 2 && isFullBingo)
                 {
-                    var rowNumbers = new List<int>
-                        {
-                            cardDetails.Companies1[i],
-                            cardDetails.Companies2[i],
-                            cardDetails.Companies3[i],
-                            cardDetails.Companies4[i],
-                            cardDetails.Companies5[i]
-                        };
+                    winningCards.Add(card);
+                    continue;
+                }
 
-                    if (rowNumbers.All(num => drawnNumbers.Contains(num)) && rowNumbers.Contains(compId))
+                if (bingoPhase == 1)
+                {
+                    // Verificar em qual linha (Companies1-5) está a empresa sorteada
+                    List<List<int>> rows = new List<List<int>>
                     {
-                        isQuina = true;
-                        break;
+                        cardDetails.Companies1,
+                        cardDetails.Companies2,
+                        cardDetails.Companies3,
+                        cardDetails.Companies4,
+                        cardDetails.Companies5
+                    };
+
+                    int rowIndex = rows.FindIndex(row => row.Contains(compId));
+
+                    // Verificar em qual coluna (B-I-N-G-O) está a empresa sorteada
+                    List<List<int>> columns = new List<List<int>>
+                    {
+                        cardDetails.BCompanies,
+                        cardDetails.ICompanies,
+                        cardDetails.NCompanies,
+                        cardDetails.GCompanies,
+                        cardDetails.OCompanies
+                    };
+
+                    int colIndex = columns.FindIndex(col => col.Contains(compId));
+
+                    bool rowComplete = false;
+                    bool colComplete = false;
+
+                    if (rowIndex != -1)
+                    {
+                        rowComplete = rows[rowIndex].All(num => drawnNumbers.Contains(num));
                     }
-                }
 
-                if ((cardDetails.BCompanies.All(num => drawnNumbers.Contains(num)) && cardDetails.BCompanies.Contains(compId)) ||
-                    (cardDetails.ICompanies.All(num => drawnNumbers.Contains(num)) && cardDetails.ICompanies.Contains(compId)) ||
-                    (cardDetails.NCompanies.All(num => drawnNumbers.Contains(num)) && cardDetails.NCompanies.Contains(compId)) ||
-                    (cardDetails.GCompanies.All(num => drawnNumbers.Contains(num)) && cardDetails.GCompanies.Contains(compId)) ||
-                    (cardDetails.OCompanies.All(num => drawnNumbers.Contains(num)) && cardDetails.OCompanies.Contains(compId)))
-                {
-                    isQuina = true;
-                }
+                    if (colIndex != -1)
+                    {
+                        colComplete = columns[colIndex].All(num => drawnNumbers.Contains(num));
+                    }
 
-                if (!cardDetails.AllCompanies.All(num => drawnNumbers.Contains(num)))
-                {
-                    isFullBingo = false;
-                }
-
-                if (bingoPhase == 1 && isQuina)
-                {
-                    winningCards.Add(card);
-                }
-                else if (bingoPhase == 2 && isFullBingo)
-                {
-                    winningCards.Add(card);
+                    if (rowComplete || colComplete)
+                    {
+                        winningCards.Add(card);
+                    }
                 }
             }
 
             return winningCards;
         }
+
         public static void ResetGame()
         {
             drawnComp.Clear(); 

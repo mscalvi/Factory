@@ -58,6 +58,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(1350, 729);
             Controls.Add(ShowCompLogo);
             Controls.Add(ShowCompName);
