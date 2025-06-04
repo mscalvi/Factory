@@ -33,32 +33,34 @@
             tabCreatePage = new TabPage();
             tabControlCreate = new TabControl();
             tabCreateElement = new TabPage();
+            btnElementCreate = new Button();
             lblElementMessage = new Label();
             lblElementTitle = new Label();
             cboElementList = new ComboBox();
-            picElement = new PictureBox();
-            btnElementImage = new Button();
             lblElementList = new Label();
-            boxelementNote2 = new TextBox();
+            boxElementNote2 = new TextBox();
             boxElementNote1 = new TextBox();
             boxElementCardName = new TextBox();
             boxElementName = new TextBox();
-            lblElementImage = new Label();
             lblElementNote2 = new Label();
             lblElementNote1 = new Label();
             lblElementCardName = new Label();
             lblElementName = new Label();
             tabCreateList = new TabPage();
+            btnListCreate = new Button();
             lblListMessage = new Label();
-            picList = new PictureBox();
-            btnListImage = new Button();
-            lblListImage = new Label();
             boxListDescription = new TextBox();
             boxListName = new TextBox();
             lblListDescription = new Label();
             lblListName = new Label();
             lblListTitle = new Label();
             tabCreateCards = new TabPage();
+            btnCardsExport = new Button();
+            lblCardsList = new Label();
+            cboCardsList = new ComboBox();
+            lblCardsQuant = new Label();
+            boxCardsQuant = new TextBox();
+            lblCardsEnd = new Label();
             boxCardsEnd = new TextBox();
             lblCardsHeader = new Label();
             lblCardsMessage = new Label();
@@ -67,20 +69,14 @@
             lblCardsTitle = new Label();
             lblCardsName = new Label();
             tabEditPage = new TabPage();
-            lblCardsEnd = new Label();
-            lblCardsQuant = new Label();
-            boxCardsQuant = new TextBox();
-            cboCardsList = new ComboBox();
-            lblCardsList = new Label();
-            btnElementCreate = new Button();
-            btnListCreate = new Button();
-            btnCardsExport = new Button();
-            lblEditHeader = new Label();
+            boxEditText5 = new TextBox();
+            lblEditText5 = new Label();
+            btnEditExclude = new Button();
+            flwEditItens = new FlowLayoutPanel();
             btnEditEdit = new Button();
             lblEditMessage = new Label();
             cboEdit = new ComboBox();
             picEdit = new PictureBox();
-            btnEditImage = new Button();
             boxEditText4 = new TextBox();
             boxEditText3 = new TextBox();
             boxEditText2 = new TextBox();
@@ -90,18 +86,13 @@
             lblEditText3 = new Label();
             lblEditText2 = new Label();
             lblEditText1 = new Label();
-            flwEditItens = new FlowLayoutPanel();
-            btnEditExclude = new Button();
-            boxEditText5 = new TextBox();
-            lblEditText5 = new Label();
+            lblEditHeader = new Label();
             pnlMainView.SuspendLayout();
             tabControlMain.SuspendLayout();
             tabCreatePage.SuspendLayout();
             tabControlCreate.SuspendLayout();
             tabCreateElement.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picElement).BeginInit();
             tabCreateList.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picList).BeginInit();
             tabCreateCards.SuspendLayout();
             tabEditPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picEdit).BeginInit();
@@ -158,14 +149,11 @@
             tabCreateElement.Controls.Add(lblElementMessage);
             tabCreateElement.Controls.Add(lblElementTitle);
             tabCreateElement.Controls.Add(cboElementList);
-            tabCreateElement.Controls.Add(picElement);
-            tabCreateElement.Controls.Add(btnElementImage);
             tabCreateElement.Controls.Add(lblElementList);
-            tabCreateElement.Controls.Add(boxelementNote2);
+            tabCreateElement.Controls.Add(boxElementNote2);
             tabCreateElement.Controls.Add(boxElementNote1);
             tabCreateElement.Controls.Add(boxElementCardName);
             tabCreateElement.Controls.Add(boxElementName);
-            tabCreateElement.Controls.Add(lblElementImage);
             tabCreateElement.Controls.Add(lblElementNote2);
             tabCreateElement.Controls.Add(lblElementNote1);
             tabCreateElement.Controls.Add(lblElementCardName);
@@ -178,11 +166,22 @@
             tabCreateElement.Text = "Element";
             tabCreateElement.UseVisualStyleBackColor = true;
             // 
+            // btnElementCreate
+            // 
+            btnElementCreate.Anchor = AnchorStyles.Top;
+            btnElementCreate.Location = new Point(787, 485);
+            btnElementCreate.Name = "btnElementCreate";
+            btnElementCreate.Size = new Size(295, 76);
+            btnElementCreate.TabIndex = 14;
+            btnElementCreate.Text = "Criar";
+            btnElementCreate.UseVisualStyleBackColor = true;
+            btnElementCreate.Click += btnElementCreat_Clicked;
+            // 
             // lblElementMessage
             // 
             lblElementMessage.Anchor = AnchorStyles.Top;
             lblElementMessage.Font = new Font("Segoe UI", 12F);
-            lblElementMessage.Location = new Point(787, 263);
+            lblElementMessage.Location = new Point(787, 196);
             lblElementMessage.Name = "lblElementMessage";
             lblElementMessage.Size = new Size(295, 216);
             lblElementMessage.TabIndex = 13;
@@ -203,47 +202,30 @@
             // cboElementList
             // 
             cboElementList.FormattingEnabled = true;
-            cboElementList.Location = new Point(787, 210);
+            cboElementList.Location = new Point(275, 418);
             cboElementList.Name = "cboElementList";
-            cboElementList.Size = new Size(295, 23);
+            cboElementList.Size = new Size(395, 23);
             cboElementList.TabIndex = 5;
-            // 
-            // picElement
-            // 
-            picElement.Location = new Point(275, 413);
-            picElement.Name = "picElement";
-            picElement.Size = new Size(395, 224);
-            picElement.TabIndex = 10;
-            picElement.TabStop = false;
-            // 
-            // btnElementImage
-            // 
-            btnElementImage.Location = new Point(32, 479);
-            btnElementImage.Name = "btnElementImage";
-            btnElementImage.Size = new Size(165, 48);
-            btnElementImage.TabIndex = 6;
-            btnElementImage.Text = "Procurar";
-            btnElementImage.UseVisualStyleBackColor = true;
             // 
             // lblElementList
             // 
             lblElementList.Anchor = AnchorStyles.Top;
             lblElementList.Font = new Font("Segoe UI", 12F);
-            lblElementList.Location = new Point(787, 151);
+            lblElementList.Location = new Point(32, 407);
             lblElementList.Name = "lblElementList";
-            lblElementList.Size = new Size(295, 38);
+            lblElementList.Size = new Size(237, 38);
             lblElementList.TabIndex = 8;
             lblElementList.Text = "Lista:";
-            lblElementList.TextAlign = ContentAlignment.MiddleCenter;
+            lblElementList.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // boxelementNote2
+            // boxElementNote2
             // 
-            boxelementNote2.Anchor = AnchorStyles.Top;
-            boxelementNote2.Font = new Font("Segoe UI", 12F);
-            boxelementNote2.Location = new Point(275, 348);
-            boxelementNote2.Name = "boxelementNote2";
-            boxelementNote2.Size = new Size(395, 29);
-            boxelementNote2.TabIndex = 4;
+            boxElementNote2.Anchor = AnchorStyles.Top;
+            boxElementNote2.Font = new Font("Segoe UI", 12F);
+            boxElementNote2.Location = new Point(275, 348);
+            boxElementNote2.Name = "boxElementNote2";
+            boxElementNote2.Size = new Size(395, 29);
+            boxElementNote2.TabIndex = 4;
             // 
             // boxElementNote1
             // 
@@ -271,18 +253,6 @@
             boxElementName.Name = "boxElementName";
             boxElementName.Size = new Size(395, 29);
             boxElementName.TabIndex = 1;
-            // 
-            // lblElementImage
-            // 
-            lblElementImage.Anchor = AnchorStyles.Top;
-            lblElementImage.Font = new Font("Segoe UI", 12F);
-            lblElementImage.ImageAlign = ContentAlignment.MiddleLeft;
-            lblElementImage.Location = new Point(32, 413);
-            lblElementImage.Name = "lblElementImage";
-            lblElementImage.Size = new Size(237, 38);
-            lblElementImage.TabIndex = 4;
-            lblElementImage.Text = "Imagem:";
-            lblElementImage.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblElementNote2
             // 
@@ -336,9 +306,6 @@
             // 
             tabCreateList.Controls.Add(btnListCreate);
             tabCreateList.Controls.Add(lblListMessage);
-            tabCreateList.Controls.Add(picList);
-            tabCreateList.Controls.Add(btnListImage);
-            tabCreateList.Controls.Add(lblListImage);
             tabCreateList.Controls.Add(boxListDescription);
             tabCreateList.Controls.Add(boxListName);
             tabCreateList.Controls.Add(lblListDescription);
@@ -352,6 +319,17 @@
             tabCreateList.Text = "List";
             tabCreateList.UseVisualStyleBackColor = true;
             // 
+            // btnListCreate
+            // 
+            btnListCreate.Anchor = AnchorStyles.Top;
+            btnListCreate.Location = new Point(290, 414);
+            btnListCreate.Name = "btnListCreate";
+            btnListCreate.Size = new Size(295, 76);
+            btnListCreate.TabIndex = 22;
+            btnListCreate.Text = "Criar";
+            btnListCreate.UseVisualStyleBackColor = true;
+            btnListCreate.Click += btnListCreate_Clicked;
+            // 
             // lblListMessage
             // 
             lblListMessage.Anchor = AnchorStyles.Top;
@@ -362,35 +340,6 @@
             lblListMessage.TabIndex = 21;
             lblListMessage.Text = "Mensagem";
             lblListMessage.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // picList
-            // 
-            picList.Location = new Point(290, 398);
-            picList.Name = "picList";
-            picList.Size = new Size(395, 224);
-            picList.TabIndex = 20;
-            picList.TabStop = false;
-            // 
-            // btnListImage
-            // 
-            btnListImage.Location = new Point(47, 464);
-            btnListImage.Name = "btnListImage";
-            btnListImage.Size = new Size(165, 48);
-            btnListImage.TabIndex = 19;
-            btnListImage.Text = "Procurar";
-            btnListImage.UseVisualStyleBackColor = true;
-            // 
-            // lblListImage
-            // 
-            lblListImage.Anchor = AnchorStyles.Top;
-            lblListImage.Font = new Font("Segoe UI", 12F);
-            lblListImage.ImageAlign = ContentAlignment.MiddleLeft;
-            lblListImage.Location = new Point(47, 398);
-            lblListImage.Name = "lblListImage";
-            lblListImage.Size = new Size(237, 38);
-            lblListImage.TabIndex = 18;
-            lblListImage.Text = "Imagem:";
-            lblListImage.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // boxListDescription
             // 
@@ -466,6 +415,70 @@
             tabCreateCards.TabIndex = 2;
             tabCreateCards.Text = "Cards";
             tabCreateCards.UseVisualStyleBackColor = true;
+            // 
+            // btnCardsExport
+            // 
+            btnCardsExport.Anchor = AnchorStyles.Top;
+            btnCardsExport.Font = new Font("Segoe UI", 12F);
+            btnCardsExport.Location = new Point(437, 557);
+            btnCardsExport.Name = "btnCardsExport";
+            btnCardsExport.Size = new Size(295, 76);
+            btnCardsExport.TabIndex = 35;
+            btnCardsExport.Text = "Exportar Jogo";
+            btnCardsExport.UseVisualStyleBackColor = true;
+            // 
+            // lblCardsList
+            // 
+            lblCardsList.Anchor = AnchorStyles.Top;
+            lblCardsList.Font = new Font("Segoe UI", 12F);
+            lblCardsList.ImageAlign = ContentAlignment.MiddleLeft;
+            lblCardsList.Location = new Point(67, 452);
+            lblCardsList.Name = "lblCardsList";
+            lblCardsList.Size = new Size(237, 38);
+            lblCardsList.TabIndex = 33;
+            lblCardsList.Text = "Lista:";
+            lblCardsList.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // cboCardsList
+            // 
+            cboCardsList.FormattingEnabled = true;
+            cboCardsList.Location = new Point(310, 463);
+            cboCardsList.Name = "cboCardsList";
+            cboCardsList.Size = new Size(395, 23);
+            cboCardsList.TabIndex = 32;
+            // 
+            // lblCardsQuant
+            // 
+            lblCardsQuant.Anchor = AnchorStyles.Top;
+            lblCardsQuant.Font = new Font("Segoe UI", 12F);
+            lblCardsQuant.ImageAlign = ContentAlignment.MiddleLeft;
+            lblCardsQuant.Location = new Point(67, 386);
+            lblCardsQuant.Name = "lblCardsQuant";
+            lblCardsQuant.Size = new Size(237, 38);
+            lblCardsQuant.TabIndex = 31;
+            lblCardsQuant.Text = "Quantidade:";
+            lblCardsQuant.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // boxCardsQuant
+            // 
+            boxCardsQuant.Anchor = AnchorStyles.Top;
+            boxCardsQuant.Font = new Font("Segoe UI", 12F);
+            boxCardsQuant.Location = new Point(310, 392);
+            boxCardsQuant.Name = "boxCardsQuant";
+            boxCardsQuant.Size = new Size(395, 29);
+            boxCardsQuant.TabIndex = 30;
+            // 
+            // lblCardsEnd
+            // 
+            lblCardsEnd.Anchor = AnchorStyles.Top;
+            lblCardsEnd.Font = new Font("Segoe UI", 12F);
+            lblCardsEnd.ImageAlign = ContentAlignment.MiddleLeft;
+            lblCardsEnd.Location = new Point(67, 313);
+            lblCardsEnd.Name = "lblCardsEnd";
+            lblCardsEnd.Size = new Size(237, 38);
+            lblCardsEnd.TabIndex = 29;
+            lblCardsEnd.Text = "Mensagem Final:";
+            lblCardsEnd.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // boxCardsEnd
             // 
@@ -550,7 +563,6 @@
             tabEditPage.Controls.Add(lblEditMessage);
             tabEditPage.Controls.Add(cboEdit);
             tabEditPage.Controls.Add(picEdit);
-            tabEditPage.Controls.Add(btnEditImage);
             tabEditPage.Controls.Add(boxEditText4);
             tabEditPage.Controls.Add(boxEditText3);
             tabEditPage.Controls.Add(boxEditText2);
@@ -568,100 +580,43 @@
             tabEditPage.Text = "EditPage";
             tabEditPage.UseVisualStyleBackColor = true;
             // 
-            // lblCardsEnd
+            // boxEditText5
             // 
-            lblCardsEnd.Anchor = AnchorStyles.Top;
-            lblCardsEnd.Font = new Font("Segoe UI", 12F);
-            lblCardsEnd.ImageAlign = ContentAlignment.MiddleLeft;
-            lblCardsEnd.Location = new Point(67, 313);
-            lblCardsEnd.Name = "lblCardsEnd";
-            lblCardsEnd.Size = new Size(237, 38);
-            lblCardsEnd.TabIndex = 29;
-            lblCardsEnd.Text = "Mensagem Final:";
-            lblCardsEnd.TextAlign = ContentAlignment.MiddleLeft;
+            boxEditText5.Anchor = AnchorStyles.Top;
+            boxEditText5.Font = new Font("Segoe UI", 12F);
+            boxEditText5.Location = new Point(742, 344);
+            boxEditText5.Name = "boxEditText5";
+            boxEditText5.Size = new Size(395, 29);
+            boxEditText5.TabIndex = 32;
             // 
-            // lblCardsQuant
+            // lblEditText5
             // 
-            lblCardsQuant.Anchor = AnchorStyles.Top;
-            lblCardsQuant.Font = new Font("Segoe UI", 12F);
-            lblCardsQuant.ImageAlign = ContentAlignment.MiddleLeft;
-            lblCardsQuant.Location = new Point(67, 386);
-            lblCardsQuant.Name = "lblCardsQuant";
-            lblCardsQuant.Size = new Size(237, 38);
-            lblCardsQuant.TabIndex = 31;
-            lblCardsQuant.Text = "Quantidade:";
-            lblCardsQuant.TextAlign = ContentAlignment.MiddleLeft;
+            lblEditText5.Anchor = AnchorStyles.Top;
+            lblEditText5.Font = new Font("Segoe UI", 12F);
+            lblEditText5.ImageAlign = ContentAlignment.MiddleLeft;
+            lblEditText5.Location = new Point(499, 338);
+            lblEditText5.Name = "lblEditText5";
+            lblEditText5.Size = new Size(237, 38);
+            lblEditText5.TabIndex = 31;
+            lblEditText5.Text = "Informação 5:";
+            lblEditText5.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // boxCardsQuant
+            // btnEditExclude
             // 
-            boxCardsQuant.Anchor = AnchorStyles.Top;
-            boxCardsQuant.Font = new Font("Segoe UI", 12F);
-            boxCardsQuant.Location = new Point(310, 392);
-            boxCardsQuant.Name = "boxCardsQuant";
-            boxCardsQuant.Size = new Size(395, 29);
-            boxCardsQuant.TabIndex = 30;
+            btnEditExclude.Anchor = AnchorStyles.Top;
+            btnEditExclude.Location = new Point(820, 619);
+            btnEditExclude.Name = "btnEditExclude";
+            btnEditExclude.Size = new Size(267, 76);
+            btnEditExclude.TabIndex = 30;
+            btnEditExclude.Text = "Excluir";
+            btnEditExclude.UseVisualStyleBackColor = true;
             // 
-            // cboCardsList
+            // flwEditItens
             // 
-            cboCardsList.FormattingEnabled = true;
-            cboCardsList.Location = new Point(310, 463);
-            cboCardsList.Name = "cboCardsList";
-            cboCardsList.Size = new Size(395, 23);
-            cboCardsList.TabIndex = 32;
-            // 
-            // lblCardsList
-            // 
-            lblCardsList.Anchor = AnchorStyles.Top;
-            lblCardsList.Font = new Font("Segoe UI", 12F);
-            lblCardsList.ImageAlign = ContentAlignment.MiddleLeft;
-            lblCardsList.Location = new Point(67, 452);
-            lblCardsList.Name = "lblCardsList";
-            lblCardsList.Size = new Size(237, 38);
-            lblCardsList.TabIndex = 33;
-            lblCardsList.Text = "Lista:";
-            lblCardsList.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // btnElementCreate
-            // 
-            btnElementCreate.Anchor = AnchorStyles.Top;
-            btnElementCreate.Location = new Point(787, 528);
-            btnElementCreate.Name = "btnElementCreate";
-            btnElementCreate.Size = new Size(295, 76);
-            btnElementCreate.TabIndex = 14;
-            btnElementCreate.Text = "Criar";
-            btnElementCreate.UseVisualStyleBackColor = true;
-            // 
-            // btnListCreate
-            // 
-            btnListCreate.Anchor = AnchorStyles.Top;
-            btnListCreate.Location = new Point(817, 502);
-            btnListCreate.Name = "btnListCreate";
-            btnListCreate.Size = new Size(295, 76);
-            btnListCreate.TabIndex = 22;
-            btnListCreate.Text = "Criar";
-            btnListCreate.UseVisualStyleBackColor = true;
-            // 
-            // btnCardsExport
-            // 
-            btnCardsExport.Anchor = AnchorStyles.Top;
-            btnCardsExport.Font = new Font("Segoe UI", 12F);
-            btnCardsExport.Location = new Point(437, 557);
-            btnCardsExport.Name = "btnCardsExport";
-            btnCardsExport.Size = new Size(295, 76);
-            btnCardsExport.TabIndex = 35;
-            btnCardsExport.Text = "Exportar Jogo";
-            btnCardsExport.UseVisualStyleBackColor = true;
-            // 
-            // lblEditHeader
-            // 
-            lblEditHeader.Dock = DockStyle.Top;
-            lblEditHeader.Font = new Font("Segoe UI", 16F);
-            lblEditHeader.Location = new Point(0, 0);
-            lblEditHeader.Name = "lblEditHeader";
-            lblEditHeader.Size = new Size(1182, 87);
-            lblEditHeader.TabIndex = 13;
-            lblEditHeader.Text = "Editar";
-            lblEditHeader.TextAlign = ContentAlignment.MiddleCenter;
+            flwEditItens.Location = new Point(27, 148);
+            flwEditItens.Name = "flwEditItens";
+            flwEditItens.Size = new Size(391, 401);
+            flwEditItens.TabIndex = 29;
             // 
             // btnEditEdit
             // 
@@ -699,15 +654,6 @@
             picEdit.Size = new Size(395, 191);
             picEdit.TabIndex = 26;
             picEdit.TabStop = false;
-            // 
-            // btnEditImage
-            // 
-            btnEditImage.Location = new Point(524, 501);
-            btnEditImage.Name = "btnEditImage";
-            btnEditImage.Size = new Size(165, 48);
-            btnEditImage.TabIndex = 25;
-            btnEditImage.Text = "Procurar";
-            btnEditImage.UseVisualStyleBackColor = true;
             // 
             // boxEditText4
             // 
@@ -805,43 +751,16 @@
             lblEditText1.Text = "Informação 1:";
             lblEditText1.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // flwEditItens
+            // lblEditHeader
             // 
-            flwEditItens.Location = new Point(27, 148);
-            flwEditItens.Name = "flwEditItens";
-            flwEditItens.Size = new Size(391, 401);
-            flwEditItens.TabIndex = 29;
-            // 
-            // btnEditExclude
-            // 
-            btnEditExclude.Anchor = AnchorStyles.Top;
-            btnEditExclude.Location = new Point(820, 619);
-            btnEditExclude.Name = "btnEditExclude";
-            btnEditExclude.Size = new Size(267, 76);
-            btnEditExclude.TabIndex = 30;
-            btnEditExclude.Text = "Excluir";
-            btnEditExclude.UseVisualStyleBackColor = true;
-            // 
-            // boxEditText5
-            // 
-            boxEditText5.Anchor = AnchorStyles.Top;
-            boxEditText5.Font = new Font("Segoe UI", 12F);
-            boxEditText5.Location = new Point(742, 344);
-            boxEditText5.Name = "boxEditText5";
-            boxEditText5.Size = new Size(395, 29);
-            boxEditText5.TabIndex = 32;
-            // 
-            // lblEditText5
-            // 
-            lblEditText5.Anchor = AnchorStyles.Top;
-            lblEditText5.Font = new Font("Segoe UI", 12F);
-            lblEditText5.ImageAlign = ContentAlignment.MiddleLeft;
-            lblEditText5.Location = new Point(499, 338);
-            lblEditText5.Name = "lblEditText5";
-            lblEditText5.Size = new Size(237, 38);
-            lblEditText5.TabIndex = 31;
-            lblEditText5.Text = "Informação 5:";
-            lblEditText5.TextAlign = ContentAlignment.MiddleLeft;
+            lblEditHeader.Dock = DockStyle.Top;
+            lblEditHeader.Font = new Font("Segoe UI", 16F);
+            lblEditHeader.Location = new Point(0, 0);
+            lblEditHeader.Name = "lblEditHeader";
+            lblEditHeader.Size = new Size(1182, 87);
+            lblEditHeader.TabIndex = 13;
+            lblEditHeader.Text = "Editar";
+            lblEditHeader.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // MainView
             // 
@@ -857,10 +776,8 @@
             tabControlCreate.ResumeLayout(false);
             tabCreateElement.ResumeLayout(false);
             tabCreateElement.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)picElement).EndInit();
             tabCreateList.ResumeLayout(false);
             tabCreateList.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)picList).EndInit();
             tabCreateCards.ResumeLayout(false);
             tabCreateCards.PerformLayout();
             tabEditPage.ResumeLayout(false);
@@ -881,24 +798,18 @@
         private TabPage tabCreateList;
         private TabPage tabCreateCards;
         private TextBox boxElementName;
-        private Label lblElementImage;
         private Label lblElementNote2;
         private Label lblElementNote1;
         private Label lblElementCardName;
         private Label lblElementName;
-        private Button btnElementImage;
         private Label lblElementList;
-        private TextBox boxelementNote2;
+        private TextBox boxElementNote2;
         private TextBox boxElementNote1;
         private TextBox boxElementCardName;
         private Label lblElementTitle;
         private ComboBox cboElementList;
-        private PictureBox picElement;
         private Label lblElementMessage;
         private Label lblListMessage;
-        private PictureBox picList;
-        private Button btnListImage;
-        private Label lblListImage;
         private TextBox boxListDescription;
         private TextBox boxListName;
         private Label lblListDescription;
@@ -924,7 +835,6 @@
         private Label lblEditMessage;
         private ComboBox cboEdit;
         private PictureBox picEdit;
-        private Button btnEditImage;
         private TextBox boxEditText4;
         private TextBox boxEditText3;
         private TextBox boxEditText2;

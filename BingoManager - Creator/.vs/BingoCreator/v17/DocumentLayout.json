@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Creator\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - creator\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - creator\\services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|solutionrelative:services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - creator\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Creator\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,26 +38,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "DataService.cs",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Creator\\Services\\DataService.cs",
               "RelativeDocumentMoniker": "Services\\DataService.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Creator\\Services\\DataService.cs",
               "RelativeToolTip": "Services\\DataService.cs",
-              "ViewState": "AQIAAHoAAAAAAAAAAAAewIoAAAAyAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAI8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-03T13:12:55.783Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainView.cs",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Creator\\Views\\MainView.cs",
               "RelativeDocumentMoniker": "Views\\MainView.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Creator\\Views\\MainView.cs",
               "RelativeToolTip": "Views\\MainView.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAC8AAAAFAAAA",
+              "ViewState": "AQIAAEEAAAAAAAAAAAAwwF0AAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-02T23:41:37.72Z",
               "EditorCaption": ""

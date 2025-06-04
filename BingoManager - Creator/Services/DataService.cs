@@ -174,7 +174,7 @@ namespace BingoCreator.Services
         }
 
         // Criar Lista
-        public static int AddList(string name, string description, string imagename)
+        public static int CreateList(string name, string description, string imagename)
         {
             using (var connection = GetConnection())
             {
