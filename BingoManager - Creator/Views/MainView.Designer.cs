@@ -87,6 +87,9 @@
             lblEditText2 = new Label();
             lblEditText1 = new Label();
             lblEditHeader = new Label();
+            grpCardsSize = new GroupBox();
+            radCardsSize5 = new RadioButton();
+            radCardsSize4 = new RadioButton();
             pnlMainView.SuspendLayout();
             tabControlMain.SuspendLayout();
             tabCreatePage.SuspendLayout();
@@ -96,6 +99,7 @@
             tabCreateCards.SuspendLayout();
             tabEditPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picEdit).BeginInit();
+            grpCardsSize.SuspendLayout();
             SuspendLayout();
             // 
             // pnlMainView
@@ -396,6 +400,7 @@
             // 
             // tabCreateCards
             // 
+            tabCreateCards.Controls.Add(grpCardsSize);
             tabCreateCards.Controls.Add(btnCardsExport);
             tabCreateCards.Controls.Add(lblCardsList);
             tabCreateCards.Controls.Add(cboCardsList);
@@ -420,7 +425,7 @@
             // 
             btnCardsExport.Anchor = AnchorStyles.Top;
             btnCardsExport.Font = new Font("Segoe UI", 12F);
-            btnCardsExport.Location = new Point(437, 557);
+            btnCardsExport.Location = new Point(819, 557);
             btnCardsExport.Name = "btnCardsExport";
             btnCardsExport.Size = new Size(295, 76);
             btnCardsExport.TabIndex = 35;
@@ -762,6 +767,41 @@
             lblEditHeader.Text = "Editar";
             lblEditHeader.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // grpCardsSize
+            // 
+            grpCardsSize.Anchor = AnchorStyles.Top;
+            grpCardsSize.Controls.Add(radCardsSize5);
+            grpCardsSize.Controls.Add(radCardsSize4);
+            grpCardsSize.Location = new Point(67, 533);
+            grpCardsSize.Name = "grpCardsSize";
+            grpCardsSize.Size = new Size(638, 100);
+            grpCardsSize.TabIndex = 36;
+            grpCardsSize.TabStop = false;
+            grpCardsSize.Text = "Tamanho das Cartelas";
+            // 
+            // radCardsSize5
+            // 
+            radCardsSize5.Anchor = AnchorStyles.Top;
+            radCardsSize5.Checked = true;
+            radCardsSize5.Location = new Point(321, 44);
+            radCardsSize5.Name = "radCardsSize5";
+            radCardsSize5.Size = new Size(200, 32);
+            radCardsSize5.TabIndex = 1;
+            radCardsSize5.TabStop = true;
+            radCardsSize5.Text = "Cartelas 5x5 (45+ Elementos)";
+            radCardsSize5.UseVisualStyleBackColor = true;
+            // 
+            // radCardsSize4
+            // 
+            radCardsSize4.Anchor = AnchorStyles.Top;
+            radCardsSize4.Location = new Point(64, 44);
+            radCardsSize4.Name = "radCardsSize4";
+            radCardsSize4.Size = new Size(200, 32);
+            radCardsSize4.TabIndex = 0;
+            radCardsSize4.TabStop = true;
+            radCardsSize4.Text = "Cartelas 4x4 (35+ Elementos)";
+            radCardsSize4.UseVisualStyleBackColor = true;
+            // 
             // MainView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -783,6 +823,7 @@
             tabEditPage.ResumeLayout(false);
             tabEditPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picEdit).EndInit();
+            grpCardsSize.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -848,5 +889,8 @@
         private Button btnEditExclude;
         private TextBox boxEditText5;
         private Label lblEditText5;
+        private GroupBox grpCardsSize;
+        private RadioButton radCardsSize5;
+        private RadioButton radCardsSize4;
     }
 }

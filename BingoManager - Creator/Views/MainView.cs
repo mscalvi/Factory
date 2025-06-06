@@ -2,6 +2,7 @@ using BingoCreator.Models;
 using BingoCreator.Services;
 using System.Collections.Generic;
 using System.Data;
+using System.Xml.Linq;
 
 namespace BingoCreator
 {
@@ -192,6 +193,107 @@ namespace BingoCreator
             LoadLists();
         }
 
+        //Criar Cartelas
 
+        private void btnExportCards_Click(object sender, EventArgs e)
+        {
+            CardSetModel cards = new CardSetModel();
+
+            int maxNameLength = 50;
+            int maxQuantity = 2000;
+            int maxTitleLength = 120;
+            int maxEndLength = 200;
+
+            cards.Name = boxCardsName.Text.Trim();
+            cards.Title = boxCardsTitle.Text.Trim();
+            cards.End = boxCardsEnd.Text.Trim();
+
+            if (int.TryParse(boxCardsQuant.Text.Trim(), out int quantidade))
+            {
+                cards.Quantity = quantidade;
+            }
+            else
+            {
+                MessageBox.Show("Informe um número válido para a quantidade de cartelas.");
+            }
+
+            if (string.IsNullOrEmpty(cards.Name) || cards.Name.Length > maxNameLength)
+            {
+                lblCardsMessage.Text = $"Insira um nome para o conjunto de cartelas com no máximo {maxNameLength} caracteres!";
+                return;
+            }
+
+            if (cboCardsList.SelectedItem != null)
+            {
+                cards.ListId = (int)(cboCardsList.SelectedItem as dynamic).Value;
+
+                List<DataRow> List = DataService.GetElementsInList(cards.ListId);
+
+                int ElementCount = List.Count;
+
+                if (radCardsSize4.Checked == true)
+                {
+                    if (ElementCount < 35)
+                    {
+                        lblCardsMessage.Text = $"A Lista deve ter pelo menos 35 Elementos, a Lista {cards.ListId} tem apenas {ElementCount}!";
+                        return;
+                    }
+                }
+                else if (radCardsSize5.Checked == true)
+                {
+                    {
+                        if (ElementCount < 45)
+                        {
+                            lblCardsMessage.Text = $"A Lista deve ter pelo menos 45 Elementos, a Lista {cards.ListId} tem apenas {ElementCount}!";
+                            return;
+                        }
+                    }
+
+                    if (string.IsNullOrEmpty(cards.Title) || cards.Title.Length > maxTitleLength)
+                    {
+                        lblCardsMessage.Text = $"Insira um título para as Cartelas com no máximo {maxTitleLength} caracteres!";
+                        return;
+                    }
+
+                    if (string.IsNullOrEmpty(cards.End) || cards.End.Length > maxEndLength)
+                    {
+                        lblCardsMessage.Text = $"O final deve ter no máximo {maxEndLength} caracteres!";
+                        return;
+                    }
+
+                    if (cards.Quantity <= maxQuantity)
+                    {
+                        try
+                        {
+                            btnCardsExport.Enabled = false;
+                            GeneratingService.CreateCards(cards.ListId, cards.Name, cards.Title, cards.End, cards.Quantity, cards.CardsSize);
+                            cards.AddDate = DateTime.Now.ToString("MMddyyyy - HH:mm:ss"); ;
+                            DataService.CreateCardList(cards.ListId, cards.Name, cards.Title, cards.End, cards.Quantity, cards.CardsSize, cards.GroupBIds, cards.GroupIIds, cards.GroupNIds, cards.GroupGIds, cards.GroupOIds, cards.AddDate);
+                        }
+                        catch
+                        {
+                            lblCardsMessage.Text = "Erro ao gerar as cartelas.";
+                        }
+                    }
+                    else
+                    {
+                        lblCardsMessage.Text = $"Apenas números na quantidade! A quantidade máxima permitida é {maxQuantity}.";
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                lblCardsMessage.Text = "Selecione uma Lista!";
+            }
+
+                boxCardsName.Text = string.Empty;
+                boxCardsQuant.Text = string.Empty;
+                boxCardsTitle.Text = string.Empty;
+                boxCardsEnd.Text = string.Empty;
+                cboCardsList.SelectedIndex = -1;
+                lblCardsMessage.Text = "Cartelas criadas com sucesso!";
+                btnCardsExport.Enabled = true;
+        }
     }
 }

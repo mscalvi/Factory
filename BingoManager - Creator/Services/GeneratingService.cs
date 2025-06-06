@@ -8,5 +8,9 @@ namespace BingoCreator.Services
 {
     internal class GeneratingService
     {
+        public static void CreateCards(int listId, string setName, string setTitle, string setEnd, int setQnt, int cardsSize)
+        {
+
+        }
     }
 }

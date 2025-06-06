@@ -196,27 +196,29 @@ namespace BingoCreator.Services
         }
 
         // Criar Conjunto de Cartelas
-        public static int CreateCardList(int listId, int qnt, string end, string title, string name, string groupB, string groupI, string groupN, string groupG, string groupO)
+        public static int CreateCardList(int listId, string name, string title, string end, int quantity, int cardsSize, string groupB, string groupI, string groupN, string groupG, string groupO, string addTime)
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
 
                 // Query para inserir uma nova linha na tabela CardsSetsTable
-                string insertQuery = "INSERT INTO CardsSetsTable (ListId, Qnt, End, Title, Name, GroupB, GroupI, GroupN, GroupG, GroupO) VALUES (@ListId, @Qnt, @End, @Title, @Name, @GroupB, @GroupI, @GroupN, @GroupG, @GroupO)";
+                string insertQuery = "INSERT INTO CardsSetsTable (ListId, Name, Title, End, Quantity, CardsSize, GroupB, GroupI, GroupN, GroupG, GroupO, AddTime) VALUES (@ListId, @Name, @Title, @End, @Quantity, @GroupB, @GroupI, @GroupN, @GroupG, @GroupO, @AddTime)";
 
                 using (var command = new SQLiteCommand(insertQuery, connection))
                 {
                     command.Parameters.AddWithValue("@ListId", listId);
-                    command.Parameters.AddWithValue("@Qnt", qnt);
-                    command.Parameters.AddWithValue("@End", end);
-                    command.Parameters.AddWithValue("@Title", title);
                     command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@Title", title);
+                    command.Parameters.AddWithValue("@End", end);
+                    command.Parameters.AddWithValue("@Quantity", quantity);
+                    command.Parameters.AddWithValue("@CardsSize", cardsSize);
                     command.Parameters.AddWithValue("@GroupB", groupB);
                     command.Parameters.AddWithValue("@GroupI", groupI);
                     command.Parameters.AddWithValue("@GroupN", groupN);
                     command.Parameters.AddWithValue("@GroupG", groupG);
                     command.Parameters.AddWithValue("@GroupO", groupO);
+                    command.Parameters.AddWithValue("@AddTime", addTime);
 
                     command.ExecuteNonQuery();
                 }
