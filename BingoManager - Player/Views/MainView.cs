@@ -355,12 +355,12 @@ namespace BingoManager
             if (clickedButton != null && clickedButton.Tag is ElementModel selectedElement)
             {
                 string numero = clickedButton.Text;
-                Image logoImage = null;
+                Image elementImage = null;
 
                 // Se houver nome de arquivo no selectedElement.Logo, tenta carregar; senão, não carrega nada
-                if (!string.IsNullOrEmpty(selectedElement.Logo))
+                if (!string.IsNullOrEmpty(selectedElement.ImageName))
                 {
-                    logoImage = DataService.LoadImageFromFile(selectedElement.Id);
+                    elementImage = DataService.LoadImageFromFile(selectedElement.Id);
                 }
 
                 // Marca o botão como sorteado, alterando a cor para vermelho
@@ -370,13 +370,13 @@ namespace BingoManager
                 PlayService.AddElement(selectedElement.Id);
 
                 // Atualiza o logo na tela principal
-                picPlayLogo.Image = logoImage;
+                picPlayLogo.Image = elementImage;
                 lblLastResult.Text = numero + " - " + colun + " - " + selectedElement.CardName;
 
                 // Atualiza o logo e nome na tela secundária
                 if (logoDisplayForm != null && logoDisplayForm.Visible)
                 {
-                    logoDisplayForm.UpdateLogoAndName(logoImage, colun + " - " + selectedElement.CardName);
+                    logoDisplayForm.UpdateLogoAndName(elementImage, colun + " - " + selectedElement.CardName);
                 }
 
                 // Buscar cartelas
@@ -474,22 +474,22 @@ namespace BingoManager
                 // Adiciona a empresa à lista de sorteadas no PlayService
                 PlayService.AddElement(selectedElement.Id);
 
-                Image logoImage = null;
+                Image elementImage = null;
 
                 // Se houver nome de arquivo no selectedElement.Logo, tenta carregar; senão, não carrega nada
-                if (!string.IsNullOrEmpty(selectedElement.Logo))
+                if (!string.IsNullOrEmpty(selectedElement.ImageName))
                 {
-                    logoImage = DataService.LoadImageFromFile(selectedElement.Id);
+                    elementImage = DataService.LoadImageFromFile(selectedElement.Id);
                 }
 
                 // Atualiza o logo na tela principal
-                picPlayLogo.Image = logoImage;
+                picPlayLogo.Image = elementImage;
                 lblLastResult.Text = colun + " - " + selectedElement.CardName;
 
                 // Atualiza o logo na segunda tela, se estiver visível
                 if (logoDisplayForm != null && logoDisplayForm.Visible)
                 {
-                    logoDisplayForm.UpdateLogoAndName(logoImage, colun + " - " + selectedElement.CardName);
+                    logoDisplayForm.UpdateLogoAndName(elementImage, colun + " - " + selectedElement.CardName);
                 }
 
                 // Buscar cartelas

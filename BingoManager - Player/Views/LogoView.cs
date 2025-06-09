@@ -15,14 +15,13 @@ namespace BingoManager.Views
         public LogoView()
         {
             InitializeComponent();
-            UpdateLogoAndName(Properties.Resources.default_logo, "Bingo Manager");
         }
 
         // Adiciona um método para atualizar o logo e o nome
-        public void UpdateLogoAndName(Image logo, string companyName)
+        public void UpdateLogoAndName(Image ElementImage, string ElementName)
         {
-            ShowCompLogo.Image = logo;
-            ShowCompName.Text = companyName;
+            ShowCompLogo.Image = ElementImage;
+            ShowCompName.Text = ElementName;
         }
     }
 }

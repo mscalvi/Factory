@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "n9b0GN8okII=",
+  "dgSpecHash": "fdEI0E0o7nc=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\BingoManager.csproj",
+  "projectFilePath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\BingoManager.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Marcelo Scalvi\\.nuget\\packages\\bouncycastle.cryptography\\2.4.0\\bouncycastle.cryptography.2.4.0.nupkg.sha512",
     "C:\\Users\\Marcelo Scalvi\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",

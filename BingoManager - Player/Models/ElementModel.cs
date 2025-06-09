@@ -13,7 +13,7 @@ namespace BingoManager.Models
         public string CardName { get; set; }
         public string Note1 { get; set; }
         public string Note2 { get; set; }
-        public string Logo { get; set; }
+        public string ImageName { get; set; }
         public string AddDate { get; set; }
     }
 }

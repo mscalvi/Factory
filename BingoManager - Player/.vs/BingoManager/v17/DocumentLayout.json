@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - player\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - player\\models\\cardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:models\\cardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -11,24 +15,12 @@
       "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:models\\gamemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - player\\models\\listmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:models\\listmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - player\\services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - player\\services\\playservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:services\\playservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - player\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - player\\views\\mainview.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:views\\mainview.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,87 +46,67 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "GameModel.cs",
-              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Models\\GameModel.cs",
-              "RelativeDocumentMoniker": "Models\\GameModel.cs",
-              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Models\\GameModel.cs",
-              "RelativeToolTip": "Models\\GameModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T22:34:28.504Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CardModel.cs",
-              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Models\\CardModel.cs",
-              "RelativeDocumentMoniker": "Models\\CardModel.cs",
-              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Models\\CardModel.cs",
-              "RelativeToolTip": "Models\\CardModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAwAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T22:26:35.362Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PlayService.cs",
-              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Services\\PlayService.cs",
-              "RelativeDocumentMoniker": "Services\\PlayService.cs",
-              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Services\\PlayService.cs",
-              "RelativeToolTip": "Services\\PlayService.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAACkAAABdAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T21:24:45.485Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
               "Title": "MainView.cs [Projeto]",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Views\\MainView.cs",
               "RelativeDocumentMoniker": "Views\\MainView.cs",
-              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\Views\\MainView.cs [Projeto]",
-              "RelativeToolTip": "..\\BingoManager\\Views\\MainView.cs [Projeto]",
+              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Views\\MainView.cs [Projeto]",
+              "RelativeToolTip": "Views\\MainView.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T20:58:09.181Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "MainView.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Views\\MainView.Designer.cs",
-              "RelativeDocumentMoniker": "Views\\MainView.Designer.cs",
-              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Views\\MainView.Designer.cs",
-              "RelativeToolTip": "Views\\MainView.Designer.cs",
-              "ViewState": "AQIAAHEAAAAAAAAAAAAnwIYAAAAwAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T20:57:40.223Z"
+              "WhenOpened": "2025-06-09T13:00:17.663Z",
+              "EditorCaption": " [Projeto]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "MainView.cs",
-              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Views\\MainView.cs",
-              "RelativeDocumentMoniker": "Views\\MainView.cs",
-              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Views\\MainView.cs",
-              "RelativeToolTip": "Views\\MainView.cs",
-              "ViewState": "AQIAAK0BAAAAAAAAAAAIwNsBAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T14:03:44.938Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "DataService.cs",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Services\\DataService.cs",
               "RelativeDocumentMoniker": "Services\\DataService.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Services\\DataService.cs",
               "RelativeToolTip": "Services\\DataService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAJAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAA6AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T13:35:11.132Z"
+              "WhenOpened": "2025-06-09T13:02:28.296Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ListModel.cs",
+              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Models\\ListModel.cs",
+              "RelativeDocumentMoniker": "Models\\ListModel.cs",
+              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Models\\ListModel.cs",
+              "RelativeToolTip": "Models\\ListModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T13:01:00.229Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GameModel.cs",
+              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Models\\GameModel.cs",
+              "RelativeDocumentMoniker": "Models\\GameModel.cs",
+              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Models\\GameModel.cs",
+              "RelativeToolTip": "Models\\GameModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T13:00:59.534Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CardModel.cs",
+              "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Models\\CardModel.cs",
+              "RelativeDocumentMoniker": "Models\\CardModel.cs",
+              "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Models\\CardModel.cs",
+              "RelativeToolTip": "Models\\CardModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T13:00:58.105Z",
+              "EditorCaption": ""
             }
           ]
         }

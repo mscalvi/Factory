@@ -6656,11 +6656,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\BingoManager.csproj",
+      "projectUniqueName": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\BingoManager.csproj",
       "projectName": "BingoManager",
-      "projectPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\BingoManager.csproj",
+      "projectPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\BingoManager.csproj",
       "packagesPath": "C:\\Users\\Marcelo Scalvi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager\\obj\\",
+      "outputPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -88,7 +88,7 @@ namespace BingoManager.Services
             };
         }
 
-        // A partir de uma string “1,5,8,12,...”, retorna lista de ElementModel (ID, Name, CardName, Logo)
+        // A partir de uma string “1,5,8,12,...”, retorna lista de ElementModel (ID, Name, CardName, ImageNAme)
         public static List<ElementModel> GetElementsInfo(string elementIds)
         {
             var Elements = new List<ElementModel>();
@@ -96,7 +96,7 @@ namespace BingoManager.Services
                 return Elements;
 
             var ids = elementIds.Split(',').Select(x => x.Trim()).ToList();
-            string query = $"SELECT Id, Name, CardName, Logo FROM elementTable WHERE Id IN ({string.Join(",", ids)})";
+            string query = $"SELECT Id, Name, CardName, ImageName FROM ElementsTable WHERE Id IN ({string.Join(",", ids)})";
 
             using var connection = GetConnection();
             connection.Open();
@@ -111,7 +111,7 @@ namespace BingoManager.Services
                     Id = Convert.ToInt32(reader["Id"]),
                     Name = reader["Name"].ToString(),
                     CardName = reader["CardName"].ToString(),
-                    Logo = reader["Logo"].ToString()
+                    ImageName = reader["ImageName"].ToString()
                 };
                 dictionary[c.Id] = c;
             }
@@ -121,24 +121,24 @@ namespace BingoManager.Services
             return Elements;
         }
 
-        // Carrega o logo/imagem de cada elemento
+        // Carrega a imagem de cada elemento
         public static Image LoadImageFromFile(int elementId)
         {
-            // 1. Buscar o nome do arquivo de logo no banco
-            string logoFileName = null;
+            // 1. Buscar o nome do arquivo de imagem no banco
+            string imageFileName = null;
             using (var connection = GetConnection())
             {
                 if (connection == null) return null;
                 connection.Open();
 
-                string sql = "SELECT Logo FROM ElementTable WHERE Id = @Id";
+                string sql = "SELECT ImageName FROM ElementTable WHERE Id = @Id";
                 using var cmd = new SQLiteCommand(sql, connection);
                 cmd.Parameters.AddWithValue("@Id", elementId);
                 using var reader = cmd.ExecuteReader();
 
                 if (reader.Read())
                 {
-                    logoFileName = reader["Logo"].ToString();
+                    imageFileName = reader["ImageName"].ToString();
                 }
                 else
                 {
@@ -146,12 +146,12 @@ namespace BingoManager.Services
                 }
             }
 
-            if (string.IsNullOrEmpty(logoFileName))
+            if (string.IsNullOrEmpty(imageFileName))
                 return null;
 
             string exeFolder = AppDomain.CurrentDomain.BaseDirectory;
             string imageFolderPath = Path.Combine(exeFolder, "Images");
-            string filePath = Path.Combine(imageFolderPath, logoFileName);
+            string filePath = Path.Combine(imageFolderPath, imageFileName);
 
             return File.Exists(filePath) ? Image.FromFile(filePath) : null;
         }

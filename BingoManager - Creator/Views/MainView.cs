@@ -30,7 +30,7 @@ namespace BingoCreator
                                       Id = Convert.ToInt32(row["Id"]),
                                       Name = row["Name"].ToString(),
                                       Description = row["Description"].ToString(),
-                                      Image = row["ImageName"].ToString()
+                                      ImageName = row["ImageName"].ToString()
                                   })
                                   .ToArray();
             }
@@ -194,7 +194,6 @@ namespace BingoCreator
         }
 
         //Criar Cartelas
-
         private void btnExportCards_Click(object sender, EventArgs e)
         {
             CardSetModel cards = new CardSetModel();
@@ -266,9 +265,8 @@ namespace BingoCreator
                         try
                         {
                             btnCardsExport.Enabled = false;
-                            GeneratingService.CreateCards(cards.ListId, cards.Name, cards.Title, cards.End, cards.Quantity, cards.CardsSize);
-                            cards.AddDate = DateTime.Now.ToString("MMddyyyy - HH:mm:ss"); ;
-                            DataService.CreateCardList(cards.ListId, cards.Name, cards.Title, cards.End, cards.Quantity, cards.CardsSize, cards.GroupBIds, cards.GroupIIds, cards.GroupNIds, cards.GroupGIds, cards.GroupOIds, cards.AddDate);
+                            int generatedCards = GeneratingService.CreateCards(cards.ListId, cards.Name, cards.Title, cards.End, cards.Quantity, cards.CardsSize);
+                            lblCardsMessage.Text = "Cartelas criadas com sucesso.";
                         }
                         catch
                         {
