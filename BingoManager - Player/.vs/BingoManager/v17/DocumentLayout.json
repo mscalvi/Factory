@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - player\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - player\\services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - player\\models\\cardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,8 +19,8 @@
       "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:models\\listmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - player\\services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{4BAF2DAA-3C4B-4D5A-9981-898C44035F3B}|BingoManager.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,25 +46,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "MainView.cs [Projeto]",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Views\\MainView.cs",
               "RelativeDocumentMoniker": "Views\\MainView.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Views\\MainView.cs [Projeto]",
               "RelativeToolTip": "Views\\MainView.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T13:00:17.663Z",
-              "EditorCaption": " [Projeto]"
+              "WhenOpened": "2025-06-09T13:00:17.663Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "DataService.cs",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Services\\DataService.cs",
               "RelativeDocumentMoniker": "Services\\DataService.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Player\\Services\\DataService.cs",
               "RelativeToolTip": "Services\\DataService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAA6AAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABQAAABJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-09T13:02:28.296Z",
               "EditorCaption": ""
@@ -79,8 +78,7 @@
               "RelativeToolTip": "Models\\ListModel.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T13:01:00.229Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T13:01:00.229Z"
             },
             {
               "$type": "Document",
@@ -92,8 +90,7 @@
               "RelativeToolTip": "Models\\GameModel.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T13:00:59.534Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T13:00:59.534Z"
             },
             {
               "$type": "Document",
@@ -105,8 +102,7 @@
               "RelativeToolTip": "Models\\CardModel.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T13:00:58.105Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T13:00:58.105Z"
             }
           ]
         }

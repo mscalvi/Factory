@@ -54,3 +54,8 @@ C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager - Creator\bin\Debug\net8.0-
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager - Creator\bin\Debug\net8.0-windows\PdfSharp.dll
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager - Creator\bin\Debug\net8.0-windows\System.Security.Cryptography.Pkcs.dll
 C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager - Creator\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager - Creator\bin\Debug\net8.0-windows\PdfSharpCore.dll
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager - Creator\bin\Debug\net8.0-windows\ICSharpCode.SharpZipLib.dll
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager - Creator\bin\Debug\net8.0-windows\SixLabors.Fonts.dll
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager - Creator\bin\Debug\net8.0-windows\SixLabors.ImageSharp.dll
+C:\Users\Marcelo Scalvi\Desktop\Factory\BingoManager - Creator\bin\Debug\net8.0-windows\de\PdfSharpCore.resources.dll

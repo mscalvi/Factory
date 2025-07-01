@@ -88,7 +88,7 @@ namespace BingoManager.Services
             };
         }
 
-        // A partir de uma string “1,5,8,12,...”, retorna lista de ElementModel (ID, Name, CardName, ImageNAme)
+        // A partir de uma string “1,5,8,12,...”, retorna lista de ElementModel (ID, Name, CardName, ImageName)
         public static List<ElementModel> GetElementsInfo(string elementIds)
         {
             var Elements = new List<ElementModel>();

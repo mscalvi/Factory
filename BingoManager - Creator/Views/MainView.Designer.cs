@@ -47,6 +47,7 @@
             lblElementCardName = new Label();
             lblElementName = new Label();
             tabCreateList = new TabPage();
+            btnListImport = new Button();
             btnListCreate = new Button();
             lblListMessage = new Label();
             boxListDescription = new TextBox();
@@ -55,6 +56,9 @@
             lblListName = new Label();
             lblListTitle = new Label();
             tabCreateCards = new TabPage();
+            grpCardsSize = new GroupBox();
+            radCardsSize5 = new RadioButton();
+            radCardsSize4 = new RadioButton();
             btnCardsExport = new Button();
             lblCardsList = new Label();
             cboCardsList = new ComboBox();
@@ -87,9 +91,6 @@
             lblEditText2 = new Label();
             lblEditText1 = new Label();
             lblEditHeader = new Label();
-            grpCardsSize = new GroupBox();
-            radCardsSize5 = new RadioButton();
-            radCardsSize4 = new RadioButton();
             pnlMainView.SuspendLayout();
             tabControlMain.SuspendLayout();
             tabCreatePage.SuspendLayout();
@@ -97,9 +98,9 @@
             tabCreateElement.SuspendLayout();
             tabCreateList.SuspendLayout();
             tabCreateCards.SuspendLayout();
+            grpCardsSize.SuspendLayout();
             tabEditPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picEdit).BeginInit();
-            grpCardsSize.SuspendLayout();
             SuspendLayout();
             // 
             // pnlMainView
@@ -308,6 +309,7 @@
             // 
             // tabCreateList
             // 
+            tabCreateList.Controls.Add(btnListImport);
             tabCreateList.Controls.Add(btnListCreate);
             tabCreateList.Controls.Add(lblListMessage);
             tabCreateList.Controls.Add(boxListDescription);
@@ -323,10 +325,21 @@
             tabCreateList.Text = "List";
             tabCreateList.UseVisualStyleBackColor = true;
             // 
+            // btnListImport
+            // 
+            btnListImport.Anchor = AnchorStyles.Top;
+            btnListImport.Location = new Point(47, 385);
+            btnListImport.Name = "btnListImport";
+            btnListImport.Size = new Size(295, 76);
+            btnListImport.TabIndex = 23;
+            btnListImport.Text = "Importar Pasta";
+            btnListImport.UseVisualStyleBackColor = true;
+            btnListImport.Click += btnListImport_Clicked;
+            // 
             // btnListCreate
             // 
             btnListCreate.Anchor = AnchorStyles.Top;
-            btnListCreate.Location = new Point(290, 414);
+            btnListCreate.Location = new Point(390, 385);
             btnListCreate.Name = "btnListCreate";
             btnListCreate.Size = new Size(295, 76);
             btnListCreate.TabIndex = 22;
@@ -421,6 +434,41 @@
             tabCreateCards.Text = "Cards";
             tabCreateCards.UseVisualStyleBackColor = true;
             // 
+            // grpCardsSize
+            // 
+            grpCardsSize.Anchor = AnchorStyles.Top;
+            grpCardsSize.Controls.Add(radCardsSize5);
+            grpCardsSize.Controls.Add(radCardsSize4);
+            grpCardsSize.Location = new Point(67, 533);
+            grpCardsSize.Name = "grpCardsSize";
+            grpCardsSize.Size = new Size(638, 100);
+            grpCardsSize.TabIndex = 36;
+            grpCardsSize.TabStop = false;
+            grpCardsSize.Text = "Tamanho das Cartelas";
+            // 
+            // radCardsSize5
+            // 
+            radCardsSize5.Anchor = AnchorStyles.Top;
+            radCardsSize5.Checked = true;
+            radCardsSize5.Location = new Point(321, 44);
+            radCardsSize5.Name = "radCardsSize5";
+            radCardsSize5.Size = new Size(200, 32);
+            radCardsSize5.TabIndex = 1;
+            radCardsSize5.TabStop = true;
+            radCardsSize5.Text = "Cartelas 5x5 (45+ Elementos)";
+            radCardsSize5.UseVisualStyleBackColor = true;
+            // 
+            // radCardsSize4
+            // 
+            radCardsSize4.Anchor = AnchorStyles.Top;
+            radCardsSize4.Location = new Point(64, 44);
+            radCardsSize4.Name = "radCardsSize4";
+            radCardsSize4.Size = new Size(200, 32);
+            radCardsSize4.TabIndex = 0;
+            radCardsSize4.TabStop = true;
+            radCardsSize4.Text = "Cartelas 4x4 (35+ Elementos)";
+            radCardsSize4.UseVisualStyleBackColor = true;
+            // 
             // btnCardsExport
             // 
             btnCardsExport.Anchor = AnchorStyles.Top;
@@ -431,6 +479,7 @@
             btnCardsExport.TabIndex = 35;
             btnCardsExport.Text = "Exportar Jogo";
             btnCardsExport.UseVisualStyleBackColor = true;
+            btnCardsExport.Click += btnExportCards_Click;
             // 
             // lblCardsList
             // 
@@ -446,6 +495,7 @@
             // 
             // cboCardsList
             // 
+            cboCardsList.Anchor = AnchorStyles.Top;
             cboCardsList.FormattingEnabled = true;
             cboCardsList.Location = new Point(310, 463);
             cboCardsList.Name = "cboCardsList";
@@ -767,41 +817,6 @@
             lblEditHeader.Text = "Editar";
             lblEditHeader.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // grpCardsSize
-            // 
-            grpCardsSize.Anchor = AnchorStyles.Top;
-            grpCardsSize.Controls.Add(radCardsSize5);
-            grpCardsSize.Controls.Add(radCardsSize4);
-            grpCardsSize.Location = new Point(67, 533);
-            grpCardsSize.Name = "grpCardsSize";
-            grpCardsSize.Size = new Size(638, 100);
-            grpCardsSize.TabIndex = 36;
-            grpCardsSize.TabStop = false;
-            grpCardsSize.Text = "Tamanho das Cartelas";
-            // 
-            // radCardsSize5
-            // 
-            radCardsSize5.Anchor = AnchorStyles.Top;
-            radCardsSize5.Checked = true;
-            radCardsSize5.Location = new Point(321, 44);
-            radCardsSize5.Name = "radCardsSize5";
-            radCardsSize5.Size = new Size(200, 32);
-            radCardsSize5.TabIndex = 1;
-            radCardsSize5.TabStop = true;
-            radCardsSize5.Text = "Cartelas 5x5 (45+ Elementos)";
-            radCardsSize5.UseVisualStyleBackColor = true;
-            // 
-            // radCardsSize4
-            // 
-            radCardsSize4.Anchor = AnchorStyles.Top;
-            radCardsSize4.Location = new Point(64, 44);
-            radCardsSize4.Name = "radCardsSize4";
-            radCardsSize4.Size = new Size(200, 32);
-            radCardsSize4.TabIndex = 0;
-            radCardsSize4.TabStop = true;
-            radCardsSize4.Text = "Cartelas 4x4 (35+ Elementos)";
-            radCardsSize4.UseVisualStyleBackColor = true;
-            // 
             // MainView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -820,10 +835,10 @@
             tabCreateList.PerformLayout();
             tabCreateCards.ResumeLayout(false);
             tabCreateCards.PerformLayout();
+            grpCardsSize.ResumeLayout(false);
             tabEditPage.ResumeLayout(false);
             tabEditPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picEdit).EndInit();
-            grpCardsSize.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -892,5 +907,6 @@
         private GroupBox grpCardsSize;
         private RadioButton radCardsSize5;
         private RadioButton radCardsSize4;
+        private Button btnListImport;
     }
 }
