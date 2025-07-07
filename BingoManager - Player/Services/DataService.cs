@@ -66,8 +66,13 @@ namespace BingoManager.Services
             List<ElementModel> ElemG = new List<ElementModel>();
             List<ElementModel> ElemO = new List<ElementModel>();
 
-            List<CardModel> gameCards = new List<CardModel>();
-            gameCards = GetGameCards(setId);
+            var gameCards = new List<CardModel>();
+            for (int cardNum = 1; cardNum <= quantity; cardNum++)
+            {
+                CardModel card = GetCardDetails(cardNum);
+                if (card != null)
+                    gameCards.Add(card);
+            }
 
             ElemB = GetElementsInfo(grpB);
             ElemI = GetElementsInfo(grpI);
@@ -131,7 +136,7 @@ namespace BingoManager.Services
                 if (connection == null) return null;
                 connection.Open();
 
-                string sql = "SELECT ImageName FROM ElementTable WHERE Id = @Id";
+                string sql = "SELECT ImageName FROM ElementsTable WHERE Id = @Id";
                 using var cmd = new SQLiteCommand(sql, connection);
                 cmd.Parameters.AddWithValue("@Id", elementId);
                 using var reader = cmd.ExecuteReader();
@@ -230,8 +235,7 @@ namespace BingoManager.Services
                      EleI1 = @elementId OR EleI2 = @elementId OR EleI3 = @elementId OR EleI4 = @elementId OR EleI5 = @elementId OR
                      EleN1 = @elementId OR EleN2 = @elementId OR EleN3 = @elementId OR EleN4 = @elementId OR EleN5 = @elementId OR
                      EleG1 = @elementId OR EleG2 = @elementId OR EleG3 = @elementId OR EleG4 = @elementId OR EleG5 = @elementId OR
-                     EleO1 = @elementId OR EleO2 = @elementId OR EleO3 = @elementId OR EleO4 = @elementId OR EleO5 = @elementId)
-                    AND SetId = @SetId";
+                     EleO1 = @elementId OR EleO2 = @elementId OR EleO3 = @elementId OR EleO4 = @elementId OR EleO5 = @elementId)";
 
             using var command = new SQLiteCommand(selectQuery, connection);
             command.Parameters.AddWithValue("@elementId", elementId);

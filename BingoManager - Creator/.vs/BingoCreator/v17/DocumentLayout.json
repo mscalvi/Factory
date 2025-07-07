@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Creator\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - creator\\services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|solutionrelative:services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - creator\\services\\generatingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|solutionrelative:services\\generatingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - creator\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - creator\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Creator\\views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|solutionrelative:views\\mainview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - creator\\services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|solutionrelative:services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|c:\\users\\marcelo scalvi\\desktop\\factory\\bingomanager - creator\\services\\generatingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB9094B8-B448-468D-A07D-45C69FEF3F72}|BingoCreator.csproj|solutionrelative:services\\generatingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,7 +42,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "MainView.cs [Projeto]",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Creator\\Views\\MainView.cs",
               "RelativeDocumentMoniker": "Views\\MainView.cs",
@@ -54,7 +54,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "MainView.cs",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Creator\\Views\\MainView.cs",
               "RelativeDocumentMoniker": "Views\\MainView.cs",
@@ -62,25 +62,23 @@
               "RelativeToolTip": "Views\\MainView.cs",
               "ViewState": "AQIAADgBAAAAAAAAAAAmwFYBAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T13:12:13.091Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T13:12:13.091Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "DataService.cs",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Creator\\Services\\DataService.cs",
               "RelativeDocumentMoniker": "Services\\DataService.cs",
               "ToolTip": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Creator\\Services\\DataService.cs",
               "RelativeToolTip": "Services\\DataService.cs",
-              "ViewState": "AQIAABEBAAAAAAAAAAAgwEECAAAsAAAA",
+              "ViewState": "AQIAABEBAAAAAAAAAAAgwJABAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T13:06:22.47Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T13:06:22.47Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "GeneratingService.cs",
               "DocumentMoniker": "C:\\Users\\Marcelo Scalvi\\Desktop\\Factory\\BingoManager - Creator\\Services\\GeneratingService.cs",
               "RelativeDocumentMoniker": "Services\\GeneratingService.cs",
@@ -88,8 +86,7 @@
               "RelativeToolTip": "Services\\GeneratingService.cs",
               "ViewState": "AQIAAAoAAAAAAAAAAAA4wH8AAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-06T11:54:43.428Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-06T11:54:43.428Z"
             }
           ]
         }

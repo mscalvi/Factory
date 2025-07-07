@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using Microsoft.Win32;
 using System.Windows.Forms;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Collections.Generic;
 
 namespace BingoManager
 {
@@ -18,8 +19,15 @@ namespace BingoManager
         private LogoView logoDisplayForm;
         private readonly string appDataPath;
         private readonly string imageFolderPath;
-        private System.Windows.Forms.ToolTip _toolTip;
+        private System.Windows.Forms.ToolTip _toolTip; 
+        private readonly Random _rng = new Random();
+        Image defaultImage;
 
+        public class ElementTag
+        {
+            public ElementModel Element { get; set; }
+            public string Column { get; set; }
+        }
         public MainView()
         {
             InitializeComponent();
@@ -132,7 +140,7 @@ namespace BingoManager
             lblGameName.Text = gameName;
 
             string cardsTotal = game.GameTotal.ToString();
-            lblCardsQnt.Text = cardsTotal + "cartelas";
+            lblCardsQnt.Text = cardsTotal + " cartelas";
 
             DisplayGamePanels(game);
         }
@@ -160,7 +168,7 @@ namespace BingoManager
                 Button elementButton = new Button
                 {
                     Text = Number.ToString(),
-                    Tag = new
+                    Tag = new ElementTag
                     {
                         Element = element,
                         Column = "B"
@@ -172,7 +180,8 @@ namespace BingoManager
                 };
 
                 // Define o tooltip para o nome da empresa:
-                var elementModel = (ElementModel)elementButton.Tag;
+                var tag = (ElementTag)elementButton.Tag;
+                var elementModel = tag.Element;
                 toolTip1.SetToolTip(elementButton, elementModel.CardName);
 
                 Number++;
@@ -186,10 +195,10 @@ namespace BingoManager
                 Button elementButton = new Button
                 {
                     Text = Number.ToString(),
-                    Tag = new
+                    Tag = new ElementTag
                     {
-                        Element = element,   
-                        Column = "I"        
+                        Element = element,
+                        Column = "B"
                     },
                     Width = buttonSize,
                     Height = buttonSize,
@@ -198,7 +207,8 @@ namespace BingoManager
                 };
 
                 // Define o tooltip para o nome da empresa:
-                var elementModel = (ElementModel)elementButton.Tag;
+                var tag = (ElementTag)elementButton.Tag;
+                var elementModel = tag.Element;
                 toolTip1.SetToolTip(elementButton, elementModel.CardName);
                 Number++;
                 elementButton.Click += elementButton_Click;
@@ -211,10 +221,10 @@ namespace BingoManager
                 Button elementButton = new Button
                 {
                     Text = Number.ToString(),
-                    Tag = new
+                    Tag = new ElementTag
                     {
                         Element = element,
-                        Column = "N"
+                        Column = "B"
                     },
                     Width = buttonSize,
                     Height = buttonSize,
@@ -223,7 +233,8 @@ namespace BingoManager
                 };
 
                 // Define o tooltip para o nome da empresa:
-                var elementModel = (ElementModel)elementButton.Tag;
+                var tag = (ElementTag)elementButton.Tag;
+                var elementModel = tag.Element;
                 toolTip1.SetToolTip(elementButton, elementModel.CardName);
                 Number++;
                 elementButton.Click += elementButton_Click;
@@ -236,10 +247,10 @@ namespace BingoManager
                 Button elementButton = new Button
                 {
                     Text = Number.ToString(),
-                    Tag = new
+                    Tag = new ElementTag
                     {
                         Element = element,
-                        Column = "G"
+                        Column = "B"
                     },
                     Width = buttonSize,
                     Height = buttonSize,
@@ -248,7 +259,8 @@ namespace BingoManager
                 };
 
                 // Define o tooltip para o nome da empresa:
-                var elementModel = (ElementModel)elementButton.Tag;
+                var tag = (ElementTag)elementButton.Tag;
+                var elementModel = tag.Element;
                 toolTip1.SetToolTip(elementButton, elementModel.CardName);
                 Number++;
                 elementButton.Click += elementButton_Click;
@@ -261,10 +273,10 @@ namespace BingoManager
                 Button elementButton = new Button
                 {
                     Text = Number.ToString(),
-                    Tag = new
+                    Tag = new ElementTag
                     {
                         Element = element,
-                        Column = "O"
+                        Column = "B"
                     },
                     Width = buttonSize,
                     Height = buttonSize,
@@ -273,7 +285,8 @@ namespace BingoManager
                 };
 
                 // Define o tooltip para o nome da empresa:
-                var elementModel = (ElementModel)elementButton.Tag;
+                var tag = (ElementTag)elementButton.Tag;
+                var elementModel = tag.Element;
                 toolTip1.SetToolTip(elementButton, elementModel.CardName);
                 Number++;
                 elementButton.Click += elementButton_Click;
@@ -301,13 +314,46 @@ namespace BingoManager
         // Método para começar o jogo
         private void btnStart_Click(object sender, EventArgs e)
         {
+
+            if (File.Exists("Images/.Capa.png"))
+            {
+                defaultImage = Image.FromFile("Images/.Capa.png");
+                picPlayLogo.Image = defaultImage;
+                lblLastResult.Text = "Jogo Pausado";
+
+                if (logoDisplayForm != null && logoDisplayForm.Visible)
+                {
+                    logoDisplayForm.UpdateLogoAndName(defaultImage, "Bingo!");
+                }
+            }
+            else
+            {
+                defaultImage = Image.FromFile("Images/default_logo.jpg");
+                lblLastResult.Text = "Capa não encontrada";
+                picPlayLogo.Image = defaultImage;
+
+                if (logoDisplayForm != null && logoDisplayForm.Visible)
+                {
+                    logoDisplayForm.UpdateLogoAndName(defaultImage, "Bingo!");
+                }
+            }
+
             btnReset.Enabled = true;
             btnStart.Enabled = false;
             btnBingo.Enabled = true;
 
+            rdManual.Enabled = false;
+            rdDigital.Enabled = false;
+
             if (rdDigital.Checked)
             {
                 btnRandom.Enabled = true;
+
+                foreach (Button btn in flwPlayB.Controls.OfType<Button>()) btn.BackColor = Color.White;
+                foreach (Button btn in flwPlayI.Controls.OfType<Button>()) btn.BackColor = Color.White;
+                foreach (Button btn in flwPlayN.Controls.OfType<Button>()) btn.BackColor = Color.White;
+                foreach (Button btn in flwPlayG.Controls.OfType<Button>()) btn.BackColor = Color.White;
+                foreach (Button btn in flwPlayO.Controls.OfType<Button>()) btn.BackColor = Color.White;
             }
             else if (rdManual.Checked)
             {
@@ -352,8 +398,10 @@ namespace BingoManager
                     colun = "O";
             }
 
-            if (clickedButton != null && clickedButton.Tag is ElementModel selectedElement)
+            if (clickedButton != null && clickedButton.Tag is ElementTag tag)
             {
+                ElementModel selectedElement = tag.Element;
+
                 string numero = clickedButton.Text;
                 Image elementImage = null;
 
@@ -371,12 +419,12 @@ namespace BingoManager
 
                 // Atualiza o logo na tela principal
                 picPlayLogo.Image = elementImage;
-                lblLastResult.Text = numero + " - " + colun + " - " + selectedElement.CardName;
+                lblLastResult.Text = numero + "\r\nColuna " + colun + "\r\n" + selectedElement.CardName;
 
                 // Atualiza o logo e nome na tela secundária
                 if (logoDisplayForm != null && logoDisplayForm.Visible)
                 {
-                    logoDisplayForm.UpdateLogoAndName(elementImage, colun + " - " + selectedElement.CardName);
+                    logoDisplayForm.UpdateLogoAndName(elementImage, "Coluna " + colun + " - " + selectedElement.CardName);
                 }
 
                 // Buscar cartelas
@@ -397,7 +445,6 @@ namespace BingoManager
             }
         }
 
-
         //Método para reinicar o jogo
         private void btnRestart_Click(object sender, EventArgs e)
         {
@@ -408,6 +455,7 @@ namespace BingoManager
             {
                 picPlayLogo.Image = null;
                 lblResults.Text = string.Empty;
+                lblLastResult.Text = string.Empty;
 
                 flwPlayB.Controls.Clear();
                 flwPlayI.Controls.Clear();
@@ -415,7 +463,35 @@ namespace BingoManager
                 flwPlayG.Controls.Clear();
                 flwPlayO.Controls.Clear();
 
+                rdManual.Enabled = true;
+                rdDigital.Enabled = true;
+
+                btnStart.Enabled = true;
+
                 PlayService.ResetGame();
+
+                if (File.Exists("Images/.Capa.png"))
+                {
+                    defaultImage = Image.FromFile("Images/.Capa.png");
+                    picPlayLogo.Image = defaultImage;
+                    lblLastResult.Text = "Jogo Pausado";
+
+                    if (logoDisplayForm != null && logoDisplayForm.Visible)
+                    {
+                        logoDisplayForm.UpdateLogoAndName(defaultImage, "Bingo!");
+                    }
+                }
+                else
+                {
+                    defaultImage = Image.FromFile("Images/default_logo.jpg");
+                    lblLastResult.Text = "Capa não encontrada";
+                    picPlayLogo.Image = defaultImage;
+
+                    if (logoDisplayForm != null && logoDisplayForm.Visible)
+                    {
+                        logoDisplayForm.UpdateLogoAndName(defaultImage, "Bingo!");
+                    }
+                }
 
                 LoadGame();
             }
@@ -429,14 +505,14 @@ namespace BingoManager
             string colun = null;
 
             // Coleta todas as empresas disponíveis para sorteio
-            var avaliableElements = new List<Label>();
+            var avaliableElements = new List<Button>();
 
             // Adiciona os labels de todas as colunas ao availableCompanies, que ainda não foram sorteados (brancos)
-            avaliableElements.AddRange(flwPlayB.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
-            avaliableElements.AddRange(flwPlayI.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
-            avaliableElements.AddRange(flwPlayN.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
-            avaliableElements.AddRange(flwPlayG.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
-            avaliableElements.AddRange(flwPlayO.Controls.OfType<Label>().Where(lbl => lbl.BackColor == Color.White));
+            avaliableElements.AddRange(flwPlayB.Controls.OfType<Button>().Where(lbl => lbl.BackColor == Color.White));
+            avaliableElements.AddRange(flwPlayI.Controls.OfType<Button>().Where(lbl => lbl.BackColor == Color.White));
+            avaliableElements.AddRange(flwPlayN.Controls.OfType<Button>().Where(lbl => lbl.BackColor == Color.White));
+            avaliableElements.AddRange(flwPlayG.Controls.OfType<Button>().Where(lbl => lbl.BackColor == Color.White));
+            avaliableElements.AddRange(flwPlayO.Controls.OfType<Button>().Where(lbl => lbl.BackColor == Color.White));
 
             // Verifica se ainda há empresas disponíveis para sortear
             if (avaliableElements.Count == 0)
@@ -446,11 +522,10 @@ namespace BingoManager
             }
 
             // Seleciona aleatoriamente uma empresa disponível
-            Random random = new Random();
-            int randomIndex = random.Next(avaliableElements.Count);
-            Label selectedLabel = avaliableElements[randomIndex];
+            int randomIndex = _rng.Next(avaliableElements.Count);
+            var selectedButton = avaliableElements[randomIndex];
 
-            var parentPanel = selectedLabel.Parent as FlowLayoutPanel;
+            var parentPanel = selectedButton.Parent as FlowLayoutPanel;
             if (parentPanel != null)
             {
                 if (parentPanel == flwPlayB)
@@ -466,11 +541,13 @@ namespace BingoManager
             }
 
             // Muda a cor do label sorteado para vermelho (marca como sorteado)
-            selectedLabel.BackColor = Color.Red;
+            selectedButton.BackColor = Color.Red;
 
             // Atualiza a lógica do jogo para adicionar a empresa sorteada e remover da lista de sorteio
-            if (selectedLabel.Tag is ElementModel selectedElement)
+            if (selectedButton.Tag is ElementTag tag)
             {
+                var selectedElement = tag.Element;
+
                 // Adiciona a empresa à lista de sorteadas no PlayService
                 PlayService.AddElement(selectedElement.Id);
 
@@ -506,8 +583,32 @@ namespace BingoManager
                 {
                     lblResults.Text = "Sem bingo!";
                 }
+            }
+        }
 
-                // Não remover a label do painel, apenas a empresa da lista de sorteio.
+        // Método para pausar o jogo
+        private void btnBingo_Click(object sender, EventArgs e)
+        {
+            if (File.Exists("Images/.Capa.png"))
+            {
+                defaultImage = Image.FromFile("Images/.Capa.png");
+                picPlayLogo.Image = defaultImage;
+                lblLastResult.Text = "Jogo Pausado";
+
+                if (logoDisplayForm != null && logoDisplayForm.Visible)
+                {
+                    logoDisplayForm.UpdateLogoAndName(defaultImage, "Bingo!");
+                }
+            } else
+            {
+                defaultImage = Image.FromFile("Images/default_logo.jpg");
+                lblLastResult.Text = "Capa não encontrada";
+                picPlayLogo.Image = defaultImage;
+
+                if (logoDisplayForm != null && logoDisplayForm.Visible)
+                {
+                    logoDisplayForm.UpdateLogoAndName(defaultImage, "Bingo!");
+                }
             }
         }
     }

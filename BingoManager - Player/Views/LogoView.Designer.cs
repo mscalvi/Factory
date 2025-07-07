@@ -63,7 +63,9 @@
             ClientSize = new Size(1350, 729);
             Controls.Add(ShowCompLogo);
             Controls.Add(ShowCompName);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "LogoView";
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Bingo Manager";
             WindowState = FormWindowState.Maximized;

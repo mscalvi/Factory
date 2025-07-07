@@ -37,7 +37,6 @@
             btnReset = new Button();
             btnStart = new Button();
             pnlPlay = new Panel();
-            lblStatistics = new Label();
             lbltResults = new Label();
             lblLastResult = new Label();
             lblResults = new Label();
@@ -86,7 +85,7 @@
             pnlBingoManager.Dock = DockStyle.Fill;
             pnlBingoManager.Location = new Point(0, 0);
             pnlBingoManager.Name = "pnlBingoManager";
-            pnlBingoManager.Size = new Size(1217, 714);
+            pnlBingoManager.Size = new Size(1217, 741);
             pnlBingoManager.TabIndex = 0;
             // 
             // pnlButtons
@@ -96,23 +95,24 @@
             pnlButtons.Controls.Add(btnRandom);
             pnlButtons.Controls.Add(btnReset);
             pnlButtons.Controls.Add(btnStart);
-            pnlButtons.Location = new Point(583, 55);
+            pnlButtons.Location = new Point(583, 81);
             pnlButtons.Name = "pnlButtons";
             pnlButtons.Size = new Size(631, 134);
             pnlButtons.TabIndex = 39;
             // 
             // btnBingo
             // 
-            btnBingo.Location = new Point(476, 3);
+            btnBingo.Location = new Point(319, 3);
             btnBingo.Name = "btnBingo";
             btnBingo.Size = new Size(152, 125);
             btnBingo.TabIndex = 3;
             btnBingo.Text = "Bingo";
             btnBingo.UseVisualStyleBackColor = true;
+            btnBingo.Click += btnBingo_Click;
             // 
             // btnRandom
             // 
-            btnRandom.Location = new Point(319, 3);
+            btnRandom.Location = new Point(161, 3);
             btnRandom.Name = "btnRandom";
             btnRandom.Size = new Size(152, 125);
             btnRandom.TabIndex = 2;
@@ -122,7 +122,7 @@
             // 
             // btnReset
             // 
-            btnReset.Location = new Point(161, 3);
+            btnReset.Location = new Point(476, 3);
             btnReset.Name = "btnReset";
             btnReset.Size = new Size(152, 125);
             btnReset.TabIndex = 1;
@@ -142,10 +142,9 @@
             // 
             // pnlPlay
             // 
-            pnlPlay.AutoSize = true;
+            pnlPlay.Anchor = AnchorStyles.Top;
             pnlPlay.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             pnlPlay.BackColor = Color.Transparent;
-            pnlPlay.Controls.Add(lblStatistics);
             pnlPlay.Controls.Add(lbltResults);
             pnlPlay.Controls.Add(lblLastResult);
             pnlPlay.Controls.Add(lblResults);
@@ -155,28 +154,16 @@
             pnlPlay.Controls.Add(pnlPlayNumbersN);
             pnlPlay.Controls.Add(pnlPlayNumbersG);
             pnlPlay.Controls.Add(pnlPlayNumbersO);
-            pnlPlay.Dock = DockStyle.Bottom;
-            pnlPlay.Location = new Point(0, 209);
+            pnlPlay.Location = new Point(3, 221);
             pnlPlay.Name = "pnlPlay";
-            pnlPlay.Size = new Size(1217, 505);
+            pnlPlay.Size = new Size(1211, 513);
             pnlPlay.TabIndex = 38;
-            // 
-            // lblStatistics
-            // 
-            lblStatistics.Anchor = AnchorStyles.Top;
-            lblStatistics.Font = new Font("Segoe UI", 15F);
-            lblStatistics.Location = new Point(803, 407);
-            lblStatistics.Name = "lblStatistics";
-            lblStatistics.Size = new Size(411, 95);
-            lblStatistics.TabIndex = 41;
-            lblStatistics.Text = "Estatísticas";
-            lblStatistics.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lbltResults
             // 
             lbltResults.Anchor = AnchorStyles.Top;
             lbltResults.Font = new Font("Segoe UI", 12F);
-            lbltResults.Location = new Point(803, 3);
+            lbltResults.Location = new Point(800, 6);
             lbltResults.Name = "lbltResults";
             lbltResults.Size = new Size(411, 23);
             lbltResults.TabIndex = 37;
@@ -187,9 +174,9 @@
             // 
             lblLastResult.Anchor = AnchorStyles.Top;
             lblLastResult.Font = new Font("Segoe UI", 12F);
-            lblLastResult.Location = new Point(803, 29);
+            lblLastResult.Location = new Point(818, 32);
             lblLastResult.Name = "lblLastResult";
-            lblLastResult.Size = new Size(232, 127);
+            lblLastResult.Size = new Size(205, 127);
             lblLastResult.TabIndex = 39;
             lblLastResult.Text = "Último Elemento Sorteado";
             lblLastResult.TextAlign = ContentAlignment.MiddleCenter;
@@ -198,16 +185,16 @@
             // 
             lblResults.Anchor = AnchorStyles.Top;
             lblResults.Font = new Font("Segoe UI", 15F);
-            lblResults.Location = new Point(803, 159);
+            lblResults.Location = new Point(800, 162);
             lblResults.Name = "lblResults";
-            lblResults.Size = new Size(411, 242);
+            lblResults.Size = new Size(408, 343);
             lblResults.TabIndex = 33;
             lblResults.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // picPlayLogo
             // 
             picPlayLogo.Anchor = AnchorStyles.Top;
-            picPlayLogo.Location = new Point(1041, 29);
+            picPlayLogo.Location = new Point(1029, 32);
             picPlayLogo.Name = "picPlayLogo";
             picPlayLogo.Size = new Size(173, 127);
             picPlayLogo.SizeMode = PictureBoxSizeMode.Zoom;
@@ -219,7 +206,7 @@
             pnlPlayNumbersB.Anchor = AnchorStyles.Top;
             pnlPlayNumbersB.BackColor = Color.Transparent;
             pnlPlayNumbersB.Controls.Add(flwPlayB);
-            pnlPlayNumbersB.Location = new Point(3, 3);
+            pnlPlayNumbersB.Location = new Point(3, 6);
             pnlPlayNumbersB.Name = "pnlPlayNumbersB";
             pnlPlayNumbersB.Size = new Size(794, 95);
             pnlPlayNumbersB.TabIndex = 0;
@@ -237,7 +224,7 @@
             // 
             pnlPlayNumbersI.Anchor = AnchorStyles.Top;
             pnlPlayNumbersI.Controls.Add(flwPlayI);
-            pnlPlayNumbersI.Location = new Point(3, 104);
+            pnlPlayNumbersI.Location = new Point(3, 107);
             pnlPlayNumbersI.Name = "pnlPlayNumbersI";
             pnlPlayNumbersI.Size = new Size(794, 95);
             pnlPlayNumbersI.TabIndex = 1;
@@ -254,7 +241,7 @@
             // 
             pnlPlayNumbersN.Anchor = AnchorStyles.Top;
             pnlPlayNumbersN.Controls.Add(flwPlayN);
-            pnlPlayNumbersN.Location = new Point(3, 205);
+            pnlPlayNumbersN.Location = new Point(3, 208);
             pnlPlayNumbersN.Name = "pnlPlayNumbersN";
             pnlPlayNumbersN.Size = new Size(794, 95);
             pnlPlayNumbersN.TabIndex = 2;
@@ -271,7 +258,7 @@
             // 
             pnlPlayNumbersG.Anchor = AnchorStyles.Top;
             pnlPlayNumbersG.Controls.Add(flwPlayG);
-            pnlPlayNumbersG.Location = new Point(3, 306);
+            pnlPlayNumbersG.Location = new Point(3, 309);
             pnlPlayNumbersG.Name = "pnlPlayNumbersG";
             pnlPlayNumbersG.Size = new Size(794, 95);
             pnlPlayNumbersG.TabIndex = 3;
@@ -288,7 +275,7 @@
             // 
             pnlPlayNumbersO.Anchor = AnchorStyles.Top;
             pnlPlayNumbersO.Controls.Add(flwPlayO);
-            pnlPlayNumbersO.Location = new Point(3, 407);
+            pnlPlayNumbersO.Location = new Point(3, 410);
             pnlPlayNumbersO.Name = "pnlPlayNumbersO";
             pnlPlayNumbersO.Size = new Size(794, 95);
             pnlPlayNumbersO.TabIndex = 4;
@@ -308,7 +295,7 @@
             pnlGameInfo.Controls.Add(lblCardsQnt);
             pnlGameInfo.Controls.Add(lblGameName);
             pnlGameInfo.Controls.Add(grpPlayPhase);
-            pnlGameInfo.Location = new Point(3, 55);
+            pnlGameInfo.Location = new Point(3, 81);
             pnlGameInfo.Name = "pnlGameInfo";
             pnlGameInfo.Size = new Size(574, 134);
             pnlGameInfo.TabIndex = 36;
@@ -355,24 +342,24 @@
             // lblCardsQnt
             // 
             lblCardsQnt.Anchor = AnchorStyles.Top;
-            lblCardsQnt.Font = new Font("Segoe UI", 12F);
+            lblCardsQnt.Font = new Font("Segoe UI", 14F);
             lblCardsQnt.Location = new Point(298, 3);
             lblCardsQnt.Name = "lblCardsQnt";
             lblCardsQnt.Size = new Size(270, 37);
             lblCardsQnt.TabIndex = 28;
             lblCardsQnt.Text = "Quantidade de Cartelas:";
-            lblCardsQnt.TextAlign = ContentAlignment.MiddleLeft;
+            lblCardsQnt.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblGameName
             // 
             lblGameName.Anchor = AnchorStyles.Top;
-            lblGameName.Font = new Font("Segoe UI", 12F);
+            lblGameName.Font = new Font("Segoe UI", 14F);
             lblGameName.Location = new Point(9, 3);
             lblGameName.Name = "lblGameName";
             lblGameName.Size = new Size(284, 37);
             lblGameName.TabIndex = 25;
             lblGameName.Text = "Nome do Jogo:";
-            lblGameName.TextAlign = ContentAlignment.MiddleLeft;
+            lblGameName.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // grpPlayPhase
             // 
@@ -419,16 +406,16 @@
             lblMyBingo.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold);
             lblMyBingo.Location = new Point(0, 0);
             lblMyBingo.Name = "lblMyBingo";
-            lblMyBingo.Size = new Size(1217, 55);
+            lblMyBingo.Size = new Size(1217, 78);
             lblMyBingo.TabIndex = 35;
-            lblMyBingo.Text = "My Bingo";
-            lblMyBingo.TextAlign = ContentAlignment.BottomCenter;
+            lblMyBingo.Text = "Custom Bingo - Sala Delta";
+            lblMyBingo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // MainView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1217, 714);
+            ClientSize = new Size(1217, 741);
             Controls.Add(pnlBingoManager);
             Name = "MainView";
             StartPosition = FormStartPosition.CenterScreen;
@@ -436,7 +423,6 @@
             WindowState = FormWindowState.Maximized;
             Load += MainView_Load;
             pnlBingoManager.ResumeLayout(false);
-            pnlBingoManager.PerformLayout();
             pnlButtons.ResumeLayout(false);
             pnlPlay.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picPlayLogo).EndInit();
@@ -481,7 +467,6 @@
         private RadioButton rdFull;
         private Label lblMyBingo;
         private Label lblCardsQnt;
-        private Label lblStatistics;
         private Panel pnlButtons;
         private Button btnRandom;
         private Button btnReset;
