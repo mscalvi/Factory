@@ -97,7 +97,8 @@ namespace BingoCreator.Services
                 }
 
                 PrintingService.PrintCards4x4(setName, allCards, allCards.Count, setTitle, setEnd);
-                PrintingService.PrintList4(setName, ElementsList);
+                PrintingService.PrintList4(setTitle, ElementsList);
+                PrintingService.PrintCutPapers(setTitle, ElementsList);
 
                 return setId4;
             } else

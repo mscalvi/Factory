@@ -11,17 +11,131 @@ using PdfSharpCore.Drawing;
 using PdfSharpCore.Drawing.Layout;
 using System.Diagnostics;
 using PdfSharpCore.Drawing.Layout.enums;
+using System.Text.RegularExpressions;
 
 namespace BingoCreator.Services
 {
 
     internal class PrintingService
     {
+        // Métodos de Suporte
+            // Desenha texto com quebra de linha dentro do retângulo, centralizado (H e V).
+        private static void DrawWrappedCenteredText(XGraphics gfx, string text, XFont font, XRect rect)
+        {
+            if (string.IsNullOrWhiteSpace(text)) return;
+
+            // Altura de linha (um pequeno leading para não “grudar”)
+            double lineH = gfx.MeasureString("Ag", font).Height * 1.1;
+
+            // Quebra por largura
+            var lines = WrapByWidth(gfx, text, font, rect.Width);
+
+            // Limita pela altura disponível
+            int maxLines = Math.Max(1, (int)Math.Floor(rect.Height / lineH));
+            if (lines.Count > maxLines)
+            {
+                lines = lines.GetRange(0, maxLines);
+                // adiciona reticências na última linha se precisar
+                string last = lines[^1];
+                while (last.Length > 0 && gfx.MeasureString(last + "…", font).Width > rect.Width)
+                    last = last[..^1];
+                lines[^1] = last.Length > 0 ? last + "…" : "…";
+            }
+
+            // Centraliza verticalmente
+            double totalH = lines.Count * lineH;
+            double y = rect.Y + (rect.Height - totalH) / 2.0;
+
+            // Desenha cada linha centralizada horizontalmente
+            foreach (var ln in lines)
+            {
+                gfx.DrawString(ln, font, XBrushes.Black,
+                    new XRect(rect.X, y, rect.Width, lineH), XStringFormats.TopCenter);
+                y += lineH;
+            }
+        }
+
+            // Quebra “por palavras”; se a palavra for maior que a largura, quebra por caracteres.
+        private static List<string> WrapByWidth(XGraphics gfx, string text, XFont font, double maxW)
+        {
+            var tokens = Regex.Split(text, @"(\s+)"); // preserva espaços
+            var lines = new List<string>();
+            var sb = new StringBuilder();
+
+            foreach (var tok in tokens)
+            {
+                string candidate = sb.Length == 0 ? tok.TrimStart() : sb.ToString() + tok;
+                if (gfx.MeasureString(candidate, font).Width <= maxW)
+                {
+                    sb.Clear(); sb.Append(candidate);
+                    continue;
+                }
+
+                // fecha a linha atual (se tiver algo)
+                if (sb.Length > 0)
+                {
+                    lines.Add(sb.ToString().TrimEnd());
+                    sb.Clear();
+                }
+
+                // token sozinho não cabe: quebra por caracteres
+                string t = tok.Trim();
+                if (t.Length == 0) continue;
+
+                int start = 0;
+                while (start < t.Length)
+                {
+                    int len = 1;
+                    while (start + len <= t.Length &&
+                           gfx.MeasureString(t.AsSpan(start, len).ToString(), font).Width <= maxW)
+                        len++;
+                    if (len > 1) len--; // último que coube
+                    lines.Add(t.Substring(start, len));
+                    start += len;
+                }
+            }
+
+            if (sb.Length > 0)
+                lines.Add(sb.ToString().TrimEnd());
+
+            return lines;
+        }
+
+        private static void DrawCropMarks(XGraphics gfx, double margin, double pageW, double pageH, double markLen = 10)
+        {
+            var cropPen = new XPen(XColors.Gray, 0.6);
+
+            // topo-esquerda
+            gfx.DrawLine(cropPen, margin - markLen, margin, margin, margin);
+            gfx.DrawLine(cropPen, margin, margin - markLen, margin, margin);
+
+            // topo-direita
+            gfx.DrawLine(cropPen, pageW - margin + markLen, margin, pageW - margin, margin);
+            gfx.DrawLine(cropPen, pageW - margin, margin - markLen, pageW - margin, margin);
+
+            // base-esquerda
+            gfx.DrawLine(cropPen, margin - markLen, pageH - margin, margin, pageH - margin);
+            gfx.DrawLine(cropPen, margin, pageH - margin + markLen, margin, pageH - margin);
+
+            // base-direita
+            gfx.DrawLine(cropPen, pageW - margin + markLen, pageH - margin, pageW - margin, pageH - margin);
+            gfx.DrawLine(cropPen, pageW - margin, pageH - margin + markLen, pageW - margin, pageH - margin);
+        }
+
+        private static string SanitizeFileName(string name)
+        {
+            var invalid = Path.GetInvalidFileNameChars();
+            var sb = new StringBuilder(name.Length);
+            foreach (var ch in name)
+                sb.Append(invalid.Contains(ch) ? '_' : ch);
+            return sb.ToString();
+        }
+
         // Imprimir Cartelas
         public static void PrintCards5x5(string setName, List<List<DataRow>> allCards, int cardsQnt, string cardsTitle, string cardsEnd)
         {
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            string fileName = $"cartelas_{setName}.pdf";
+            string fileName = $"Cartelas - {setName}.pdf";
             string filePath = Path.Combine(desktop, fileName);
 
             var document = new PdfDocument();
@@ -76,47 +190,51 @@ namespace BingoCreator.Services
         public static void PrintCards4x4(string setName, List<List<DataRow>> allCards, int cardsQnt, string cardsTitle, string cardsEnd)
         {
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string fileName = $"cartelas_{setName}.pdf";
+            string fileName = $"Cartelas - {setName}.pdf";
             string filePath = Path.Combine(desktop, fileName);
 
             var document = new PdfDocument();
             document.Info.Title = $"Cartelas 4×4 – {cardsTitle}";
 
-            const double margin = 40;
-            const double cellH4 = 40;
-            double pageWidth, pageHeight;
-            double cardWidth = 0;
-            double cardHeight = cellH4 * 6;
+            const double margin = 36;  // um pouco menor para caber 3
+            const double gap = 14;     // espaço entre cartelas
 
-            var titleFont = new XFont("Arial", 17, XFontStyle.Bold);
-            var compFont = new XFont("Arial", 10, XFontStyle.Regular);
+            var titleFont = new XFont("Arial", 16, XFontStyle.Bold);
+            var compFont = new XFont("Arial", 9, XFontStyle.Regular);
             var footerFont = new XFont("Arial", 12, XFontStyle.Bold);
             var numberFont = new XFont("Arial", 12, XFontStyle.Bold);
             var pen = new XPen(XColors.Black, 1);
 
             XGraphics gfx = null;
             PdfPage page = null;
+            double pageWidth = 0, pageHeight = 0, cardWidth = 0, cardHeight = 0;
 
             for (int i = 0; i < cardsQnt; i++)
             {
-                if (i % 2 == 0)
+                if (i % 3 == 0)
                 {
                     page = document.AddPage();
-                    page.Size = PdfSharpCore.PageSize.A4;
+                    page.Size = PdfSharpCore.PageSize.A4; // retrato
                     gfx = XGraphics.FromPdfPage(page);
+
                     pageWidth = page.Width;
                     pageHeight = page.Height;
+
                     cardWidth = pageWidth - 2 * margin;
+                    cardHeight = (pageHeight - 2 * margin - 2 * gap) / 3.0; // 3 cartelas empilhadas
                 }
 
-                double y0 = margin + (i % 2) * (cardHeight + 20);
+                int rowInPage = i % 3; // 0..2
+                double y0 = margin + rowInPage * (cardHeight + gap);
 
-                DrawCards4x4(gfx, margin, y0, cardWidth, cardHeight, allCards[i], i + 1, cardsTitle, cardsEnd, pen, titleFont, compFont, footerFont, numberFont);
+                DrawCards4x4(gfx, margin, y0, cardWidth, cardHeight,
+                             allCards[i], i + 1, cardsTitle, cardsEnd,
+                             pen, titleFont, compFont, footerFont, numberFont);
             }
 
             document.Save(filePath);
             MessageBox.Show($"Cartelas 4×4 salvas no Desktop:\n{fileName}", "Sucesso",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // Desenho das Cartelas
@@ -209,29 +327,49 @@ namespace BingoCreator.Services
                     if (idx < cardsElements.Count)
                     {
                         string name = cardsElements[idx]["Name"].ToString();
+
                         // word-wrap e centralização simples:
                         var tf = new PdfSharpCore.Drawing.Layout.XTextFormatter(gfx);
                         tf.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                        tf.DrawString(
+                        DrawWrappedCenteredText(
+                            gfx,
                             name,
                             elementFont,
-                            XBrushes.Black,
-                            new XRect(cell.X + 2, cell.Y + 2, cell.Width - 4, cell.Height - 4),
-                            new TextFormatAlignment
-                            {
-                                Horizontal = XParagraphAlignment.Center,
-                                Vertical = XVerticalAlignment.Middle
-                            }
+                            new XRect(cell.X + 3, cell.Y + 3, cell.Width - 6, cell.Height - 6)
                         );
+
+                        //tf.drawstring(
+                        //    name,
+                        //    elementfont,
+                        //    xbrushes.black,
+                        //    new xrect(cell.x + 2, cell.y + 2, cell.width - 4, cell.height - 4),
+                        //    new textformatalignment
+                        //    {
+                        //        horizontal = xparagraphalignment.center,
+                        //        vertical = xverticalalignment.middle
+                        //    }
+                        //);
                     }
                 }
             }
 
             // 3) Rodapé (1 linha) + número de cartela
             double footerY = y + 5 * cellH;
+
             var footerRect = new XRect(x, footerY, cellW * 3, cellH);
             gfx.DrawRectangle(pen, footerRect);
-            gfx.DrawString(footerText, footerFont, XBrushes.Black, footerRect, XStringFormats.Center);
+
+            // quebra de linha + centrado H/V + limite pela altura
+            DrawWrappedCenteredText(
+                gfx,
+                footerText,
+                footerFont,
+                new XRect(footerRect.X + 3, footerRect.Y + 2, footerRect.Width - 6, footerRect.Height - 4)
+            );
+
+            //var footerRect = new XRect(x, footerY, cellW * 3, cellH);
+            //gfx.DrawRectangle(pen, footerRect);
+            //gfx.DrawString(footerText, footerFont, XBrushes.Black, footerRect, XStringFormats.Center);
 
             var numRect = new XRect(x + 3 * cellW, footerY, cellW, cellH);
             gfx.DrawRectangle(pen, numRect);
@@ -243,7 +381,7 @@ namespace BingoCreator.Services
         public static void PrintList5(string setName, List<DataRow> groupB, List<DataRow> groupI, List<DataRow> groupN, List<DataRow> groupG, List<DataRow> groupO)
         {
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            string fileName = $"lista_{setName}.pdf";
+            string fileName = $"Lista - {setName}.pdf";
             string filePath = Path.Combine(desktop, fileName);
 
             PdfDocument document = new PdfDocument();
@@ -300,58 +438,211 @@ namespace BingoCreator.Services
             MessageBox.Show($"Lista de elementos salva no Desktop", "PDF Criado", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        public static void PrintList4(string setName, List<DataRow> elementsList)
+        public static void PrintList4(string setName, List<DataRow> elementsList, string preferColumn = "CardName")
         {
+            // tenta usar CardName; se não existir/estiver vazio, usa Name
+            static string GetName(DataRow r, string preferColumn)
+            {
+                string TryCol(string col) =>
+                    (r.Table?.Columns.Contains(col) == true && r[col] != DBNull.Value) ? r[col].ToString() : null;
+
+                return TryCol(preferColumn) ?? TryCol("Name") ?? string.Empty;
+            }
+
+            var items = elementsList
+                .Select(r => GetName(r, preferColumn))
+                .Where(s => !string.IsNullOrWhiteSpace(s))
+                .ToList();
+
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string fileName = $"lista4_{setName}.pdf";
+            string fileName = $"Lista - {setName}.pdf";
             string filePath = Path.Combine(desktop, fileName);
 
             var document = new PdfDocument();
-            document.Info.Title = $"Relação 4×4 – {setName}";
+            document.Info.Title = $"Relação – {setName}";
 
-            var page = document.AddPage();
+            const double margin = 40;
+            const double colGap = 20;
+
+            var titleFont = new XFont("Arial", 18, XFontStyle.Bold);
+            var itemFont = new XFont("Arial", 12, XFontStyle.Regular);
+
+            PdfPage page = document.AddPage();
             page.Size = PdfSharpCore.PageSize.A4;
             var gfx = XGraphics.FromPdfPage(page);
 
-            double margin = 40;
-            double lineSpacing = 6;
-            var headerFont = new XFont("Arial", 16, XFontStyle.Bold);
-            var itemFont = new XFont("Arial", 12, XFontStyle.Regular);
+            double pageW = page.Width;
+            double pageH = page.Height;
 
-            double y = margin;
-            gfx.DrawString(
-                $"Relação Elementos – {setName}",
-                headerFont,
-                XBrushes.Black,
-                new XRect(margin, y, page.Width - 2 * margin, headerFont.GetHeight()),
-                XStringFormats.TopLeft
-            );
-            y += headerFont.GetHeight() + 20;
+            // título
+            var titleRect = new XRect(margin, margin, pageW - 2 * margin, 28);
+            gfx.DrawString($"Relação de Elementos – {setName}", titleFont, XBrushes.Black, titleRect, XStringFormats.Center);
 
-            for (int i = 0; i < elementsList.Count; i++)
+            // área útil abaixo do título
+            double top = titleRect.Bottom + 12;
+            double usableH = pageH - margin - top;
+
+            // colunas
+            double colW = (pageW - 2 * margin - colGap) / 2.0;
+            var col1 = new XRect(margin, top, colW, usableH);
+            var col2 = new XRect(margin + colW + colGap, top, colW, usableH);
+
+            // desenho linha a linha, com quebra e paginação
+            int idx = 0;
+            DrawListColumn(gfx, items, ref idx, col1, itemFont);
+            DrawListColumn(gfx, items, ref idx, col2, itemFont);
+
+            while (idx < items.Count)
             {
-                string name = elementsList[i]["CardName"].ToString();
-                string text = $"{i + 1:00} – {name}";
-                gfx.DrawString(
-                    text,
-                    itemFont,
-                    XBrushes.Black,
-                    new XRect(margin, y, page.Width - 2 * margin, itemFont.GetHeight()),
-                    XStringFormats.TopLeft
-                );
-                y += itemFont.GetHeight() + lineSpacing;
+                page = document.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                gfx = XGraphics.FromPdfPage(page);
 
-                if (y + itemFont.GetHeight() + margin > page.Height)
-                {
-                    page = document.AddPage();
-                    page.Size = PdfSharpCore.PageSize.A4;
-                    gfx = XGraphics.FromPdfPage(page);
-                    y = margin;
-                }
+                // título por página
+                titleRect = new XRect(margin, margin, page.Width - 2 * margin, 28);
+                gfx.DrawString($"Relação de Elementos – {setName}", titleFont, XBrushes.Black, titleRect, XStringFormats.Center);
+
+                top = titleRect.Bottom + 12;
+                usableH = page.Height - margin - top;
+                colW = (page.Width - 2 * margin - colGap) / 2.0;
+                col1 = new XRect(margin, top, colW, usableH);
+                col2 = new XRect(margin + colW + colGap, top, colW, usableH);
+
+                DrawListColumn(gfx, items, ref idx, col1, itemFont);
+                DrawListColumn(gfx, items, ref idx, col2, itemFont);
             }
 
             document.Save(filePath);
-            MessageBox.Show($"Relação 4×4 salva no Desktop:\n{fileName}", "PDF Criado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Lista 2 colunas salva no Desktop:\n{fileName}", "Sucesso",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private static void DrawListColumn(XGraphics gfx, IList<string> items, ref int idx, XRect col, XFont font)
+        {
+            double lineH = gfx.MeasureString("Ag", font).Height * 1.35;
+            double y = col.Y;
+
+            while (idx < items.Count)
+            {
+                string line = $"{idx + 1:00} – {items[idx]}";
+                var wrapped = WrapByWidth(gfx, line, font, col.Width);
+
+                double blockH = wrapped.Count * lineH;
+                if (y + blockH > col.Bottom) break;
+
+                foreach (var ln in wrapped)
+                {
+                    gfx.DrawString(ln, font, XBrushes.Black, new XRect(col.X, y, col.Width, lineH), XStringFormats.TopLeft);
+                    y += lineH;
+                }
+                idx++;
+            }
+        }
+
+
+        // Imprimir Papéis de Sorteio
+
+        public static void PrintCutPapers(string setName, List<DataRow> elementsList, int copiesPerItem = 1, int cols = 4, int rows = 10, string preferColumn = "CardName", bool showCropMarks = true)
+        {
+            // 1) Extrai nomes da lista (CardName > Name)
+            static string GetName(DataRow r, string preferCol)
+            {
+                string TryCol(string col) =>
+                    (r.Table?.Columns.Contains(col) == true && r[col] != DBNull.Value)
+                        ? r[col]?.ToString()
+                        : null;
+
+                return TryCol(preferCol) ?? TryCol("Name") ?? string.Empty;
+            }
+
+            var baseItems = elementsList
+                .Select(r => GetName(r, preferColumn))
+                .Where(s => !string.IsNullOrWhiteSpace(s))
+                .ToList();
+
+            // 2) Replica para múltiplas cópias por item
+            copiesPerItem = Math.Max(1, copiesPerItem);
+            var items = new List<string>(baseItems.Count * copiesPerItem);
+            foreach (var s in baseItems)
+                for (int k = 0; k < copiesPerItem; k++)
+                    items.Add(s);
+
+            // 3) Setup do PDF
+            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            string fileName = $"Fichas - {SanitizeFileName(setName)}_.pdf";
+            string filePath = Path.Combine(desktop, fileName);
+
+            var doc = new PdfDocument();
+            doc.Info.Title = $"Fichas de Sorteio – {setName}";
+
+            const double margin = 36;     // ~0,5"
+            const double gapYTitle = 8;   // espaço após o título
+            var titleFont = new XFont("Arial", 14, XFontStyle.Bold);
+            var cellFont = new XFont("Arial", 11, XFontStyle.Regular);
+            var pen = new XPen(XColors.Black, 0.5);
+
+            int perPage = Math.Max(1, cols) * Math.Max(1, rows);
+            int total = items.Count;
+            int pages = (int)Math.Ceiling(total / (double)perPage);
+
+            int idx = 0;
+            for (int p = 0; p < pages; p++)
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                var gfx = XGraphics.FromPdfPage(page);
+
+                double pageW = page.Width;
+                double pageH = page.Height;
+
+                // Título
+                var titleRect = new XRect(margin, margin, pageW - 2 * margin, 22);
+                gfx.DrawString($"Fichas de Sorteio – {setName}", titleFont, XBrushes.Black, titleRect, XStringFormats.Center);
+
+                // Área do grid
+                double top = titleRect.Bottom + gapYTitle;
+                double gridW = pageW - 2 * margin;
+                double gridH = pageH - margin - top;
+
+                double cellW = gridW / cols;
+                double cellH = gridH / rows;
+
+                // Grid + texto
+                for (int r = 0; r < rows; r++)
+                {
+                    for (int c = 0; c < cols; c++)
+                    {
+                        double x = margin + c * cellW;
+                        double y = top + r * cellH;
+
+                        var cellRect = new XRect(x, y, cellW, cellH);
+                        gfx.DrawRectangle(pen, cellRect);
+
+                        if (idx < total)
+                        {
+                            DrawWrappedCenteredText(
+                                gfx,
+                                items[idx],
+                                cellFont,
+                                new XRect(cellRect.X + 4, cellRect.Y + 3, cellRect.Width - 8, cellRect.Height - 6)
+                            );
+                            idx++;
+                        }
+                    }
+                }
+
+                if (showCropMarks)
+                    DrawCropMarks(gfx, margin, pageW, pageH);
+            }
+
+            doc.Save(filePath);
+            System.Windows.Forms.MessageBox.Show(
+                $"Fichas salvas no Desktop:\n{fileName}",
+                "Sucesso",
+                System.Windows.Forms.MessageBoxButtons.OK,
+                System.Windows.Forms.MessageBoxIcon.Information
+            );
+        }
+
     }
 }

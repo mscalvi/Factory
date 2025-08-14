@@ -47,6 +47,7 @@
             lblElementCardName = new Label();
             lblElementName = new Label();
             tabCreateList = new TabPage();
+            btnListTxt = new Button();
             btnListImport = new Button();
             btnListCreate = new Button();
             lblListMessage = new Label();
@@ -309,6 +310,7 @@
             // 
             // tabCreateList
             // 
+            tabCreateList.Controls.Add(btnListTxt);
             tabCreateList.Controls.Add(btnListImport);
             tabCreateList.Controls.Add(btnListCreate);
             tabCreateList.Controls.Add(lblListMessage);
@@ -324,6 +326,17 @@
             tabCreateList.TabIndex = 1;
             tabCreateList.Text = "List";
             tabCreateList.UseVisualStyleBackColor = true;
+            // 
+            // btnListTxt
+            // 
+            btnListTxt.Anchor = AnchorStyles.Top;
+            btnListTxt.Location = new Point(218, 505);
+            btnListTxt.Name = "btnListTxt";
+            btnListTxt.Size = new Size(295, 76);
+            btnListTxt.TabIndex = 24;
+            btnListTxt.Text = "Importar Txt";
+            btnListTxt.UseVisualStyleBackColor = true;
+            btnListTxt.Click += btnListTxt_Clicked;
             // 
             // btnListImport
             // 
@@ -908,5 +921,6 @@
         private RadioButton radCardsSize5;
         private RadioButton radCardsSize4;
         private Button btnListImport;
+        private Button btnListTxt;
     }
 }

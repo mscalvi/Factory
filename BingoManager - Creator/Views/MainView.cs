@@ -2,6 +2,9 @@ using BingoCreator.Models;
 using BingoCreator.Services;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace BingoCreator
@@ -193,7 +196,7 @@ namespace BingoCreator
             LoadLists();
         }
 
-        // Importar Lista
+        // Importar Lista por Pasta de Imagens
         private void btnListImport_Clicked(object sender, EventArgs e)
         {
 
@@ -255,6 +258,142 @@ namespace BingoCreator
 
             // Recarrega combobox de listas, se for o caso
             LoadLists();
+        }
+
+        // Importar Lista por TXT, remove acentos (de preferência não ter acentos) e caracteres não permitidos
+
+        private void btnListTxt_Clicked(object sender, EventArgs e)
+        {
+            using var ofd = new OpenFileDialog
+            {
+                Title = "Selecione o arquivo de lista (TXT/CSV)",
+                Filter = "Texto/CSV (*.txt;*.csv)|*.txt;*.csv|Todos os arquivos (*.*)|*.*",
+                Multiselect = false,
+                CheckFileExists = true
+            };
+
+            if (ofd.ShowDialog() != DialogResult.OK)
+                return;
+
+            string path = ofd.FileName;
+            string listName = Path.GetFileNameWithoutExtension(path);
+
+            string text;
+            try
+            {
+                text = File.ReadAllText(path, Encoding.UTF8);
+            }
+            catch (DecoderFallbackException)
+            {
+                text = File.ReadAllText(path, Encoding.GetEncoding(1252)); // fallback pt-BR comum
+            }
+
+            // tokeniza: quebra por linha e também aceita vírgula, ponto-e-vírgula e TAB
+            var rawTokens = text
+                .Replace("\r\n", "\n").Replace("\r", "\n")
+                .Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .SelectMany(l => l.Split(new[] { ',', ';', '\t' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+                .Select(t => t.Trim());
+
+            var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase); // dedup após limpeza
+            var aprovados = new List<string>();
+            var rejeitados = new List<string>();
+
+            foreach (var raw in rawTokens)
+            {
+                var name = raw.Trim(); // sem limpeza de acentos/especiais
+
+                if (string.IsNullOrWhiteSpace(name))
+                    continue;
+
+                if (name.Length > 50)
+                {
+                    rejeitados.Add($"{raw}  — > 50 caracteres");
+                    continue;
+                }
+
+                if (!seen.Add(name)) // dedup case-insensitive do texto original
+                    continue;
+
+                aprovados.Add(name);
+                
+                
+                //if (raw.Length == 0) continue;
+
+                //var cleaned = CleanName(raw); // remove acentos/especiais; trim e normaliza espaços
+
+                //if (string.IsNullOrWhiteSpace(cleaned))
+                //{
+                //    rejeitados.Add($"{raw}  — vazio após limpeza");
+                //    continue;
+                //}
+                //if (cleaned.Length > 50)
+                //{
+                //    rejeitados.Add($"{raw}  — > 50 caracteres (limpo ficou com {cleaned.Length})");
+                //    continue;
+                //}
+                //if (!seen.Add(cleaned)) // dedup por nome limpo
+                //    continue;
+
+                //aprovados.Add(cleaned);
+            }
+
+            // cria a lista sem imagem de capa
+            int listId = DataService.CreateList(listName, description: "", imagename: null);
+
+            foreach (var name in aprovados)
+            {
+                int elementId = DataService.CreateElement(
+                    name: name,               // igual ao cardName
+                    cardName: name,
+                    note1: "",
+                    note2: "",
+                    imageName: null,          // sem imagem
+                    addTime: DateTime.Now.ToString("MMddyyyy - HH:mm:ss")
+                );
+
+                DataService.AlocateElements(listId, new List<int> { elementId });
+            }
+
+            // feedback
+            var msg = $"Lista \"{listName}\": {aprovados.Count} itens importados";
+            if (rejeitados.Count > 0)
+            {
+                msg += $"\n{rejeitados.Count} rejeitados por regra.";
+                // Mostra até 20 exemplos
+                var exemplos = string.Join("\n", rejeitados.Take(20));
+                MessageBox.Show($"{msg}\n\nExemplos de rejeitados:\n{exemplos}",
+                                "Importar Lista", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                MessageBox.Show(msg, "Importar Lista", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            // recarrega UI se necessário
+            LoadLists();
+        }
+
+        private static string CleanName(string s)
+        {
+            s = RemoveDiacritics(s);
+            // permite letras, dígitos, espaço, hífen e underscore
+            s = Regex.Replace(s, @"[^\w \-]", ""); // \w = [A-Za-z0-9_]
+            s = Regex.Replace(s, @"\s+", " ").Trim();
+            return s;
+        }
+
+        private static string RemoveDiacritics(string text)
+        {
+            var normalized = text.Normalize(NormalizationForm.FormD);
+            var sb = new StringBuilder(capacity: text.Length);
+            foreach (var c in normalized)
+            {
+                var uc = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (uc != UnicodeCategory.NonSpacingMark)
+                    sb.Append(c);
+            }
+            return sb.ToString().Normalize(NormalizationForm.FormC);
         }
 
         // Criar Cartelas
